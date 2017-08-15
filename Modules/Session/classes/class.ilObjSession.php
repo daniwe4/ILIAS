@@ -69,13 +69,13 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-     * @var int TUTOR_CFG_MANUALLY|TUTOR_CFG_FROMCOURSE
-     */
+    * @var int TUTOR_CFG_MANUALLY|TUTOR_CFG_FROMCOURSE
+    */
     protected $tutor_source;
 
     /**
-     * @var array<int,ilObjUser>
-     */
+    * @var array<int,ilObjUser>
+    */
     protected $assigned_tutors = array();
     // cat-tms-patch end
 
@@ -167,10 +167,10 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-     * Get tutor data from event_tutor
-     *
-     * @param array         $data
-     */
+    * Get tutor data from event_tutor
+    *
+    * @param array         $data
+    */
     protected static function addTutorInformation(&$data)
     {
         foreach ($data['tutor_ids'] as $tutor_id) {
@@ -735,11 +735,10 @@ class ilObjSession extends ilObject
         }
 
         $next_id = $ilDB->nextId('event');
+        // cat-tms-patch start
         $query = "INSERT INTO event (event_id,obj_id,location,tutor_name,tutor_phone,tutor_email,details,registration, " .
             'reg_type, reg_limit_users, reg_limited, reg_waiting_list, reg_min_users, reg_auto_wait,show_members,mail_members,
-            // cat-tms-patch start
-            reg_notification, notification_opt, tutor_soruce) ' .
-            // cat-tms-patch end
+            reg_notification, notification_opt, tutor_source) ' .
             "VALUES( " .
             $ilDB->quote($next_id, 'integer') . ", " .
             $this->db->quote($this->getId(), 'integer') . ", " .
@@ -758,13 +757,10 @@ class ilObjSession extends ilObject
             $this->db->quote($this->getShowMembers(), 'integer') . ', ' .
             $this->db->quote($this->getMailToMembersType(), 'integer') . ',' .
             $this->db->quote($this->isRegistrationNotificationEnabled(), 'integer') . ', ' .
-            $this->db->quote($this->getRegistrationNotificationOption(), 'text') .
-            // cat-tms-patch start
-            //$this->db->quote($this->getMailToMembersType(),'integer').' '.
-            $this->db->quote($this->getMailToMembersType(), 'integer') . ', ' .
+            $this->db->quote($this->getRegistrationNotificationOption(), 'text') . ', ' .
             $this->db->quote($this->getTutorSource(), 'integer') . " " .
-            // cat-tms-patch end
             ")";
+        // cat-tms-patch end
         $res = $ilDB->manipulate($query);
 
         // cat-tms-patch start
@@ -1191,10 +1187,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Re-set tutors.
-     *
-     * @param int[] $usr_ids
-     */
+    * Re-set tutors.
+    *
+    * @param int[] $usr_ids
+    */
     public function setAssignedTutors(array $usr_ids)
     {
         $this->assigned_tutors = array();
@@ -1238,8 +1234,8 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Store assigned tutors in DB
-     */
+    * Store assigned tutors in DB
+    */
     private function storeTutorReferences()
     {
         global $ilDB;
@@ -1472,6 +1468,5 @@ class ilObjSession extends ilObject
             ]
         );
     }
-
     // cat-tms-patch end
 }
