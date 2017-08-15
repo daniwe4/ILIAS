@@ -25,17 +25,17 @@ include_once('Services/Object/classes/class.ilObjectListGUI.php');
 
 
 /**
-*
-* @author Stefan Meyer <smeyer.ilias@gmx.de>
-* @version $Id$
-*
-* @ingroup ModulesSession
-*/
+ *
+ * @author Stefan Meyer <smeyer.ilias@gmx.de>
+ * @version $Id$
+ *
+ * @ingroup ModulesSession
+ */
 class ilObjSessionListGUI extends ilObjectListGUI
 {
     protected $app_info = array();
-    
-    
+
+
     /**
      * Constructor
      *
@@ -47,13 +47,13 @@ class ilObjSessionListGUI extends ilObjectListGUI
         global $DIC;
 
         $lng = $DIC['lng'];
-        
+
         $lng->loadLanguageModule('crs');
         $lng->loadLanguageModule('sess');
-        
+
         parent::__construct();
     }
-    
+
     /**
      * Initialisation
      *
@@ -71,7 +71,7 @@ class ilObjSessionListGUI extends ilObjectListGUI
         $this->subitems_enabled = true;
         $this->type = "sess";
         $this->gui_class_name = "ilobjsessiongui";
-        
+
         $this->substitutions = ilAdvancedMDSubstitution::_getInstanceByObjectType($this->type);
         $this->enableSubstitutions($this->substitutions->isActive());
 
@@ -79,7 +79,7 @@ class ilObjSessionListGUI extends ilObjectListGUI
         include_once('./Modules/Session/classes/class.ilObjSessionAccess.php');
         $this->commands = ilObjSessionAccess::_getCommands();
     }
-    
+
     /**
      * get title
      * Overwritten since sessions prepend the date of the session
@@ -95,29 +95,29 @@ class ilObjSessionListGUI extends ilObjectListGUI
         $title = strlen($this->title) ? (': ' . $this->title) : '';
         return ilSessionAppointment::_appointmentToString($app_info['start'], $app_info['end'], $app_info['fullday']) . $title;
     }
-    
-    
-    
+
+
+
     /**
-    * Get command link url.
-    *
-    * @param	int			$a_ref_id		reference id
-    * @param	string		$a_cmd			command
-    *
-    */
+     * Get command link url.
+     *
+     * @param	int			$a_ref_id		reference id
+     * @param	string		$a_cmd			command
+     *
+     */
     public function getCommandLink($a_cmd)
     {
         global $DIC;
 
         $ilCtrl = $DIC['ilCtrl'];
-        
+
         // separate method for this line
         $ilCtrl->setParameterByClass("ilrepositorygui", "ref_id", $this->ref_id);
         $cmd_link = $ilCtrl->getLinkTargetByClass("ilrepositorygui", $a_cmd);
         $ilCtrl->setParameterByClass("ilrepositorygui", "ref_id", $_GET["ref_id"]);
         return $cmd_link;
     }
-    
+
     /**
      * Only check cmd access for cmd 'register' and 'unregister'
      * @param string $a_permission
@@ -134,8 +134,8 @@ class ilObjSessionListGUI extends ilObjectListGUI
         }
         return parent::checkCommandAccess($a_permission, $a_cmd, $a_ref_id, $a_type, $a_obj_id);
     }
-    
-    
+
+
     /**
      * get properties
      *
@@ -146,7 +146,7 @@ class ilObjSessionListGUI extends ilObjectListGUI
     public function getProperties()
     {
         $app_info = $this->getAppointmentInfo();
-        
+
         /*
         $props[] = array(
             'alert'		=> false,
@@ -170,7 +170,7 @@ class ilObjSessionListGUI extends ilObjectListGUI
                 );
             }
         }
-        
+
         if ($this->getDetailsLevel() == ilObjectListGUI::DETAILS_MINIMAL) {
             if ($items = self::lookupAssignedMaterials($this->obj_id)) {
                 $props[] = array(
@@ -183,7 +183,7 @@ class ilObjSessionListGUI extends ilObjectListGUI
         if ($this->getDetailsLevel() == ilObjectListGUI::DETAILS_ALL) {
             include_once './Modules/Session/classes/class.ilObjSession.php';
             $session_data = ilObjSession::lookupSession($this->obj_id);
-            
+
             if (strlen($session_data['location'])) {
                 $props[] = array(
                     'alert' => false,
@@ -200,33 +200,48 @@ class ilObjSessionListGUI extends ilObjectListGUI
                 );
             }
             $has_new_line = false;
-            if (strlen($session_data['name'])) {
-                $props[] = array(
-                    'alert' => false,
-                    'property' => $this->lng->txt('event_lecturer'),
-                    'value' => $session_data['name'],
-                    'newline' => true
-                );
-                $has_new_line = true;
+
+            // cat-tms-patch start
+            if ($session_data['tutor_source'] == ilObjSession::TUTOR_CFG_FROMCOURSE) {
+                if (count($session_data['tutor']['name']) > 0) {
+                    $props[] = array(
+                        'alert' => false,
+                        'property' => $this->lng->txt('event_lecturer'),
+                        'value' => implode(", ", $session_data['tutor']['name']),
+                        'newline' => true
+                    );
+                    $has_new_line = true;
+                }
+            } else {
+                if (strlen($session_data['name'])) {
+                    $props[] = array(
+                        'alert' => false,
+                        'property' => $this->lng->txt('event_lecturer'),
+                        'value' => $session_data['name'],
+                        'newline' => true
+                    );
+                    $has_new_line = true;
+                }
+                if (strlen($session_data['email'])) {
+                    $props[] = array(
+                        'alert' => false,
+                        'property' => $this->lng->txt('tutor_email'),
+                        'value' => $session_data['email'],
+                        'newline' => $has_new_line ? false : true
+                    );
+                    $has_new_line = true;
+                }
+                if (strlen($session_data['phone'])) {
+                    $props[] = array(
+                        'alert' => false,
+                        'property' => $this->lng->txt('tutor_phone'),
+                        'value' => $session_data['phone'],
+                        'newline' => $has_new_line ? false : true
+                    );
+                    $has_new_line = true;
+                }
             }
-            if (strlen($session_data['email'])) {
-                $props[] = array(
-                    'alert' => false,
-                    'property' => $this->lng->txt('tutor_email'),
-                    'value' => $session_data['email'],
-                    'newline' => $has_new_line ? false : true
-                );
-                $has_new_line = true;
-            }
-            if (strlen($session_data['phone'])) {
-                $props[] = array(
-                    'alert' => false,
-                    'property' => $this->lng->txt('tutor_phone'),
-                    'value' => $session_data['phone'],
-                    'newline' => $has_new_line ? false : true
-                );
-                $has_new_line = true;
-            }
+            // cat-tms-patch end
         }
 
         // booking information
@@ -237,8 +252,8 @@ class ilObjSessionListGUI extends ilObjectListGUI
         return $props;
     }
 
-    
-    
+
+
     /**
      * get appointment info
      *
@@ -253,7 +268,7 @@ class ilObjSessionListGUI extends ilObjectListGUI
         include_once('./Modules/Session/classes/class.ilSessionAppointment.php');
         return $this->app_info[$this->obj_id] = ilSessionAppointment::_lookupAppointment($this->obj_id);
     }
-    
+
     /**
      * Get assigned items of event.
      * @return
@@ -264,11 +279,11 @@ class ilObjSessionListGUI extends ilObjectListGUI
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $query = 'SELECT * FROM event_items ei ' .
-                'JOIN tree ON item_id = child ' .
-                'WHERE event_id = ' . $ilDB->quote($a_sess_id, 'integer') . ' ' .
-                'AND tree > 0';
+            'JOIN tree ON item_id = child ' .
+            'WHERE event_id = ' . $ilDB->quote($a_sess_id, 'integer') . ' ' .
+            'AND tree > 0';
         $res = $ilDB->query($query);
         while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
             $items[] = $row->item_id;
