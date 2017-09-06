@@ -624,4 +624,27 @@ class ilMailTemplateGUI
         ilUtil::sendSuccess($this->lng->txt('saved_successfully'), true);
         $this->ctrl->redirect($this, 'showTemplates');
     }
+
+    // cat-tms-patch start
+    /**
+     * Show a preview of the mail template
+     *
+     * @return void
+     */
+    protected function showPreview()
+    {
+        $get = $_GET;
+
+        if (!isset($get['tpl_id']) || !strlen($get['tpl_id'])) {
+            ilUtil::sendFailure($this->lng->txt('mail_template_missing_id'));
+            $this->showTemplates();
+            return;
+        }
+
+        $template = $this->service->loadTemplateForId((int) $get['tpl_id']);
+        $gui = new ilMailPreviewGUI($template, new ilPreviewFactory());
+
+        $this->tpl->setContent($gui->getHTML());
+    }
+    // cat-tms-patch start
 }
