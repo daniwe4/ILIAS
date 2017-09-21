@@ -181,15 +181,13 @@ class ilMailTemplateTableGUI extends ilTable2GUI
         }
 
         // cat-tms-patch start
-        if ($this->contexts[$row["context"]] instanceof ilCourseMailTemplateTutorContext) {
-            $buttons[] = $this->uiFactory
-                ->button()
-                ->shy(
-                    $this->lng->txt('preview'),
-                    $this->ctrl->getLinkTarget($this->getParentObject(), 'showPreview')
-                )
-            ;
-        }
+        $buttons[] = $this->uiFactory
+            ->button()
+            ->shy(
+                $this->lng->txt('preview'),
+                $this->ctrl->getLinkTarget($this->getParentObject(), 'showPreview')
+            )
+        ;
         // cat-tms-patch end
 
         $this->ctrl->setParameter($this->getParentObject(), 'tpl_id', null);
