@@ -360,7 +360,7 @@ class ilSessionAppointment implements ilDatePeriod
         if ($days_offset === null) {
             $days_offset = -1;
         }
-        $query = "INSERT INTO event_appointment (appointment_id,event_id,e_start,e_end,fulltime) " .
+        $query = "INSERT INTO event_appointment (appointment_id,event_id,e_start,e_end,fulltime,days_offset) " .
             "VALUES( " .
             $ilDB->quote($next_id, 'integer') . ", " .
             $ilDB->quote($this->getSessionId(), 'integer') . ", " .

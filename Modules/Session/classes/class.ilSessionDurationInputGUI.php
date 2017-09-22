@@ -22,10 +22,11 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
     }
     // cat-tms-patch end
 
+
     /**
-     * Insert property html
-     *
-     */
+    * Insert property html
+    *
+    */
     public function render()
     {
         global $lng;

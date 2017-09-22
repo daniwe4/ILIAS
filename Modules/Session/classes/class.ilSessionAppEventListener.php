@@ -38,7 +38,7 @@ class ilSessionAppEventListener implements ilAppEventListener
      * @var array
      */
     private $parameters;
-
+    
     // cat-tms-patch start
     /**
      * @var int[]

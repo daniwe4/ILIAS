@@ -69,13 +69,13 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-    * @var int TUTOR_CFG_MANUALLY|TUTOR_CFG_FROMCOURSE
-    */
+     * @var int TUTOR_CFG_MANUALLY|TUTOR_CFG_FROMCOURSE
+     */
     protected $tutor_source;
 
     /**
-    * @var array<int,ilObjUser>
-    */
+     * @var array<int,ilObjUser>
+     */
     protected $assigned_tutors = array();
     // cat-tms-patch end
 
@@ -167,10 +167,10 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-    * Get tutor data from event_tutor
-    *
-    * @param array         $data
-    */
+     * Get tutor data from event_tutor
+     *
+     * @param array         $data
+     */
     protected static function addTutorInformation(&$data)
     {
         foreach ($data['tutor_ids'] as $tutor_id) {
@@ -1187,10 +1187,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Re-set tutors.
-    *
-    * @param int[] $usr_ids
-    */
+     * Re-set tutors.
+     *
+     * @param int[] $usr_ids
+     */
     public function setAssignedTutors(array $usr_ids)
     {
         $this->assigned_tutors = array();
@@ -1234,8 +1234,8 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Store assigned tutors in DB
-    */
+     * Store assigned tutors in DB
+     */
     private function storeTutorReferences()
     {
         global $ilDB;
@@ -1254,11 +1254,11 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-     * Checks whether this object is a child element of a course object.
-     * If there is an group object first in tree it returns false.
-     *
-     * @return int | null
-     */
+    * Checks whether this object is a child element of a course object.
+    * If there is an group object first in tree it returns false.
+    *
+    * @return int | null
+    */
     public function isCourseOrCourseChild($ref_id) : ?int
     {
         global $DIC;
@@ -1276,11 +1276,11 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Calculate the start and endtime of a session object
-     * depending on parent course and offset
-     *
-     * @return      ilDateTime[]
-     */
+    * Calculate the start and endtime of a session object
+    * depending on parent course and offset
+    *
+    * @return      ilDateTime[]
+    */
     public function getStartTimeDependingOnCourse(
         int $offset,
         int $hour_start,
@@ -1303,9 +1303,9 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Get start and end date of today
-     * @return ilDateTime[]
-     */
+    * Get start and end date of today
+    * @return ilDateTime[]
+    */
     protected function getTodayWithTimes(
         int $hour_start,
         int $minute_start,
@@ -1319,10 +1319,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Calculate the start and endtime of a session object
-     * depending on days_offset
-     * @return ilDateTime[]
-     */
+    * Calculate the start and endtime of a session object
+    * depending on days_offset
+    * @return ilDateTime[]
+    */
     private function calcCourseDateTime(
         ilDateTime $start,
         int $offset,
