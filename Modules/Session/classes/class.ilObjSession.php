@@ -69,18 +69,25 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-    * @var int TUTOR_CFG_MANUALLY|TUTOR_CFG_FROMCOURSE
-    */
+     * @var int TUTOR_CFG_MANUALLY|TUTOR_CFG_FROMCOURSE
+     */
     protected $tutor_source;
 
     /**
-    * @var array<int,ilObjUser>
-    */
+     * @var array<int,ilObjUser>
+     */
     protected $assigned_tutors = array();
     // cat-tms-patch end
 
     private $registrationNotificationEnabled = false;
     private $notificationOption = ilSessionConstants::NOTIFICATION_INHERIT_OPTION;
+
+    // cat-tms-patch start
+    /**
+     * @var ilObjUser
+     */
+    protected $g_user;
+    // cat-tms-patch end
 
     /**
      * Constructor
@@ -98,6 +105,9 @@ class ilObjSession extends ilObject
 
         $this->db = $ilDB;
         $this->type = "sess";
+        // cat-tms-patch start
+        $this->g_user = $GLOBALS['DIC']->user();
+        // cat-tms-patch end
         parent::__construct($a_id, $a_call_by_reference);
     }
 
@@ -157,10 +167,10 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-    * Get tutor data from event_tutor
-    *
-    * @param array         $data
-    */
+     * Get tutor data from event_tutor
+     *
+     * @param array         $data
+     */
     protected static function addTutorInformation(&$data)
     {
         foreach ($data['tutor_ids'] as $tutor_id) {
@@ -754,7 +764,7 @@ class ilObjSession extends ilObject
             $this->db->quote($this->getMailToMembersType(), 'integer') . ', ' .
             $this->db->quote($this->getTutorSource(), 'integer') . " " .
             // cat-tms-patch end
-             ")";
+            ")";
         $res = $ilDB->manipulate($query);
 
         // cat-tms-patch start
@@ -1102,10 +1112,10 @@ class ilObjSession extends ilObject
 
     // cat-tms-patch start
     /**
-    * How should the tutors be configured?
-    *
-    * @param int $tutor_source
-    */
+     * How should the tutors be configured?
+     *
+     * @param int $tutor_source
+     */
     public function setTutorSource($tutor_source)
     {
         if (
@@ -1118,10 +1128,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * How are the tutors configured?
-    *
-    * @return int
-    */
+     * How are the tutors configured?
+     *
+     * @return int
+     */
     public function getTutorSource()
     {
         if (is_null($this->tutor_source)) {
@@ -1131,12 +1141,12 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Get a list of users that are assigned as tutors at the course
-    * this session lives in.
-    *
-    * @global type $tree
-    * @return ilObjUser[]
-    */
+     * Get a list of users that are assigned as tutors at the course
+     * this session lives in.
+     *
+     * @global type $tree
+     * @return ilObjUser[]
+     */
     public function getParentCourseTutors()
     {
         global $tree;
@@ -1166,10 +1176,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Add a tutor.
-    *
-    * @param int $usr_id
-    */
+     * Add a tutor.
+     *
+     * @param int $usr_id
+     */
     public function addAssignedTutor($usr_id)
     {
         assert('is_integer($usr_id)');
@@ -1181,10 +1191,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Re-set tutors.
-    *
-    * @param int[] $usr_ids
-    */
+     * Re-set tutors.
+     *
+     * @param int[] $usr_ids
+     */
     public function setAssignedTutors(array $usr_ids)
     {
         $this->assigned_tutors = array();
@@ -1199,21 +1209,21 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Get assigned tutors from DB.
-    *
-    * @return int[]
-    */
+     * Get assigned tutors from DB.
+     *
+     * @return int[]
+     */
     private function readTutorReferences()
     {
         return self::lookupTutorReferences($this->getId());
     }
 
     /**
-    * Get assigned tutors from DB.
-    *
-    * @param int $a_obj_id
-    * @return int[]
-    */
+     * Get assigned tutors from DB.
+     *
+     * @param int $a_obj_id
+     * @return int[]
+     */
     private static function lookupTutorReferences($a_obj_id)
     {
         global $ilDB;
@@ -1228,8 +1238,8 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Store assigned tutors in DB
-    */
+     * Store assigned tutors in DB
+     */
     private function storeTutorReferences()
     {
         global $ilDB;
@@ -1238,21 +1248,21 @@ class ilObjSession extends ilObject
 
         foreach ($this->getAssignedTutors() as $usr) {
             $query = "INSERT INTO  event_tutors (id, obj_id, usr_id) VALUES ("
-                   . $ilDB->nextId('event_tutors')
-                   . ', ' . $this->db->quote($this->getId(), 'integer')
-                   . ', ' . $this->db->quote($usr->getId(), 'integer')
-                   . ")";
+                . $ilDB->nextId('event_tutors')
+                . ', ' . $this->db->quote($this->getId(), 'integer')
+                . ', ' . $this->db->quote($usr->getId(), 'integer')
+                . ")";
             $this->db->manipulate($query);
         }
     }
 
     // cat-tms-patch start
     /**
-     * Checks whether this object is a child element of a course object.
-     * If there is an group object first in tree it returns false.
-     *
-     * @return int | null
-     */
+    * Checks whether this object is a child element of a course object.
+    * If there is an group object first in tree it returns false.
+    *
+    * @return int | null
+    */
     public function isCourseOrCourseChild($ref_id) : ?int
     {
         global $DIC;
@@ -1270,11 +1280,11 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Calculate the start and endtime of a session object
-     * depending on parent course and offset
-     *
-     * @return      ilDateTime[]
-     */
+    * Calculate the start and endtime of a session object
+    * depending on parent course and offset
+    *
+    * @return      ilDateTime[]
+    */
     public function getStartTimeDependingOnCourse(
         int $offset,
         int $hour_start,
@@ -1297,9 +1307,9 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Get start and end date of today
-     * @return ilDateTime[]
-     */
+    * Get start and end date of today
+    * @return ilDateTime[]
+    */
     protected function getTodayWithTimes(
         int $hour_start,
         int $minute_start,
@@ -1313,10 +1323,10 @@ class ilObjSession extends ilObject
     }
 
     /**
-     * Calculate the start and endtime of a session object
-     * depending on days_offset
-     * @return ilDateTime[]
-     */
+    * Calculate the start and endtime of a session object
+    * depending on days_offset
+    * @return ilDateTime[]
+    */
     private function calcCourseDateTime(
         ilDateTime $start,
         int $offset,

@@ -1,4 +1,5 @@
 <?php
+
 /* Copyright (c) 1998-2019 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 /**
@@ -35,7 +36,7 @@ class ilSessionAppEventListener implements ilAppEventListener
      * @var array
      */
     private $parameters;
-
+    
     // cat-tms-patch start
     /**
      * @var int[]
@@ -269,8 +270,10 @@ class ilSessionAppEventListener implements ilAppEventListener
         }
     }
 
-    protected function deleteTutorFromLecture(int $usr_id, int $crs_obj_id) : void
+    protected function deleteTutorFromLecture() : void
     {
+        $usr_id = (int) $this->parameters["usr_id"];
+        $crs_obj_id = (int) $this->parameters["obj_id"];
         $crs_ref_id = $this->getReferenceId($crs_obj_id);
         foreach ($this->getSessionsOfCourse($crs_ref_id) as $session) {
             $assigned_tutors = $session->getAssignedTutorsIds();
