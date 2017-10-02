@@ -30,6 +30,11 @@ class ilGlobalCache
     const COMP_TPL_BLOCKS = 'tpl_blocks';
     const COMP_TPL_VARIABLES = 'tpl_variables';
     const COMP_GLOBAL_SCREEN = 'global_screen';
+
+    // cat-tms patch start
+    const COMP_SEARCH = 'search';
+    // cat-tms patch end
+
     /**
      * @var array
      */
@@ -65,6 +70,9 @@ class ilGlobalCache
         self::COMP_TPL_VARIABLES,
         self::COMP_EVENTS,
         self::COMP_GLOBAL_SCREEN,
+        // cat-tms-patch start
+        self::COMP_SEARCH
+        // cat-tms-patch end
     );
     /**
      * @var array

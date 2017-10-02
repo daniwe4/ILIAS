@@ -647,3 +647,6 @@ system_styles#:#System Styles
 not_enabled#:#Disabled
 phantomjs_path#:#Pfad zu phantomjs
 phantomjs_path_comment#:#Optional tum erstellen von PDFs, z.B. '/usr/bin/phantomjs'
+cache_activate_search#:#Trainingssuche
+cache_activate_plugins#:#Plugins
+cache_activate_tree#:#Tree
