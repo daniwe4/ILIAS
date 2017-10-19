@@ -5,8 +5,7 @@ use \CaT\Ente\ILIAS\Entity;
 use \ILIAS\TMS\CourseInfo;
 use \ILIAS\TMS\CourseInfoImpl;
 
-class UnboundCourseProvider extends SeparatedUnboundProvider 
-{
+class UnboundCourseProvider extends SeparatedUnboundProvider {
     /**
      * @inheritdocs
      */
