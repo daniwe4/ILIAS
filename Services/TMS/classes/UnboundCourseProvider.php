@@ -5,7 +5,8 @@ use \CaT\Ente\ILIAS\Entity;
 use \ILIAS\TMS\CourseInfo;
 use \ILIAS\TMS\CourseInfoImpl;
 
-class UnboundCourseProvider extends SeparatedUnboundProvider {
+class UnboundCourseProvider extends SeparatedUnboundProvider 
+{
     /**
      * @inheritdocs
      */
@@ -167,19 +168,11 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
                     )
                 , new CourseInfoImpl
                     ( $entity
-                    , ""
-                    , $this->formatDate($object->getCourseStart())
-                    , ""
-                    , 300
-                    , [CourseInfo::CONTEXT_SEARCH_SHORT_INFO]
-                    )
-                , new CourseInfoImpl
-                    ( $entity
-                    , ""
-                    , $this->formatDate($object->getCourseStart())." - ".$this->formatDate($object->getCourseEnd())
+                    , $lng->txt("date")
+                    , $this->formatPeriod($object->getCourseStart(), $object->getCourseEnd())
                     , ""
                     , 300
-                    , [CourseInfo::CONTEXT_SEARCH_FURTHER_INFO]
+                    , [CourseInfo::CONTEXT_SEARCH_SHORT_INFO, CourseInfo::CONTEXT_SEARCH_FURTHER_INFO, CourseInfo::CONTEXT_BOOKING_DEFAULT_INFO]
                     )
                 ];
 
@@ -299,7 +292,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
     }
 
     /**
-     * Form date for gui as user timezone string
+     * Form date.
      *
      * @param ilDateTime     $dat
      * @param bool     $use_time
@@ -386,11 +379,11 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
 
             $ret[] = new CourseInfoImpl
                 ( $entity
-                , $txt("city")
-                , $address
+                , $txt("address")
+                , $address.", ".$city
                 , ""
-                , 100
-                , [CourseInfo::CONTEXT_SEARCH_FURTHER_INFO]
+                , 350
+                , [CourseInfo::CONTEXT_SEARCH_FURTHER_INFO, CourseInfo::CONTEXT_BOOKING_DEFAULT_INFO]
                 );
         }
         return $ret;
