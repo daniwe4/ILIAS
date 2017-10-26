@@ -2,7 +2,7 @@
 /**
  * Displays the TMS training search
  *
- * @author Stefan Hecken 	<stefan.hecken@concepts-and-training.de>
+ * @author Stefan Hecken     <stefan.hecken@concepts-and-training.de>
  */
 class ilTrainingSearchGUI
 {
@@ -48,6 +48,7 @@ class ilTrainingSearchGUI
             case "iltmsbookinggui":
                 require_once("Services/TMS/Booking/classes/class.ilTMSBookingGUI.php");
                 $gui = new ilTMSBookingGUI($this, self::CMD_SHOW);
+                $gui->redirectOnParallelCourses();
                 $this->g_ctrl->forwardCommand($gui);
                 break;
             default:

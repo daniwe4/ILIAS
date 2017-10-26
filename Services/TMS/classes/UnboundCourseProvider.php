@@ -181,7 +181,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
                 $ret[] = new CourseInfoImpl
                         ( $entity
                         , $lng->txt("status")
-                        , $lng->txt("member")
+                        , $lng->txt("booked_as_member")
                         , ""
                         , 600
                         , [
@@ -194,7 +194,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
                 $ret[] = new CourseInfoImpl
                         ( $entity
                         , $lng->txt("status")
-                        , $lng->txt("waitinglist")
+                        , $lng->txt("booked_on_waitinglist")
                         , ""
                         , 600
                         , [
@@ -204,8 +204,25 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
             }
 
             $venue_components = $this->getVenueComponents($entity, (int)$object->getId());
+            $ret = array_merge($ret, $venue_components);
 
-            return array_merge($ret, $venue_components);
+            $crs_important_info = nl2br(trim($object->getImportantInformation()));
+            if($crs_important_info != "") {
+                $ret[] = new CourseInfoImpl
+                        ( $entity
+                        , $lng->txt("crs_important_info")
+                        , $crs_important_info
+                        , ""
+                        , 1000
+                        , [
+                            CourseInfo::CONTEXT_SEARCH_DETAIL_INFO,
+                            CourseInfo::CONTEXT_USER_BOOKING_DETAIL_INFO
+                          ]
+                    );
+            }
+
+
+            return $ret;
         }
 
         return $ret;
@@ -269,7 +286,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
     }
 
     /**
-     * Find sessions underneath course 
+     * Find sessions underneath course
      *
      * @param     int             $crs_ref_id
      * @return     ilObjSession[]
@@ -333,7 +350,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
         if(ilPluginAdmin::isPluginActive('venues')) {
             $vplug = ilPluginAdmin::getPluginObjectById('venues');
             $txt = $vplug->txtClosure();
-            list($venue_id, $city, $address) = $vplug->getVenueInfos($crs_id);
+            list($venue_id, $city, $address, $name, $postcode) = $vplug->getVenueInfos($crs_id);
 
             if($city != "") {
                 $ret[] = $this->createCourseInfoObject($entity
@@ -347,33 +364,45 @@ class UnboundCourseProvider extends SeparatedUnboundProvider {
             }
 
             if($name != "") {
-                $val = array();
-                $val[] = $name;
-
-                if($address != "") {
-                    $val[] = $address;
-                }
-
-                if($postcode != "" || $city != "") {
-                    $val[] = $postcode." ".$city;
-                }
-
-                $ret[] = $this->createCourseInfoObject($entity
-                    , $txt("title").":"
-                    , join("<br />", $val)
+                $ret[] = new CourseInfoImpl
+                    ( $entity
+                    , $txt("title")
+                    , $name
+                    , ""
                     , 350
                     , [CourseInfo::CONTEXT_SEARCH_FURTHER_INFO,
                         CourseInfo::CONTEXT_BOOKING_DEFAULT_INFO,
                         CourseInfo::CONTEXT_USER_BOOKING_FURTHER_INFO
                       ]
-                );
+                    );
+            }
 
-                $ret[] = $this->createCourseInfoObject($entity
-                    , $txt("title")
-                    , join("<br />", $val)
-                    , 1200
-                    , [CourseInfo::CONTEXT_BOOKING_DEFAULT_INFO]
-                );
+            if($address != "") {
+                $ret[] = new CourseInfoImpl
+                    ( $entity
+                    , $txt("address")
+                    , $address
+                    , ""
+                    , 360
+                    , [CourseInfo::CONTEXT_SEARCH_FURTHER_INFO,
+                        CourseInfo::CONTEXT_BOOKING_DEFAULT_INFO,
+                        CourseInfo::CONTEXT_USER_BOOKING_FURTHER_INFO
+                      ]
+                    );
+            }
+
+            if($postcode != "" || $city != "") {
+                $ret[] = new CourseInfoImpl
+                    ( $entity
+                    , ""
+                    , $postcode." ".$city
+                    , ""
+                    , 370
+                    , [CourseInfo::CONTEXT_SEARCH_FURTHER_INFO,
+                        CourseInfo::CONTEXT_BOOKING_DEFAULT_INFO,
+                        CourseInfo::CONTEXT_USER_BOOKING_FURTHER_INFO
+                      ]
+                    );
             }
 
             $ret[] = new CourseInfoImpl
