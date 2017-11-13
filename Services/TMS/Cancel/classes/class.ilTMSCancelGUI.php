@@ -1,7 +1,4 @@
 <?php
-/**
- * cat-tms-patch start
- */
 
 use ILIAS\TMS\Booking;
 
@@ -31,12 +28,12 @@ class ilTMSCancelGUI extends Booking\Player
     protected $g_user;
 
     /**
-     * @var	ilLanguage
+     * @var    ilLanguage
      */
     protected $g_lng;
 
     /**
-     * @var	mixed
+     * @var    mixed
      */
     protected $parent_gui;
 
@@ -118,6 +115,8 @@ class ilTMSCancelGUI extends Booking\Player
             $id = "btn_next";
         } elseif ($id == "aborted") {
             $id = "booking_aborted";
+        } elseif ($id == "previous") {
+            $id = "btn_previous";
         }
         return $this->g_lng->txt($id);
     }
@@ -139,8 +138,28 @@ class ilTMSCancelGUI extends Booking\Player
         }
         $this->g_ctrl->redirect($this->parent_gui, $this->parent_cmd);
     }
-}
 
-/**
- * cat-tms-patch end
- */
+    /**
+     * @inheritdocs
+     */
+    protected function getPlayerTitle()
+    {
+        return $this->g_lng->txt("canceling");
+    }
+
+    /**
+     * @inheritdocs
+     */
+    protected function getOverViewDescription()
+    {
+        return $this->g_lng->txt("cancel_overview_description");
+    }
+
+    /**
+     * @inheritdocs
+     */
+    protected function getConfirmButtonLabel()
+    {
+        return $this->g_lng->txt("cancel_confirm");
+    }
+}

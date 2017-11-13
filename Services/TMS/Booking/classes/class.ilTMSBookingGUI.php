@@ -1,7 +1,4 @@
 <?php
-/**
- * cat-tms-patch start
- */
 
 use ILIAS\TMS\Booking;
 
@@ -31,12 +28,12 @@ class ilTMSBookingGUI extends Booking\Player
     protected $g_user;
 
     /**
-     * @var	ilLanguage
+     * @var    ilLanguage
      */
     protected $g_lng;
 
     /**
-     * @var	mixed
+     * @var    mixed
      */
     protected $parent_gui;
 
@@ -120,9 +117,9 @@ class ilTMSBookingGUI extends Booking\Player
     /**
      * Checks the user a parelle course to this he wants to book
      *
-     * @param	int		$crs_ref_id
-     * @param	int		$usr_id
-     * @return	\ilObjCourse[]
+     * @param    int        $crs_ref_id
+     * @param    int        $usr_id
+     * @return    \ilObjCourse[]
      */
     protected function getParallelCoursesOfUser($crs_ref_id, $usr_id)
     {
@@ -138,7 +135,7 @@ class ilTMSBookingGUI extends Booking\Player
     /**
      * Get courses where user is booked
      *
-     * @return	int	$usr_id
+     * @return    int    $usr_id
      * @return \ilObjCourse[]
      */
     protected function getUserBookedCourses($usr_id)
@@ -155,8 +152,8 @@ class ilTMSBookingGUI extends Booking\Player
     /**
      * Get courses running parallel
      *
-     * @param \ilObjCourse 	$try_to_book_course
-     * @param \ilObjCourse[] 	$booked_courses
+     * @param \ilObjCourse     $try_to_book_course
+     * @param \ilObjCourse[]     $booked_courses
      *
      * @return \ilObjCourse[]
      */
@@ -186,7 +183,7 @@ class ilTMSBookingGUI extends Booking\Player
     /**
      * Get message to display
      *
-     * @param \ilObjCourse[] 	$parallel_courses
+     * @param \ilObjCourse[]     $parallel_courses
      *
      * @return string
      */
@@ -213,8 +210,8 @@ class ilTMSBookingGUI extends Booking\Player
     /**
      * Form date.
      *
-     * @param ilDateTime 	$dat
-     * @param bool 	$use_time
+     * @param ilDateTime     $dat
+     * @param bool     $use_time
      *
      * @return string
      */
@@ -256,6 +253,8 @@ class ilTMSBookingGUI extends Booking\Player
             $id = "btn_next";
         } elseif ($id == "aborted") {
             $id = "booking_aborted";
+        } elseif ($id == "previous") {
+            $id = "btn_previous";
         }
         return $this->g_lng->txt($id);
     }
@@ -277,8 +276,28 @@ class ilTMSBookingGUI extends Booking\Player
         }
         $this->g_ctrl->redirect($this->parent_gui, $this->parent_cmd);
     }
-}
 
-/**
- * cat-tms-patch end
- */
+    /**
+     * @inheritdocs
+     */
+    protected function getPlayerTitle()
+    {
+        return $this->g_lng->txt("booking");
+    }
+
+    /**
+     * @inheritdocs
+     */
+    protected function getOverViewDescription()
+    {
+        return $this->g_lng->txt("booking_overview_description");
+    }
+
+    /**
+     * @inheritdocs
+     */
+    protected function getConfirmButtonLabel()
+    {
+        return $this->g_lng->txt("booking_confirm");
+    }
+}

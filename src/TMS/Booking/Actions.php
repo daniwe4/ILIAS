@@ -8,34 +8,40 @@ namespace ILIAS\TMS\Booking;
  * This encapsulates the basic steps that need to be done to get a valid
  * booking for a user on a course.
  */
-interface Actions {
-	const STATE_BOOKED = "booked";
-	const STATE_WAITING_LIST = "waiting_list";
-	const STATE_REMOVED_FROM_COURSE = "removed_course";
-	const STATE_REMOVED_FROM_WAITINGLIST = "removed_waitinglist";
+interface Actions
+{
+    const STATE_BOOKED = "booked";
+    const STATE_WAITING_LIST = "waiting_list";
+    const STATE_REMOVED_FROM_COURSE = "removed_course";
+    const STATE_REMOVED_FROM_WAITINGLIST = "removed_waitinglist";
 
-	/**
-	 * Book the given user on the course.
-	 *
-	 * @param	int		$crs_ref_id
-	 * @param	int		$user_id
-	 *
-	 * @throws \LogicException 	if user can't be booked to course or waitinglist
-	 *
-	 * @return	mixed	one of the STATEs
-	 */
-	public function bookUser($crs_ref_id, $user_id);
+    const EVENT_USER_BOOKED_COURSE = 'user_booked_self_on_course';
+    const EVENT_USER_BOOKED_WAITING = 'user_booked_self_on_waiting';
+    const EVENT_USER_CANCELED_COURSE = 'user_canceled_self_from_course';
+    const EVENT_USER_CANCELED_WAITING = 'user_canceled_self_from_waiting';
 
-	/**
-	 * Removes a user from course or waiting list
-	 *
-	 * @param	int		$crs_ref_id
-	 * @param	int		$user_id
-	 *
-	 * @throws \LogicException 	if user can't be canceled from course or waitinglist
-	 *
-	 * @return mixed	one of the STATEs
-	 */
-	public function cancelUser($crs_ref_id, $user_id);
+
+    /**
+     * Book the given user on the course.
+     *
+     * @param	int		$crs_ref_id
+     * @param	int		$user_id
+     *
+     * @throws \LogicException 	if user can't be booked to course or waitinglist
+     *
+     * @return	mixed	one of the STATEs
+     */
+    public function bookUser($crs_ref_id, $user_id);
+
+    /**
+     * Removes a user from course or waiting list
+     *
+     * @param	int		$crs_ref_id
+     * @param	int		$user_id
+     *
+     * @throws \LogicException 	if user can't be canceled from course or waitinglist
+     *
+     * @return mixed	one of the STATEs
+     */
+    public function cancelUser($crs_ref_id, $user_id);
 }
-
