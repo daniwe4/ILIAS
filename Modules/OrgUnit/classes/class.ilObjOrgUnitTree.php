@@ -90,8 +90,12 @@ class ilObjOrgUnitTree
                 $arr_usr_ids = $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_EMPLOYEE));
                 break;
             case true:
-                $assignment_query = ilOrgUnitUserAssignmentQueries::getInstance();
-                $arr_usr_ids = $assignment_query->getUserIdsOfOrgUnitsInPosition($this->getAllChildren($ref_id),ilOrgUnitPosition::CORE_POSITION_EMPLOYEE);
+                // cat-tms-patch start
+                foreach ($this->getAllChildren($ref_id) as $ref_id) {
+                    $arr_usr_ids = $arr_usr_ids
+                            + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_EMPLOYEE));
+                }
+                // cat-tms-patch end
                 break;
         }
 
@@ -131,7 +135,7 @@ class ilObjOrgUnitTree
             case true:
                 foreach ($this->getAllChildren($ref_id) as $ref_id) {
                     $arr_usr_ids = $arr_usr_ids
-                        + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_SUPERIOR));
+                            + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_SUPERIOR));
                 }
                 break;
         }
@@ -661,4 +665,57 @@ class ilObjOrgUnitTree
 
         return $this->parent[$orgu_ref];
     }
+
+    // cat-tms-patch start (352)
+    /**
+    * @param int   $user_id
+    * @param bool  $recursive      if this is true subsequent orgunits of this users superior role get searched as well.
+    * @return int[] returns an array of user_ids of the users which have an superior role in an orgunit of which this user's id has a superior role.
+    */
+    public function getSuperiorsUnderUser($user_id, $recursive = true)
+    {
+        //query for all orgu where user_id is superior.
+        $q = "SELECT orgu.obj_id, refr.ref_id FROM object_data orgu
+            INNER JOIN object_reference refr ON refr.obj_id = orgu.obj_id
+            INNER JOIN object_data roles ON roles.title LIKE CONCAT('il_orgu_superior_',refr.ref_id)
+            INNER JOIN rbac_ua rbac ON rbac.usr_id = " . $this->db->quote($user_id, "integer") . " AND roles.obj_id = rbac.rol_id
+            WHERE orgu.type = 'orgu'";
+        $set = $this->db->query($q);
+        $orgu_ref_ids = array();
+        while ($res = $this->db->fetchAssoc($set)) {
+            $orgu_ref_ids[] = $res['ref_id'];
+        }
+        $employees = array();
+        foreach ($orgu_ref_ids as $orgu_ref_id) {
+            foreach ($this->getChildren($orgu_ref_id) as $key => $value) {
+                $employees = array_merge($employees, $this->getSuperiors($value, $recursive));
+            }
+        }
+
+        return $employees;
+    }
+
+    /**
+    * Get all org units where user is superior
+    *
+    * @param int   $user_id
+    *
+    * @return int[]
+    */
+    public function getOrgUnitsWhereUserIsSuperior($user_id)
+    {
+        $q = "SELECT orgu.obj_id, refr.ref_id FROM object_data orgu
+            INNER JOIN object_reference refr ON refr.obj_id = orgu.obj_id
+            INNER JOIN object_data roles ON roles.title LIKE CONCAT('il_orgu_superior_',refr.ref_id)
+            INNER JOIN rbac_ua rbac ON rbac.usr_id = " . $this->db->quote($user_id, "integer") . " AND roles.obj_id = rbac.rol_id
+            WHERE orgu.type = 'orgu'";
+        $set = $this->db->query($q);
+        $orgu_ref_ids = array();
+        while ($res = $this->db->fetchAssoc($set)) {
+            $orgu_ref_ids[] = $res['ref_id'];
+        }
+
+        return $orgu_ref_ids;
+    }
+    // cat-tms-patch end
 }
