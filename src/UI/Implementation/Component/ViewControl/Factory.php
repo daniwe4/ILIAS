@@ -55,4 +55,12 @@ class Factory implements VC\Factory
     {
         return new Pagination($this->signal_generator);
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function quickfilter(array $options)
+    {
+        return new Quickfilter($options, $this->signal_generator);
+    }
 }
