@@ -669,6 +669,10 @@ class ilObjSession extends ilObject
         $new_obj->setRegistrationNotificationEnabled($this->isRegistrationNotificationEnabled());
         $new_obj->setRegistrationNotificationOption($this->getRegistrationNotificationOption());
 
+        // cat-tms-patch start
+        $new_obj->setTutorSource($this->getTutorSource());
+        // cat-tms-patch end
+
         $new_obj->update(true);
 
         return true;
@@ -1169,7 +1173,11 @@ class ilObjSession extends ilObject
     public function addAssignedTutor($usr_id)
     {
         assert('is_integer($usr_id)');
-        $this->assigned_tutors[$usr_id] = \ilObjectFactory::getInstanceByObjId($usr_id, false);
+        // cat-tms-patch start
+        if (ilObjUser::userExists(array($usr_id))) {
+            $this->assigned_tutors[$usr_id] = \ilObjectFactory::getInstanceByObjId($usr_id, false);
+        }
+        // cat-tms-patch end
     }
 
     /**
@@ -1236,6 +1244,109 @@ class ilObjSession extends ilObject
                    . ")";
             $this->db->manipulate($query);
         }
+    }
+
+    // cat-tms-patch start
+    /**
+     * Checks whether this object is a child element of a course object.
+     * If there is an group object first in tree it returns false.
+     *
+     * @return int | null
+     */
+    public function isCourseOrCourseChild($ref_id) : ?int
+    {
+        global $DIC;
+        $g_tree = $DIC->repositoryTree();
+        $tree = array_reverse($g_tree->getPathFull($ref_id));
+        foreach ($tree as $leaf) {
+            if ($leaf['type'] === "grp") {
+                return null;
+            }
+            if ($leaf['type'] === "crs") {
+                return (int) $leaf['ref_id'];
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Calculate the start and endtime of a session object
+     * depending on parent course and offset
+     *
+     * @return      ilDateTime[]
+     */
+    public function getStartTimeDependingOnCourse(
+        int $offset,
+        int $hour_start,
+        int $minute_start,
+        int $hour_end,
+        int $minute_end
+    ) : array {
+        $ref_id = $this->getRefId();
+        //during creation:
+        if (!$ref_id) {
+            $ref_id = $_GET['ref_id'];
+        }
+        $crs_id = $this->isCourseOrCourseChild($ref_id);
+        $crs = ilObjectFactory::getInstanceByRefId($crs_id);
+        $start = $crs->getCourseStart();
+        if ($start === null) {
+            return $this->getTodayWithTimes($hour_start, $minute_start, $hour_end, $minute_end);
+        }
+        return $this->calcCourseDateTime($start, $offset, $hour_start, $minute_start, $hour_end, $minute_end);
+    }
+
+    /**
+     * Get start and end date of today
+     * @return ilDateTime[]
+     */
+    protected function getTodayWithTimes(
+        int $hour_start,
+        int $minute_start,
+        int $hour_end,
+        int $minute_end
+    ) : array {
+        $start = $this->getDateWithTime(date("Y-m-d"), $hour_start, $minute_start);
+        $end = $this->getDateWithTime(date("Y-m-d"), $hour_end, $minute_end);
+
+        return [$start, $end];
+    }
+
+    /**
+     * Calculate the start and endtime of a session object
+     * depending on days_offset
+     * @return ilDateTime[]
+     */
+    private function calcCourseDateTime(
+        ilDateTime $start,
+        int $offset,
+        int $hour_start,
+        int $minute_start,
+        int $hour_end,
+        int $minute_end
+    ) : array {
+        $offset--;
+
+        $start = $this->getDateWithTime($start->get(IL_CAL_FKT_DATE, "Y-m-d"), $hour_start, $minute_start);
+        $end = $this->getDateWithTime($start->get(IL_CAL_FKT_DATE, "Y-m-d"), $hour_end, $minute_end);
+
+        if ($offset != 0) {
+            $start->increment(ilDateTime::DAY, $offset);
+            $end->increment(ilDateTime::DAY, $offset);
+        }
+
+        return [$start, $end];
+    }
+
+    protected function getDateWithTime(string $date, int $hour, int $minute) : ilDateTime
+    {
+        $start_datetime = $date . " " . $this->addLeading((string) $hour) . ":" . $this->addLeading((string) $minute) . ":00";
+        return new ilDateTime($start_datetime, IL_CAL_DATETIME, $this->g_user->getTimeZone());
+    }
+
+    protected function addLeading(string $value) : string
+    {
+        return str_pad($value, 2, "0", STR_PAD_LEFT);
     }
     // cat-tms-patch end
 }
