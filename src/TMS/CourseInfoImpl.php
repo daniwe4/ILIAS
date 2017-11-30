@@ -40,15 +40,12 @@ class CourseInfoImpl implements CourseInfo {
 	 */
 	protected $contexts;
 
-	public function __construct(Ente\Entity $entity, $label, $value, $description, $priority, array $contexts) {
+	public function __construct(Ente\Entity $entity, string $label, $value, string $description, int $priority, array $contexts) {
 		$this->entity = $entity;
-		assert('is_string($label)');
 		$this->label = $label;
-		assert('is_int($value) || is_string($value) || is_array($value)');
+		assert(is_int($value) || is_string($value) || is_array($value));
 		$this->value = $value;
-		assert('is_string($description)');
 		$this->description = $description;
-		assert('is_int($priority)');
 		$this->priority = $priority;
 		$this->contexts = $contexts;
 	}
