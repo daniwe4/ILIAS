@@ -904,6 +904,10 @@ class ilObjSessionGUI extends ilObjectGUI implements ilDesktopItemHandling
 
         $this->createRecurringSessions($this->form->getInput("lp_preset"));
 
+        // cat-tms-patch start tms_2047
+        $this->object->update();
+        // cat-tms-end
+
         if ($a_redirect_on_success) {
             ilUtil::sendInfo($this->lng->txt('event_add_new_event'), true);
             $this->ctrl->returnToParent($this);
