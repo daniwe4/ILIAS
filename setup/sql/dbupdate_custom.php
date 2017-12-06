@@ -514,35 +514,3 @@ try {
     $this->db->addPrimaryKey("plugins_class", array("class"));
 }
 ?>
-<#9>
-<?php
-require_once("Services/TMS/Mailing/classes/class.ilTMSMailingLogsDB.php");
-global $DIC;
-$ilDB = $DIC->database();
-$db = new ilTMSMailingLogsDB($ilDB);
-$db->createTable();
-?>
-<#10>
-<?php
-require_once("Services/TMS/Mailing/classes/class.ilTMSMailingLogsDB.php");
-global $DIC;
-$ilDB = $DIC->database();
-$db = new ilTMSMailingLogsDB($ilDB);
-$db->createSequence();
-?>
-<#11>
-<?php
-require_once("Services/TMS/Mailing/classes/class.ilTMSMailingLogsDB.php");
-global $DIC;
-$ilDB = $DIC->database();
-$db = new ilTMSMailingLogsDB($ilDB);
-$db->createPrimaryKey();
-?>
-<#29>
-<?php
-require_once("Services/TMS/Mailing/classes/class.ilTMSMailingLogsDB.php");
-global $DIC;
-$ilDB = $DIC->database();
-$db = new ilTMSMailingLogsDB($ilDB);
-$db->update1();
-?>
