@@ -125,6 +125,13 @@ class ilTMSMailContentBuilder implements Mailing\MailContentBuilder
     }
 
     /**
+     * @inheritdoc
+     */
+    public function getAttachments()
+    {
+    }
+
+    /**
      * Replaces all placeholders.
      *
      * @return string
@@ -158,7 +165,6 @@ class ilTMSMailContentBuilder implements Mailing\MailContentBuilder
         }
         return $txt;
     }
-
 
     private function getWrapper()
     {
