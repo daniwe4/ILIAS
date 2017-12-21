@@ -5,27 +5,27 @@ include_once("./Services/UICore/lib/html-it/IT.php");
 include_once("./Services/UICore/lib/html-it/ITX.php");
 
 /**
-* special template class to simplify handling of ITX/PEAR
-* @author	Stefan Kesseler <skesseler@databay.de>
-* @author	Sascha Hofmann <shofmann@databay.de>
-* @version	$Id$
-*/
+ * special template class to simplify handling of ITX/PEAR
+ * @author	Stefan Kesseler <skesseler@databay.de>
+ * @author	Sascha Hofmann <shofmann@databay.de>
+ * @version	$Id$
+ */
 class ilTemplate extends HTML_Template_ITX
 {
     /**
-    * variablen die immer in jedem block ersetzt werden sollen
-    * @var	array
-    */
+     * variablen die immer in jedem block ersetzt werden sollen
+     * @var	array
+     */
     public $vars;
 
     /**
-    * Aktueller Block
-    * Der wird gemerkt bei der berladenen Funktion setCurrentBlock, damit beim ParseBlock
-    * vorher ein replace auf alle Variablen gemacht werden kann, die mit dem BLockname anfangen.
-    * @var	string
-    */
+     * Aktueller Block
+     * Der wird gemerkt bei der berladenen Funktion setCurrentBlock, damit beim ParseBlock
+     * vorher ein replace auf alle Variablen gemacht werden kann, die mit dem BLockname anfangen.
+     * @var	string
+     */
     public $activeBlock;
-    
+
     /**
      * @var array
      */
@@ -79,7 +79,7 @@ class ilTemplate extends HTML_Template_ITX
     ) {
         $this->activeBlock = "__global__";
         $this->vars = array();
-        
+
         $this->il_use_cache = $a_use_cache;
         $this->il_cur_key = $file . "/" . $in_module;
 
@@ -88,7 +88,7 @@ class ilTemplate extends HTML_Template_ITX
         $this->tplName = basename($fname);
         $this->tplPath = dirname($fname);
         $this->tplIdentifier = $this->getTemplateIdentifier($file, $in_module);
-        
+
         if (!file_exists($fname)) {
             throw new \LogicException("Template '$fname' was not found.");
         }
@@ -100,7 +100,7 @@ class ilTemplate extends HTML_Template_ITX
 
         // Option for baseclass HTML_Template_IT
         $this->setOption('use_preg', false);
-        
+
         return true;
     }
 
@@ -109,7 +109,7 @@ class ilTemplate extends HTML_Template_ITX
     {
         $this->free();
         $this->buildFunctionlist();
-        
+
         $cache_hit = false;
         if ($this->il_use_cache) {
             // cache hit
@@ -125,7 +125,7 @@ class ilTemplate extends HTML_Template_ITX
                 $this->blockvariables = self::$il_cache[$this->il_cur_key]["blockvariables"];
             }
         }
-        
+
         if (!$cache_hit) {
             $this->findBlocks($this->template);
             $this->template = '';
@@ -140,17 +140,17 @@ class ilTemplate extends HTML_Template_ITX
                 self::$il_cache[$this->il_cur_key]["blockvariables"] = $this->blockvariables;
             }
         }
-        
+
         // we don't need it any more
         $this->template = '';
     } // end func init
 
     /**
-    * check if block exists in actual template
-    * @access	private
-    * @param string blockname
-    * @return	boolean
-    */
+     * check if block exists in actual template
+     * @access	private
+     * @param string blockname
+     * @return	boolean
+     */
     public function blockExists($a_blockname)
     {
         // added second evaluation to the return statement because the first one only works for the content block (Helmut Schottmüller, 2007-09-14)
@@ -205,11 +205,11 @@ class ilTemplate extends HTML_Template_ITX
 
 
     /**
-    * Überladene Funktion, die sich hier lokal noch den aktuellen Block merkt.
-    * @access	public
-    * @param	string
-    * @return	???
-    */
+     * Überladene Funktion, die sich hier lokal noch den aktuellen Block merkt.
+     * @access	public
+     * @param	string
+     * @return	???
+     */
     public function setCurrentBlock($part = "DEFAULT")
     {
         $this->activeBlock = $part;
@@ -222,11 +222,11 @@ class ilTemplate extends HTML_Template_ITX
     }
 
     /**
-    * overwrites ITX::touchBlock.
-    * @access	public
-    * @param	string
-    * @return	???
-    */
+     * overwrites ITX::touchBlock.
+     * @access	public
+     * @param	string
+     * @return	???
+     */
     public function touchBlock($block)
     {
         $this->setCurrentBlock($block);
@@ -239,11 +239,11 @@ class ilTemplate extends HTML_Template_ITX
     }
 
     /**
-    * Überladene Funktion, die auf den aktuelle Block vorher noch ein replace ausführt
-    * @access	public
-    * @param	string
-    * @return	string
-    */
+     * Überladene Funktion, die auf den aktuelle Block vorher noch ein replace ausführt
+     * @access	public
+     * @param	string
+     * @return	string
+     */
     public function parseCurrentBlock($part = "DEFAULT")
     {
         // Hier erst noch ein replace aufrufen
@@ -268,14 +268,14 @@ class ilTemplate extends HTML_Template_ITX
     }
 
     /**
-    * overwrites ITX::addBlockFile
-    * @access	public
-    * @param	string
-    * @param	string
-    * @param	string		$tplname		template name
-    * @param	boolean		$in_module		should be set to true, if template file is in module subdirectory
-    * @return	boolean/string
-    */
+     * overwrites ITX::addBlockFile
+     * @access	public
+     * @param	string
+     * @param	string
+     * @param	string		$tplname		template name
+     * @param	boolean		$in_module		should be set to true, if template file is in module subdirectory
+     * @return	boolean/string
+     */
     public function addBlockFile($var, $block, $tplname, $in_module = false)
     {
         global $DIC;
@@ -315,11 +315,11 @@ class ilTemplate extends HTML_Template_ITX
     }
 
     /**
-    * all template vars defined in $vars will be replaced automatically
-    * without setting and parsing them with setVariable & parseCurrentBlock
-    * @access	private
-    * @return	integer
-    */
+     * all template vars defined in $vars will be replaced automatically
+     * without setting and parsing them with setVariable & parseCurrentBlock
+     * @access	private
+     * @return	integer
+     */
     private function fillVars()
     {
         $count = 0;
@@ -334,7 +334,7 @@ class ilTemplate extends HTML_Template_ITX
                 }
             }
         }
-        
+
         return $count;
     }
 
@@ -367,14 +367,14 @@ class ilTemplate extends HTML_Template_ITX
         }
         $this->lastTemplatefile = $filename;
         // copied.
-        
+
         // new code to include the template input hook:
         $ilPluginAdmin = $DIC["ilPluginAdmin"];
         $pl_names = $ilPluginAdmin->getActivePluginsForSlot(IL_COMP_SERVICE, "UIComponent", "uihk");
         foreach ($pl_names as $pl) {
             $ui_plugin = ilPluginAdmin::getPluginObject(IL_COMP_SERVICE, "UIComponent", "uihk", $pl);
             $gui_class = $ui_plugin->getUIClassInstance();
-            
+
             $resp = $gui_class->getHTML(
                 "",
                 "template_load",
@@ -386,26 +386,26 @@ class ilTemplate extends HTML_Template_ITX
             }
         }
         // new.
-        
+
         // copied from IT:loadTemplateFile
         return $template != '' ?
-                $this->setTemplate(
-                    $template,
-                    $removeUnknownVariables,
-                    $removeEmptyBlocks
-                    ) : false;
+            $this->setTemplate(
+                $template,
+                $removeUnknownVariables,
+                $removeEmptyBlocks
+            ) : false;
         // copied.
     }
-    
+
 
     /**
-    * builds a full template path with template and module name
-    *
-    * @param	string		$a_tplname		template name
-    * @param	boolean		$in_module		should be set to true, if template file is in module subdirectory
-    *
-    * @return	string		full template path
-    */
+     * builds a full template path with template and module name
+     *
+     * @param	string		$a_tplname		template name
+     * @param	boolean		$in_module		should be set to true, if template file is in module subdirectory
+     *
+     * @return	string		full template path
+     */
     protected function getTemplatePath($a_tplname, $a_in_module = false, $a_plugin = false)
     {
         global $DIC;
@@ -414,12 +414,12 @@ class ilTemplate extends HTML_Template_ITX
         if (isset($DIC["ilCtrl"])) {
             $ilCtrl = $DIC->ctrl();
         }
-        
+
         $fname = "";
-        
+
         if (strpos($a_tplname, "/") === false) {
             $module_path = "";
-            
+
             if ($a_in_module != "") {
                 $module_path = $a_in_module . "/";
             }
@@ -430,12 +430,12 @@ class ilTemplate extends HTML_Template_ITX
                 $style = ilStyleDefinition::getCurrentStyle();
 
                 $fname = "./Customizing/global/skin/" .
-                        ilStyleDefinition::getCurrentSkin() . "/" . $style . "/" . $module_path
-                        . basename($a_tplname);
+                    ilStyleDefinition::getCurrentSkin() . "/" . $style . "/" . $module_path
+                    . basename($a_tplname);
 
                 if ($fname == "" || !file_exists($fname)) {
                     $fname = "./Customizing/global/skin/" .
-                            ilStyleDefinition::getCurrentSkin() . "/" . $module_path . basename($a_tplname);
+                        ilStyleDefinition::getCurrentSkin() . "/" . $module_path . basename($a_tplname);
                 }
             }
 
@@ -444,7 +444,7 @@ class ilTemplate extends HTML_Template_ITX
             }
         } elseif (strpos($a_tplname, "src/UI") === 0) {
             if (class_exists("ilStyleDefinition") // for testing
-            && ilStyleDefinition::getCurrentSkin() != "default") {
+                && ilStyleDefinition::getCurrentSkin() != "default") {
                 $fname = "./Customizing/global/skin/" . ilStyleDefinition::getCurrentSkin() . "/" . str_replace("src/UI/templates/default", "UI", $a_tplname);
             }
             if ($fname == "" || !file_exists($fname)) {
@@ -453,10 +453,10 @@ class ilTemplate extends HTML_Template_ITX
         } else {
             $fname = $a_tplname;
         }
-        
+
         return $fname;
     }
-    
+
     /**
      * get a unique template identifier
      *
@@ -497,7 +497,7 @@ class ilTemplate extends HTML_Template_ITX
             } else {
                 $module_path = "";
             }
-            
+
             return $module_path . basename($a_tplname);
         } else {
             return $a_tplname;

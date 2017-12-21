@@ -2,16 +2,16 @@
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 /**
-* locator handling class
-*
-* This class supplies an implementation for the locator.
-* The locator will send its output to ist own frame, enabling more flexibility in
-* the design of the desktop.
-*
-* @author Arjan Ammerlaan <a.l.ammerlaan@web.de>
-* @version $Id$
-*
-*/
+ * locator handling class
+ *
+ * This class supplies an implementation for the locator.
+ * The locator will send its output to ist own frame, enabling more flexibility in
+ * the design of the desktop.
+ *
+ * @author Arjan Ammerlaan <a.l.ammerlaan@web.de>
+ * @version $Id$
+ *
+ */
 class ilLocatorGUI
 {
     /**
@@ -41,11 +41,11 @@ class ilLocatorGUI
 
     protected $lng;
     protected $entries;
-    
+
     /**
-    * Constructor
-    *
-    */
+     * Constructor
+     *
+     */
     public function __construct()
     {
         global $DIC;
@@ -64,15 +64,15 @@ class ilLocatorGUI
     }
 
     /**
-    * Set Only text, no HTML.
-    *
-    * @param	boolean	$a_textonly	Only text, no HTML
-    */
+     * Set Only text, no HTML.
+     *
+     * @param	boolean	$a_textonly	Only text, no HTML
+     */
     public function setTextOnly($a_textonly)
     {
         $this->textonly = $a_textonly;
     }
-    
+
     public function setOffline($a_offline)
     {
         $this->offline = $a_offline;
@@ -84,21 +84,21 @@ class ilLocatorGUI
     }
 
     /**
-    * Get Only text, no HTML.
-    *
-    * @return	boolean	Only text, no HTML
-    */
+     * Get Only text, no HTML.
+     *
+     * @return	boolean	Only text, no HTML
+     */
     public function getTextOnly()
     {
         return $this->textonly;
     }
 
     /**
-    * add repository item
-    *
-    * @param	int		$a_ref_id	current ref id (optional);
-    *								if empty $_GET["ref_id"] is used
-    */
+     * add repository item
+     *
+     * @param	int		$a_ref_id	current ref id (optional);
+     *								if empty $_GET["ref_id"] is used
+     */
     public function addRepositoryItems($a_ref_id = 0)
     {
         $setting = $this->settings;
@@ -108,14 +108,14 @@ class ilLocatorGUI
         if ($a_ref_id == 0) {
             $a_ref_id = $_GET["ref_id"];
         }
-        
+
         include_once './Services/Container/classes/class.ilMemberViewSettings.php';
         if (ilMemberViewSettings::getInstance()->isActive() and $a_ref_id != ROOT_FOLDER_ID) {
             $a_start = ilMemberViewSettings::getInstance()->getContainer();
         } else {
             $a_start = ROOT_FOLDER_ID;
         }
-        
+
         if ($a_ref_id > 0) {
             $path = $tree->getPathFull($a_ref_id, $a_start);
 
@@ -154,7 +154,7 @@ class ilLocatorGUI
                 if ($row["title"] == "ILIAS" && $row["type"] == "root") {
                     $row["title"] = $this->lng->txt("repository");
                 }
-                
+
                 $ilCtrl->setParameterByClass("ilrepositorygui", "ref_id", $row["child"]);
                 $this->addItem(
                     $row["title"],
@@ -166,13 +166,13 @@ class ilLocatorGUI
             }
         }
     }
-    
+
     /**
-    * add administration tree items
-    *
-    * @param	int		$a_ref_id	current ref id (optional);
-    *								if empty $_GET["ref_id"] is used
-    */
+     * add administration tree items
+     *
+     * @param	int		$a_ref_id	current ref id (optional);
+     *								if empty $_GET["ref_id"] is used
+     */
     public function addAdministrationItems($a_ref_id = 0)
     {
         $tree = $this->tree;
@@ -186,17 +186,17 @@ class ilLocatorGUI
 
         if ($a_ref_id > 0) {
             $path = $tree->getPathFull($a_ref_id);
-            
+
             // add item for each node on path
             foreach ($path as $key => $row) {
                 if (!in_array($row["type"], array("root", "cat", "crs", "fold", "grp"))) {
                     continue;
                 }
-                
+
                 if ($row["child"] == ROOT_FOLDER_ID) {
                     $row["title"] = $lng->txt("repository");
                 }
-                
+
                 $class_name = $objDefinition->getClassName($row["type"]);
                 $class = strtolower("ilObj" . $class_name . "GUI");
                 $ilCtrl->setParameterByClass($class, "ref_id", $row["child"]);
@@ -209,14 +209,14 @@ class ilLocatorGUI
             }
         }
     }
-    
+
     public function addContextItems($a_ref_id, $a_omit_node = false, $a_stop = 0)
     {
         $tree = $this->tree;
-        
+
         if ($a_ref_id > 0) {
             $path = $tree->getPathFull($a_ref_id);
-            
+
             // we want to show the full path, from the major container to the item
             // (folders are not! treated as containers here), at least one parent item
             $r_path = array_reverse($path);
@@ -241,8 +241,8 @@ class ilLocatorGUI
                 if ($first == $row["child"]) {
                     $add_it = true;
                 }
-                
-                
+
+
                 if ($add_it && !$omit[$row["child"]] &&
                     (!$a_omit_node || ($row["child"] != $a_ref_id))) {
                     //echo "-".ilObject::_lookupTitle($row["obj_id"])."-";
@@ -260,20 +260,20 @@ class ilLocatorGUI
             }
         }
     }
-    
+
     /**
-    * add locator item
-    *
-    * @param	string	$a_title		item title
-    * @param	string	$a_link			item link
-    * @param	string	$a_frame		frame target
-    */
+     * add locator item
+     *
+     * @param	string	$a_title		item title
+     * @param	string	$a_link			item link
+     * @param	string	$a_frame		frame target
+     */
     public function addItem($a_title, $a_link, $a_frame = "", $a_ref_id = 0, $type = null)
     {
         // LTI
         global $DIC;
         $ltiview = $DIC['lti'];
-        
+
         $ilAccess = $this->access;
 
         if ($a_ref_id > 0 && !$ilAccess->checkAccess("visible", "", $a_ref_id)) {
@@ -286,50 +286,59 @@ class ilLocatorGUI
         $this->entries[] = array("title" => $a_title,
             "link" => $a_link, "frame" => $a_frame, "ref_id" => $a_ref_id, "type" => $type);
     }
-    
+
     /**
-    * Clear all Items
-    */
+     * Clear all Items
+     */
     public function clearItems()
     {
         $this->entries = array();
     }
-    
+
     /**
-    * Get all locator entries.
-    */
+     * Get all locator entries.
+     */
     public function getItems()
     {
         return $this->entries;
     }
-    
+
     /**
-    * Get locator HTML
-    */
+     * Get locator HTML
+     */
     public function getHTML()
     {
         $lng = $this->lng;
         $ilSetting = $this->settings;
-        
+
         if ($this->getTextOnly()) {
             $loc_tpl = new ilTemplate("tpl.locator_text_only.html", true, true, "Services/Locator");
         } else {
             $loc_tpl = new ilTemplate("tpl.locator.html", true, true, "Services/Locator");
         }
-        
+
         $items = $this->getItems();
         $first = true;
 
         if (is_array($items)) {
             foreach ($items as $item) {
+                // cat-tms-patch start
+                if (
+                    $first &&
+                    ilObject::_lookupType($item["ref_id"], true) != "crs" &&
+                    !$this->seeFullPath()) {
+                    continue;
+                }
+                // cat-tms-patch end
+
                 if (!$first) {
                     $loc_tpl->touchBlock("locator_separator_prefix");
                 }
-                
+
                 if ($item["ref_id"] > 0) {
                     $obj_id = ilObject::_lookupObjId($item["ref_id"]);
                     $type = ilObject::_lookupType($obj_id);
-                    
+
                     if (!$this->getTextOnly()) {
                         $icon_path = ilObject::_getIcon(
                             $obj_id,
@@ -338,7 +347,7 @@ class ilLocatorGUI
                             $this->getOffline()
                         );
                     }
-                    
+
                     $loc_tpl->setCurrentBlock("locator_img");
                     $loc_tpl->setVariable("IMG_SRC", $icon_path);
                     $loc_tpl->setVariable(
@@ -347,7 +356,7 @@ class ilLocatorGUI
                     );
                     $loc_tpl->parseCurrentBlock();
                 }
-                
+
                 $loc_tpl->setCurrentBlock("locator_item");
                 if ($item["link"] != "") {
                     $loc_tpl->setVariable("LINK_ITEM", $item["link"]);
@@ -359,7 +368,7 @@ class ilLocatorGUI
                     $loc_tpl->setVariable("PREFIX", $item["title"]);
                 }
                 $loc_tpl->parseCurrentBlock();
-                
+
                 $first = false;
             }
         } else {
@@ -367,7 +376,7 @@ class ilLocatorGUI
             $loc_tpl->touchBlock("locator");
         }
         $loc_tpl->setVariable("TXT_BREADCRUMBS", $lng->txt("breadcrumb_navigation"));
-        
+
         return trim($loc_tpl->get());
     }
 
@@ -378,7 +387,7 @@ class ilLocatorGUI
     {
         $lng = $this->lng;
         $ilSetting = $this->settings;
-        
+
         $items = $this->getItems();
         $first = true;
 
@@ -388,13 +397,32 @@ class ilLocatorGUI
                 if (!$first) {
                     $str .= " > ";
                 }
-                
+
                 $str .= $item["title"];
-                
+
                 $first = false;
             }
         }
-        
+
         return $str;
     }
+
+    // cat-tms-patch start
+    /**
+    * Checks user is allowed to the full path of locator
+    *
+    * @return bool
+    */
+    protected function seeFullPath()
+    {
+        global $DIC;
+        $g_user = $DIC->user();
+        $g_rbacreview = $DIC->rbac()->review();
+        $role_ids = $g_rbacreview->assignedGlobalRoles($g_user->getId());
+
+        $tms_role_settings_db = new ilTMSRolesDB($DIC->database());
+
+        return $tms_role_settings_db->viewFullBreadcrumb($role_ids);
+    }
+    // cat-tms-patch end
 } // END class.LocatorGUI
