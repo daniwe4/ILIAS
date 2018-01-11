@@ -6,41 +6,43 @@
 */
 class ilTMSAppEventListener
 {
-	/**
-	 * Handle an event in a listener.
-	 *
-	 * @param	string	$a_component	component, e.g. "Modules/Forum" or "Services/User"
-	 * @param	string	$a_event		event e.g. "createUser", "updateUser", "deleteUser", ...
-	 * @param	array	$a_parameter	parameter array (assoc), array("name" => ..., "phone_office" => ...)
-	 */
-	static function handleEvent($a_component, $a_event, $a_parameter)
-	{
-		if ($a_component === "Modules/Course") {
-			if ($a_event === "create") {
-				self::createUnboundCourseProvider($a_parameter["object"]);
-			}
-			elseif ($a_event === "delete") {
-				self::deleteUnboundCourseProvider($a_parameter["object"]);
-			}
-		}
-	}
+    /**
+     * Handle an event in a listener.
+     *
+     * @param	string	$a_component	component, e.g. "Modules/Forum" or "Services/User"
+     * @param	string	$a_event		event e.g. "createUser", "updateUser", "deleteUser", ...
+     * @param	array	$a_parameter	parameter array (assoc), array("name" => ..., "phone_office" => ...)
+     */
+    public static function handleEvent($a_component, $a_event, $a_parameter)
+    {
+        if ($a_component === "Modules/Course") {
+            if ($a_event === "create") {
+                self::createUnboundCourseProvider($a_parameter["object"]);
+            } elseif ($a_event === "delete") {
+                self::deleteUnboundCourseProvider($a_parameter["object"]);
+            }
+        }
+    }
 
-	static public function createUnboundCourseProvider(\ilObject $crs) {
-		require_once(__DIR__."/UnboundCourseProvider.php");
-		$provider_db = self::getProviderDB();
-		$provider_db->create($crs, "crs", UnboundCourseProvider::class, __DIR__."/UnboundCourseProvider.php");
-	}
+    public static function createUnboundCourseProvider(\ilObject $crs)
+    {
+        require_once(__DIR__ . "/UnboundCourseProvider.php");
+        $provider_db = self::getProviderDB();
+        $provider_db->createSeparatedUnboundProvider($crs, "crs", UnboundCourseProvider::class, __DIR__ . "/UnboundCourseProvider.php");
+    }
 
-	static public function deleteUnboundCourseProvider(\ilObject $crs) {
-		$provider_db = self::getProviderDB();
-		$unbound_providers = $provider_db->unboundProvidersOf($crs);
-		foreach ($unbound_providers as $unbound_provider) {
-			$provider_db->delete($unbound_provider, $crs);
-		}
-	}
+    public static function deleteUnboundCourseProvider(\ilObject $crs)
+    {
+        $provider_db = self::getProviderDB();
+        $unbound_providers = $provider_db->unboundProvidersOf($crs);
+        foreach ($unbound_providers as $unbound_provider) {
+            $provider_db->delete($unbound_provider, $crs);
+        }
+    }
 
-	static protected function getProviderDB() {
-		global $DIC;
-		return $DIC["ente.provider_db"];
-	}
+    protected static function getProviderDB()
+    {
+        global $DIC;
+        return $DIC["ente.provider_db"];
+    }
 }

@@ -21,7 +21,8 @@ trait MyUsersHelper
         $members = array_unique(array_merge($current, $employees, $superiors));
 
         foreach ($members as $user_id) {
-            $ret[$user_id] = \ilObjUser::_lookupFullname($user_id);
+            $name_infos = \ilObjUser::_lookupName($user_id);
+            $ret[$user_id] = $name_infos["lastname"] . ", " . $name_infos["firstname"];
         }
 
         uasort($ret, function ($a, $b) {
@@ -54,7 +55,8 @@ trait MyUsersHelper
                 );
 
         foreach ($members as $user_id) {
-            $ret[$user_id] = \ilObjUser::_lookupFullname($user_id);
+            $name_infos = \ilObjUser::_lookupName($user_id);
+            $ret[$user_id] = $name_infos["lastname"] . ", " . $name_infos["firstname"];
         }
 
         uasort($ret, function ($a, $b) {
