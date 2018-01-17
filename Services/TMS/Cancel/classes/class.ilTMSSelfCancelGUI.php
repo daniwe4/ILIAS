@@ -1,7 +1,4 @@
 <?php
-/**
- * cat-tms-patch start
- */
 
 use ILIAS\TMS\Booking;
 
@@ -21,7 +18,7 @@ class ilTMSSelfCancelGUI extends \ilTMSCancelGUI
      */
     protected function getComponentClass()
     {
-        return Booking\Step::class;
+        return Booking\SelfBookingStep::class;
     }
 
     /**
@@ -33,7 +30,3 @@ class ilTMSSelfCancelGUI extends \ilTMSCancelGUI
         $this->g_ctrl->setParameterByClass("ilTMSSelfCancelGUI", "usr_id", $usr_id);
     }
 }
-
-/**
- * cat-tms-patch end
- */
