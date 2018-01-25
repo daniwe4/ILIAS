@@ -9,9 +9,21 @@ use ILIAS\TMS\Mailing;
 class ilTMSMailContextILIAS implements Mailing\MailContext
 {
     private static $PLACEHOLDER = array(
-        'ILIAS_URL',
-        'CLIENT_NAME'
+        'ILIAS_URL' => 'placeholder_desc_ilias_ilias_url',
+        'CLIENT_NAME' => 'placeholder_desc_ilias_client_name'
     );
+
+    /**
+     * @var ilLanguage
+     */
+    protected $g_lang;
+
+    public function __construct()
+    {
+        global $DIC;
+        $this->g_lang = $DIC->language();
+        $this->g_lang->loadLanguageModule("tms");
+    }
 
     /**
      * @inheritdoc
@@ -35,6 +47,14 @@ class ilTMSMailContextILIAS implements Mailing\MailContext
      */
     public function placeholderIds()
     {
-        return $this::$PLACEHOLDER;
+        return array_keys(self::$PLACEHOLDER);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function placeholderDescriptionForId($placeholder_id)
+    {
+        return $this->g_lang->txt(self::$PLACEHOLDER[$placeholder_id]);
     }
 }

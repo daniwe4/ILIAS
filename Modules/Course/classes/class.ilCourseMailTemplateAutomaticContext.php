@@ -21,17 +21,11 @@ class ilCourseMailTemplateAutomaticContext extends ilMailTemplateContext
     const ID = 'crs_context_automatic';
     const REPOSITORY_REF_ID = 1;
 
-    /**
-     * @inheritdoc
-     */
     public function getId() : string
     {
         return self::ID;
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getTitle() : string
     {
         global $lng;
@@ -41,9 +35,6 @@ class ilCourseMailTemplateAutomaticContext extends ilMailTemplateContext
         return $lng->txt('crs_mail_context_automatic_title');
     }
 
-    /**
-     * @inheritdoc
-     */
     public function getDescription() : string
     {
         global $lng;
@@ -54,7 +45,8 @@ class ilCourseMailTemplateAutomaticContext extends ilMailTemplateContext
     }
 
     /**
-     * @inheritdoc
+     * Return an array of placeholders
+     * @return array
      */
     public function getSpecificPlaceholders() : array
     {
@@ -90,17 +82,18 @@ class ilCourseMailTemplateAutomaticContext extends ilMailTemplateContext
                 $id = get_class($context) . $placeholder_id;
                 $placeholders[$id] = array(
                     'placeholder' => $placeholder_id,
-                    'label' => get_class($context)
+                    'label' => $context->placeholderDescriptionForId($placeholder_id)
                 );
             }
         }
 
-        foreach ($this->getTMSStandardPlaceholderIds() as $context => $ids) {
-            foreach ($ids as $id) {
-                $placeholders[$context . $id] = array(
-                        'placeholder' => $id,
-                        'label' => $context
-                    );
+        foreach ($this->getTMSStandardContexts() as $context) {
+            foreach ($context->placeholderIds() as $placeholder_id) {
+                $id = get_class($context) . $placeholder_id;
+                $placeholders[$id] = array(
+                    'placeholder' => $placeholder_id,
+                    'label' => $context->placeholderDescriptionForId($placeholder_id)
+                );
             }
         }
 
@@ -110,8 +103,12 @@ class ilCourseMailTemplateAutomaticContext extends ilMailTemplateContext
     /**
      * @inheritdoc
      */
-    public function resolveSpecificPlaceholder($placeholder_id, array $context_parameters, ilObjUser $recipient = null, $html_markup = false) : string
-    {
+    public function resolveSpecificPlaceholder(
+        $placeholder_id,
+        array $context_parameters,
+        ilObjUser $recipient = null,
+        $html_markup = false
+    ) : string {
         /**
          * @var $ilObjDataCache ilObjectDataCache
          */
@@ -176,13 +173,13 @@ class ilCourseMailTemplateAutomaticContext extends ilMailTemplateContext
     /**
      * Get placeholderids of TMS-Standard contexts
      *
-     * @return array<string, string[]>
+     * @return array<string, MailContext>
      */
-    protected function getTMSStandardPlaceholderIds()
+    protected function getTMSStandardContexts()
     {
         require_once('./Services/TMS/Mailing/classes/ilTMSMailing.php');
         $tms_mailing = new \ilTMSMailing();
-        return $tms_mailing->getPlaceholderIdsOfStandardContexts();
+        return $tms_mailing->getStandardContexts();
     }
 
     /**

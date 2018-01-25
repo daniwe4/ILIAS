@@ -27,10 +27,21 @@ interface MailContext
      */
     public function valueFor($placeholder_id, $contexts = array());
 
+<<<<<<< HEAD
     /**
      * Returns the list of placeholder_ids this context provides.
      *
      * @return string[]
      */
     public function placeholderIds();
+=======
+	/**
+	 * get a description for this placeholder
+	 *
+	 * @param string 	$placeholder_id
+	 * @return string
+	 */
+	public function placeholderDescriptionForId($placeholder_id);
+
+>>>>>>> 847b4c3c72... TMS: translated descriptions for mail-placeholders
 }
