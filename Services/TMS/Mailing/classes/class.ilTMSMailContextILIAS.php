@@ -8,10 +8,6 @@ use ILIAS\TMS\Mailing;
  */
 class ilTMSMailContextILIAS implements Mailing\MailContext
 {
-    private static $PLACEHOLDER = array(
-        'ILIAS_URL' => 'placeholder_desc_ilias_ilias_url',
-        'CLIENT_NAME' => 'placeholder_desc_ilias_client_name'
-    );
 
     /**
      * @var ilLanguage
@@ -25,6 +21,11 @@ class ilTMSMailContextILIAS implements Mailing\MailContext
         $this->g_lang->loadLanguageModule("tms");
     }
 
+    private static $PLACEHOLDER = array(
+        'ILIAS_URL' => 'placeholder_desc_ilias_ilias_url',
+        'CLIENT_NAME' => 'placeholder_desc_ilias_client_name'
+    );
+
     /**
      * @inheritdoc
      */
@@ -33,10 +34,8 @@ class ilTMSMailContextILIAS implements Mailing\MailContext
         switch ($placeholder_id) {
             case 'ILIAS_URL':
                 return ILIAS_HTTP_PATH . '/login.php?client_id=' . CLIENT_ID;
-                break;
             case 'CLIENT_NAME':
                 return CLIENT_NAME;
-                break;
             default:
                 return null;
         }

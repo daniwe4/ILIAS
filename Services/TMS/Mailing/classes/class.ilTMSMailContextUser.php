@@ -26,9 +26,10 @@ class ilTMSMailContextUser implements Mailing\MailContext
     protected $usr;
 
     /**
-    * @var ilLanguage
-    */
+     * @var ilLanguage
+     */
     protected $g_lang;
+
 
     public function __construct($usr_id)
     {
@@ -45,11 +46,18 @@ class ilTMSMailContextUser implements Mailing\MailContext
      */
     public function valueFor($placeholder_id, $contexts = array())
     {
-        if (array_key_exists($placeholder_id, $this::$PLACEHOLDER)) {
-            $func = $this::$PLACEHOLDER[$placeholder_id];
-            return $this->$func();
+        switch ($placeholder_id) {
+            case 'MAIL_SALUTATION':
+                return $this->salutation();
+            case 'FIRST_NAME':
+                return $this->firstName();
+            case 'LAST_NAME':
+                return $this->lastName();
+            case 'LOGIN':
+                return $this->login();
+            default:
+                return null;
         }
-        return null;
     }
 
     /**
@@ -61,8 +69,8 @@ class ilTMSMailContextUser implements Mailing\MailContext
     }
 
     /**
-    * @inheritdoc
-    */
+     * @inheritdoc
+     */
     public function placeholderDescriptionForId($placeholder_id)
     {
         return $this->g_lang->txt(static::$PLACEHOLDER[$placeholder_id]);
