@@ -45,250 +45,250 @@ class ilUserProfile
     // 		- <settingsproperty>_fix_value: property has a fix value (cannot be changed)
     private static $user_field = array(
         "username" => array(
-                        "input" => "login",
-                        "maxlength" => 64,
-                        "size" => 40,
-                        "method" => "getLogin",
-                        "course_export_fix_value" => 1,
-                        "group_export_fix_value" => 1,
-                        "changeable_hide" => true,
-                        "required_hide" => true,
-                        "group" => "personal_data"),
+            "input" => "login",
+            "maxlength" => 64,
+            "size" => 40,
+            "method" => "getLogin",
+            "course_export_fix_value" => 1,
+            "group_export_fix_value" => 1,
+            "changeable_hide" => true,
+            "required_hide" => true,
+            "group" => "personal_data"),
         "password" => array(
-                        "input" => "password",
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        'visib_lua_fix_value' => 0,
-                        "course_export_hide" => true,
-                        "export_hide" => false,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "group" => "personal_data"),
+            "input" => "password",
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            'visib_lua_fix_value' => 0,
+            "course_export_hide" => true,
+            "export_hide" => false,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "group" => "personal_data"),
         "firstname" => array(
-                        "input" => "text",
-                        "maxlength" => 32,
-                        "size" => 40,
-                        "method" => "getFirstname",
-                        "required_fix_value" => 1,
-                        "visib_reg_fix_value" => 1,
-                        'visib_lua_fix_value' => 1,
-                        "course_export_fix_value" => 1,
-                        "group_export_fix_value" => 1,
-                        "group" => "personal_data"),
+            "input" => "text",
+            "maxlength" => 32,
+            "size" => 40,
+            "method" => "getFirstname",
+            "required_fix_value" => 1,
+            "visib_reg_fix_value" => 1,
+            'visib_lua_fix_value' => 1,
+            "course_export_fix_value" => 1,
+            "group_export_fix_value" => 1,
+            "group" => "personal_data"),
         "lastname" => array(
-                        "input" => "text",
-                        "maxlength" => 32,
-                        "size" => 40,
-                        "method" => "getLastname",
-                        "required_fix_value" => 1,
-                        "visib_reg_fix_value" => 1,
-                        'visib_lua_fix_value' => 1,
-                        "course_export_fix_value" => 1,
-                        "group_export_fix_value" => 1,
-                        "group" => "personal_data"),
+            "input" => "text",
+            "maxlength" => 32,
+            "size" => 40,
+            "method" => "getLastname",
+            "required_fix_value" => 1,
+            "visib_reg_fix_value" => 1,
+            'visib_lua_fix_value' => 1,
+            "course_export_fix_value" => 1,
+            "group_export_fix_value" => 1,
+            "group" => "personal_data"),
         "title" => array(
-                        "input" => "text",
-                        "lang_var" => "person_title",
-                        "maxlength" => 32,
-                        "size" => 40,
-                        "method" => "getUTitle",
-                        "group" => "personal_data"),
+            "input" => "text",
+            "lang_var" => "person_title",
+            "maxlength" => 32,
+            "size" => 40,
+            "method" => "getUTitle",
+            "group" => "personal_data"),
         "birthday" => array(
-                        "input" => "birthday",
-                        "lang_var" => "birthday",
-                        "maxlength" => 32,
-                        "size" => 40,
-                        "method" => "getBirthday",
-                        "group" => "personal_data"),
+            "input" => "birthday",
+            "lang_var" => "birthday",
+            "maxlength" => 32,
+            "size" => 40,
+            "method" => "getBirthday",
+            "group" => "personal_data"),
         "gender" => array(
-                        "input" => "radio",
-                        "values" => array("n" => "salutation_n", "f" => "salutation_f", "m" => "salutation_m"),
-                        "method" => "getGender",
-                        "group" => "personal_data"),
+            "input" => "radio",
+            "values" => array("n" => "salutation_n", "f" => "salutation_f", "m" => "salutation_m"),
+            "method" => "getGender",
+            "group" => "personal_data"),
         "upload" => array(
-                        "input" => "picture",
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "lang_var" => "personal_picture",
-                        "group" => "personal_data"),
+            "input" => "picture",
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "lang_var" => "personal_picture",
+            "group" => "personal_data"),
         "roles" => array(
-                        "input" => "roles",
-                        "changeable_hide" => true,
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "export_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "group" => "personal_data"),
+            "input" => "roles",
+            "changeable_hide" => true,
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "export_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "group" => "personal_data"),
         "interests_general" => array(
-                        "input" => "multitext",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getGeneralInterests",
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "group" => "interests"),
+            "input" => "multitext",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getGeneralInterests",
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "group" => "interests"),
         "interests_help_offered" => array(
-                        "input" => "multitext",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getOfferingHelp",
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "group" => "interests"),
+            "input" => "multitext",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getOfferingHelp",
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "group" => "interests"),
         "interests_help_looking" => array(
-                        "input" => "multitext",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getLookingForHelp",
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "group" => "interests"),
+            "input" => "multitext",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getLookingForHelp",
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "group" => "interests"),
         "org_units" => array(
-                        "input" => "noneditable",
-                        "lang_var" => "objs_orgu",
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => false,
-                        "group_export_hide" => false,
-                        "export_hide" => true,
-                        "changeable_hide" => true,
-                        "changeable_fix_value" => 0,
-                        "changeable_lua_hide" => true,
-                        "changeable_lua_fix_value" => 0,
-                        "method" => "getOrgUnitsRepresentation",
-                        "group" => "contact_data"),
+            "input" => "noneditable",
+            "lang_var" => "objs_orgu",
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => false,
+            "group_export_hide" => false,
+            "export_hide" => true,
+            "changeable_hide" => true,
+            "changeable_fix_value" => 0,
+            "changeable_lua_hide" => true,
+            "changeable_lua_fix_value" => 0,
+            "method" => "getOrgUnitsRepresentation",
+            "group" => "contact_data"),
         "institution" => array(
-                        "input" => "text",
-                        "maxlength" => 80,
-                        "size" => 40,
-                        "method" => "getInstitution",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 80,
+            "size" => 40,
+            "method" => "getInstitution",
+            "group" => "contact_data"),
         "department" => array(
-                        "input" => "text",
-                        "maxlength" => 80,
-                        "size" => 40,
-                        "method" => "getDepartment",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 80,
+            "size" => 40,
+            "method" => "getDepartment",
+            "group" => "contact_data"),
         "street" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getStreet",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getStreet",
+            "group" => "contact_data"),
         "zipcode" => array(
-                        "input" => "text",
-                        "maxlength" => 10,
-                        "size" => 10,
-                        "method" => "getZipcode",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 10,
+            "size" => 10,
+            "method" => "getZipcode",
+            "group" => "contact_data"),
         "city" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getCity",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getCity",
+            "group" => "contact_data"),
         "country" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getCountry",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getCountry",
+            "group" => "contact_data"),
         "sel_country" => array(
-                        "input" => "sel_country",
-                        "method" => "getSelectedCountry",
-                        "group" => "contact_data"),
+            "input" => "sel_country",
+            "method" => "getSelectedCountry",
+            "group" => "contact_data"),
         "phone_office" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getPhoneOffice",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getPhoneOffice",
+            "group" => "contact_data"),
         "phone_home" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getPhoneHome",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getPhoneHome",
+            "group" => "contact_data"),
         "phone_mobile" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getPhoneMobile",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getPhoneMobile",
+            "group" => "contact_data"),
         "fax" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getFax",
-                        "group" => "contact_data"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getFax",
+            "group" => "contact_data"),
         "email" => array(
-                        "input" => "email",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getEmail",
-                        "group" => "contact_data"),
+            "input" => "email",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getEmail",
+            "group" => "contact_data"),
         "second_email" => array(
-                        "input" => "second_email",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getSecondEmail",
-                        "group" => "contact_data"),
+            "input" => "second_email",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getSecondEmail",
+            "group" => "contact_data"),
         "hobby" => array(
-                        "input" => "textarea",
-                        "rows" => 3,
-                        "cols" => 45,
-                        "method" => "getHobby",
-                        "lists_hide" => true,
-                        "group" => "contact_data"),
+            "input" => "textarea",
+            "rows" => 3,
+            "cols" => 45,
+            "method" => "getHobby",
+            "lists_hide" => true,
+            "group" => "contact_data"),
         "referral_comment" => array(
-                        "input" => "textarea",
-                        "rows" => 3,
-                        "cols" => 45,
-                        "method" => "getComment",
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "lists_hide" => true,
-                        "group" => "contact_data"),
+            "input" => "textarea",
+            "rows" => 3,
+            "cols" => 45,
+            "method" => "getComment",
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "lists_hide" => true,
+            "group" => "contact_data"),
         "matriculation" => array(
-                        "input" => "text",
-                        "maxlength" => 40,
-                        "size" => 40,
-                        "method" => "getMatriculation",
-                        "group" => "other"),
+            "input" => "text",
+            "maxlength" => 40,
+            "size" => 40,
+            "method" => "getMatriculation",
+            "group" => "other"),
         "language" => array(
-                        "input" => "language",
-                        "method" => "getLanguage",
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "group" => "settings"),
+            "input" => "language",
+            "method" => "getLanguage",
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "group" => "settings"),
         "skin_style" => array(
-                        "input" => "skinstyle",
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "group" => "settings"),
+            "input" => "skinstyle",
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "group" => "settings"),
         "hits_per_page" => array(
-                        "input" => "hitsperpage",
-                        "default" => 10,
-                        "options" => array(
-                            10 => 10, 15 => 15, 20 => 20, 30 => 30, 40 => 40,
-                            50 => 50, 100 => 100, 9999 => 9999),
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "group" => "settings"),
+            "input" => "hitsperpage",
+            "default" => 10,
+            "options" => array(
+                10 => 10, 15 => 15, 20 => 20, 30 => 30, 40 => 40,
+                50 => 50, 100 => 100, 9999 => 9999),
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "group" => "settings"),
         /*"show_users_online" => array(
                         "input" => "selection",
                         "default" => "y",
@@ -343,29 +343,29 @@ class ilUserProfile
             )
         ),
         "preferences" => array(
-                        "visible_fix_value" => 1,
-                        "changeable_fix_value" => 1,
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "group" => "preferences"),
+            "visible_fix_value" => 1,
+            "changeable_fix_value" => 1,
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "group" => "preferences"),
         "mail_incoming_mail" => array(
-                        "input" => "selection",
-                        "default" => "y",
-                        "options" => array(
-                            ilMailOptions::INCOMING_LOCAL => "mail_incoming_local",
-                            ilMailOptions::INCOMING_EMAIL => "mail_incoming_smtp",
-                            ilMailOptions::INCOMING_BOTH => "mail_incoming_both"),
-                        "required_hide" => true,
-                        "visib_reg_hide" => true,
-                        "course_export_hide" => true,
-                        "group_export_hide" => true,
-                        "export_hide" => true,
-                        "search_hide" => true,
-                        "group" => "settings")
-        
-        );
+            "input" => "selection",
+            "default" => "y",
+            "options" => array(
+                ilMailOptions::INCOMING_LOCAL => "mail_incoming_local",
+                ilMailOptions::INCOMING_EMAIL => "mail_incoming_smtp",
+                ilMailOptions::INCOMING_BOTH => "mail_incoming_both"),
+            "required_hide" => true,
+            "visib_reg_hide" => true,
+            "course_export_hide" => true,
+            "group_export_hide" => true,
+            "export_hide" => true,
+            "search_hide" => true,
+            "group" => "settings")
+
+    );
 
 
     /**
@@ -392,7 +392,7 @@ class ilUserProfile
 
         $this->user_settings_config = new ilUserSettingsConfig();
     }
-    
+
     /**
      * Get standard user fields array
      */
@@ -409,7 +409,7 @@ class ilUserProfile
         }
         return $fields;
     }
-    
+
     /**
      * Get visible fields in local user administration
      * @return
@@ -419,9 +419,9 @@ class ilUserProfile
         global $DIC;
 
         $ilSetting = $DIC['ilSetting'];
-        
+
         $settings = $ilSetting->getAll();
-        
+
         $fields = array();
         foreach ($this->getStandardFields() as $field => $info) {
             if ($ilSetting->get('usr_settings_visib_lua_' . $field, 1)) {
@@ -432,8 +432,8 @@ class ilUserProfile
         }
         return $fields;
     }
-    
-    
+
+
     /**
      * Skip a group
      */
@@ -449,10 +449,10 @@ class ilUserProfile
     {
         $this->skip_fields[] = $a_field;
     }
-    
+
     /**
-    * Add standard fields to form
-    */
+     * Add standard fields to form
+     */
     public function addStandardFieldsToForm($a_form, $a_user = null, array $custom_fields = null)
     {
         global $DIC;
@@ -477,7 +477,7 @@ class ilUserProfile
             self::$user_field["roles"] = $roles;
             self::$user_field["roles"]["group"] = "settings";
         }
-        
+
         $fields = $this->getStandardFields();
         $current_group = "";
         $custom_fields_done = false;
@@ -500,7 +500,7 @@ class ilUserProfile
                         $custom_fields_done = true;
                     }
                 }
-                
+
                 $sh = new ilFormSectionHeaderGUI();
                 $sh->setTitle($lng->txt($p["group"]));
                 $a_form->addItem($sh);
@@ -511,11 +511,11 @@ class ilUserProfile
             if (isset($p["method"])) {
                 $m = $p["method"];
             }
-            
+
             $lv = (isset($p["lang_var"]) && $p["lang_var"] != "")
                 ? $p["lang_var"]
                 : $f;
-            
+
             switch ($p["input"]) {
                 case "login":
                     if ((int) $ilSetting->get('allow_change_loginname') || self::$mode == self::MODE_REGISTRATION) {
@@ -535,7 +535,7 @@ class ilUserProfile
                     }
                     $a_form->addItem($val);
                     break;
-                
+
                 case "text":
                     if (ilUserProfile::userSettingVisible($f)) {
                         $ti = new ilTextInputGUI($lng->txt($lv), "usr_" . $f);
@@ -583,7 +583,7 @@ class ilUserProfile
                         $a_form->addItem($bi);
                     }
                     break;
-                    
+
                 case "radio":
                     if (ilUserProfile::userSettingVisible($f)) {
                         $rg = new ilRadioGroupInputGUI($lng->txt($lv), "usr_" . $f);
@@ -601,12 +601,12 @@ class ilUserProfile
                         $a_form->addItem($rg);
                     }
                     break;
-                    
+
                 case "picture":
                     if (ilUserProfile::userSettingVisible("upload") && $a_user) {
                         $ii = new ilImageFileInputGUI($lng->txt("personal_picture"), "userfile");
                         $ii->setDisabled($ilSetting->get("usr_settings_disable_upload"));
-                        
+
                         $upload = $a_form->getFileUpload("userfile");
                         if ($upload["name"]) {
                             $ii->setPending($upload["name"]);
@@ -622,11 +622,11 @@ class ilUserProfile
                                 $ii->setAlt($lng->txt("personal_picture"));
                             }
                         }
-            
+
                         $a_form->addItem($ii);
                     }
                     break;
-                    
+
                 case "roles":
                     if (self::$mode == self::MODE_DESKTOP) {
                         if (ilUserProfile::userSettingVisible("roles")) {
@@ -669,10 +669,14 @@ class ilUserProfile
                         }
                     }
                     break;
-                    
+
                 case "email":
                     if (ilUserProfile::userSettingVisible($f)) {
                         $em = new ilEMailInputGUI($lng->txt($lv), "usr_" . $f);
+                        // cat-tms-patch start 735
+                        $em->setMaxLength(140);
+                        $em->setSize(140);
+                        // cat-tms-patch end
                         if ($a_user) {
                             $em->setValue($a_user->$m());
                         }
@@ -689,6 +693,10 @@ class ilUserProfile
                 case "second_email":
                     if (ilUserProfile::userSettingVisible($f)) {
                         $em = new ilEMailInputGUI($lng->txt($lv), "usr_" . $f);
+                        // cat-tms-patch start 735
+                        $em->setMaxLength(140);
+                        $em->setSize(140);
+                        // cat-tms-patch end
                         if ($a_user) {
                             $em->setValue($a_user->$m());
                         }
@@ -717,7 +725,7 @@ class ilUserProfile
                         $a_form->addItem($ta);
                     }
                     break;
-                    
+
                 case "password":
                     if (self::$mode == self::MODE_REGISTRATION) {
                         if (!$registration_settings->passwordGenerationEnabled()) {
@@ -733,7 +741,7 @@ class ilUserProfile
                         $a_form->addItem($ta);
                     }
                     break;
-                    
+
                 case "language":
                     if (ilUserProfile::userSettingVisible($f)) {
                         $ta = new ilSelectInputGUI($lng->txt($lv), "usr_" . $f);
@@ -754,7 +762,7 @@ class ilUserProfile
                         $a_form->addItem($ta);
                     }
                     break;
-                    
+
                 case "multitext":
                     if (ilUserProfile::userSettingVisible($f)) {
                         $ti = new ilTextInputGUI($lng->txt($lv), "usr_" . $f);
@@ -784,7 +792,7 @@ class ilUserProfile
                     break;
             }
         }
-        
+
         // append custom fields as "other"
         if (is_array($custom_fields) && !$custom_fields_done) {
             // add "other" subheader
@@ -798,15 +806,15 @@ class ilUserProfile
             }
         }
     }
-    
+
     public function setAjaxCallback($a_href)
     {
         $this->ajax_href = $a_href;
     }
-    
+
     /**
-    * Checks whether user setting is visible
-    */
+     * Checks whether user setting is visible
+     */
     public static function userSettingVisible($a_setting)
     {
         global $DIC;
@@ -825,7 +833,7 @@ class ilUserProfile
             return ($ilSetting->get("usr_settings_visib_reg_" . $a_setting, "1") || $ilSetting->get("require_" . $a_setting, "0"));
         }
     }
-    
+
     public static function setMode($mode)
     {
         global $DIC;
@@ -838,7 +846,7 @@ class ilUserProfile
         }
         return false;
     }
-        
+
     /**
      * Check if all required personal data fields are set
      *
@@ -854,14 +862,14 @@ class ilUserProfile
         $ilSetting = $DIC['ilSetting'];
 
         $user_settings_config = new ilUserSettingsConfig();
-        
+
         // standard fields
         foreach (self::$user_field as $field => $definition) {
             // only if visible in personal data
             if ($a_personal_data_only && !$user_settings_config->isVisible($field)) {
                 continue;
             }
-            
+
             if ($ilSetting->get("require_" . $field) && $definition["method"]) {
                 $value = $a_user->{$definition["method"]}();
                 if ($value == "") {
@@ -869,11 +877,11 @@ class ilUserProfile
                 }
             }
         }
-        
+
         // custom fields
         if ($a_include_udf) {
             $user_defined_data = $a_user->getUserDefinedData();
-            
+
             include_once './Services/User/classes/class.ilUserDefinedFields.php';
             $user_defined_fields = ilUserDefinedFields::_getInstance();
             foreach ($user_defined_fields->getRequiredDefinitions() as $field => $definition) {
@@ -881,17 +889,17 @@ class ilUserProfile
                 if ($a_personal_data_only && !$definition["visible"]) {
                     continue;
                 }
-                
+
                 if (!$user_defined_data["f_" . $field]) {
                     ilLoggerFactory::getLogger('user')->info('Profile is incomplete due to missing required udf.');
                     return true;
                 }
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      *
      * Returns whether a profile setting is editable by an user in the profile gui
@@ -907,7 +915,7 @@ class ilUserProfile
         $user_settings_config = new ilUserSettingsConfig();
         return $user_settings_config->isVisibleAndChangeable($setting);
     }
-    
+
     /**
      *
      * Returns an array of all ignorable profiel fields
@@ -927,26 +935,26 @@ class ilUserProfile
         global $DIC;
 
         $ilSetting = $DIC['ilSetting'];
-        
+
         $ignorableSettings = array();
-    
+
         foreach (self::$user_field as $field => $definition) {
             // !!!username and password must not be ignored!!!
             if ('username' == $field ||
                 'password' == $field) {
                 continue;
             }
-            
+
             // Field is not required -> continue
             if (!$ilSetting->get('require_' . $field)) {
                 continue;
             }
-            
+
             if (self::isEditableByUser($field)) {
                 $ignorableSettings[] = $field;
             }
         }
-        
+
         return $ignorableSettings;
     }
 }
