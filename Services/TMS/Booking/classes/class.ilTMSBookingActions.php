@@ -38,7 +38,7 @@ class ilTMSBookingActions implements Booking\Actions
             if (!$this->isCurrentUser((int) $user_id)) {
                 $event = self::EVENT_SUPERIOR_CANCELED_COURSE;
             }
-            $this->fireBookingEvent($event, (int) $course->getRefId(), (int) $user_id);
+            $this->fireBookingEvent($event, $course, (int) $user_id);
             return Booking\Actions::STATE_REMOVED_FROM_COURSE;
         }
 
@@ -49,7 +49,7 @@ class ilTMSBookingActions implements Booking\Actions
             if (!$this->isCurrentUser((int) $user_id)) {
                 $event = self::EVENT_SUPERIOR_CANCELED_WAITING;
             }
-            $this->fireBookingEvent($event, (int) $course->getRefId(), (int) $user_id);
+            $this->fireBookingEvent($event, $course, (int) $user_id);
             return Booking\Actions::STATE_REMOVED_FROM_WAITINGLIST;
         }
 
@@ -59,11 +59,11 @@ class ilTMSBookingActions implements Booking\Actions
     /**
      * Make the user be a member of the course, if he does not already have a member role.
      *
-     * @throws    \LogicException if user does have another role on the course than member
-     * @throws    \LogicException if user could not booked or added to waitinglist
-     * @param    \ilObjCourse    $course
-     * @param    \ilObjUser      $user
-     * @return    string
+     * @throws	\LogicException if user does have another role on the course than member
+     * @throws	\LogicException if user could not booked or added to waitinglist
+     * @param	\ilObjCourse    $course
+     * @param	\ilObjUser      $user
+     * @return	string
      */
     protected function maybeMakeCourseMember(\ilObjCourse $course, \ilObjUser $user)
     {
@@ -90,7 +90,7 @@ class ilTMSBookingActions implements Booking\Actions
             if (!$this->isCurrentUser((int) $user->getId())) {
                 $event = self::EVENT_SUPERIOR_BOOKED_COURSE;
             }
-            $this->fireBookingEvent($event, (int) $course->getRefId(), (int) $user->getId());
+            $this->fireBookingEvent($event, $course, (int) $user->getId());
             return Booking\Actions::STATE_BOOKED;
         }
 
@@ -100,7 +100,7 @@ class ilTMSBookingActions implements Booking\Actions
             if (!$this->isCurrentUser((int) $user->getId())) {
                 $event = self::EVENT_SUPERIOR_BOOKED_WAITING;
             }
-            $this->fireBookingEvent($event, (int) $course->getRefId(), (int) $user->getId());
+            $this->fireBookingEvent($event, $course, (int) $user->getId());
             return Booking\Actions::STATE_WAITING_LIST;
         }
 
@@ -110,7 +110,7 @@ class ilTMSBookingActions implements Booking\Actions
     /**
      * Check user can be booked as member
      *
-     * @param int     $crs_ref_id
+     * @param int 	$crs_ref_id
      * @param $booking_modality
      *
      * @return bool
@@ -131,7 +131,7 @@ class ilTMSBookingActions implements Booking\Actions
     /**
      * Checks user can be added to waitinglist
      *
-     * @param \ilObjCourse     $course
+     * @param \ilObjCourse 	$course
      * @param $booking_modality
      *
      * @return bool
@@ -155,7 +155,7 @@ class ilTMSBookingActions implements Booking\Actions
     /**
      * Get the first booking modalities below crs
      *
-     * @param int     $ref_id
+     * @param int 	$ref_id
      *
      * @return BookingModalities | null
      */
@@ -185,16 +185,15 @@ class ilTMSBookingActions implements Booking\Actions
 
 
     /**
-     * raises an event with course refId and user id as params.
-     * @param string     $event
-     * @param int     $crs_ref
-     * @param int     $usr_id
+     * raises an event with course ids and user id as params.
+     * @param string 	$event
+     * @param ilObjCourse 	$course
+     * @param int 	$usr_id
      * @return void
      */
-    private function fireBookingEvent($event, $crs_ref, $usr_id)
+    private function fireBookingEvent($event, \ilObjCourse $course, $usr_id)
     {
         assert('is_string($event)');
-        assert('is_int($crs_ref)');
         assert('is_int($usr_id)');
 
         global $ilAppEventHandler;
@@ -202,7 +201,8 @@ class ilTMSBookingActions implements Booking\Actions
             'Modules/Course',
             $event,
             array(
-                 'crs_ref_id' => $crs_ref,
+                 'crs_ref_id' => (int) $course->getRefId(),
+                 'obj_id' => (int) $course->getId(),
                  'usr_id' => $usr_id
              )
          );
