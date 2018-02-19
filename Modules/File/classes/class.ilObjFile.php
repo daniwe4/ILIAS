@@ -412,7 +412,10 @@ class ilObjFile extends ilObject2
      */
     public function copy($a_source, $a_destination)
     {
-        return copy($a_source, $this->getDirectory() . "/" . $a_destination);
+        // cat-patch start
+        //return copy($a_source, $this->getDirectory(). "/" . $a_destination);
+        return copy($a_source, $this->getDirectory($this->getVersion()) . "/" . $a_destination);
+        // cat-patch start
     }
 
 

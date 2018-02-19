@@ -2455,6 +2455,155 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
     }
 
     // cat-tms-patch start
+    // for course creation
+    /**
+    * Will be called after course creation with configuration options.
+    *
+    * @param       mixed   $config
+    * @return      void
+    */
+    public function afterCourseCreation($config)
+    {
+        foreach ($config as $key => $value) {
+            if ($key == "course_period") {
+                $this->setCourseStart(new ilDate($value["start"], IL_CAL_DATE));
+                $this->setCourseEnd(new ilDate($value["end"], IL_CAL_DATE));
+                $this->update();
+            } elseif ($key == "important_information") {
+                $this->setImportantInformation($value);
+                $this->update();
+            } elseif ($key == "venue_free_text" && ilPluginAdmin::isPluginActive('venues')) {
+                $vplug = ilPluginAdmin::getPluginObjectById('venues');
+                $vactions = $vplug->getActions();
+                $vassignment = $vactions->getAssignment((int) $this->getId());
+
+                if ($vassignment && $vassignment->isCustomAssignment()) {
+                    $vassignment = $vassignment->withVenueText($value);
+                    $vactions->updateAssignment($vassignment);
+                } else {
+                    $vactions->removeAssignment((int) $this->getId());
+                    $vassignment = $vactions->createCustomVenueAssignment(
+    (int) $this->getId(),
+    $value
+);
+                }
+            } elseif ($key == "venue_fixed" && ilPluginAdmin::isPluginActive('venues')) {
+                $vplug = ilPluginAdmin::getPluginObjectById('venues');
+                $vactions = $vplug->getActions();
+                $vassignment = $vactions->getAssignment((int) $this->getId());
+
+                if ($vassignment && $vassignment->isListAssignment()) {
+                    $vassignment = $vassignment->withVenueId((int) $value);
+                    $vactions->updateAssignment($vassignment);
+                } else {
+                    $vactions->removeAssignment((int) $this->getId());
+                    $vassignment = $vactions->createListVenueAssignment(
+    (int) $this->getId(),
+    (int) $value
+);
+                }
+            } elseif ($key == "provider_free_text" && ilPluginAdmin::isPluginActive('trainingprovider')) {
+                $pplug = ilPluginAdmin::getPluginObjectById('trainingprovider');
+                $pactions = $pplug->getActions();
+                $passignment = $pactions->getAssignment((int) $this->getId());
+
+                if ($passignment && $passignment->isCustomAssignment()) {
+                    $passignment = $passignment->withProviderText($value);
+                    $pactions->updateAssignment($passignment);
+                } else {
+                    $pactions->removeAssignment((int) $this->getId());
+                    $passignment = $pactions->createCustomProviderAssignment(
+    (int) $this->getId(),
+    $value
+);
+                }
+            } elseif ($key == "provider_fixed" && ilPluginAdmin::isPluginActive('trainingprovider')) {
+                $pplug = ilPluginAdmin::getPluginObjectById('trainingprovider');
+                $pactions = $pplug->getActions();
+                $passignment = $pactions->getAssignment((int) $this->getId());
+
+                if ($passignment && $passignment->isListAssignment()) {
+                    $passignment = $passignment->withProviderId((int) $value);
+                    $pactions->updateAssignment($passignment);
+                } else {
+                    $pactions->removeAssignment((int) $this->getId());
+                    $passignment = $pactions->createListProviderAssignment(
+    (int) $this->getId(),
+    (int) $value
+);
+                }
+            } elseif ($key == "title") {
+                $this->setTitle($config["title"]);
+                $this->update();
+            } elseif ($key == "weblink") {
+                global $DIC;
+                $g_lng = $DIC["lng"];
+                $g_lng->loadLanguageModule("tms");
+
+                require_once "Modules/WebResource/classes/class.ilObjLinkResource.php";
+                $obj = new ilObjLinkResource();
+                $obj->create(false);
+                $obj->createReference();
+                $obj->putInTree($this->getRefId());
+                $this->setPermissionsAfterCreation($obj);
+
+                $link_resource_items = new ilLinkResourceItems($obj->getId());
+                $link_resource_items->setTarget($value);
+                $link_resource_items->setTitle($g_lng->txt("weblink"));
+                $link_resource_items->setDescription("");
+                $link_resource_items->setDisableCheckStatus(false);
+                $link_resource_items->setInternal(false);
+                $link_resource_items->setActiveStatus(true);
+                $link_resource_items->add();
+                $link_resource_items->updateValid(true);
+            } elseif ($key == "upload_file") {
+                $file_name = $value["org_file_name"];
+                $file_path = $value["upload_file_path"];
+                $size = $value["file_size"];
+                $type = $value["file_type"];
+
+                $fileObj = new ilObjFile();
+                $fileObj->create();
+                $fileObj->createReference();
+                $fileObj->putInTree($this->getRefId());
+                $this->setPermissionsAfterCreation($fileObj);
+
+                $fileObj->setTitle($file_name);
+                $fileObj->setDescription("");
+                $fileObj->setFileName($file_name);
+                $fileObj->setFileType(ilMimeTypeUtil::getMimeType("", $file_name, $type));
+                $fileObj->setFileSize($size);
+                $fileObj->setVersion(1);
+                ilUtil::makeDirParents($fileObj->getDirectory($fileObj->getVersion()));
+
+                $fileObj->createDirectory();
+                $fileObj->raiseUploadError(true);
+                $fileObj->copy($file_path, $file_name);
+                if (ilObject::hasAutoRating($fileObj->getType(), $fileObj->getRefId())
+&& method_exists($fileObj, "setRating")
+) {
+                    $fileObj->setRating(true);
+                }
+                $fileObj->update();
+                unlink($file_path);
+            } else {
+                throw new \RuntimeException("Can't process configuration '$key'");
+            }
+        }
+    }
+
+    protected function setPermissionsAfterCreation($obj)
+    {
+        global $DIC;
+        $g_rbacreview = $DIC["rbacreview"];
+        $obj->setPermissions($this->getRefId());
+
+        include_once "Services/AccessControl/classes/class.ilRbacLog.php";
+        $rbac_log_roles = $g_rbacreview->getParentRoleIds($obj->getRefId(), false);
+        $rbac_log = ilRbacLog::gatherFaPa($obj->getRefId(), array_keys($rbac_log_roles), true);
+        ilRbacLog::add(ilRbacLog::CREATE_OBJECT, $obj->getRefId(), $rbac_log);
+    }
+
     /**
      * Do TMS specific stuff after cloneObject ran.
      *
@@ -2476,10 +2625,12 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
 
             $src = $vactions->getAssignment($src_id);
 
-            if ($src->isCustomAssignment()) {
-                $vactions->createCustomVenueAssignment($target_id, $src->getVenueText());
-            } else {
-                $vactions->createListVenueAssignment($target_id, (int) $src->getVenueId());
+            if ($src !== false) {
+                if ($src->isCustomAssignment()) {
+                    $vactions->createCustomVenueAssignment($target_id, $src->getVenueText());
+                } else {
+                    $vactions->createListVenueAssignment($target_id, (int) $src->getVenueId());
+                }
             }
         }
 
@@ -2488,22 +2639,23 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
             $pactions = $pplug->getActions();
 
             $src = $pactions->getAssignment($src_id);
-
-            if ($src->isCustomAssignment()) {
-                $pactions->createCustomProviderAssignment($target_id, $src->getProviderText());
-            } else {
-                $pactions->createListProviderAssignment($target_id, (int) $src->getProviderId());
+            if ($src !== false) {
+                if ($src->isCustomAssignment()) {
+                    $pactions->createCustomProviderAssignment($target_id, $src->getProviderText());
+                } else {
+                    $pactions->createListProviderAssignment($target_id, (int) $src->getProviderId());
+                }
             }
         }
     }
 
     /**
-    * Inserts copy-mapping info to database.
-    * @param int   $ref_id
-    * @param string        $search_type
-    *
-    * @return Object       of search type
-    */
+     * Inserts copy-mapping info to database.
+     * @param int   $ref_id
+     * @param string        $search_type
+     *
+     * @return Object       of search type
+     */
     protected function getAllChildrenOfByType($ref_id, $search_type, $tree, $obj_definition)
     {
         $childs = $tree->getChilds($ref_id);
@@ -2527,10 +2679,10 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
     }
 
     /**
-    * Get the txt closure from the copy settings plugin.
-    *
-    * @return Closure|false
-    */
+     * Get the txt closure from the copy settings plugin.
+     *
+     * @return Closure|false
+     */
     public function getCopySettingsTxtClosure()
     {
         global $DIC;

@@ -9,16 +9,35 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
 {
     protected $minute_step_size = 0;
 
+    // cat-tms-patch start
+    protected $read_only = false;
 
     /**
-    * Insert property html
-    *
+    * @param       bool    $readonly
     */
+    public function setReadOnly($read_only)
+    {
+        assert('is_bool($read_only)');
+        $this->read_only = $read_only;
+    }
+    // cat-tms-patch end
+
+    /**
+     * Insert property html
+     *
+     */
     public function render()
     {
         global $lng;
 
         $tpl = new ilTemplate("tpl.prop_duration.html", true, true, "Services/Form");
+
+        // cat-tms-patch start
+        if ($this->read_only) {
+            $attributes = ["disabled" => "disabled"];
+        } else {
+            $attributes = "";
+        }
 
         if ($this->getShowMonths()) {
             $tpl->setCurrentBlock("dur_months");
@@ -37,7 +56,7 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
                     true,
                     0,
                     '',
-                    '',
+                    $attributes,
                     $this->getDisabled()
                 )
             );
@@ -60,7 +79,7 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
                     true,
                     0,
                     '',
-                    '',
+                    $attributes,
                     $this->getDisabled()
                 )
             );
@@ -83,7 +102,7 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
                     true,
                     0,
                     '',
-                    '',
+                    $attributes,
                     $this->getDisabled()
                 )
             );
@@ -109,7 +128,7 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
                     true,
                     0,
                     '',
-                    '',
+                    $attributes,
                     $this->getDisabled()
                 )
             );
@@ -132,12 +151,13 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
                     true,
                     0,
                     '',
-                    '',
+                    $attributes,
                     $this->getDisabled()
                 )
             );
             $tpl->parseCurrentBlock();
         }
+        // cat-tms-patch end
 
         return $tpl->get();
     }
