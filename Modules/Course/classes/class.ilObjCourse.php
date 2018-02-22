@@ -2456,25 +2456,54 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
 
     // cat-tms-patch start
     /**
-    * Do TMS specific stuff after cloneObject ran.
-    *
-    * This will be run on the course that gets cloned, not on the result.
-    * This will be run before the contained objects are cloned.
-    *
-    * @param       \ilObjCourse    $new_course
-    * @return      void
-    */
+     * Do TMS specific stuff after cloneObject ran.
+     *
+     * This will be run on the course that gets cloned, not on the result.
+     * This will be run before the contained objects are cloned.
+     *
+     * @param       \ilObjCourse    $new_course
+     * @return      void
+     */
     protected function afterCloneForTMS(\ilObjCourse $new_course)
     {
+        require_once("Services/Component/classes/class.ilPluginAdmin.php");
+        $src_id = (int) $this->getId();
+        $target_id = (int) $new_course->getId();
         $this->insertCopyMappingInfoToDB($new_course);
+
+        if (ilPluginAdmin::isPluginActive('venues')) {
+            $vplug = ilPluginAdmin::getPluginObjectById('venues');
+            $vactions = $vplug->getActions();
+
+            $src = $vactions->getAssignment($src_id);
+
+            if ($src->isCustomAssignment()) {
+                $vactions->createCustomVenueAssignment($target_id, $src->getVenueText());
+            } else {
+                $vactions->createListVenueAssignment($target_id, (int) $src->getVenueId());
+            }
+        }
+
+        if (ilPluginAdmin::isPluginActive('trainingprovider')) {
+            $pplug = ilPluginAdmin::getPluginObjectById('trainingprovider');
+            $pactions = $pplug->getActions();
+
+            $src = $pactions->getAssignment($src_id);
+
+            if ($src->isCustomAssignment()) {
+                $pactions->createCustomProviderAssignment($target_id, $src->getProviderText());
+            } else {
+                $pactions->createListProviderAssignment($target_id, (int) $src->getProviderId());
+            }
+        }
     }
 
     /**
-    * Inserts copy-mapping info to database.
-    *
-    * @param       \ilObjCourse    $new_course
-    * @return      void
-    */
+     * Inserts copy-mapping info to database.
+     *
+     * @param       \ilObjCourse    $new_course
+     * @return      void
+     */
     protected function insertCopyMappingInfoToDB(\ilObjCourse $new_course)
     {
         global $DIC;
