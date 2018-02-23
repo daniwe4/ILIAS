@@ -1061,6 +1061,15 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
         $ilUser = $DIC['ilUser'];
         $certificateLogger = $DIC->logger()->cert();
 
+        // cat-tms-patch start
+        $title = $this->getTitle();
+        if ($txt = $this->getCopySettingsTxtClosure()) {
+            $prefix = $txt("template_prefix") . ": ";
+            if (strpos($title, $prefix) !== false) {
+                $this->setTitle(str_replace($prefix, "", $title));
+            }
+        }
+        // cat-tms-patch end
 
         $new_obj = parent::cloneObject($a_target_id, $a_copy_id, $a_omit_tree);
 
@@ -1114,6 +1123,11 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
 
         $book_service = new ilBookingService();
         $book_service->cloneSettings($this->getId(), $new_obj->getId());
+
+        // cat-tms-patch start
+        $this->afterCloneForTMS($new_obj);
+        $this->setTitle($title);
+        // cat-tms-patch end
 
 
         return $new_obj;
@@ -2457,11 +2471,11 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
     // cat-tms-patch start
     // for course creation
     /**
-    * Will be called after course creation with configuration options.
-    *
-    * @param       mixed   $config
-    * @return      void
-    */
+     * Will be called after course creation with configuration options.
+     *
+     * @param       mixed   $config
+     * @return      void
+     */
     public function afterCourseCreation($config)
     {
         foreach ($config as $key => $value) {
@@ -2483,9 +2497,9 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 } else {
                     $vactions->removeAssignment((int) $this->getId());
                     $vassignment = $vactions->createCustomVenueAssignment(
-    (int) $this->getId(),
-    $value
-);
+                        (int) $this->getId(),
+                        $value
+                    );
                 }
             } elseif ($key == "venue_fixed" && ilPluginAdmin::isPluginActive('venues')) {
                 $vplug = ilPluginAdmin::getPluginObjectById('venues');
@@ -2498,9 +2512,9 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 } else {
                     $vactions->removeAssignment((int) $this->getId());
                     $vassignment = $vactions->createListVenueAssignment(
-    (int) $this->getId(),
-    (int) $value
-);
+                        (int) $this->getId(),
+                        (int) $value
+                    );
                 }
             } elseif ($key == "provider_free_text" && ilPluginAdmin::isPluginActive('trainingprovider')) {
                 $pplug = ilPluginAdmin::getPluginObjectById('trainingprovider');
@@ -2513,9 +2527,9 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 } else {
                     $pactions->removeAssignment((int) $this->getId());
                     $passignment = $pactions->createCustomProviderAssignment(
-    (int) $this->getId(),
-    $value
-);
+                        (int) $this->getId(),
+                        $value
+                    );
                 }
             } elseif ($key == "provider_fixed" && ilPluginAdmin::isPluginActive('trainingprovider')) {
                 $pplug = ilPluginAdmin::getPluginObjectById('trainingprovider');
@@ -2528,9 +2542,9 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 } else {
                     $pactions->removeAssignment((int) $this->getId());
                     $passignment = $pactions->createListProviderAssignment(
-    (int) $this->getId(),
-    (int) $value
-);
+                        (int) $this->getId(),
+                        (int) $value
+                    );
                 }
             } elseif ($key == "title") {
                 $this->setTitle($config["title"]);
@@ -2580,8 +2594,8 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 $fileObj->raiseUploadError(true);
                 $fileObj->copy($file_path, $file_name);
                 if (ilObject::hasAutoRating($fileObj->getType(), $fileObj->getRefId())
-&& method_exists($fileObj, "setRating")
-) {
+                    && method_exists($fileObj, "setRating")
+                ) {
                     $fileObj->setRating(true);
                 }
                 $fileObj->update();
