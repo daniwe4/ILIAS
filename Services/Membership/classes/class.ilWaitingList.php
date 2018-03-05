@@ -131,6 +131,13 @@ abstract class ilWaitingList
             "WHERE usr_id = " . $ilDB->quote($a_usr_id, 'integer') . ' ' .
             "AND obj_id = " . $ilDB->quote($a_obj_id, 'integer');
         $ilDB->query($query);
+
+        // cat-tms-patch start
+        $ilAppEventHandler = $DIC["ilAppEventHandler"];
+        $payload = array("obj_id" => $a_obj_id, "usr_id" => $a_usr_id);
+        $ilAppEventHandler->raise("Services/Membership", "removeFromList", $payload);
+        // cat-tms-patch end
+
         return true;
     }
 
@@ -212,6 +219,12 @@ abstract class ilWaitingList
             " AND usr_id = " . $ilDB->quote($a_usr_id, 'integer') . " ";
         $res = $ilDB->manipulate($query);
         $this->read();
+
+        // cat-tms-patch start
+        $ilAppEventHandler = $DIC["ilAppEventHandler"];
+        $payload = array("obj_id" => $a_obj_id, "usr_id" => $a_usr_id);
+        $ilAppEventHandler->raise("Services/Membership", "removeFromList", $payload);
+        // cat-tms-patch end
 
         return true;
     }
@@ -382,12 +395,12 @@ abstract class ilWaitingList
 
     // cat-tms-patch start
     /**
-    * Get all crs ids where user is on waiting list
-    *
-    * @param int   $a_usr_id
-    *
-    * @return int[]
-    */
+     * Get all crs ids where user is on waiting list
+     *
+     * @param int   $a_usr_id
+     *
+     * @return int[]
+     */
     public static function getIdsWhereUserIsOnList($a_usr_id)
     {
         global $ilDB;
