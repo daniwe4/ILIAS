@@ -43,7 +43,7 @@ if (is_object($ilPluginAdmin)) {
 }
 
 $r_pos = strpos($_GET["target"], "_");
-$rest = substr($_GET["target"], $r_pos+1);
+$rest = substr($_GET["target"], $r_pos + 1);
 $target_arr = explode("_", $_GET["target"]);
 $target_type = $target_arr[0];
 $target_id = $target_arr[1];
@@ -69,8 +69,10 @@ if (!ilStartUpGUI::_checkGoto($_GET["target"])) {
                 ilObject::_lookupTitle(ilObject::_lookupObjId($tarr[1]))
             ), true);
         }
-    
-        ilUtil::redirect('ilias.php?baseClass=ilDashboardGUI');
+
+        // cat-tms-patch start (879)
+        ilUtil::redirect('');
+        // cat-tms-patch end
     }
 }
 
