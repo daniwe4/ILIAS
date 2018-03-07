@@ -42,11 +42,12 @@ interface MailContentBuilder
      */
     public function getSubject();
 
+
     /**
      * Gets the (HTML-)message of Mail with filled placeholders,
      * i.e.: apply all from placeholder values to template's message'.
      *
-     * @return string
+     * @return 	string
      */
     public function getMessage();
 
@@ -60,9 +61,9 @@ interface MailContentBuilder
     public function getPlainMessage();
 
     /**
-     * Returns pathes toimages that should be embedded.
+     * Returns pathes to images that should be embedded.
      *
-     * @return array[]	array( array('/path/to/img/img.jpg', 'img.jpg'), ...)
+     * @return 	array[]		array( array('/path/to/img/img.jpg', 'img.jpg'), ...)
      */
     public function getEmbeddedImages();
 
@@ -72,4 +73,12 @@ interface MailContentBuilder
      * @return string[]
      */
     public function getAttachments();
+
+    /**
+     *  Change style for mails according to the recipient's settings.
+     *
+     * @param 	Recipient 	$recipient
+     * @return 	MailContentBuilder
+     */
+    public function withStyleFor(Recipient $recipient);
 }
