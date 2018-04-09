@@ -53,7 +53,11 @@ class ilObjectAddNewItemGUI
     protected $sub_objects; // [array]
     protected $url_creation_callback; // [int]
     protected $url_creation; // [string]
-            
+
+    // cat-tms-patch start
+    protected $new_column;
+    // cat-tms-patch end
+
     /**
      * Constructor
      *
@@ -72,19 +76,23 @@ class ilObjectAddNewItemGUI
         $this->toolbar = $DIC->toolbar();
         $this->tpl = $DIC["tpl"];
         $lng = $DIC->language();
-        
+
         $this->parent_ref_id = (int) $a_parent_ref_id;
         $this->mode = ilObjectDefinition::MODE_REPOSITORY;
-                
+
+        // cat-tms-patch start
+        $this->new_column = [];
+        // cat-tms-patch end
+
         $lng->loadLanguageModule("rep");
         $lng->loadLanguageModule("cntr");
     }
-    
+
     public function setMode($a_mode)
     {
         $this->mode = (int) $a_mode;
     }
-    
+
     /**
      * Set object types which may not be created
      *
@@ -94,7 +102,7 @@ class ilObjectAddNewItemGUI
     {
         $this->disabled_object_types = $a_types;
     }
-    
+
     /**
      * Set after creation callback
      *
@@ -104,7 +112,7 @@ class ilObjectAddNewItemGUI
     {
         $this->url_creation_callback = $a_ref_id;
     }
-    
+
     /**
      * Set (custom) url for object creation
      *
@@ -114,7 +122,7 @@ class ilObjectAddNewItemGUI
     {
         $this->url_creation = $a_url;
     }
-    
+
     /**
      * Parse creatable sub objects for personal workspace
      *
@@ -127,19 +135,19 @@ class ilObjectAddNewItemGUI
         $objDefinition = $this->obj_definition;
         $lng = $this->lng;
         $ilSetting = $this->settings;
-        
+
         $this->sub_objects = array();
-        
+
         $settings_map = array("blog" => "blogs",
-                "file" => "files",
-                "tstv" => "certificates",
-                "excv" => "certificates",
-                "crsv" => "certificates",
-                "cmxv" => "certificates",
-                "ltiv" => "certificates",
-                "scov" => "certificates",
-                "webr" => "links");
-    
+            "file" => "files",
+            "tstv" => "certificates",
+            "excv" => "certificates",
+            "crsv" => "certificates",
+            "cmxv" => "certificates",
+            "ltiv" => "certificates",
+            "scov" => "certificates",
+            "webr" => "links");
+
         $subtypes = $objDefinition->getCreatableSubObjects("wfld", ilObjectDefinition::MODE_WORKSPACE);
         if (count($subtypes) > 0) {
             foreach (array_keys($subtypes) as $type) {
@@ -147,18 +155,18 @@ class ilObjectAddNewItemGUI
                     $ilSetting->get("disable_wsp_" . $settings_map[$type])) {
                     continue;
                 }
-                
+
                 $this->sub_objects[] = array("type" => "object",
                     "value" => $type,
                     "title" => $lng->txt("wsp_type_" . $type));
             }
         }
-        
+
         $this->sub_objects = ilUtil::sortArray($this->sub_objects, "title", 1);
-        
+
         return (bool) sizeof($this->sub_objects);
     }
-    
+
     /**
      * Parse creatable sub objects for repository incl. grouping
      *
@@ -169,30 +177,30 @@ class ilObjectAddNewItemGUI
         $objDefinition = $this->obj_definition;
         $lng = $this->lng;
         $ilAccess = $this->access;
-        
+
         $this->sub_objects = array();
-        
+
         if (!is_array($this->disabled_object_types)) {
             $this->disabled_object_types = array();
         }
         $this->disabled_object_types[] = "rolf";
-        
+
         $parent_type = ilObject::_lookupType($this->parent_ref_id, true);
         $subtypes = $objDefinition->getCreatableSubObjects($parent_type, $this->mode, $this->parent_ref_id);
         if (count($subtypes) > 0) {
             // grouping of object types
 
             $grp_map = $pos_group_map = array();
-            
+
             include_once("Services/Repository/classes/class.ilObjRepositorySettings.php");
             $groups = ilObjRepositorySettings::getNewItemGroups();
-            
+
             // no groups => use default
             if (!$groups) {
                 $default = ilObjRepositorySettings::getDefaultNewItemGrouping();
                 $groups = $default["groups"];
                 $grp_map = $default["items"];
-                
+
                 // reset positions (9999 = "other"/unassigned)
                 $pos = 0;
                 foreach ($subtypes as $item_type => $item) {
@@ -203,14 +211,14 @@ class ilObjectAddNewItemGUI
                         $subtypes[$item_type]["pos"] = "9999" . str_pad(++$pos, 4, "0", STR_PAD_LEFT);
                     }
                 }
-                
+
                 // assign default positions
                 foreach ($default["sort"] as $item_type => $pos) {
                     if (array_key_exists($item_type, $subtypes)) {
                         $subtypes[$item_type]["pos"] = $pos;
                     }
                 }
-                
+
                 // sort by default positions
                 $subtypes = ilUtil::sortArray($subtypes, "pos", "asc", true, true);
             }
@@ -222,7 +230,7 @@ class ilObjectAddNewItemGUI
                     }
                 }
             }
-            
+
             $group_separators = array();
             $pos_group_map[0] = $lng->txt("rep_new_item_group_other");
             $old_grp_ids = array();
@@ -234,7 +242,7 @@ class ilObjectAddNewItemGUI
                 }
                 $old_grp_ids[] = $item["id"];
             }
-            
+
             $current_grp = null;
             foreach ($subtypes as $type => $subitem) {
                 if (!in_array($type, $this->disabled_object_types)) {
@@ -251,22 +259,25 @@ class ilObjectAddNewItemGUI
                                     if ($current_grp && !in_array($obj_grp_id, $spath)) {
                                         // 1 only separator between groups
                                         if (!$sdone) {
-                                            $this->sub_objects[] = array("type" => "column_separator");
+                                            // cat-tms-patch start
+                                            $this->new_column[] = $pos_group_map[$obj_grp_id];
+                                            // cat-tms-patch end
                                             $sdone = true;
                                         }
                                         unset($group_separators[$idx]);
                                     }
                                 }
-                                
+
                                 $title = $pos_group_map[$obj_grp_id];
 
-                                $this->sub_objects[] = array("type" => "group",
-                                    "title" => $title);
+                                // cat-tms-patch start
+                                $this->sub_objects["group_" . $obj_grp_id] = ["title" => $title];
+                                // cat-tms-patch end
 
                                 $current_grp = $obj_grp_id;
                             }
                         }
-                        
+
                         if ($subitem["plugin"]) {
                             include_once("./Services/Component/classes/class.ilPlugin.php");
                             $title = ilObjectPlugin::lookupTxtById($type, "obj_" . $type);
@@ -274,18 +285,22 @@ class ilObjectAddNewItemGUI
                             // #13088
                             $title = $lng->txt("obj_" . $type);
                         }
-                        
-                        $this->sub_objects[] = array("type" => "object",
+
+                        // cat-tms-patch start
+                        $this->sub_objects["group_" . $current_grp]["items"][] = [
+                            "type" => "object",
                             "value" => $type,
-                            "title" => $title);
+                            "title" => $title
+                        ];
+                        // cat-tms-patch end
                     }
                 }
             }
         }
-        
+
         return (bool) sizeof($this->sub_objects);
     }
-    
+
     /**
      * Get rendered html of sub object list
      *
@@ -294,71 +309,73 @@ class ilObjectAddNewItemGUI
     protected function getHTML()
     {
         $ilCtrl = $this->ctrl;
-                
+
         if ($this->mode != ilObjectDefinition::MODE_WORKSPACE && !isset($this->url_creation)) {
             $base_url = "ilias.php?baseClass=ilRepositoryGUI&ref_id=" . $this->parent_ref_id . "&cmd=create";
         } else {
             $base_url = $this->url_creation;
         }
         $base_url = $ilCtrl->appendRequestTokenParameterString($base_url);
-        
+
         if ($this->url_creation_callback) {
             $base_url .= "&crtcb=" . $this->url_creation_callback;
         }
-        
+
         include_once("./Services/UIComponent/GroupedList/classes/class.ilGroupedListGUI.php");
         $gl = new ilGroupedListGUI();
         $gl->setAsDropDown(true, false);
 
-        foreach ($this->sub_objects as $item) {
-            switch ($item["type"]) {
-                case "column_separator":
-                    $gl->nextColumn();
-                    break;
+        // cat-tms-patch start
+        foreach ($this->sub_objects as $group_id => $group) {
+            if (in_array($group["title"], $this->new_column)) {
+                $gl->nextColumn();
+            }
 
-                /*
-                case "separator":
-                    $gl->addSeparator();
-                    break;
-                */
+            if ($group["title"] != "") {
+                $gl->addGroupHeader($group["title"]);
+            }
 
-                case "group":
-                    $gl->addGroupHeader($item["title"]);
-                    break;
+            $items = $group["items"];
 
-                case "object":
-                    $type = $item["value"];
+            if ($group["title"] == $this->lng->txt("rep_new_item_group_other")) {
+                uasort($items, function ($a, $b) {
+                    return strcasecmp($a["title"], $b["title"]);
+                });
+            }
 
-                    $path = ilObject::_getIcon('', 'tiny', $type);
-                    $icon = ($path != "")
-                        ? ilUtil::img($path) . " "
-                        : "";
-                    
-                    $url = $base_url . "&new_type=" . $type;
+            foreach ($items as $item) {
+                $type = $item["value"];
 
-                    $ttip = ilHelp::getObjCreationTooltipText($type);
+                $path = ilObject::_getIcon('', 'tiny', $type);
+                $icon = "";
+                if ($path != "") {
+                    $icon = ilUtil::img($path) . " ";
+                }
 
-                    $gl->addEntry(
-                        $icon . $item["title"],
-                        $url,
-                        "_top",
-                        "",
-                        "",
-                        $type,
-                        $ttip,
-                        "bottom center",
-                        "top center",
-                        false
-                    );
+                $url = $base_url . "&new_type=" . $type;
 
-                    break;
+                $ttip = ilHelp::getObjCreationTooltipText($type);
+
+                $gl->addEntry(
+                    $icon . $item["title"],
+                    $url,
+                    "_top",
+                    "",
+                    "",
+                    $type,
+                    $ttip,
+                    "bottom center",
+                    "top center",
+                    false
+                );
             }
         }
+        // cat-tms-patch end
         $this->gl = $gl;
-        
+
         return $gl->getHTML();
     }
-    
+
     /**
      * Add new item selection to current page incl. toolbar (trigger) and overlay
      */
@@ -367,7 +384,7 @@ class ilObjectAddNewItemGUI
         $ilToolbar = $this->toolbar;
         $tpl = $this->tpl;
         $lng = $this->lng;
-                        
+
         if ($this->mode == ilObjectDefinition::MODE_WORKSPACE) {
             if (!$this->parsePersonalWorkspace()) {
                 return;
@@ -375,10 +392,10 @@ class ilObjectAddNewItemGUI
         } elseif (!$this->parseRepository()) {
             return;
         }
-                
+
         $ov_id = "il_add_new_item_ov";
         $ov_trigger_id = $ov_id . "_tr";
-        
+
 
         include_once("./Services/UIComponent/AdvancedSelectionList/classes/class.ilAdvancedSelectionListGUI.php");
         $adv = new ilAdvancedSelectionListGUI();
@@ -388,7 +405,7 @@ class ilObjectAddNewItemGUI
         $adv->setStyle(ilAdvancedSelectionListGUI::STYLE_EMPH);
         $tpl->setVariable("SELECT_OBJTYPE_REPOS", $adv->getHTML());
         //$ilToolbar->addDropDown($lng->txt("cntr_add_new_item"), $this->getHTML());
-        
+
         return;
 
         // toolbar
@@ -398,7 +415,7 @@ class ilObjectAddNewItemGUI
         $button->setCaption("cntr_add_new_item");
         $button->setPrimary(true);
         $ilToolbar->addButtonInstance($button);
-            
+
         // css?
         $tpl->setVariable(
             "SELECT_OBJTYPE_REPOS",
