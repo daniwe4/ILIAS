@@ -4,7 +4,6 @@ use \CaT\Ente\ILIAS\SeparatedUnboundProvider;
 use \CaT\Ente\ILIAS\Entity;
 use \ILIAS\TMS\CourseInfo;
 use \ILIAS\TMS\CourseInfoImpl;
-
 use \ILIAS\TMS\ActionBuilder;
 
 class UnboundCourseProvider extends SeparatedUnboundProvider
@@ -498,7 +497,6 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
     protected function getAppointmentOutput(array $appointments) : array
     {
         $appointments = $this->sortAppointments($appointments);
-
         $presentation_dates = array_map(
             function ($times) {
                 $date = $times["date"];
