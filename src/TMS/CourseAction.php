@@ -21,6 +21,7 @@ interface CourseAction extends Component
     const CONTEXT_MY_TRAININGS = 6;
     const CONTEXT_MY_ADMIN_TRAININGS = 7;
     const CONTEXT_SUPERIOR_SEARCH = 8;
+    const CONTEXT_TEP_SESSION_DETAILS = 9;
 
     /**
      * Get the owner of this action
