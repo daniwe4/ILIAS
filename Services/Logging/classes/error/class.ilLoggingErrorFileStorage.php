@@ -30,7 +30,11 @@ class ilLoggingErrorFileStorage
 
     protected function content()
     {
-        return $this->pageHeader()
+        // cat-tms-patch start
+        return "----------\n"
+              . "error_id: " . $this->file_name . "\n"
+        // cat-tms-patch end
+              . $this->pageHeader()
               . $this->exceptionContent()
               . $this->tablesContent()
               ;
