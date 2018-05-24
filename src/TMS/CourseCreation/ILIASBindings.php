@@ -1,10 +1,11 @@
 <?php
 
-/* Copyright (c) 2018 Richard Klees <richard.klees@concepts-and-training.de> */
+/** Copyright (c) 2018 Richard Klees <richard.klees@concepts-and-training.de> */
 
 namespace ILIAS\TMS\CourseCreation;
 
 use ILIAS\TMS\Wizard;
+use ILIAS\TMS\Translations as TranslationDecorator;
 
 require_once("Services/Form/classes/class.ilPropertyFormGUI.php");
 
@@ -15,11 +16,6 @@ require_once("Services/Form/classes/class.ilPropertyFormGUI.php");
  */
 class ILIASBindings implements Wizard\ILIASBindings
 {
-    /**
-     * @var	ilLanguage
-     */
-    protected $lng;
-
     /**
      * @var	ilCtrl
      */
@@ -45,17 +41,21 @@ class ILIASBindings implements Wizard\ILIASBindings
      */
     protected $parent_ref_id;
 
-    final public function __construct(\ilLanguage $lng, \ilCtrl $ctrl, $gui, array $parent_guis, $parent_cmd, $parent_ref_id)
+    /**
+     * @var \ILIAS\TMS\Translations
+     */
+    protected $translations;
+
+    final public function __construct(\ilCtrl $ctrl, $gui, array $parent_guis, $parent_cmd, $parent_ref_id, TranslationDecorator $translations)
     {
         assert('is_object($gui)');
         assert('is_string($parent_cmd)');
-        $this->lng = $lng;
         $this->ctrl = $ctrl;
-        $this->lng->loadLanguageModule('tms');
         $this->gui = $gui;
         $this->parent_guis = $parent_guis;
         $this->parent_cmd = $parent_cmd;
         $this->parent_ref_id = $parent_ref_id;
+        $this->translations = $translations;
     }
 
     /**
@@ -74,22 +74,7 @@ class ILIASBindings implements Wizard\ILIASBindings
      */
     public function txt($id)
     {
-        if ($id === "abort") {
-            $id = "cancel";
-        } elseif ($id === "next") {
-            $id = "btn_next";
-        } elseif ($id == "aborted") {
-            $id = "process_aborted";
-        } elseif ($id == "previous") {
-            $id = "btn_previous";
-        } elseif ($id == "title") {
-            $id = "create_course_from_template";
-        } elseif ($id == "overview_description") {
-            $id = $summary;
-        } elseif ($id == "confirm") {
-            $id = "create_course";
-        }
-        return $this->lng->txt($id);
+        return $this->translations->getTxt($id);
     }
 
     /**

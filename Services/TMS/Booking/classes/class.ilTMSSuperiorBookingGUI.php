@@ -16,7 +16,7 @@ require_once("Services/TMS/Booking/classes/ilTMSBookingGUI.php");
 class ilTMSSuperiorBookingGUI extends \ilTMSBookingGUI
 {
     /**
-     * @inheritdocs
+     * @inheritdoc
      */
     protected function getComponentClass()
     {
@@ -24,7 +24,7 @@ class ilTMSSuperiorBookingGUI extends \ilTMSBookingGUI
     }
 
     /**
-     * @inheritdocs
+     * @inheritdoc
      */
     protected function setParameter($crs_ref_id, $usr_id)
     {
@@ -36,7 +36,8 @@ class ilTMSSuperiorBookingGUI extends \ilTMSBookingGUI
     }
 
     /**
-     * @inheritdocs
+     * Get title of player (by mixing in the user's name)
+     * @return string
      */
     protected function getPlayerTitle()
     {
@@ -48,7 +49,22 @@ class ilTMSSuperiorBookingGUI extends \ilTMSBookingGUI
     }
 
     /**
-     * @inheritdocs
+     * @inheritdoc
+     */
+    protected function getTranslations()
+    {
+        $trans = new \ILIAS\TMS\TranslationsImpl(
+            array(
+                ILIAS\TMS\Wizard\Player::TXT_TITLE => $this->getPlayerTitle(),
+            ),
+            parent::getTranslations()
+        );
+        return $trans;
+    }
+
+
+    /**
+     * @inheritdoc
      */
     protected function getDuplicatedCourseMessage($usr_id)
     {
