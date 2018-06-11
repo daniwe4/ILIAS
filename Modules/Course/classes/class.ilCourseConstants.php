@@ -79,5 +79,10 @@ class ilCourseConstants
 	const VENUE_FROM_TEXT = 0;
 	const VENUE_FROM_LIST = 1;
 	// cat-tms-patch end
+
+	// cat-tms-patch start
+	const PROVIDER_FROM_TEXT = 0;
+	const PROVIDER_FROM_LIST = 1;
+	// cat-tms-patch end
 }
 ?>
