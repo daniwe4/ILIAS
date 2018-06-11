@@ -74,4 +74,10 @@ class ilCourseConstants
 
     const CRON_TIMINGS_STARTED_TABLE = 'crs_timings_started';
     const CRON_TIMINGS_EXCEEDED_TABLE = 'crs_timings_exceeded';
+
+    // cat-tms-patch start
+	const VENUE_FROM_TEXT = 0;
+	const VENUE_FROM_LIST = 1;
+	// cat-tms-patch end
 }
+?>

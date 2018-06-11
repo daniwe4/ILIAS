@@ -34,6 +34,12 @@ class ilObjCourseGUI extends ilContainerGUI
     const BREADCRUMB_CRS_ONLY = 1;
     const BREADCRUMB_FULL_PATH = 2;
 
+    // cat-tms-patch start
+    const INPUT_VENUE_SOURCE = "venue_source";
+    const INPUT_VENUE_TEXT = "venue_text";
+    const INPUT_VENUE_LIST = "venue_list";
+    // cat-tms-patch end
+
     /**
      * Constructor
      * @access public
@@ -1065,6 +1071,51 @@ class ilObjCourseGUI extends ilContainerGUI
         if (!$old_autofill && $this->object->hasWaitingListAutoFill()) {
             $this->object->handleAutoFill();
         }
+
+        // cat-tms-patch start
+        // venues (plugin)
+        if(ilPluginAdmin::isPluginActive('venues')) {
+            $vplug = ilPluginAdmin::getPluginObjectById('venues');
+            $vactions = $vplug->getActions();
+
+            $vassignment = $vactions->getAssignment((int)$this->object->getId());
+
+            switch($form->getInput(self::INPUT_VENUE_SOURCE)) {
+
+                case ilCourseConstants::VENUE_FROM_TEXT:
+                    if($vassignment && $vassignment->isCustomAssignment()) {
+                        $vassignment = $vassignment->withVenueText($form->getInput(self::INPUT_VENUE_TEXT));
+                        $vactions->updateAssignment($vassignment);
+                    } else {
+                        $vactions->removeAssignment((int)$this->object->getId());
+                        $vassignment = $vactions->createCustomVenueAssignment(
+                            (int)$this->object->getId(),
+                            $form->getInput(self::INPUT_VENUE_TEXT)
+                        );
+                    }
+                    break;
+
+                case ilCourseConstants::VENUE_FROM_LIST:
+                    $selected_assignment = $form->getInput(self::INPUT_VENUE_LIST);
+                    if($selected_assignment === "") {
+                        $vactions->removeAssignment((int)$this->object->getId());
+                    } else {
+                        if($vassignment && $vassignment->isListAssignment()) {
+                            $vassignment = $vassignment->withVenueId((int)$selected_assignment);
+                            $vactions->updateAssignment($vassignment);
+                        } else {
+                            $vactions->removeAssignment((int)$this->object->getId());
+                            $vassignment = $vactions->createListVenueAssignment(
+                                (int)$this->object->getId(),
+                                (int)$selected_assignment
+                            );
+                        }
+                    }
+                    break;
+            }
+        }
+        // cat-tms-patch end
+
         $this->object->update();
 
 
@@ -1196,6 +1247,57 @@ class ilObjCourseGUI extends ilContainerGUI
         $cdur->setStart($this->object->getCourseStart());
         $cdur->setEnd($this->object->getCourseEnd());
         $form->addItem($cdur);
+
+        // cat-tms-patch start
+        // venues (plugin)
+        if(ilPluginAdmin::isPluginActive('venues')) {
+            $vplug = ilPluginAdmin::getPluginObjectById('venues');
+            $vactions = $vplug->getActions();
+            $plugin_txt = $vplug->txtClosure();
+
+            //build options for select-input
+            $venues = $vactions->getAllVenues('name', 'ASC', null);
+            $voptions = array(null => $plugin_txt("please_select"));
+            foreach ($venues as $v) {
+                $voptions[$v->getGeneral()->getId()] = $v->getGeneral()->getName() .', ' .$v->getAddress()->getCity();
+            }
+            $venue_opts = new ilRadioGroupInputGUI($plugin_txt('crs_venue_source'), self::INPUT_VENUE_SOURCE);
+
+            //create inputs
+            $venue_opt_text = new ilRadioOption($plugin_txt('crs_venue_source_text'), ilCourseConstants::VENUE_FROM_TEXT);
+            $venue_opt_text_inp = new ilTextAreaInputGUI($plugin_txt('crs_venue_text'), self::INPUT_VENUE_TEXT);
+            $venue_opt_text_inp->setRows(6);
+            $venue_opt_text_inp->setCols(80);
+            $venue_opt_text->addSubItem($venue_opt_text_inp);
+
+            $venue_opt_list = new ilRadioOption($plugin_txt('crs_venue_source_list'), ilCourseConstants::VENUE_FROM_LIST);
+            $venue_opt_list_inp = new ilSelectInputGUI($plugin_txt('crs_venue_list'), self::INPUT_VENUE_LIST);
+            $venue_opt_list_inp->setOptions($voptions);
+            $venue_opt_list->addSubItem($venue_opt_list_inp);
+
+            //set values
+            $vassignment_type = ilCourseConstants::VENUE_FROM_LIST; //default
+            $vassignment = $vactions->getAssignment((int)$this->object->getId());
+
+            if($vassignment) {
+                if($vassignment->isCustomAssignment()) {
+                    $vassignment_type = ilCourseConstants::VENUE_FROM_TEXT;
+                    $venue_opt_text_inp->setValue($vassignment->getVenueText());
+                }
+
+                if($vassignment->isListAssignment()) {
+                    $vassignment_type = ilCourseConstants::VENUE_FROM_LIST;
+                    $venue_opt_list_inp->setValue($vassignment->getVenueId());
+                }
+            }
+            $venue_opts->setValue($vassignment_type);
+
+            //add options to form
+            $venue_opts->addOption($venue_opt_text);
+            $venue_opts->addOption($venue_opt_list);
+            $form->addItem($venue_opts);
+        }
+        // cat-tms-patch end
 
 
         // activation/availability
