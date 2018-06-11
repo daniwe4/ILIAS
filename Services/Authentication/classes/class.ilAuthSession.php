@@ -64,6 +64,13 @@ class ilAuthSession
      */
     public function init()
     {
+        // cat-tms-patch start
+        // Do not run in unit testing context
+        if (stripos($_SERVER["SCRIPT_NAME"], "phpunit") !== false) {
+            return true;
+        }
+        // cat-tms-patch end
+
         session_start();
         
         $this->setId(session_id());
@@ -114,7 +121,6 @@ class ilAuthSession
         $this->getLogger()->debug('Logout called for: ' . $this->getUserId());
         session_regenerate_id(true);
         session_destroy();
-
         $this->init();
         $this->setAuthenticated(true, ANONYMOUS_USER_ID);
     }
