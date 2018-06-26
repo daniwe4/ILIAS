@@ -800,4 +800,19 @@ class ActiveRecordList
     {
         return $this->raw;
     }
+    
+    // cat-tms-patch start
+    /**
+    * Set the primry fieldname
+    *
+    * @param string        $name
+    *
+    * @return ActiveRecordList
+    */
+    public function setPrimaryFieldName($name)
+    {
+        $this->getAR()->getArFieldList()->getPrimaryField()->setName($name);
+        return $this;
+    }
+    // cat-tms-patch end
 }

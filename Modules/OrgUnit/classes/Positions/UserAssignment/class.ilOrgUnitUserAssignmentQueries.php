@@ -122,7 +122,7 @@ class ilOrgUnitUserAssignmentQueries
      */
     public function getUserIdsOfOrgUnitsOfUsersPosition($position_id, $user_id, $recursive = false, $first_subsequent = false)
     {
-        return ilOrgUnitUserAssignment::where(['orgu_id' => $this->getOrgUnitIdsOfUsersPosition($position_id, $user_id, $recursive, $first_subsequent)])
+        return ilOrgUnitUserAssignment::where(['orgu_id' => $this->getOrgUnitIdsOfUsersPositionBy($position_id, $user_id, $recursive, $first_subsequent)])
             ->getArray(null, 'user_id');
     }
     // cat-tms-patch end
@@ -156,8 +156,12 @@ class ilOrgUnitUserAssignmentQueries
      */
     public function getUserIdsOfUsersOrgUnitsInPosition($user_id, $users_position_id, $position_id, $recursive = false, $first_subsequent = false)
     {
+        $orgu_ids = $this->getOrgUnitIdsOfUsersPositionBy($users_position_id, $user_id, $recursive, $first_subsequent);
+        if (count($orgu_ids) == 0) {
+            return [];
+        }
         return ilOrgUnitUserAssignment::where([
-            'orgu_id' => $this->getOrgUnitIdsOfUsersPosition($users_position_id, $user_id, $recursive, $first_subsequent),
+            'orgu_id' => $orgu_ids,
             'position_id' => $position_id,
         ])->getArray(null, 'user_id');
     }
@@ -185,19 +189,19 @@ class ilOrgUnitUserAssignmentQueries
             return $orgu_ids;
         }
 
+        $tree = ilObjOrgUnitTree::_getInstance();
         if ($first_subsequent && !$recursive) {
             $subsequent_orgu_ids = [];
             foreach ($orgu_ids as $orgu_id) {
-                $subsequent_orgu_ids = array_merge($subsequent_orgu_ids, $tree->getChildren($orgu_id));
+                $subsequent_orgu_ids = $subsequent_orgu_ids + $tree->getChildren($orgu_id);
             }
 
             return $subsequent_orgu_ids;
         }
 
         $recursive_orgu_ids = [];
-        $tree = ilObjOrgUnitTree::_getInstance();
         foreach ($orgu_ids as $orgu_id) {
-            $recursive_orgu_ids = array_merge($recursive_orgu_ids, $tree->getAllChildren($orgu_id));
+            $recursive_orgu_ids = $recursive_orgu_ids + $tree->getAllChildren($orgu_id);
         }
 
         return array_diff($recursive_orgu_ids, $orgu_ids);
@@ -242,4 +246,72 @@ class ilOrgUnitUserAssignmentQueries
         $q = "DELETE FROM il_orgu_ua WHERE user_id = " . $DIC->database()->quote($user_id, "integer");
         $DIC->database()->manipulate($q);
     }
+
+    // cat-tms-patch start
+    protected function getOrgUnitIdsOfUsersPositionBy($position_id, $user_id, $recursive = false, $first_subsequent = false)
+    {
+        if (!$recursive && !$first_subsequent) {
+            return $this->getOrgUnitIdsWhereUsersHasDirectlyPosition($position_id, $user_id);
+        }
+
+        if (!$recursive && $first_subsequent) {
+            return $this->getOrgUnitIdsWhereUsersHasDirectlyPositionOnlyFirstSubsequentChildren($position_id, $user_id);
+        }
+
+        return $this->getOrgUnitIdsWhereUsersHasDirectlyPositionOnlyRecursiveChildren($position_id, $user_id);
+    }
+
+    protected function getOrgUnitIdsWhereUsersHasDirectlyPosition($position_id, $user_id)
+    {
+        return ilOrgUnitUserAssignment::where(
+                       [
+                                           'position_id' => $position_id,
+                                           'user_id' => $user_id,
+                                   ]
+                       )->getArray(
+                           null,
+                           'orgu_id'
+                       );
+    }
+
+    protected function getOrgUnitIdsWhereUsersHasDirectlyPositionOnlyFirstSubsequentChildren($position_id, $user_id)
+    {
+        $orgu_ids = $this->getOrgUnitIdsWhereUsersHasDirectlyPosition($position_id, $user_id);
+
+        $subsequent_orgu_ids = [];
+        $tree = ilObjOrgUnitTree::_getInstance();
+        foreach ($orgu_ids as $orgu_id) {
+            $subsequent_orgu_ids = array_merge($subsequent_orgu_ids, $tree->getChildren($orgu_id));
+        }
+
+        return $subsequent_orgu_ids;
+    }
+
+    protected function getOrgUnitIdsWhereUsersHasDirectlyPositionOnlyRecursiveChildren($position_id, $user_id)
+    {
+        $orgu_ids = $this->getOrgUnitIdsWhereUsersHasDirectlyPosition($position_id, $user_id);
+
+        $recursive_orgu_ids = [];
+        $tree = ilObjOrgUnitTree::_getInstance();
+        foreach ($orgu_ids as $orgu_id) {
+            $recursive_orgu_ids = array_merge($recursive_orgu_ids, $tree->getAllChildren($orgu_id));
+        }
+
+        return array_diff($recursive_orgu_ids, $orgu_ids);
+    }
+
+    /**
+    * Get user with any position
+    *
+    * @return int[]        $user_ids
+    */
+    public function getUserIdsWithAtLeastOnePosition()
+    {
+        return ilOrgUnitUserAssignment::innerjoin("il_orgu_authority", "position_id", "position_id")
+->where([])
+->setPrimaryFieldName('user_id')
+->getArray('user_id', 'user_id')
+;
+    }
+    // cat-tms-patch end
 }

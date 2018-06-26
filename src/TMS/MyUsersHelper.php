@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ILIAS\TMS;
 
 trait MyUsersHelper
@@ -11,14 +13,15 @@ trait MyUsersHelper
      *
      * @return string[]
      */
-    public function getUserWhereCurrentCanBookFor($superior_user_id)
+    public function getUserWhereCurrentCanBookFor($superior_user_id) : array
     {
-        require_once("Services/User/classes/class.ilObjUser.php");
+        $positions = $this->getPositionWithPermissionToBook();
+        $orgus = $this->getOrgusByPositionAndUser($positions, $superior_user_id);
+
         $ret = array();
-        $employees = $this->getEmployesUnderUser($superior_user_id);
-        $superiors = $this->getSuperiorsUnderUser($superior_user_id);
+        $members = $this->getMembersByOrgus($orgus, $superior_user_id);
         $current = array((string) $superior_user_id);
-        $members = array_unique(array_merge($current, $employees, $superiors));
+        $members = array_unique(array_merge($current, $members));
 
         foreach ($members as $user_id) {
             $name_infos = \ilObjUser::_lookupName($user_id);
@@ -43,16 +46,13 @@ trait MyUsersHelper
     {
         require_once("Services/User/classes/class.ilObjUser.php");
         $ret = array();
-        $employees = $this->getEmployesUnderUser($superior_user_id);
-        $superiors = $this->getSuperiorsUnderUser($superior_user_id);
+        $members = $this->getMembersUserHasAuthorities($superior_user_id);
         $members = array_filter(
-            array_unique(
-                array_merge($employees, $superiors)
-                        ),
+            $members,
             function ($user_id) use ($superior_user_id) {
                 return $user_id != $superior_user_id;
             }
-                );
+        );
 
         foreach ($members as $user_id) {
             $name_infos = \ilObjUser::_lookupName($user_id);
@@ -67,28 +67,90 @@ trait MyUsersHelper
     }
 
     /**
-     * Returns employees under current user
-     *
-     * @param int 	$superior_user_id
-     *
-     * @return int[]
-     */
-    protected function getEmployesUnderUser($superior_user_id)
+    * @return int[]
+    */
+    protected function getMembersByOrgus(array $orgus, int $superior_user_id) : array
     {
-        require_once("Modules/OrgUnit/classes/class.ilObjOrgUnitTree.php");
-        return \ilObjOrgUnitTree::_getInstance()->getEmployeesUnderUser($superior_user_id, true);
+        return $this->getTMSPositionHelper()->getUserIdUnderAuthorityOfUserByPositionsAndOrgus($superior_user_id, $orgus, true);
+    }
+
+    protected function getPositionWithPermissionToBook() : array
+    {
+        $search = $this->findSearchObject();
+        if (is_null($search)) {
+            return [];
+        }
+
+        return $search->getPositionWithBookPermission();
+    }
+
+    protected function getPositionWithPermissionToViewBookings() : array
+    {
+        $search = $this->findSearchObject();
+
+        if (is_null($search)) {
+            return [];
+        }
+
+        return $search->getPositionWithViewBookingPermission();
+    }
+
+    protected function findSearchObject()
+    {
+        if (!\ilPluginAdmin::isPluginActive("xtrs")) {
+            return null;
+        }
+
+        $xtrs_objects = \ilObject::_getObjectsDataForType("xtrs", true);
+
+        if (count($xtrs_objects) == 0) {
+            return null;
+        }
+
+        uasort($xtrs_objects, function ($a, $b) {
+            return strcmp($a["id"], $b["id"]);
+        });
+
+        $access = $this->getAccess();
+        foreach ($xtrs_objects as $value) {
+            foreach (\ilObject::_getAllReferences($value["id"]) as $ref_id) {
+                if (
+       $access->checkAccess("visible", "", $ref_id) &&
+       $access->checkAccess("read", "", $ref_id) &&
+       $access->checkAccess("use_search", "", $ref_id)
+) {
+                    return \ilObjectFactory::getInstanceByRefId($ref_id);
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
-     * Returns superiors under current user
-     *
-     * @param int 	$superior_user_id
-     *
      * @return int[]
-     */
-    protected function getSuperiorsUnderUser($superior_user_id)
+    */
+    protected function getMembersUserHasAuthorities(int $user_id) : array
     {
-        require_once("Modules/OrgUnit/classes/class.ilObjOrgUnitTree.php");
-        return \ilObjOrgUnitTree::_getInstance()->getSuperiorsUnderUser($superior_user_id, true);
+        require_once("Services/TMS/Positions/TMSPositionHelper.php");
+        require_once("Modules/OrgUnit/classes/Positions/UserAssignment/class.ilOrgUnitUserAssignmentQueries.php");
+        $tms_pos_helper = new \TMSPositionHelper(\ilOrgUnitUserAssignmentQueries::getInstance());
+        return $tms_pos_helper->getUserIdWhereUserHasAuhtority($user_id);
     }
+
+    protected function getOrgusByPositionAndUser(array $positions, int $superior_user_id) : array
+    {
+        return array_map("intval", $this->getTMSPositionHelper()->getOrgUnitByPositions($positions, $superior_user_id));
+    }
+
+    protected function getTMSPositionHelper() : \TMSPositionHelper
+    {
+        if (is_null($this->pos_helper)) {
+            $this->pos_helper = new \TMSPositionHelper(\ilOrgUnitUserAssignmentQueries::getInstance());
+        }
+
+        return $this->pos_helper;
+    }
+
+    abstract protected function getAccess() : ilAccess;
 }
