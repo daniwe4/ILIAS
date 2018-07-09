@@ -24,12 +24,12 @@
 include_once './Services/Calendar/classes/class.ilCalendarSettings.php';
 
 /**
-* Class ilCalendarUtil
-*
-* @author		Helmut Schottmüller <helmut.schottmueller@mac.com>
-* @version	$Id$
-*
-*/
+ * Class ilCalendarUtil
+ *
+ * @author		Helmut Schottmüller <helmut.schottmueller@mac.com>
+ * @version	$Id$
+ *
+ */
 class ilCalendarUtil
 {
     private static $today = null;
@@ -51,7 +51,7 @@ class ilCalendarUtil
         }
         return $date->get(IL_CAL_DATETIME, '', ilTimeZone::UTC);
     }
-    
+
     /**
      * check if a date is today
      * @param ilDateTime $date date to check
@@ -63,14 +63,14 @@ class ilCalendarUtil
         global $DIC;
 
         $ilUser = $DIC['ilUser'];
-        
-        
+
+
         if (!is_object(self::$today)) {
             self::$today = new ilDateTime(time(), IL_CAL_UNIX, $ilUser->getTimeZone());
         }
         return ilDateTime::_equals(self::$today, $date, IL_CAL_DAY, $ilUser->getTimeZone());
     }
-    
+
     /**
      * numeric month to string
      *
@@ -85,12 +85,12 @@ class ilCalendarUtil
         global $DIC;
 
         $lng = $DIC['lng'];
-        
+
         $month = $a_month < 10 ? '0' . $a_month : $a_month;
-        
+
         return 	$a_long ? $lng->txt('month_' . $month . '_long') : $lng->txt('month_' . $month . '_short');
     }
-    
+
     /**
      * get
      *
@@ -108,10 +108,10 @@ class ilCalendarUtil
 
         $lng->loadLanguageModule('dateplaner');
         static $days = array('Su','Mo','Tu','We','Th','Fr','Sa','Su');
-        
+
         return 	$a_long ? $lng->txt($days[$a_day] . '_long') : $lng->txt($days[$a_day] . '_short');
     }
-    
+
     /**
      * build week day list
      *
@@ -125,7 +125,7 @@ class ilCalendarUtil
     {
         include_once('Services/Calendar/classes/class.ilDateList.php');
         $day_list = new ilDateList(ilDateList::TYPE_DATE);
-        
+
         $start = clone $a_day;
         $start_info = $start->get(IL_CAL_FKT_GETDATE, '', 'UTC');
         $day_diff = $a_weekstart - $start_info['isoday'];
@@ -140,7 +140,7 @@ class ilCalendarUtil
         }
         return $day_list;
     }
-    
+
     /**
      * Build a month day list
      *
@@ -155,22 +155,22 @@ class ilCalendarUtil
     {
         include_once('Services/Calendar/classes/class.ilDateList.php');
         $day_list = new ilDateList(ilDateList::TYPE_DATE);
-                
+
         $prev_month = ($a_month == 1) ? 12 : $a_month - 1;
         $prev_year = ($prev_month == 12) ? $a_year - 1 : $a_year;
         $next_month = $a_month == 12 ? 1 : $a_month + 1;
         $next_year = $a_month == 12 ? $a_year + 1 : $a_year;
-        
+
         $days_in_month = self::_getMaxDayOfMonth($a_year, $a_month);
         $days_in_prev_month = self::_getMaxDayOfMonth($a_year, $prev_month);
-        
+
         $week_day['year'] = $a_year;
         $week_day['mon'] = $a_month;
         $week_day['mday'] = 1;
         $week_day['hours'] = 0;
         $week_day['minutes'] = 0;
         $week_day = new ilDate($week_day, IL_CAL_FKT_GETDATE);
-        
+
         $weekday = $week_day->get(IL_CAL_FKT_DATE, 'w');
         $first_day_offset = (($weekday - $weekstart) < 0) ? 6 : $weekday - $weekstart;
 
@@ -178,7 +178,7 @@ class ilCalendarUtil
         for ($i = 0;$i < 42;$i++) {
             if ($i < $first_day_offset) {
                 $day = $days_in_prev_month - $first_day_offset + $i + 1;
-                
+
                 $day_list->add(new ilDate(
                     gmmktime(
                         0,
@@ -187,13 +187,13 @@ class ilCalendarUtil
                         $prev_month,
                         $days_in_prev_month - $first_day_offset + $i + 1,
                         $prev_year
-                ),
+                    ),
                     IL_CAL_UNIX
                 ));
             } elseif ($i < $days_in_month + $first_day_offset) {
                 $day = $i - $first_day_offset + 1;
 
-                                
+
                 $day_list->add(new ilDate(
                     gmmktime(
                         0,
@@ -202,7 +202,7 @@ class ilCalendarUtil
                         $a_month,
                         $i - $first_day_offset + 1,
                         $a_year
-                ),
+                    ),
                     IL_CAL_UNIX
                 ));
             } else {
@@ -215,7 +215,7 @@ class ilCalendarUtil
                         $next_month,
                         $i - $days_in_month - $first_day_offset + 1,
                         $next_year
-                ),
+                    ),
                     IL_CAL_UNIX
                 ));
             }
@@ -225,21 +225,21 @@ class ilCalendarUtil
         }
         return $day_list;
     }
-    
+
     /**
-    * Init Javascript Calendar.
-    */
+     * Init Javascript Calendar.
+     */
     public static function initJSCalendar()
     {
         global $DIC;
 
         $tpl = $DIC['tpl'];
         $lng = $DIC['lng'];
-        
+
         if (self::$init_done == "done") {
             return;
         }
-        
+
         $lng->loadLanguageModule("jscalendar");
         $tpl->addBlockFile(
             "CALENDAR_LANG_JAVASCRIPT",
@@ -310,10 +310,10 @@ class ilCalendarUtil
         $tpl->setVariable("LOCATION_JAVASCRIPT_CALENDAR", "./Services/Calendar/js/calendar.js");
         $tpl->setVariable("LOCATION_JAVASCRIPT_CALENDAR_SETUP", "./Services/Calendar/js/calendar-setup.js");
         $tpl->parseCurrentBlock();
-        
+
         self::$init_done = "done";
     }
-    
+
     public static function getZoneInfoFile($a_tz)
     {
         if (!array_key_exists($a_tz, self::_getShortTimeZoneList())) {
@@ -336,78 +336,78 @@ class ilCalendarUtil
     public static function _getShortTimeZoneList()
     {
         return array(
-                'Pacific/Samoa' => 'GMT-11: Midway Islands, Samoa',
-                'US/Hawaii' => 'GMT-10:00: Hawaii, Polynesia',
-                'US/Alaska' => 'GMT-9:00: Alaska',
-                'America/Los_Angeles' => 'GMT-8:00: Tijuana, Los Angeles, Seattle, Vancouver',
-                'US/Arizona' => 'GMT-7:00: Arizona',
-                'America/Chihuahua' => 'GMT-7:00: Chihuahua, La Paz, Mazatlan',
-                'America/Denver' => 'GMT-7:00: Arizona, Denver, Salt Lake City, Calgary',
-                'America/Chicago' => 'GMT-6:00: Chicago, Dallas, Kansas City, Winnipeg',
-                'America/Monterrey' => 'GMT-6:00: Guadalajara, Mexico City, Monterrey',
-                'Canada/Saskatchewan' => 'GMT-6:00: Saskatchewan',
-                'US/Central' => 'GMT-6:00: Central America',
-                'America/Bogota' => 'GMT-5:00: Bogota, Lima, Quito',
-                'US/East-Indiana' => 'GMT-5:00: East-Indiana',
-                'America/New_York' => 'GMT-5:00: New York, Miami, Atlanta, Detroit, Toronto',
-                'Canada/Atlantic' => 'GMT-4:00: Atlantic (Canada)',
-                'America/La_Paz' => 'GMT-4:00: Carcas, La Paz',
-                'America/Santiago' => 'GMT-4:00: Santiago',
-                'Canada/Newfoundland' => 'GMT-3:00: Newfoundland',
-                'Brazil/East' => 'GMT-3:00: Sao Paulo',
-                'America/Argentina/Buenos_Aires' => 'GMT-3:00: Buenes Aires, Georgtown',
-                'Etc/GMT+3' => 'GMT-3:00: Greenland, Uruguay, Surinam',
-                'Atlantic/Cape_Verde' => 'GMT-2:00: Cape Verde, Greenland, South Georgia',
-                'Atlantic/Azores' => 'GMT-1:00: Azores',
-                'Africa/Casablanca' => 'GMT+0:00: Casablanca, Monrovia',
-                'Europe/London' => 'GMT+0:00: Dublin, Edinburgh, Lisbon, London',
-                'Europe/Berlin' => 'GMT+1:00: Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna',
-                'Europe/Belgrade' => 'GMT+1:00: Belgrade, Bratislava, Budapest, Ljubljana, Prague',
-                'Europe/Paris' => 'GMT+1:00: Brussels, Copenhagen, Paris, Madrid',
-                'Europe/Sarajevo' => 'GMT+1:00: Sarajevo, Skopje, Warsaw, Zagreb',
-                'Africa/Lagos' => 'GMT+1:00: West-Central Africa',
-                'Europe/Athens' => 'GMT+2:00: Athens, Beirut, Istanbul, Minsk',
-                'Europe/Bucharest' => 'GMT+2:00: Bucharest',
-                'Africa/Harare' => 'GMT+2:00: Harare, Pratoria',
-                'Europe/Helsinki' => 'GMT+2:00: Helsinki, Kiev, Riga, Sofia, Tallinn, Vilnius',
-                'Asia/Jerusalem' => 'GMT+2:00: Jerusalem',
-                'Africa/Cairo' => 'GMT+2:00: Cairo',
-                'Asia/Baghdad' => 'GMT+3:00: Baghdad',
-                'Asia/Kuwait' => 'GMT+3:00: Kuwait, Riyadh',
-                'Europe/Moscow' => 'GMT+3:00: Moscow, Saint Petersburg',
-                'Africa/Nairobi' => 'GMT+3:00: Nairobi',
-                'Asia/Tehran' => 'GMT+3:30: Tehran',
-                'Asia/Muscat' => 'GMT+4:00: Abu Dhabi, Muscat',
-                'Asia/Baku' => 'GMT+4:00: Baku, Tbilisi, Erivan',
-                'Asia/Kabul' => 'GMT+4:00: Kabul',
-                'Asia/Karachi' => 'GMT+5:00: Islamabad, Karachi, Taschkent',
-                'Asia/Yekaterinburg' => 'GMT+5:00: Yekaterinburg',
-                'Asia/Calcutta' => 'GMT+5:30: New Dehli',
-                'Asia/Katmandu' => 'GMT+5:45: Katmandu',
-                'Asia/Novosibirsk' => 'GMT+6:00: Almaty, Novosibirsk',
-                'Asia/Dhaka' => 'GMT+6:00: Astana, Dhaka',
-                'Asia/Rangoon' => 'GMT+6:00: Sri Jayawardenepura, Rangoon',
-                'Asia/Jakarta' => 'GMT+7:00: Bangkok, Hanoi, Jakarta',
-                'Asia/Krasnoyarsk' => 'GMT+7:00: Krasnoyarsk',
-                'Asia/Irkutsk' => 'GMT+8:00: Irkutsk, Ulan Bator',
-                'Asia/Singapore' => 'GMT+8:00: Kuala Lumpour, Singapore',
-                'Asia/Hong_Kong' => 'GMT+8:00: Beijing, Chongqing, Hong kong, Urumchi',
-                'Australia/Perth' => 'GMT+8:00: Perth',
-                'Asia/Taipei' => 'GMT+8:00: Taipei',
-                'Asia/Yakutsk' => 'GMT+9:00: Yakutsk',
-                'Asia/Tokyo' => 'GMT+9:00: Osaka, Sapporo, Tokyo',
-                'Asia/Seoul' => 'GMT+9:00: Seoul, Darwin, Adelaide',
-                'Australia/Brisbane' => 'GMT+10:00: Brisbane',
-                'Australia/Sydney' => 'GMT+10:00: Canberra, Melbourne, Sydney',
-                'Pacific/Guam' => 'GMT+10:00: Guam, Port Moresby',
-                'Australia/Hobart' => 'GMT+10:00: Hobart',
-                'Asia/Vladivostok' => 'GMT+10:00: Vladivostok',
-                'Asia/Magadan' => 'GMT+11:00: Salomon Islands, New Caledonia, Magadan',
-                'Pacific/Auckland' => 'GMT+12:00: Auckland, Wellington',
-                'Pacific/Fiji' => 'GMT+12:00: Fiji, Kamchatka, Marshall-Islands');
+            'Pacific/Samoa' => 'GMT-11: Midway Islands, Samoa',
+            'US/Hawaii' => 'GMT-10:00: Hawaii, Polynesia',
+            'US/Alaska' => 'GMT-9:00: Alaska',
+            'America/Los_Angeles' => 'GMT-8:00: Tijuana, Los Angeles, Seattle, Vancouver',
+            'US/Arizona' => 'GMT-7:00: Arizona',
+            'America/Chihuahua' => 'GMT-7:00: Chihuahua, La Paz, Mazatlan',
+            'America/Denver' => 'GMT-7:00: Arizona, Denver, Salt Lake City, Calgary',
+            'America/Chicago' => 'GMT-6:00: Chicago, Dallas, Kansas City, Winnipeg',
+            'America/Monterrey' => 'GMT-6:00: Guadalajara, Mexico City, Monterrey',
+            'Canada/Saskatchewan' => 'GMT-6:00: Saskatchewan',
+            'US/Central' => 'GMT-6:00: Central America',
+            'America/Bogota' => 'GMT-5:00: Bogota, Lima, Quito',
+            'US/East-Indiana' => 'GMT-5:00: East-Indiana',
+            'America/New_York' => 'GMT-5:00: New York, Miami, Atlanta, Detroit, Toronto',
+            'Canada/Atlantic' => 'GMT-4:00: Atlantic (Canada)',
+            'America/La_Paz' => 'GMT-4:00: Carcas, La Paz',
+            'America/Santiago' => 'GMT-4:00: Santiago',
+            'Canada/Newfoundland' => 'GMT-3:00: Newfoundland',
+            'Brazil/East' => 'GMT-3:00: Sao Paulo',
+            'America/Argentina/Buenos_Aires' => 'GMT-3:00: Buenes Aires, Georgtown',
+            'Etc/GMT+3' => 'GMT-3:00: Greenland, Uruguay, Surinam',
+            'Atlantic/Cape_Verde' => 'GMT-2:00: Cape Verde, Greenland, South Georgia',
+            'Atlantic/Azores' => 'GMT-1:00: Azores',
+            'Africa/Casablanca' => 'GMT+0:00: Casablanca, Monrovia',
+            'Europe/London' => 'GMT+0:00: Dublin, Edinburgh, Lisbon, London',
+            'Europe/Berlin' => 'GMT+1:00: Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna',
+            'Europe/Belgrade' => 'GMT+1:00: Belgrade, Bratislava, Budapest, Ljubljana, Prague',
+            'Europe/Paris' => 'GMT+1:00: Brussels, Copenhagen, Paris, Madrid',
+            'Europe/Sarajevo' => 'GMT+1:00: Sarajevo, Skopje, Warsaw, Zagreb',
+            'Africa/Lagos' => 'GMT+1:00: West-Central Africa',
+            'Europe/Athens' => 'GMT+2:00: Athens, Beirut, Istanbul, Minsk',
+            'Europe/Bucharest' => 'GMT+2:00: Bucharest',
+            'Africa/Harare' => 'GMT+2:00: Harare, Pratoria',
+            'Europe/Helsinki' => 'GMT+2:00: Helsinki, Kiev, Riga, Sofia, Tallinn, Vilnius',
+            'Asia/Jerusalem' => 'GMT+2:00: Jerusalem',
+            'Africa/Cairo' => 'GMT+2:00: Cairo',
+            'Asia/Baghdad' => 'GMT+3:00: Baghdad',
+            'Asia/Kuwait' => 'GMT+3:00: Kuwait, Riyadh',
+            'Europe/Moscow' => 'GMT+3:00: Moscow, Saint Petersburg',
+            'Africa/Nairobi' => 'GMT+3:00: Nairobi',
+            'Asia/Tehran' => 'GMT+3:30: Tehran',
+            'Asia/Muscat' => 'GMT+4:00: Abu Dhabi, Muscat',
+            'Asia/Baku' => 'GMT+4:00: Baku, Tbilisi, Erivan',
+            'Asia/Kabul' => 'GMT+4:00: Kabul',
+            'Asia/Karachi' => 'GMT+5:00: Islamabad, Karachi, Taschkent',
+            'Asia/Yekaterinburg' => 'GMT+5:00: Yekaterinburg',
+            'Asia/Calcutta' => 'GMT+5:30: New Dehli',
+            'Asia/Katmandu' => 'GMT+5:45: Katmandu',
+            'Asia/Novosibirsk' => 'GMT+6:00: Almaty, Novosibirsk',
+            'Asia/Dhaka' => 'GMT+6:00: Astana, Dhaka',
+            'Asia/Rangoon' => 'GMT+6:00: Sri Jayawardenepura, Rangoon',
+            'Asia/Jakarta' => 'GMT+7:00: Bangkok, Hanoi, Jakarta',
+            'Asia/Krasnoyarsk' => 'GMT+7:00: Krasnoyarsk',
+            'Asia/Irkutsk' => 'GMT+8:00: Irkutsk, Ulan Bator',
+            'Asia/Singapore' => 'GMT+8:00: Kuala Lumpour, Singapore',
+            'Asia/Hong_Kong' => 'GMT+8:00: Beijing, Chongqing, Hong kong, Urumchi',
+            'Australia/Perth' => 'GMT+8:00: Perth',
+            'Asia/Taipei' => 'GMT+8:00: Taipei',
+            'Asia/Yakutsk' => 'GMT+9:00: Yakutsk',
+            'Asia/Tokyo' => 'GMT+9:00: Osaka, Sapporo, Tokyo',
+            'Asia/Seoul' => 'GMT+9:00: Seoul, Darwin, Adelaide',
+            'Australia/Brisbane' => 'GMT+10:00: Brisbane',
+            'Australia/Sydney' => 'GMT+10:00: Canberra, Melbourne, Sydney',
+            'Pacific/Guam' => 'GMT+10:00: Guam, Port Moresby',
+            'Australia/Hobart' => 'GMT+10:00: Hobart',
+            'Asia/Vladivostok' => 'GMT+10:00: Vladivostok',
+            'Asia/Magadan' => 'GMT+11:00: Salomon Islands, New Caledonia, Magadan',
+            'Pacific/Auckland' => 'GMT+12:00: Auckland, Wellington',
+            'Pacific/Fiji' => 'GMT+12:00: Fiji, Kamchatka, Marshall-Islands');
     }
-    
-    
+
+
     /**
      * check if a given year is a leap year
      *
@@ -418,7 +418,7 @@ class ilCalendarUtil
     public static function _isLeapYear($a_year)
     {
         $is_leap = false;
-        
+
         if ($a_year % 4 == 0) {
             $is_leap = true;
             if ($a_year % 100 == 0) {
@@ -430,7 +430,7 @@ class ilCalendarUtil
         }
         return $is_leap;
     }
-    
+
     /**
      * get max day of month
      * 2008,2 => 29
@@ -446,11 +446,11 @@ class ilCalendarUtil
             return cal_days_in_month(CAL_GREGORIAN, $a_month, $a_year);
         }
         $months = array(0,31,
-                self::_isLeapYear($a_year) ? 29 : 28,
-                31,30,31,30,31,31,30,31,30,31);
+            self::_isLeapYear($a_year) ? 29 : 28,
+            31,30,31,30,31,31,30,31,30,31);
         return $months[(int) $a_month];
     }
-    
+
     /**
      * Calculate best font color from html hex color code
      *
@@ -464,20 +464,20 @@ class ilCalendarUtil
         if (strpos($a_html_color_code, '#') !== 0 or strlen($a_html_color_code) != 7) {
             return '#000000';
         }
-        
+
         // http://en.wikipedia.org/wiki/Luminance_(relative)
         $lum = round(hexdec(substr($a_html_color_code, 1, 2)) * 0.2126 +
             hexdec(substr($a_html_color_code, 3, 2)) * 0.7152 +
             hexdec(substr($a_html_color_code, 5, 2)) * 0.0722);
-        
+
         return ($lum <= 128) ? "#FFFFFF" : "#000000";
-        
+
         /*
         $hex = str_replace('#','0x',$a_html_color_code);
         return hexdec($hex) > 8000000 ? '#000000' : '#FFFFFF';
         */
     }
-    
+
     /**
      * Get hour selectio depending on user specific hour format.
      * @return
@@ -491,7 +491,7 @@ class ilCalendarUtil
                     $options[$i] = sprintf('%02d:00', $i);
                 }
                 break;
-                
+
             case ilCalendarSettings::TIME_FORMAT_12:
                 for ($i = 0; $i < 24; $i++) {
                     $options[$i] = date('h a', mktime($i, 0, 0, 1, 1, 2000));
@@ -543,12 +543,12 @@ class ilCalendarUtil
 
         return self::$default_calendar[$a_usr_id][$a_type_id];
     }
-    
-    
+
+
     //
     // BOOTSTRAP DATEPICKER
     //
-    
+
     /**
      * Parse current user setting into date/time format
      *
@@ -561,7 +561,7 @@ class ilCalendarUtil
         global $DIC;
 
         $ilUser = $DIC['ilUser'];
-        
+
         // getDateFormat() should return calendar defaults for ANONYMOUS user
         switch ($ilUser->getDateFormat()) {
             case ilCalendarSettings::DATE_FORMAT_DMY:
@@ -578,13 +578,13 @@ class ilCalendarUtil
         }
         if ($a_add_time) {
             $format .= " " . (($ilUser->getTimeFormat() == ilCalendarSettings::TIME_FORMAT_24)
-                ? "HH:mm"
-                : "hh:mma");
+                    ? "HH:mm"
+                    : "hh:mma");
             if ($a_add_time == 2) {
                 $format .= ":ss";
             }
         }
-        
+
         // translate datepicker format to PHP format
         if ((bool) $a_for_parsing) {
             $format = str_replace("DD", "d", $format);
@@ -593,30 +593,36 @@ class ilCalendarUtil
             $format = str_replace("YYYY", "Y", $format);
             $format = str_replace("HH", "H", $format);
             $format = str_replace("hh", "h", $format);
+
+            // cat-tms-patch start 1591
+            if ($a_add_time == 2) {
+                $format = str_replace("ss", "s", $format);
+            }
+            // cat-tms-patch end 1591
         }
-        
+
         return $format;
     }
-    
+
     public static function initDateTimePicker()
     {
         global $DIC;
 
         $tpl = $DIC['tpl'];
-        
+
         if (!self::$init_datetimepicker) {
             $tpl->addJavaScript("./libs/bower/bower_components/moment/min/moment-with-locales.min.js");
-            
+
             // unminified version does not work with jQuery 3.0
             // https://github.com/Eonasdan/bootstrap-datetimepicker/issues/1684
             $tpl->addJavaScript("./libs/bower/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js");
-            
+
             $tpl->addJavaScript("Services/Form/js/Form.js"); // see ilPropertyFormGUI
-        
+
             self::$init_datetimepicker = true;
         }
     }
-    
+
     /**
      * Add date time picker to element
      *
@@ -635,9 +641,9 @@ class ilCalendarUtil
 
         $tpl = $DIC['tpl'];
         $ilUser = $DIC['ilUser'];
-        
+
         self::initDateTimePicker();
-        
+
         // weekStart is currently governed by locale and cannot be changed
 
         // fix for mantis 22994 => default to english language
@@ -647,36 +653,36 @@ class ilCalendarUtil
         }
         $default = array(
             'locale' => $language
-            ,'stepping' => 5
-            ,'useCurrent' => false
-            ,'calendarWeeks' => true
-            ,'toolbarPlacement' => 'top'
+        ,'stepping' => 5
+        ,'useCurrent' => false
+        ,'calendarWeeks' => true
+        ,'toolbarPlacement' => 'top'
             // ,'showTodayButton' => true
-            ,'showClear' => true
+        ,'showClear' => true
             // ,'showClose' => true
-            ,'keepInvalid' => true
-            ,'sideBySide' => true
+        ,'keepInvalid' => true
+        ,'sideBySide' => true
             // ,'collapse' => false
-            ,'format' => self::getUserDateFormat($a_add_time)
+        ,'format' => self::getUserDateFormat($a_add_time)
         );
-        
+
         $config = (!$a_custom_config)
             ? $default
             : array_merge($default, $a_custom_config);
-                    
+
         $tpl->addOnLoadCode('$("#' . $a_id . '").datetimepicker(' . json_encode($config) . ')');
-        
+
 
         // optional 2nd picker aka duration
         if ($a_id2) {
             $config2 = (!$a_custom_config2)
                 ? $default
                 : array_merge($default, $a_custom_config2);
-            
+
             $config2["useCurrent"] = false; //Important! See issue #1075
-            
+
             $tpl->addOnLoadCode('$("#' . $a_id2 . '").datetimepicker(' . json_encode($config2) . ')');
-                        
+
             // duration limits, diff and subform handling
             $tpl->addOnLoadCode('il.Form.initDateDurationPicker("' . $a_id . '","' . $a_id2 . '","' . $a_toggle_id . '","' . $a_subform_id . '");');
         } elseif ($a_subform_id) {
@@ -684,7 +690,7 @@ class ilCalendarUtil
             $tpl->addOnLoadCode('il.Form.initDatePicker("' . $a_id . '","' . $a_subform_id . '");');
         }
     }
-    
+
     /**
      * Parse (incoming) string to date/time object
      * @param string $a_date
@@ -696,7 +702,7 @@ class ilCalendarUtil
         global $DIC;
 
         $ilUser = $DIC['ilUser'];
-        
+
         if (!$a_use_generic_format) {
             $out_format = self::getUserDateFormat($a_add_time, true);
         } else {
@@ -706,36 +712,36 @@ class ilCalendarUtil
         }
         $tmp = date_parse_from_format($out_format, $a_date);
         $date = null;
-        
+
         if (!$tmp["error_count"] &&
             !$tmp["warning_count"]) {
             $format = $tmp["year"] . "-" .
                 str_pad($tmp["month"], 2, "0", STR_PAD_LEFT) . "-" .
                 str_pad($tmp["day"], 2, "0", STR_PAD_LEFT);
-                
+
             if ($a_add_time) {
                 $format .= " " .
                     str_pad($tmp["hour"], 2, "0", STR_PAD_LEFT) . ":" .
                     str_pad($tmp["minute"], 2, "0", STR_PAD_LEFT) . ":" .
                     str_pad($tmp["second"], 2, "0", STR_PAD_LEFT);
-                
+
                 $date = new ilDateTime($format, IL_CAL_DATETIME, $ilUser->getTimeZone());
             } else {
                 $date = new ilDate($format, IL_CAL_DATE);
             }
         }
-        
+
         return array(
             "date" => $date
-            , "warnings" => sizeof($tmp["warnings"])
+        , "warnings" => sizeof($tmp["warnings"])
                 ? $tmp["warnings"]
                 : null
-            , "errors" => sizeof($tmp["errors"])
+        , "errors" => sizeof($tmp["errors"])
                 ? $tmp["errors"]
                 : null
         );
     }
-                
+
     /**
      * Try to parse incoming value to date object
      *
