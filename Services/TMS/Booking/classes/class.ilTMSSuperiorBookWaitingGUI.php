@@ -56,9 +56,7 @@ class ilTMSSuperiorBookWaitingGUI extends \ilTMSBookingGUI
     }
 
     /**
-     * Get the translations-decorator.
-     *
-     * @return  \ILIAS\TMS\Translations
+     * @inheritdoc
      */
     protected function getTranslations()
     {
@@ -87,8 +85,18 @@ class ilTMSSuperiorBookWaitingGUI extends \ilTMSBookingGUI
         $event = Booking\Actions::EVENT_SUPERIOR_BOOKED_WAITING;
         $this->fireBookingEvent($event, $target_usr_id, $crs_ref_id);
     }
-}
 
+    protected function userHasBookingState($crs_ref_id, $usr_id)
+    {
+        $crs_id = ilObject::_lookupObjId($crs_ref_id);
+        return ilWaitingList::_isOnList($usr_id, $crs_id);
+    }
+
+    protected function getBookingStateMessage($crs_ref_id, $usr_id)
+    {
+        return "user_booked_on_waiting";
+    }
+}
 /**
  * cat-tms-patch end
  */

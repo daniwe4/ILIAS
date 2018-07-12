@@ -6,7 +6,7 @@ use ILIAS\TMS\Wizard;
 require_once("Services/Form/classes/class.ilPropertyFormGUI.php");
 
 /**
- * Displays the TMS superior booking
+ * Displays the TMS (superior) booking.
  *
  * @author Richard Klees <richard.klees@concepts-and-training.de>
  */
@@ -67,6 +67,7 @@ abstract class ilTMSBookingGUI
         $this->g_tree = $DIC->repositoryTree();
         $this->g_objDefinition = $DIC["objDefinition"];
         $this->g_access = $DIC->access();
+        $this->g_plugin_admin = $DIC['ilPluginAdmin'];
         $this->g_lng->loadLanguageModule('tms');
 
         $this->parent_gui = $parent_gui;
@@ -75,7 +76,7 @@ abstract class ilTMSBookingGUI
         /**
          * ToDo: Remove this flag.
          * It's realy ugly, but we need it. If we get here by a plugin parent
-         * the plugin executes show by him self. So we don't need it here
+         * the plugin executes show by himself. So we don't need it here.
          */
         $this->execute_show = $execute_show;
     }
@@ -140,6 +141,11 @@ abstract class ilTMSBookingGUI
             return $ilias_bindings->redirectToPreviousLocation($this->getDuplicatedCourseMessage($usr_id), false);
         }
 
+        if ($this->userHasBookingState($crs_ref_id, $usr_id)) {
+            $this->setParameter(null, null);
+            return $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt($this->getBookingStateMessage())), false);
+        }
+
         global $DIC;
         $state_db = new Wizard\SessionStateDB();
         $wizard = new Booking\Wizard(
@@ -150,21 +156,75 @@ abstract class ilTMSBookingGUI
             $usr_id,
             $this->getOnFinishClosure()
             );
+
+
         $player = new Wizard\Player(
             $ilias_bindings,
             $wizard,
             $state_db
-            );
+        );
+
 
         $this->g_ctrl->setParameter($this->parent_gui, "s_user", $usr_id);
 
         $cmd = $this->g_ctrl->getCmd("start");
-        $content = $player->run($cmd, $_POST);
+
+        if (count($wizard->getSteps()) == 0
+            && $this->getState($state_db, $wizard)->getStepNumber() > 0
+        ) {
+            //steps went away while a user worked the wizard.
+            //most often, this is the case when a course was
+            //overbooked in the meantime.
+            $state_db->delete($this->getState($state_db, $wizard));
+            $wizard->finish();
+            $ilias_bindings->redirectToPreviousLocation(
+                array($ilias_bindings->txt('course_overbooked')),
+                false
+            );
+            return;
+        }
+
+        try {
+            $content = $player->run($cmd, $_POST);
+        } catch (Booking\OverbookedException $e) {
+            $state_db->delete($this->getState($state_db, $wizard));
+            $wizard->finish();
+            $ilias_bindings->redirectToPreviousLocation(array($ilias_bindings->txt($e->getMessage())), false);
+            return;
+        } catch (\LogicException $e) {
+            //the exception is thrown in Player::finish;
+            //this is the case when the course was overbooked in the meantime.
+            $state_db->delete($this->getState($state_db, $wizard));
+            $wizard->finish();
+            $ilias_bindings->redirectToPreviousLocation(array($ilias_bindings->txt('course_overbooked')), false);
+            return;
+        } catch (Booking\NoApproversForUserException $e) {
+            //the exception is thrown in BookingApprovals/EventHandler;
+            $state_db->delete($this->getState($state_db, $wizard));
+            $ilias_bindings->redirectToPreviousLocation(array($ilias_bindings->txt('no_approvers_for_user')), false);
+            return;
+        }
+
+
         assert('is_string($content)');
         $this->g_tpl->setContent($content);
         if ($this->execute_show) {
             $this->g_tpl->show();
         }
+    }
+
+    /**
+     * Get the state information about the booking process.
+     *
+     * @return	State
+     */
+    protected function getState($state_db, $wizard)
+    {
+        $state = $state_db->load($wizard->getId());
+        if ($state !== null) {
+            return $state;
+        }
+        return new Wizard\State($wizard->getId(), Wizard\Player::START_WITH_STEP);
     }
 
     /**
@@ -185,7 +245,9 @@ abstract class ilTMSBookingGUI
      * @param int 	$crs_ref_id
      * @return void
      */
-    abstract protected function callOnFinish($acting_usr_id, $target_usr_id, $crs_ref_id);
+    protected function callOnFinish($acting_usr_id, $target_usr_id, $crs_ref_id)
+    {
+    }
 
     /**
      * Wrap callOnFinish to be called from the Wizard.
@@ -227,7 +289,7 @@ abstract class ilTMSBookingGUI
      */
     protected function checkIsSuperiorEmployeeBelowCurrent($usr_id)
     {
-        $members_below = $this->getUserWhereCurrentCanBookFor($this->g_user->getId());
+        $members_below = $this->getUserWhereCurrentCanBookFor((int) $this->g_user->getId());
         return array_key_exists($usr_id, $members_below);
     }
 
@@ -245,10 +307,8 @@ abstract class ilTMSBookingGUI
         $template_id = $this->getTemplateIdOf($obj_id);
 
         $booked_courses = $this->getUnfinishedDuplicateBookedCoursesOfUser($course, $usr_id);
-        $waiting = $this->getUnfinishedWaitingListCoursesOfUser($course, $usr_id);
-        $courses = array_merge($booked_courses, $waiting);
 
-        return count($courses) > 0;
+        return count($booked_courses) > 0;
     }
 
     /**
@@ -543,5 +603,20 @@ abstract class ilTMSBookingGUI
         }
 
         return $ret;
+    }
+
+    protected function getAccess()
+    {
+        return $this->g_access;
+    }
+
+    protected function userHasBookingState($crs_ref_id, $usr_id)
+    {
+        return false;
+    }
+
+    protected function getBookingStateMessage($crs_ref_id, $usr_id)
+    {
+        return "";
     }
 }

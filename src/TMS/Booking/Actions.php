@@ -30,30 +30,32 @@ interface Actions
     const EVENT_ADMIN_CANCELED_COURSE = 'admin_canceled_user_from_course'; //C05
     const EVENT_ADMIN_CANCELED_WAITING = 'admin_canceled_user_from_waiting'; //C06
 
+    const EVENT_AUTO_CANCELED_WAITING = "auto_canceled_crs_waiting_list"; //C07
+    const EVENT_CANCELED_WAITING_AFTER_BOOKING = "canceled_crs_waiting_list_after_booking"; //C08
 
-
+    const EVENT_REMINDER_MIN_MEMBER = "reminder_min_member"; //R01
 
     /**
      * Book the given user on the course.
      *
-     * @param    int        $crs_ref_id
-     * @param    int        $user_id
+     * @param	int		$crs_ref_id
+     * @param	int		$user_id
      *
-     * @throws \LogicException     if user can't be booked to course or waitinglist
+     * @throws \LogicException 	if user can't be booked to course or waitinglist
      *
-     * @return    mixed    one of the STATEs
+     * @return	mixed	one of the STATEs
      */
     public function bookUser($crs_ref_id, $user_id);
 
     /**
      * Removes a user from course or waiting list
      *
-     * @param    int        $crs_ref_id
-     * @param    int        $user_id
+     * @param	int		$crs_ref_id
+     * @param	int		$user_id
      *
-     * @throws \LogicException     if user can't be canceled from course or waitinglist
+     * @throws \LogicException 	if user can't be canceled from course or waitinglist
      *
-     * @return mixed    one of the STATEs
+     * @return mixed	one of the STATEs
      */
     public function cancelUser($crs_ref_id, $user_id);
 }

@@ -38,7 +38,8 @@ class ilTMSBookingActions implements Booking\Actions
 
         $crs_id = $course->getId();
         if (ilWaitingList::_isOnList($user_id, $crs_id)) {
-            ilWaitingList::deleteUserEntry($user_id, $crs_id);
+            $course->initWaitingList();
+            $course->waiting_list_obj->removeFromList($user_id);
             return Booking\Actions::STATE_REMOVED_FROM_WAITINGLIST;
         }
 
@@ -83,7 +84,7 @@ class ilTMSBookingActions implements Booking\Actions
             return Booking\Actions::STATE_WAITING_LIST;
         }
 
-        throw new \LogicException("User can not be booked. Course and waitinglist are overbooked");
+        throw new Booking\OverbookedException("course_overbooked");
     }
 
     /**

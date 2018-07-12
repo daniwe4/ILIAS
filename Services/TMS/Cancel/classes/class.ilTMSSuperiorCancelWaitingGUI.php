@@ -1,4 +1,7 @@
 <?php
+/**
+ * cat-tms-patch start
+ */
 
 use ILIAS\TMS\Booking;
 
@@ -10,7 +13,7 @@ require_once("Services/TMS/Cancel/classes/ilTMSCancelGUI.php");
  *
  * @author Richard Klees <richard.klees@concepts-and-training.de>
  */
-class ilTMSSuperiorCancelGUI extends \ilTMSCancelGUI
+class ilTMSSuperiorCancelWaitingGUI extends \ilTMSCancelGUI
 {
     /**
      * @inheritdocs
@@ -25,8 +28,8 @@ class ilTMSSuperiorCancelGUI extends \ilTMSCancelGUI
      */
     protected function setParameter($crs_ref_id, $usr_id)
     {
-        $this->g_ctrl->setParameterByClass("ilTMSSuperiorCancelGUI", "crs_ref_id", $crs_ref_id);
-        $this->g_ctrl->setParameterByClass("ilTMSSuperiorCancelGUI", "usr_id", $usr_id);
+        $this->g_ctrl->setParameterByClass("ilTMSSuperiorCancelWaitingGUI", "crs_ref_id", $crs_ref_id);
+        $this->g_ctrl->setParameterByClass("ilTMSSuperiorCancelWaitingGUI", "usr_id", $usr_id);
     }
 
     /**
@@ -34,9 +37,7 @@ class ilTMSSuperiorCancelGUI extends \ilTMSCancelGUI
      */
     protected function callOnFinish($acting_usr_id, $target_usr_id, $crs_ref_id)
     {
-        $event = Booking\Actions::EVENT_SUPERIOR_CANCELED_COURSE;
-
-        require_once("Services/Membership/classes/class.ilWaitingList.php");
+        $event = Booking\Actions::EVENT_SUPERIOR_CANCELED_WAITING;
         $this->fireBookingEvent($event, $target_usr_id, $crs_ref_id);
     }
 
@@ -70,12 +71,16 @@ class ilTMSSuperiorCancelGUI extends \ilTMSCancelGUI
 
     protected function userHasBookingState($crs_ref_id, $usr_id)
     {
-        $crs = new ilObjCourse($crs_ref_id, true);
-        return $crs->getMembersObject()->isMember($usr_id);
+        $crs_id = ilObject::_lookupObjId($crs_ref_id);
+        return ilWaitingList::_isOnList($usr_id, $crs_id);
     }
 
     protected function getBookingStateMessage($crs_ref_id, $usr_id)
     {
-        return "user_not_booked_on_course";
+        return "user_not_booked_on_waiting";
     }
 }
+
+/**
+ * cat-tms-patch end
+ */

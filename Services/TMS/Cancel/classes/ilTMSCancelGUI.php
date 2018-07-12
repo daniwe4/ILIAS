@@ -85,6 +85,10 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         assert('is_numeric($_GET["crs_ref_id"])');
         $crs_ref_id = (int) $_GET["crs_ref_id"];
 
+        if (!$this->userHasBookingState($crs_ref_id, $usr_id)) {
+            $this->redirectToPreviousLocation(array($this->getBookingStateMessage()), false);
+        }
+
         $ilias_bindings = new Booking\ILIASBindings(
             $this->g_ctrl,
             $this,
@@ -164,12 +168,11 @@ abstract class ilTMSCancelGUI extends Wizard\Player
                 static::TXT_TITLE => $this->g_lng->txt('canceling'),
                 static::TXT_OVERVIEW_DESCRIPTION => $this->g_lng->txt('cancel_overview_description'),
                 static::TXT_CONFIRM => $this->g_lng->txt('cancel_confirm'),
-
-                static::TXT_CANCEL => $this->g_lng->txt(static::TXT_CANCEL),
-                static::TXT_NEXT => $this->g_lng->txt(static::TXT_NEXT),
-                static::TXT_PREVIOUS => $this->g_lng->txt(static::TXT_PREVIOUS),
+                static::TXT_CANCEL => $this->g_lng->txt('cancel'),
+                static::TXT_NEXT => $this->g_lng->txt('btn_next'),
+                static::TXT_PREVIOUS => $this->g_lng->txt('btn_previous'),
                 static::TXT_NO_STEPS_AVAILABLE => $this->g_lng->txt(static::TXT_NO_STEPS_AVAILABLE),
-                static::TXT_ABORTED => $this->g_lng->txt(static::TXT_ABORTED)
+                static::TXT_ABORTED => $this->g_lng->txt('process_aborted')
             )
         );
         return $trans;
@@ -216,5 +219,20 @@ abstract class ilTMSCancelGUI extends Wizard\Player
                  'usr_id' => $usr_id
              )
          );
+    }
+
+    protected function getAccess()
+    {
+        return $this->g_access;
+    }
+
+    protected function userHasBookingState($crs_ref_id, $usr_id)
+    {
+        return false;
+    }
+
+    protected function getBookingStateMessage($crs_ref_id, $usr_id)
+    {
+        return "";
     }
 }

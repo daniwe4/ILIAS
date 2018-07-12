@@ -24,10 +24,8 @@ class State
      */
     protected $step_data;
 
-    public function __construct($wizard_id, $step_number, array $step_data = [])
+    public function __construct(string $wizard_id, int $step_number, array $step_data = [])
     {
-        assert('is_string($wizard_id)');
-        assert('is_int($step_number)');
         $this->wizard_id = $wizard_id;
         $this->step_number = $step_number;
         $this->step_data = $step_data;

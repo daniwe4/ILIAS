@@ -79,4 +79,15 @@ class ilTMSSuperiorBookingGUI extends \ilTMSBookingGUI
         $event = Booking\Actions::EVENT_SUPERIOR_BOOKED_COURSE;
         $this->fireBookingEvent($event, $target_usr_id, $crs_ref_id);
     }
+
+    protected function userHasBookingState($crs_ref_id, $usr_id)
+    {
+        $crs = new ilObjCourse($crs_ref_id, true);
+        return $crs->getMembersObject()->isMember($usr_id);
+    }
+
+    protected function getBookingStateMessage($crs_ref_id, $usr_id)
+    {
+        return "user_booked_on_course";
+    }
 }

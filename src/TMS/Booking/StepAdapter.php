@@ -31,10 +31,8 @@ class StepAdapter implements \ILIAS\TMS\Wizard\Step
      * @param	int		$crs_ref_id	The ref-id of the course the booking will be made for.
      * @param	int		$user_id	The id of the user the booking is made for.
      */
-    public function __construct(Step $wrapped, $crs_ref_id, $user_id)
+    public function __construct(Step $wrapped, int $crs_ref_id, int $user_id)
     {
-        assert('is_int($crs_ref_id)');
-        assert('is_int($user_id)');
         $this->wrapped = $wrapped;
         $this->crs_ref_id = $crs_ref_id;
         $this->user_id = $user_id;

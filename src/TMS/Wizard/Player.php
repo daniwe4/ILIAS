@@ -62,10 +62,8 @@ class Player
      * @param	array|null	$post
      * @return	string|null
      */
-    public function run($cmd = null, array $post = null)
+    public function run(string $cmd = null, array $post = null)
     {
-        assert('is_null($cmd) || is_string($cmd)');
-
         if ($cmd === null) {
             $cmd = self::COMMAND_NEXT;
         }
@@ -137,9 +135,8 @@ class Player
      * @param	int		$num_steps
      * @return	null|string	returns null if overview was not run
      */
-    protected function maybeRunOverview(State $state, $num_steps)
+    protected function maybeRunOverview(State $state, int $num_steps)
     {
-        assert('is_int($num_steps)');
         $step_number = $state->getStepNumber();
         if ($step_number == $num_steps) {
             return $this
@@ -160,10 +157,8 @@ class Player
      * @param	bool	$next_when_ok   advance to next step when current step is ok.
      * @return	null|string	returns null if input was processed
      */
-    public function maybeProcessUserInput(State $state, $step_number, Step $step, \ilPropertyFormGUI $form, $post, $next_when_ok)
+    public function maybeProcessUserInput(State $state, int $step_number, Step $step, \ilPropertyFormGUI $form, array $post = null, bool $next_when_ok)
     {
-        assert('is_int($step_number)');
-        assert('is_array($post) || is_null($post)');
         if ($post) {
             $form->setValuesByArray($post);
             if ($form->checkInput()) {
@@ -192,9 +187,8 @@ class Player
      * @param	\ilPropertyFormGUI $form
      * @return	void
      */
-    public function maybeAddStepDataToForm(State $state, $step_number, Step $step, \ilPropertyFormGUI $form)
+    public function maybeAddStepDataToForm(State $state, int $step_number, Step $step, \ilPropertyFormGUI $form)
     {
-        assert('is_int($step_number)');
         if ($state->hasStepData($step_number)) {
             $step_data = $state->getStepData($step_number);
             $step->addDataToForm($form, $step_data);
@@ -207,10 +201,9 @@ class Player
      * @param	State	$state
      * @return	string
      */
-    protected function runPreviousStep(State $state, $post)
+    protected function runPreviousStep(State $state, array $post = null)
     {
         //save current step
-        assert('is_array($post) || is_null($post)');
         $steps = $this->wizard->getSteps();
         $step_number = $state->getStepNumber();
         if ($step_number < 0) {
@@ -309,7 +302,7 @@ class Player
     protected function finish(State $state)
     {
         $steps = $this->wizard->getSteps();
-        assert('$state->getStepNumber() == count($steps)');
+        assert($state->getStepNumber() == count($steps));
 
         if ($state->getStepNumber() !== count($steps)) {
             throw new \LogicException("User did not work through the wizard.");

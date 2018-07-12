@@ -59,14 +59,9 @@ class Wizard implements \ILIAS\TMS\Wizard\Wizard
      * @param	int		$target_user_id			the user the booking is made for
      * @param	callable | null	$call_on_finish 	when the wizard is finished, execute this.
      */
-    public function __construct($dic, $component_class, $acting_user_id, $crs_ref_id, $target_user_id, $call_on_finish)
+    public function __construct($dic, string $component_class, int $acting_user_id, int $crs_ref_id, int $target_user_id, callable $call_on_finish = null)
     {
-        assert('is_array($dic) || ($dic instanceof \ArrayAccess)');
-        assert('is_string($component_class)');
-        assert('is_int($acting_user_id)');
-        assert('is_int($crs_ref_id)');
-        assert('is_int($target_user_id)');
-        assert('is_callable($call_on_finish) || is_null($call_on_finish)');
+        assert(is_array($dic) || ($dic instanceof \ArrayAccess));
         $this->dic = $dic;
         $this->component_class = $component_class;
         $this->acting_user_id = $acting_user_id;
@@ -86,7 +81,7 @@ class Wizard implements \ILIAS\TMS\Wizard\Wizard
     /**
      * @inheritdoc
      */
-    protected function getEntityRefId()
+    public function getEntityRefId()
     {
         return $this->crs_ref_id;
     }
@@ -94,9 +89,17 @@ class Wizard implements \ILIAS\TMS\Wizard\Wizard
     /**
      * @inheritdoc
      */
-    protected function getUserId()
+    public function getUserId()
     {
         return $this->target_user_id;
+    }
+
+    /**
+     * Get acting_user_id.
+     */
+    public function getActingUserId() : int
+    {
+        return $this->acting_user_id;
     }
 
     /**
@@ -123,7 +126,7 @@ class Wizard implements \ILIAS\TMS\Wizard\Wizard
     }
 
     /**
-     * Get the steps for the booking of the couse sorted by period.
+     * Get the steps for the booking of the course sorted by period.
      *
      * @return 	Step[]
      */
