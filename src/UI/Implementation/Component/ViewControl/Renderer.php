@@ -156,14 +156,19 @@ class Renderer extends AbstractComponentRenderer
                 $url = $component->getTargetURL();
                 $url .= (strpos($url, '?') === false) ?  '?' : '&';
                 $url .= $component->getParameterName() . '=' . $val;
+                // cat-tms-patch start
+                $url = $this->appendCurrentGetParameters($url);
+                // cat-tms-patch end
                 $shy = $f->button()->shy($label, $url);
             }
             $items[] = $shy;
         }
 
-        if ($default_value != $_GET[$component->getParameterName()]) {
+        // cat-tms-patch start
+        if (isset($_GET[$component->getParameterName()])) {
             $init_label = $options[$_GET[$component->getParameterName()]];
         }
+        // cat-tms-patch end
 
         $dd = $f->dropdown()->standard($items)
             ->withLabel($init_label);
@@ -448,7 +453,9 @@ class Renderer extends AbstractComponentRenderer
                 $url = $component->getTargetURL();
                 $url .= (strpos($url, '?') === false) ?  '?' : '&';
                 $url .= $component->getParameterName() . '=' . $val;
-                $url = $this->appendCurrentGetParamters($url);
+                // cat-tms-patch start
+                $url = $this->appendCurrentGetParameters($url);
+                // cat-tms-patch end
                 $shy = $f->button()->shy($label, $url);
             }
             $items[] = $shy;
@@ -478,13 +485,13 @@ class Renderer extends AbstractComponentRenderer
     }
 
     /**
-    * look into current $_GET params and append left-overs that are
-    * not controlled by this component.
-    *
-    * @param string $url
-    * @return string
-    */
-    protected function appendCurrentGetParamters($url)
+     * look into current $_GET params and append left-overs that are
+     * not controlled by this component.
+     *
+     * @param string $url
+     * @return string
+     */
+    protected function appendCurrentGetParameters($url)
     {
         $query = html_entity_decode(parse_url($url, PHP_URL_QUERY));
         parse_str($query, $params);
