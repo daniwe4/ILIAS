@@ -721,11 +721,11 @@ class ilObjOrgUnitTree
     }
 
     /**
-    * @param $ref_id    int the reference id of the organisational unit.
-    * @param $recursive bool if true you get the ids of the subsequent orgunits employees too
-    *
-    * @return int[] array of user ids.
-    */
+     * @param $ref_id    int the reference id of the organisational unit.
+     * @param $recursive bool if true you get the ids of the subsequent orgunits employees too
+     *
+     * @return int[] array of user ids.
+     */
     public function getAllAssignees($ref_id, $recursive = false)
     {
         if ($recursive) {
@@ -736,11 +736,11 @@ class ilObjOrgUnitTree
     }
 
     /**
-    * @param int $ref_id
-    * @param \ilOrgUnitPosition $ilOrgUnitPosition
-    *
-    * @return array
-    */
+     * @param int $ref_id
+     * @param \ilOrgUnitPosition $ilOrgUnitPosition
+     *
+     * @return array
+     */
     public function getAllAssignements($ref_id)
     {
         $assignee = ilOrgUnitUserAssignment::where(array( 'orgu_id' => $ref_id))->getArray('id', 'user_id');
@@ -749,11 +749,11 @@ class ilObjOrgUnitTree
     }
 
     /**
-    * @param int $ref_id
-    * @param \ilOrgUnitPosition $ilOrgUnitPosition
-    *
-    * @return array
-    */
+     * @param int $ref_id
+     * @param \ilOrgUnitPosition $ilOrgUnitPosition
+     *
+     * @return array
+     */
     public function getAllAssignementsRecursive($ref_id)
     {
         $orgu_ids = $this->getAllChildren($ref_id);
@@ -761,13 +761,51 @@ class ilObjOrgUnitTree
         $assignees = array();
         foreach ($orgu_ids as $orgu_id) {
             $assignee = ilOrgUnitUserAssignment::where(array(
-'orgu_id' => $orgu_id
-))->getArray('id', 'user_id');
+                'orgu_id' => $orgu_id
+            ))->getArray('id', 'user_id');
 
             $assignees = array_merge($assignees, array_values($assignee));
         }
 
         return array_unique($assignees);
+    }
+
+    /**
+    * Get ref-ids of all OrgUnits a user is assinged to.
+    *
+    * @param int   $user_id
+    * @return int[]
+    */
+    public function getOrgUnitsOfUser(int $user_id)
+    {
+        $this->buildTempTableWithUsrAssignements();
+        $query = 'SELECT ref_id FROM ' . self::$temporary_table_name
+. ' WHERE user_id = ' . $user_id;
+        $res = $this->db->query($query);
+        $ret = [];
+        while ($row = $this->db->fetchAssoc($res)) {
+            $ret[] = (int) $row['ref_id'];
+        }
+        return $ret;
+    }
+
+    /**
+    * Get the (visualization-) path of a OrgUnit
+    *
+    * @param int   $orgu_ref_id
+    * @return string | false
+    */
+    public function getOrgUnitPath(int $orgu_ref_id)
+    {
+        $this->buildTempTableWithUsrAssignements();
+        $query = 'SELECT DISTINCT path FROM ' . self::$temporary_table_name
+. ' WHERE ref_id = ' . $orgu_ref_id;
+        $res = $this->db->query($query);
+
+        if ($row = $this->db->fetchAssoc($res)) {
+            return $row['path'];
+        }
+        return false;
     }
     // cat-tms-patch end
 }

@@ -1452,8 +1452,35 @@ class ilObjUserGUI extends ilObjectGUI
 
                 // org units
                 if ($a_mode == "edit") {
-                    $orgus = new ilNonEditableValueGUI($lng->txt('objs_orgu'), 'org_units');
-                    $orgus->setValue($this->object->getOrgUnitsRepresentation());
+                    //cat-tms patch start
+                    //$orgus = new ilNonEditableValueGUI($lng->txt('objs_orgu'), 'org_units');
+                    //$orgus->setValue($this->object->getOrgUnitsRepresentation());
+
+                    $user_id = $this->object->getId();
+                    $orgu_tree = ilObjOrgUnitTree::_getInstance();
+                    $orgu_refs = $orgu_tree->getOrgUnitsOfUser($user_id);
+
+                    $orgu_vals = [];
+                    foreach ($orgu_refs as $orgu_ref_id) {
+                        $orgu = \ilObjectFactory::getInstanceByRefId($orgu_ref_id);
+                        $this->ctrl->setParameterByClass("ilOrgUnitUserAssignmentGUI", "ref_id", $orgu_ref_id);
+                        $class_path = ["ilAdministrationGUI", "ilObjOrgUnitGUI" ,"ilOrgUnitUserAssignmentGUI"];
+                        $link = $this->ctrl->getLinkTargetByClass($class_path, "");
+
+                        $orgu_path = $orgu_tree->getOrgUnitPath($orgu_ref_id);
+                        //cat-tms patch start
+                        //tms 1704 open orgu link in new tab
+                        $orgu_vals[$orgu_path] = sprintf(
+                            '<a href="%s" target="_blank">%s</a>',
+                            $link,
+                            $orgu_path
+                        );
+                        //cat-tms patch end
+                    }
+                    ksort($orgu_vals);
+                    $orgus = new ilNonEditableValueGUI($lng->txt('objs_orgu'), 'org_units', true);
+                    $orgus->setValue(implode('<br>', array_values($orgu_vals)));
+                    //cat-tms patch end
                     $this->form_gui->addItem($orgus);
                 }
             }
