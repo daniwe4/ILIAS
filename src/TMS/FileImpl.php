@@ -45,14 +45,12 @@ class FileImpl implements File
 
 
     public function __construct(
-        $ident,
-        $type,
+        string $ident,
+        string $type,
         Ente\Entity $entity,
         \ilObject $owner,
         \Closure $get_file_path
     ) {
-        assert('is_string($ident)');
-        assert('is_string($type)');
         $this->ident = $ident;
         $this->type = $type;
         $this->entity = $entity;

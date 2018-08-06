@@ -761,6 +761,11 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
                         $val[] = $postcode . " " . $city;
                     }
 
+                    $val_add_info = $val;
+                    if (trim($additional_info) != "") {
+                        $val_add_info[] = "($additional_info)";
+                    }
+
                     $ret[] = $this->createCourseInfoObject(
                         $entity,
                         $txt("title") . ":",
@@ -778,7 +783,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
                     $ret[] = $this->createCourseInfoObject(
                         $entity,
                         $this->lng->txt("venue"),
-                        join(", ", $val),
+                        join(", ", $val_add_info),
                         350,
                         [
                             CourseInfo::CONTEXT_ICAL
