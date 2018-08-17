@@ -14,6 +14,10 @@ class ilLoggingErrorFileStorage
     const KEY_SPACE = 25;
     const FILE_FORMAT = ".log";
 
+    // cat-tms-patch start 1388
+    const SIMPL_SAMLE_AUTH_NAME = "SimpleSAMLAuthToken";
+    // cat-tms-patch end
+
     public function __construct($inspector, $file_path, $file_name)
     {
         $this->inspector = $inspector;
@@ -32,12 +36,12 @@ class ilLoggingErrorFileStorage
     {
         // cat-tms-patch start
         return "----------\n"
-              . "error_id: " . $this->file_name . "\n"
-        // cat-tms-patch end
-              . $this->pageHeader()
-              . $this->exceptionContent()
-              . $this->tablesContent()
-              ;
+            . "error_id: " . $this->file_name . "\n"
+            // cat-tms-patch end
+            . $this->pageHeader()
+            . $this->exceptionContent()
+            . $this->tablesContent()
+            ;
     }
 
     public function write()
@@ -120,13 +124,13 @@ class ilLoggingErrorFileStorage
         $server = $this->shortenPHPSessionId($server);
 
         return array( "GET Data" => $_GET
-            , "POST Data" => $post
-            , "Files" => $_FILES
-            , "Cookies" => $_COOKIE
-            , "Session" => isset($_SESSION) ? $_SESSION : array()
-            , "Server/Request Data" => $server
-            , "Environment Variables" => $_ENV
-            );
+        , "POST Data" => $post
+        , "Files" => $_FILES
+        , "Cookies" => $_COOKIE
+        , "Session" => isset($_SESSION) ? $_SESSION : array()
+        , "Server/Request Data" => $server
+        , "Environment Variables" => $_ENV
+        );
     }
 
     /**
@@ -164,6 +168,13 @@ class ilLoggingErrorFileStorage
                 $cookie_content[$key] = implode("=", $content_array);
             }
         }
+
+        // cat-tms-patch start 1388
+        if (trim($content_array[0]) == self::SIMPL_SAMLE_AUTH_NAME) {
+            $content_array[1] = substr($content_array[1], 0, 5) . " (SHORTENED FOR SECURITY)";
+            $cookie_content[$key] = implode("=", $content_array);
+        }
+        // cat-tms-patch end
 
         $server["HTTP_COOKIE"] = implode(";", $cookie_content);
 

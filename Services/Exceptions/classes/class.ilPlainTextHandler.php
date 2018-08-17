@@ -3,13 +3,13 @@
 /* Copyright (c) 2015 Richard Klees <richard.klees@concepts-and-training.de> Extended GPL, see docs/LICENSE */
 
 /**
-* A Whoops error handler that prints the same content as the PrettyPageHandler but as plain text.
-*
-* This is used for better coexistence with xdebug, see #16627.
-*
-* @author Richard Klees <richard.klees@concepts-and-training.de>
-* @version $Id$
-*/
+ * A Whoops error handler that prints the same content as the PrettyPageHandler but as plain text.
+ *
+ * This is used for better coexistence with xdebug, see #16627.
+ *
+ * @author Richard Klees <richard.klees@concepts-and-training.de>
+ * @version $Id$
+ */
 
 use Whoops\Handler\Handler;
 use Whoops\Exception\Formatter;
@@ -17,6 +17,11 @@ use Whoops\Exception\Formatter;
 class ilPlainTextHandler extends Handler
 {
     const KEY_SPACE = 25;
+
+    // cat-tms-patch start 1388
+    const SIMPL_SAMLE_AUTH_NAME = "SimpleSAMLAuthToken";
+    // cat-tms-patch end
+
 
     /**
      * Last missing method from HandlerInterface.
@@ -39,9 +44,9 @@ class ilPlainTextHandler extends Handler
     protected function content()
     {
         return $this->pageHeader()
-              . $this->exceptionContent()
-              . $this->tablesContent()
-              ;
+            . $this->exceptionContent()
+            . $this->tablesContent()
+            ;
     }
 
     /**
@@ -113,13 +118,13 @@ class ilPlainTextHandler extends Handler
         $server = $this->shortenPHPSessionId($server);
 
         return array( "GET Data" => $_GET
-            , "POST Data" => $post
-            , "Files" => $_FILES
-            , "Cookies" => $_COOKIE
-            , "Session" => isset($_SESSION) ? $_SESSION : array()
-            , "Server/Request Data" => $server
-            , "Environment Variables" => $_ENV
-            );
+        , "POST Data" => $post
+        , "Files" => $_FILES
+        , "Cookies" => $_COOKIE
+        , "Session" => isset($_SESSION) ? $_SESSION : array()
+        , "Server/Request Data" => $server
+        , "Environment Variables" => $_ENV
+        );
     }
 
     /**
@@ -157,6 +162,13 @@ class ilPlainTextHandler extends Handler
                 $cookie_content[$key] = implode("=", $content_array);
             }
         }
+
+        // cat-tms-patch start 1388
+        if (trim($content_array[0]) == self::SIMPL_SAMLE_AUTH_NAME) {
+            $content_array[1] = substr($content_array[1], 0, 5) . " (SHORTENED FOR SECURITY)";
+            $cookie_content[$key] = implode("=", $content_array);
+        }
+        // cat-tms-patch end
 
         $server["HTTP_COOKIE"] = implode(";", $cookie_content);
 
