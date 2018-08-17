@@ -24,17 +24,17 @@ include_once "Services/Context/classes/class.ilContext.php";
  */
 
 /**
-* ILIAS Initialisation Utility Class
-* perform basic setup: init database handler, load configuration file,
-* init user authentification & error handler, load object type definitions
-*
-* @author Alex Killing <alex.killing@gmx.de>
-* @author Sascha Hofmann <shofmann@databay.de>
+ * ILIAS Initialisation Utility Class
+ * perform basic setup: init database handler, load configuration file,
+ * init user authentification & error handler, load object type definitions
+ *
+ * @author Alex Killing <alex.killing@gmx.de>
+ * @author Sascha Hofmann <shofmann@databay.de>
 
-* @version $Id$
-*
-* @ingroup ServicesInit
-*/
+ * @version $Id$
+ *
+ * @ingroup ServicesInit
+ */
 class ilInitialisation
 {
     /**
@@ -67,7 +67,7 @@ class ilInitialisation
             )
         );
     }
-    
+
     /**
      * get common include code files
      */
@@ -77,17 +77,17 @@ class ilInitialisation
         if (ilContext::usesTemplate()) {
             require_once "./Services/UICore/classes/class.ilTemplate.php";
         }
-                
+
         // really always required?
         require_once "./Services/Utilities/classes/class.ilUtil.php";
         require_once "./Services/Calendar/classes/class.ilDatePresentation.php";
         require_once "include/inc.ilias_version.php";
-        
+
         include_once './Services/Authentication/classes/class.ilAuthUtils.php';
-        
+
         self::initGlobal("ilBench", "ilBenchmark", "./Services/Utilities/classes/class.ilBenchmark.php");
     }
-    
+
     /**
      * This is a hack for  authentication.
      *
@@ -429,7 +429,7 @@ class ilInitialisation
             ilUtil::setCookie("ilClientId", $default_client);
             if (CLIENT_ID != "" && CLIENT_ID != $default_client) {
                 $mess = array("en" => "Client does not exist.",
-                        "de" => "Mandant ist ungültig.");
+                    "de" => "Mandant ist ungültig.");
                 self::redirect("index.php?client_id=" . $default_client, null, $mess);
             } else {
                 self::abortAndDie("Fatal Error: ilInitialisation::initClientIniFile initializing client ini file abborted with: " . $ilClientIniFile->ERROR);
@@ -489,7 +489,7 @@ class ilInitialisation
 
         if (!$ilClientIniFile->readVariable("client", "access")) {
             $mess = array("en" => "The server is not available due to maintenance." .
-                    " We apologise for any inconvenience.",
+                " We apologise for any inconvenience.",
                 "de" => "Der Server ist aufgrund von Wartungsarbeiten nicht verfügbar." .
                     " Wir bitten um Verständnis.");
             $mess_id = "init_error_maintenance";
@@ -504,9 +504,9 @@ class ilInitialisation
     }
 
     /**
-    * initialise database object $ilDB
-    *
-    */
+     * initialise database object $ilDB
+     *
+     */
     protected static function initDatabase()
     {
         // build dsn of database connection and connect
@@ -1253,6 +1253,10 @@ class ilInitialisation
 
         self::setSessionCookieParams();
 
+        // cat-tms-patch start
+        self::initTMS();
+        // cat-tms-patch end
+
         // Init GlobalScreen
         self::initGlobalScreen($DIC);
     }
@@ -1569,42 +1573,42 @@ class ilInitialisation
         $c["ui.renderer"] = function ($c) {
             return new ILIAS\UI\Implementation\DefaultRenderer(
                 $c["ui.component_renderer_loader"]
-                );
+            );
         };
         $c["ui.component_renderer_loader"] = function ($c) {
             return new ILIAS\UI\Implementation\Render\LoaderCachingWrapper(
                 new ILIAS\UI\Implementation\Render\LoaderResourceRegistryWrapper(
                     $c["ui.resource_registry"],
                     new ILIAS\UI\Implementation\Render\FSLoader(
-                    new ILIAS\UI\Implementation\Render\DefaultRendererFactory(
+                        new ILIAS\UI\Implementation\Render\DefaultRendererFactory(
                             $c["ui.factory"],
                             $c["ui.template_factory"],
                             $c["lng"],
                             $c["ui.javascript_binding"],
                             $c["refinery"]
-                            ),
-                    new ILIAS\UI\Implementation\Component\Symbol\Glyph\GlyphRendererFactory(
+                        ),
+                        new ILIAS\UI\Implementation\Component\Symbol\Glyph\GlyphRendererFactory(
                             $c["ui.factory"],
                             $c["ui.template_factory"],
                             $c["lng"],
                             $c["ui.javascript_binding"],
                             $c["refinery"]
-                          ),
-                    new ILIAS\UI\Implementation\Component\Input\Field\FieldRendererFactory(
+                        ),
+                        new ILIAS\UI\Implementation\Component\Input\Field\FieldRendererFactory(
                             $c["ui.factory"],
                             $c["ui.template_factory"],
                             $c["lng"],
                             $c["ui.javascript_binding"],
                             $c["refinery"]
-                          )
                         )
                     )
-                );
+                )
+            );
         };
         $c["ui.template_factory"] = function ($c) {
             return new ILIAS\UI\Implementation\Render\ilTemplateWrapperFactory(
                 $c["tpl"]
-                );
+            );
         };
         $c["ui.resource_registry"] = function ($c) {
             return new ILIAS\UI\Implementation\Render\ilResourceRegistry($c["tpl"]);
@@ -1831,8 +1835,8 @@ class ilInitialisation
         }
 
         if ($a_current_script == 'goto.php' && in_array($_GET['target'], array(
-            'usr_registration', 'usr_nameassist', 'usr_pwassist', 'usr_agreement'
-        ))) {
+                'usr_registration', 'usr_nameassist', 'usr_pwassist', 'usr_agreement'
+            ))) {
             ilLoggerFactory::getLogger('auth')->debug('Blocked authentication for goto target: ' . $_GET['target']);
             return true;
         }
@@ -1926,9 +1930,9 @@ class ilInitialisation
                     $mess = self::translateMessage(
                         "init_error_redirect_info",
                         array("en" => 'Redirect not supported by context.',
-                            "de" => 'Weiterleitungen werden durch Kontext nicht unterstützt.')
-                    ) .
-                    ' (' . $a_target . ')';
+                                "de" => 'Weiterleitungen werden durch Kontext nicht unterstützt.')
+                        ) .
+                        ' (' . $a_target . ')';
                 }
             }
 
@@ -2022,4 +2026,29 @@ class ilInitialisation
             );
         };
     }
+
+    //cat-tms-patch start
+    protected static function initTMS()
+    {
+        global $DIC;
+        $DIC["ente.provider_db"] = function ($c) {
+            $global_cache = ilGlobalCache::getInstance(ilGlobalCache::COMP_PLUGINS);
+            if ($global_cache->isActive()) {
+                $cache = new \CaT\Ente\ILIAS\ilGlobalCache($global_cache);
+                return new \CaT\Ente\ILIAS\ilCachesOwnerRangeProviderDB(
+                    $c["ilDB"],
+                    $c["tree"],
+                    $c["ilObjDataCache"],
+                    $cache
+                );
+            } else {
+                return new \CaT\Ente\ILIAS\ilProviderDB(
+                    $c["ilDB"],
+                    $c["tree"],
+                    $c["ilObjDataCache"]
+                );
+            }
+        };
+    }
+    // cat-tms-patch end
 }
