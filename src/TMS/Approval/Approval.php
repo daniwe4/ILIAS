@@ -2,12 +2,15 @@
 
 /* Copyright (c) 2018 Nils Haagen <nils.haagen@concepts-and-training.de> */
 
+declare(strict_types=1);
+
 namespace ILIAS\TMS\Approval;
 
 /**
  *
  */
-class Approval {
+class Approval
+{
 
 	const OPEN = 1;
 	const APPROVED = 2;
@@ -26,7 +29,7 @@ class Approval {
 		int $booking_request_id,
 		int $order_number,
 		int $approval_position,
-		int $approving_state = null,
+		int $approving_state,
 		int $approving_usr_id = null,
 		int $approving_date = null
 	) {
@@ -43,28 +46,34 @@ class Approval {
 		}
 	}
 
-	public function getId() : int {
+	public function getId() : int
+	{
 		return $this->id;
 	}
 
-	public function getBookingRequestId() : int {
+	public function getBookingRequestId() : int
+	{
 		return $this->booking_request_id;
 	}
 
-	public function getOrderNumber() : int {
+	public function getOrderNumber() : int
+	{
 		return $this->order_number;
 	}
 
-	public function getApprovalPosition() : int {
+	public function getApprovalPosition() : int
+	{
 		return $this->approval_position;
 	}
 
-	public function isApproved() : bool {
+	public function isApproved() : bool
+	{
 		return $this->approving_state === static::APPROVED
 			&& ! is_null($this->getApprovingUserId());
 	}
 
-	protected function checkValidState($state) {
+	protected function checkValidState($state)
+	{
 		if(! in_array($state, [
 			static::OPEN,
 			static::APPROVED,
@@ -74,18 +83,21 @@ class Approval {
 		}
 	}
 
-	public function withState(int $state) : Approval {
+	public function withState(int $state) : Approval
+	{
 		$this->checkValidState($state);
 		$clone = clone $this;
 		$clone->approving_state = $state;
 		return $clone;
 	}
 
-	public function getState() : int {
+	public function getState() : int
+	{
 		return $this->approving_state;
 	}
 
-	public function withApprovingUserId(int $approving_usr_id) : Approval {
+	public function withApprovingUserId(int $approving_usr_id) : Approval
+	{
 		$clone = clone $this;
 		$clone->approving_usr_id = $approving_usr_id;
 		return $clone;
@@ -94,11 +106,13 @@ class Approval {
 	/**
 	 * @return int|null
 	 */
-	public function getApprovingUserId(){
+	public function getApprovingUserId()
+	{
 		return $this->approving_usr_id;
 	}
 
-	public function withApprovalDate(\DateTime $date) : Approval {
+	public function withApprovalDate(\DateTime $date) : Approval
+	{
 		$clone = clone $this;
 		$clone->approving_date = $date;
 		return $clone;
@@ -107,7 +121,8 @@ class Approval {
 	/**
 	 * @return \DateTime|null
 	 */
-	public function getApprovalDate() {
+	public function getApprovalDate()
+	{
 		return $this->approving_date;
 	}
 

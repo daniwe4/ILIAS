@@ -4,9 +4,11 @@
 
 use ILIAS\TMS\Approval;
 
-class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
+class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase
+{
 
-	public function setUp() {
+	public function setUp()
+	{
 		$this->br_id = 1;
 		$this->usr_id = 6;
 		$this->crs_ref_id = 667;
@@ -17,7 +19,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 		$this->approval_position = 12;
 	}
 
-	public function testConstructionBookingRequest() {
+	public function testConstructionBookingRequest()
+	{
 		$br = new Approval\BookingRequest(
 			$this->br_id,
 			$this->usr_id,
@@ -32,7 +35,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionBookingRequest
 	 */
-	public function testGettersBookingRequest($br) {
+	public function testGettersBookingRequest($br)
+	{
 		$this->assertEquals($this->br_id, $br->getId());
 		$this->assertEquals($this->usr_id, $br->getUserId());
 		$this->assertEquals($this->crs_ref_id, $br->getCourseRefId());
@@ -44,7 +48,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionBookingRequest
 	 */
-	public function testWithState($br) {
+	public function testWithState($br)
+	{
 		$br = $br->withState(Approval\BookingRequest::APPROVED);
 		$this->assertEquals(Approval\BookingRequest::APPROVED, $br->getState());
 	}
@@ -52,7 +57,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionBookingRequest
 	 */
-	public function testWithWrongState($br) {
+	public function testWithWrongState($br)
+	{
 		try {
 			$br = $br->withState(-1);
 			$this->assertFalse("This should not happen");
@@ -64,7 +70,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 
 
 
-	public function testConstructionApproval() {
+	public function testConstructionApproval()
+	{
 		$ap = new Approval\Approval(
 			$this->a_id,
 			$this->br_id,
@@ -78,7 +85,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionApproval
 	 */
-	public function testGettersApproval($ap) {
+	public function testGettersApproval($ap)
+	{
 		$this->assertEquals($this->a_id, $ap->getId());
 		$this->assertEquals($this->order_number, $ap->getOrderNumber());
 		$this->assertEquals($this->approval_position, $ap->getApprovalPosition());
@@ -88,7 +96,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	 * @depends testConstructionApproval
 	 */
 
-	public function testInitialApprovalState($ap) {
+	public function testInitialApprovalState($ap)
+	{
 		$this->assertEquals(Approval\Approval::OPEN, $ap->getState());
 		$this->assertNull($ap->getApprovingUserId());
 		$this->assertNull($ap->getApprovalDate());
@@ -97,7 +106,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionApproval
 	 */
-	public function testApprovalWithWrongState($ap) {
+	public function testApprovalWithWrongState($ap)
+	{
 		try {
 			$ap = $ap->withState(-1);
 			$this->assertFalse("This should not happen");
@@ -110,7 +120,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionApproval
 	 */
-	public function testApprovalWithState($ap) {
+	public function testApprovalWithState($ap)
+	{
 		$ap = $ap->withState(Approval\Approval::APPROVED);
 		$this->assertEquals(Approval\Approval::APPROVED, $ap->getState());
 		$this->assertFalse($ap->isApproved());
@@ -120,7 +131,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testApprovalWithState
 	 */
-	public function testApprovalWithUser($ap) {
+	public function testApprovalWithUser($ap)
+	{
 		$approving_user = 7;
 		$ap = $ap->withApprovingUserId(7);
 		$this->assertEquals($approving_user, $ap->getApprovingUserId());
@@ -130,7 +142,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * @depends testConstructionApproval
 	 */
-	public function testApprovalWithDate($ap) {
+	public function testApprovalWithDate($ap)
+	{
 		$ap = $ap->withApprovalDate($this->date);
 		$this->assertEquals($this->date, $ap->getApprovalDate());
 	}

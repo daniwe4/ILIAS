@@ -2,12 +2,15 @@
 
 /* Copyright (c) 2018 Nils Haagen <nils.haagen@concepts-and-training.de> */
 
+declare(strict_types=1);
+
 namespace ILIAS\TMS\Approval;
 
 /**
  *
  */
-class BookingRequest {
+class BookingRequest
+{
 
 	//states
 	const OPEN = 1;
@@ -42,27 +45,33 @@ class BookingRequest {
 		$this->state = $state;
 	}
 
-	public function getId() : int {
+	public function getId() : int
+	{
 		return $this->id;
 	}
 
-	public function getUserId() : int {
+	public function getUserId() : int
+	{
 		return $this->usr_id;
 	}
 
-	public function getCourseRefId() : int {
+	public function getCourseRefId() : int
+	{
 		return $this->crs_ref_id;
 	}
 
-	public function getRequestDate() : \DateTime {
+	public function getRequestDate() : \DateTime
+	{
 		return $this->date;
 	}
 
-	public function getBookingData() : string {
+	public function getBookingData() : string
+	{
 		return $this->booking_data;
 	}
 
-	protected function checkValidState($state) {
+	protected function checkValidState($state)
+	{
 		if(! in_array($state, [
 			static::OPEN,
 			static::APPROVED,
@@ -75,14 +84,16 @@ class BookingRequest {
 		}
 	}
 
-	public function withState(int $state) : BookingRequest {
+	public function withState(int $state) : BookingRequest
+	{
 		$this->checkValidState($state);
 		$clone = clone $this;
 		$clone->state = $state;
 		return $clone;
 	}
 
-	public function getState() : int {
+	public function getState() : int
+	{
 		return $this->state;
 	}
 

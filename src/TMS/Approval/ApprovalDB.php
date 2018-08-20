@@ -7,7 +7,8 @@ namespace ILIAS\TMS\Approval;
 /**
  * Storage for BookingRequests and Approvals
  */
-interface ApprovalDB {
+interface ApprovalDB
+{
 
 	public function createBookingRequest(
 		int $usr_id,
@@ -38,15 +39,6 @@ interface ApprovalDB {
 	) : Approval;
 
 	public function updateApproval(Approval $approval);
-
-	/**
-	 * @return Approval[]
-	 */
-	public function selectApprovals(
-		array $crs_ref_id = null,
-		array $approval_position = null,
-		array $approving_usr_id = null
-	) : array;
 
 	/**
 	 * @return Approval[]
