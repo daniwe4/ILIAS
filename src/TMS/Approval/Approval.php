@@ -37,13 +37,11 @@ class Approval
 		$this->booking_request_id = $booking_request_id;
 		$this->order_number = $order_number;
 		$this->approval_position = $approval_position;
+		$this->checkValidState($approving_state);
+		$this->approving_state = $approving_state;
+		$this->approving_usr_id = $approving_usr_id;
+		$this->approving_date = $approving_date;
 
-		if(is_null($approving_state)) {
-			$this->approving_state = static::OPEN;
-		} else {
-			$this->checkValidState($approving_state);
-			$this->approving_state = $approving_state;
-		}
 	}
 
 	public function getId() : int

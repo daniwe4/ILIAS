@@ -76,7 +76,8 @@ class Approval_DataObjectsTest extends PHPUnit_Framework_TestCase
 			$this->a_id,
 			$this->br_id,
 			$this->order_number,
-			$this->approval_position
+			$this->approval_position,
+			1
 		);
 		$this->assertInstanceOf(Approval\Approval::class, $ap);
 		return $ap;
