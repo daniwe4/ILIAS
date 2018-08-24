@@ -29,18 +29,34 @@ class TMSMail implements Mail
      */
     protected $attachments;
 
+    protected $is_freetext;
+
+    /**
+     * @var string
+     */
+    protected $subject;
+
+    /**
+     * @var string
+     */
+    protected $body;
 
     public function __construct(
         Recipient $recipient,
-        $template_ident,
+        string $template_ident,
         array $contexts,
-        Attachments $attachments = null
+        Attachments $attachments = null,
+        bool $is_freetext = false,
+        string $subject = "",
+        string $body = ""
     ) {
-        assert('is_string($template_ident)');
         $this->recipient = $recipient;
         $this->template_ident = $template_ident;
         $this->contexts = $contexts;
         $this->attachments = $attachments;
+        $this->is_freetext = $is_freetext;
+        $this->subject = $subject;
+        $this->body = $body;
     }
 
     /**
@@ -73,5 +89,20 @@ class TMSMail implements Mail
     public function getAttachments()
     {
         return $this->attachments;
+    }
+
+    public function isFreetext() : bool
+    {
+        return $this->is_freetext;
+    }
+
+    public function getSubject() : string
+    {
+        return $this->subject;
+    }
+
+    public function getBody() : string
+    {
+        return $this->body;
     }
 }

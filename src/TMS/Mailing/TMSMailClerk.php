@@ -81,7 +81,20 @@ class TMSMailClerk
 
             $builder = $this->content_builder
                 ->withStyleFor($recipient)
-                ->withData($template_ident, $contexts);
+                ->withContexts($contexts)
+            ;
+
+            if ($mail->isFreetext()) {
+                $builder = $builder
+                    ->withSubject($mail->getSubject())
+                    ->withBody($mail->getBody())
+                    ->withTemplateId($template_ident)
+                ;
+            } else {
+                $builder = $builder
+                    ->withData($template_ident)
+                ;
+            }
 
             $subject = $builder->getSubject();
             $msg_html = $builder->getMessage();

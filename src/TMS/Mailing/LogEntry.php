@@ -91,32 +91,20 @@ class LogEntry
      * @param string  	$error
      */
     public function __construct(
-        $id,
+        int $id,
         \ilDateTime $date,
-        $event,
-        $crs_ref_id,
-        $template_ident,
-        $usr_id,
-        $usr_login,
-        $usr_name,
-        $usr_mail,
-        $subject = '',
-        $msg = '',
+        string $event,
+        int $crs_ref_id = null,
+        string $template_ident,
+        int $usr_id = null,
+        string $usr_login = null,
+        string $usr_name = null,
+        string $usr_mail,
+        string $subject = '',
+        string $msg = '',
         array $attachments = [],
-        $error = ''
+        string $error = ''
     ) {
-        assert('is_int($id)');
-        assert('is_string($event)');
-        assert('is_int($crs_ref_id) || $crs_ref_id===null');
-        assert('is_string($template_ident)');
-        assert('is_int($usr_id) || $usr_id===null');
-        assert('is_string($usr_login) || $usr_login===null');
-        assert('is_string($usr_name) || $usr_name===null');
-        assert('is_string($usr_mail)');
-        assert('is_string($subject)');
-        assert('is_string($msg)');
-        assert('is_string($error)');
-
         $this->id = $id;
         $this->date = $date;
         $this->event = $event;

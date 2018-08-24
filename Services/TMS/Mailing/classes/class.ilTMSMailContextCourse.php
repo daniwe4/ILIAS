@@ -23,11 +23,14 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         'TRAINER_FIRST_NAME' => 'placeholder_desc_crs_trainer_firstname',
         'TRAINER_LAST_NAME' => 'placeholder_desc_crs_trainer_lastname',
         'ALL_TRAINERS' => 'placeholder_desc_crs_all_trainers',
+        'COURSE_IMPORTANT_INFORMATION' => 'placeholder_desc_crs_important_information',
         'OFFICE_FIRST_NAME' => 'placeholder_desc_crs_admin_firstname',
         'OFFICE_LAST_NAME' => 'placeholder_desc_crs_admin_lastname',
         'OFFICE_MAIL' => 'placeholder_desc_crs_admin_mail',
+        'OFFICE_PHONE' => 'placeholder_desc_crs_admin_phone',
         'VENUE' => 'placeholder_desc_crs_venue',
         'VENUE_NAME' => 'placeholder_desc_crs_venuename',
+        'VENUE_ADDITIONAL_INFO' => 'placeholder_desc_crs_venue_additionalinfo',
         'TRAINING_PROVIDER' => 'placeholder_desc_crs_provider',
         'BOOKING_LINK' => 'placeholder_desc_crs_booking_link',
         'MEMBERS_COUNT' => 'placeholder_desc_crs_members_count'
@@ -96,16 +99,22 @@ class ilTMSMailContextCourse implements Mailing\MailContext
                 return $this->trainerLastname();
             case 'ALL_TRAINERS':
                 return $this->trainerAll();
+            case 'COURSE_IMPORTANT_INFORMATION':
+                return $this->crsImportantInformation();
             case 'OFFICE_FIRST_NAME':
                 return $this->adminFirstname();
             case 'OFFICE_LAST_NAME':
                 return $this->adminLastname();
             case 'OFFICE_MAIL':
                 return $this->adminEmail();
+            case 'OFFICE_PHONE':
+                return $this->adminPhone();
             case 'VENUE':
                 return $this->crsVenue();
             case 'VENUE_NAME':
                 return $this->crsVenueName();
+            case 'VENUE_ADDITIONAL_INFO':
+                return $this->crsVenueAdditionalInfo();
             case 'TRAINING_PROVIDER':
                 return $this->crsProvider();
             case 'BOOKING_LINK':
@@ -153,6 +162,12 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         return $ilObjDataCache->lookupTitle($obj_id);
     }
 
+    public function crsImportantInformation()
+    {
+        $crs = $this->getCourseObject();
+        return $crs->getImportantInformation();
+    }
+
     /**
      * @return string
      */
@@ -180,7 +195,7 @@ class ilTMSMailContextCourse implements Mailing\MailContext
                 $this->g_lang->txt('oclock')
             );
         }
-        return implode('<br>', $schedule);
+        return implode(PHP_EOL, $schedule);
     }
 
     /**
@@ -304,6 +319,18 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         return $admin;
     }
 
+    /**
+     * @return string | null
+     */
+    public function adminPhone()
+    {
+        $admin = $this->getAdmin();
+        if ($admin !== null) {
+            return $admin->getPhoneOffice();
+        }
+        return $admin;
+    }
+
 
     /**
      * @return [CaT\Plugins\Venues\ilActions | null, CaT\Plugins\Venues\VenueAssignment | null]
@@ -351,7 +378,7 @@ class ilTMSMailContextCourse implements Mailing\MailContext
             $venue_text = array_filter($venue_text, function ($val) {
                 return trim($val) !== '';
             });
-            $venue_text = implode('<br />', $venue_text);
+            $venue_text = implode(PHP_EOL, $venue_text);
         }
         return $venue_text;
     }
@@ -377,6 +404,26 @@ class ilTMSMailContextCourse implements Mailing\MailContext
     /**
      * @return string | null
      */
+    public function crsVenueAdditionalInfo()
+    {
+        list($vactions, $vassignment) = $this->getCrsVenueAssignmentAndActions();
+        if (is_null($vassignment)) {
+            return null;
+        }
+        if ($vassignment->isCustomAssignment()) {
+            return null;
+        }
+        $info = $vassignment->getAdditionalInfo();
+        if (is_null($info) || trim($info) === '') {
+            return null;
+        }
+        return trim($info);
+    }
+
+
+    /**
+     * @return string | null
+     */
     public function crsProvider()
     {
         if (!ilPluginAdmin::isPluginActive('trainingprovider')) {
@@ -395,7 +442,7 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         } else {
             $pid = $passignment->getProviderId();
             $pvals = $pactions->getProviderValues($pid);
-            $provider_text = implode('<br />', array(
+            $provider_text = implode(PHP_EOL, array(
                 $pvals[$pactions::F_NAME],
                 $pvals[$pactions::F_ADDRESS1],
                 $pvals[$pactions::F_ADDRESS2],

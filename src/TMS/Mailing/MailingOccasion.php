@@ -51,4 +51,11 @@ interface MailingOccasion extends Component
      * @return \DateTime | null
      */
     public function getNextScheduledDate();
+
+    /**
+     * Decides the mail should be send or not
+     *
+     * @return bool
+     */
+    public function maybeSend();
 }

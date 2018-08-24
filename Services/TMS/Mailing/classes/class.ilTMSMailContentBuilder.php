@@ -52,17 +52,27 @@ class ilTMSMailContentBuilder implements Mailing\MailContentBuilder
     public function __construct(Mailing\MailingDB $mailing_db)
     {
         $this->mailing_db = $mailing_db;
+        $this->template_data = [];
     }
 
     /**
      * @inheritdoc
      */
-    public function withData($ident, $contexts)
+    public function withData($ident)
     {
         $clone = clone $this;
         $clone->ident = $ident;
-        $clone->contexts = $contexts;
         $clone->initTemplateData();
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withContexts(array $contexts)
+    {
+        $clone = clone $this;
+        $clone->contexts = $contexts;
         return $clone;
     }
 
@@ -83,6 +93,36 @@ class ilTMSMailContentBuilder implements Mailing\MailContentBuilder
 
         $clone = clone $this;
         $clone->skin = $skin;
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withSubject(string $subject)
+    {
+        $clone = clone $this;
+        $clone->template_data['subject'] = $subject;
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withBody(string $body)
+    {
+        $clone = clone $this;
+        $clone->template_data['message'] = $body;
+        return $clone;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function withTemplateId(string $template_id)
+    {
+        $clone = clone $this;
+        $clone->template_data['id'] = $template_id;
         return $clone;
     }
 
@@ -148,7 +188,7 @@ class ilTMSMailContentBuilder implements Mailing\MailContentBuilder
         if (!is_null($this->skin)) {
             $images_path = sprintf(self::CUSTOM_IMAGES, $this->skin);
             if (is_dir($images_path)) {
-                return preg_grep('/\.jpg$/i', $this->readDir($images_path));
+                return $this->readDir($images_path);
             }
             return [];
         }
@@ -225,7 +265,9 @@ class ilTMSMailContentBuilder implements Mailing\MailContentBuilder
         $files = array_diff(scandir($dirpath), array('.', '..'));
         $ret = array();
         foreach ($files as $file) {
-            $ret[] = array($dirpath . $file, 'img/' . $file);
+            if (preg_match('/\.jpg$/i', $file)) {
+                $ret[] = array($dirpath . $file, 'img/' . $file);
+            }
         }
         return $ret;
     }

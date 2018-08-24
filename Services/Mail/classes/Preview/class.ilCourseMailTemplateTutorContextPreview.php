@@ -28,7 +28,7 @@ class ilCourseMailTemplateTutorContextPreview extends ilCourseMailTemplateTutorC
     /**
      * @return string
      */
-    public function getId()
+    public function getId() : string
     {
         return self::ID;
     }
@@ -36,7 +36,7 @@ class ilCourseMailTemplateTutorContextPreview extends ilCourseMailTemplateTutorC
     /**
      * {@inheritdoc}
      */
-    public function resolveSpecificPlaceholder($placeholder_id, array $context_parameters, ilObjUser $recipient = null, $html_markup = false)
+    public function resolveSpecificPlaceholder($placeholder_id, array $context_parameters, ilObjUser $recipient = null, $html_markup = false) : string
     {
         if (!in_array($placeholder_id, array('crs_title', 'crs_link'))) {
             return "";

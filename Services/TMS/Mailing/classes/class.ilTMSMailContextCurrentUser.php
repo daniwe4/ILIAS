@@ -13,7 +13,8 @@ class ilTMSMailContextCurrentUser extends ilTMSMailContextUser
         'CURRENT_USER_FIRST_NAME' => 'placeholder_desc_current_user_firstName',
         'CURRENT_USER_LAST_NAME' => 'placeholder_desc_current_user_lastName',
         'CURRENT_USER_LOGIN' => 'placeholder_desc_current_user_login',
-        'CURRENT_USER_EMAIL' => 'placeholder_desc_current_user_email'
+        'CURRENT_USER_EMAIL' => 'placeholder_desc_current_user_email',
+        'CURRENT_USER_TITLE' => 'placeholder_desc_current_user_title'
     );
 
     /**
@@ -57,17 +58,11 @@ class ilTMSMailContextCurrentUser extends ilTMSMailContextUser
                 return $this->login();
             case 'CURRENT_USER_EMAIL':
                 return $this->email();
+            case 'CURRENT_USER_TITLE':
+                return $this->title();
 
             default:
                 return null;
         }
-    }
-
-    /**
-     * @return string
-     */
-    private function email()
-    {
-        return $this->getUser()->getEmail();
     }
 }

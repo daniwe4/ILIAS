@@ -13,13 +13,12 @@ interface MailContentBuilder
 {
 
     /**
-     * get instance of this with template-identifier and contexts
+     * get instance of this with template-identifier
      *
      * @param string 	$ident
-     * @param MailContext[] $contexts
      * @return MailContentBuilder
      */
-    public function withData($ident, $contexts);
+    public function withData($ident);
 
     /**
      * Get the template's id of this Mail.
@@ -81,4 +80,36 @@ interface MailContentBuilder
      * @return 	MailContentBuilder
      */
     public function withStyleFor(Recipient $recipient);
+
+    /**
+     * get instance of this with contexts
+     *
+     * @param MailContext[] $contexts
+     * @return MailContentBuilder
+     */
+    public function withContexts(array $contexts);
+
+    /**
+     * get instance of this with subject
+     *
+     * @param string $subject
+     * @return MailContentBuilder
+     */
+    public function withSubject(string $subject);
+
+    /**
+     * get instance of this with body
+     *
+     * @param string $body
+     * @return MailContentBuilder
+     */
+    public function withBody(string $body);
+
+    /**
+     * get instance of this with template id
+     *
+     * @param string $tempalte_id
+     * @return MailContentBuilder
+     */
+    public function withTemplateId(string $tempalte_id);
 }
