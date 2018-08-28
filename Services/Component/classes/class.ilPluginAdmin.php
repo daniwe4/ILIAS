@@ -235,7 +235,6 @@ class ilPluginAdmin
     protected function parsePluginPhp($plugin_php_file)
     {
         include($plugin_php_file);
-
         $values = [
             "version" => $version,
             "id" => $id,
