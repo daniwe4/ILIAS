@@ -891,11 +891,11 @@ class ilInitialisation
         $query = parse_url($url, PHP_URL_QUERY);
         parse_str($query, $params);
         if (
-$params['cmd'] === 'start' &&
-$params['cmdClass'] === 'iltmsselfbookinggui' &&
-$params['baseClass'] === 'ilpersonaldesktopgui' &&
-array_key_exists('crs_ref_id', $params)
-) {
+            $params['cmd'] === 'start' &&
+            $params['cmdClass'] === 'iltmsselfbookinggui' &&
+            $params['baseClass'] === 'ilpersonaldesktopgui' &&
+            array_key_exists('crs_ref_id', $params)
+        ) {
             ilUtil::setCookie("_redirect_booking", serialize($params));
         }
         //cat-tms-patch end
@@ -1259,6 +1259,18 @@ array_key_exists('crs_ref_id', $params)
         // $tree
         require_once "./Services/Tree/classes/class.ilTree.php";
         $tree = new ilTree(ROOT_FOLDER_ID);
+        // cat-tms-patch start
+        $global_cache = ilGlobalCache::getInstance(ilGlobalCache::COMP_TREE);
+        if ($global_cache->isActive()) {
+            require_once "./Services/Tree/classes/class.ilCachedTree.php";
+            $tree = new ilCachedTree(
+                $tree,
+                $global_cache,
+                $DIC["ilObjDataCache"],
+                $DIC["objDefinition"]
+            );
+        }
+        // cat-tms-patch end
         self::initGlobal("tree", $tree);
         unset($tree);
 

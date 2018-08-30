@@ -2,14 +2,14 @@
 /* Copyright (c) 1998-2009 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 /**
-* class ilObjectDataCache
-*
-* @author Stefan Meyer <meyer@leifos.com>
-* @version $Id$
-*
-* This class caches some properties of the object_data table. Like title description owner obj_id
-*
-*/
+ * class ilObjectDataCache
+ *
+ * @author Stefan Meyer <meyer@leifos.com>
+ * @version $Id$
+ *
+ * This class caches some properties of the object_data table. Like title description owner obj_id
+ *
+ */
 class ilObjectDataCache
 {
     public $db = null;
@@ -98,12 +98,12 @@ class ilObjectDataCache
     // PRIVATE
 
     /**
-    * checks whether an reference id is already in cache or not
-    *
-    * @access	private
-    * @param	int			$a_ref_id				reference id
-    * @return	boolean
-    */
+     * checks whether an reference id is already in cache or not
+     *
+     * @access	private
+     * @param	int			$a_ref_id				reference id
+     * @return	boolean
+     */
     public function __isReferenceCached($a_ref_id)
     {
         #return false;
@@ -119,17 +119,17 @@ class ilObjectDataCache
     }
 
     /**
-    * checks whether an object is aleady in cache or not
-    *
-    * @access	private
-    * @param	int			$a_obj_id				object id
-    * @return	boolean
-    */
+     * checks whether an object is aleady in cache or not
+     *
+     * @access	private
+     * @param	int			$a_obj_id				object id
+     * @return	boolean
+     */
     public function __isObjectCached($a_obj_id)
     {
         static $cached = 0;
         static $not_cached = 0;
-            
+
 
         if (@$this->object_data_cache[$a_obj_id]) {
             #echo "Object ". ++$cached ."cached<br>";
@@ -141,18 +141,18 @@ class ilObjectDataCache
 
 
     /**
-    * Stores Reference in cache.
-    * Maybe it could be useful to find all references of that object andd store them also in the cache.
-    * But this would be an extra query.
-    *
-    * @access	private
-    * @param	int			$a_ref_id				reference id
-    * @return	int			$obj_id
-    */
+     * Stores Reference in cache.
+     * Maybe it could be useful to find all references of that object andd store them also in the cache.
+     * But this would be an extra query.
+     *
+     * @access	private
+     * @param	int			$a_ref_id				reference id
+     * @return	int			$obj_id
+     */
     public function __storeReference($a_ref_id)
     {
         $ilDB = $this->db;
-        
+
         $query = "SELECT obj_id FROM object_reference WHERE ref_id = " . $ilDB->quote($a_ref_id, 'integer');
         $res = $this->db->query($query);
         while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_ASSOC)) {
@@ -162,12 +162,12 @@ class ilObjectDataCache
     }
 
     /**
-    * Stores object data in cache
-    *
-    * @access	private
-    * @param	int			$a_obj_id				object id
-    * @return	bool
-    */
+     * Stores object data in cache
+     *
+     * @access	private
+     * @param	int			$a_obj_id				object id
+     * @return	bool
+     */
     public function __storeObjectData($a_obj_id, $a_lang = "")
     {
         global $DIC;
@@ -175,7 +175,7 @@ class ilObjectDataCache
         $ilDB = $this->db;
         $objDefinition = $DIC["objDefinition"];
         $ilUser = $DIC["ilUser"];
-        
+
         if (is_object($ilUser) && $a_lang == "") {
             $a_lang = $ilUser->getLanguage();
         }
@@ -190,7 +190,10 @@ class ilObjectDataCache
             $this->object_data_cache[$a_obj_id]['owner'] = $row->owner;
             $this->object_data_cache[$a_obj_id]['last_update'] = $row->last_update;
             $this->object_data_cache[$a_obj_id]['offline'] = $row->offline;
-            
+            // cat-tms-patch start
+            $this->object_data_cache[$a_obj_id]['import_id'] = $row->import_id;
+            // cat-tms-patch end
+
             if (is_object($objDefinition)) {
                 $translation_type = $objDefinition->getTranslationType($row->type);
             }
@@ -198,9 +201,9 @@ class ilObjectDataCache
             if ($translation_type == "db") {
                 if (!$this->trans_loaded[$a_obj_id]) {
                     $q = "SELECT title,description FROM object_translation " .
-                         "WHERE obj_id = " . $ilDB->quote($a_obj_id, 'integer') . " " .
-                         "AND lang_code = " . $ilDB->quote($a_lang, 'text') . " " .
-                         "AND NOT lang_default = 1";
+                        "WHERE obj_id = " . $ilDB->quote($a_obj_id, 'integer') . " " .
+                        "AND lang_code = " . $ilDB->quote($a_lang, 'text') . " " .
+                        "AND NOT lang_default = 1";
                     $r = $ilDB->query($q);
 
                     $row = $r->fetchRow(ilDBConstants::FETCHMODE_OBJECT);
@@ -213,23 +216,23 @@ class ilObjectDataCache
                 }
             }
         }
-        
+
         return true;
     }
-    
+
     public function isTranslatedDescription($a_obj_id)
     {
         return (is_array($this->description_trans) &&
             in_array($a_obj_id, $this->description_trans));
     }
-    
+
     /**
-    * Stores object data in cache
-    *
-    * @access	private
-    * @param	int			$a_obj_id				object id
-    * @return	bool
-    */
+     * Stores object data in cache
+     *
+     * @access	private
+     * @param	int			$a_obj_id				object id
+     * @return	bool
+     */
     public function preloadObjectCache($a_obj_ids, $a_lang = "")
     {
         global $DIC;
@@ -247,8 +250,8 @@ class ilObjectDataCache
         if (count($a_obj_ids) == 0) {
             return;
         }
-        
-        
+
+
         $query = "SELECT * FROM object_data " .
             "WHERE " . $ilDB->in('obj_id', $a_obj_ids, false, 'integer');
         $res = $ilDB->query($query);
@@ -264,6 +267,9 @@ class ilObjectDataCache
             $this->object_data_cache[$row->obj_id]['owner'] = $row->owner;
             $this->object_data_cache[$row->obj_id]['last_update'] = $row->last_update;
             $this->object_data_cache[$row->obj_id]['offline'] = $row->offline;
+            // cat-tms-patch start
+            $this->object_data_cache[$row->obj_id]['import_id'] = $row->import_id;
+            // cat-tms-patch end
 
             if (is_object($objDefinition)) {
                 $translation_type = $objDefinition->getTranslationType($row->type);
@@ -297,9 +303,9 @@ class ilObjectDataCache
         }
         if (count($obj_ids) > 0) {
             $q = "SELECT obj_id, title, description FROM object_translation " .
-                 "WHERE " . $ilDB->in('obj_id', $obj_ids, false, 'integer') . " " .
-                 "AND lang_code = " . $ilDB->quote($a_lang, 'text') . " " .
-                 "AND NOT lang_default = 1";
+                "WHERE " . $ilDB->in('obj_id', $obj_ids, false, 'integer') . " " .
+                "AND lang_code = " . $ilDB->quote($a_lang, 'text') . " " .
+                "AND NOT lang_default = 1";
             $r = $ilDB->query($q);
             while ($row2 = $r->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
                 $this->object_data_cache[$row2->obj_id]['title'] = $row2->title;
@@ -312,18 +318,18 @@ class ilObjectDataCache
     public function preloadReferenceCache($a_ref_ids, $a_incl_obj = true)
     {
         $ilDB = $this->db;
-        
+
         if (!is_array($a_ref_ids)) {
             return;
         }
         if (count($a_ref_ids) == 0) {
             return;
         }
-        
+
         $query = "SELECT ref_id, obj_id FROM object_reference " .
             "WHERE " . $ilDB->in('ref_id', $a_ref_ids, false, 'integer');
         $res = $ilDB->query($query);
-        
+
         $obj_ids = array();
         while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_ASSOC)) {
             $this->reference_cache[$row['ref_id']] = $row['obj_id'];
@@ -334,4 +340,14 @@ class ilObjectDataCache
             $this->preloadObjectCache($obj_ids);
         }
     }
+
+    // cat-tms-patch start
+    public function lookupImportId($a_obj_id)
+    {
+        if (!$this->__isObjectCached($a_obj_id)) {
+            $this->__storeObjectData($a_obj_id);
+        }
+        return @$this->object_data_cache[$a_obj_id]['import_id'];
+    }
+    // cat-tms-patch end
 }

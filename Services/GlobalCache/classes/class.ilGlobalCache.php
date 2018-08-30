@@ -33,6 +33,7 @@ class ilGlobalCache
 
     // cat-tms patch start
     const COMP_SEARCH = 'search';
+    const COMP_TREE = 'tree';
     // cat-tms patch end
 
     /**
@@ -71,7 +72,8 @@ class ilGlobalCache
         self::COMP_EVENTS,
         self::COMP_GLOBAL_SCREEN,
         // cat-tms-patch start
-        self::COMP_SEARCH
+        self::COMP_SEARCH,
+        self::COMP_TREE
         // cat-tms-patch end
     );
     /**
