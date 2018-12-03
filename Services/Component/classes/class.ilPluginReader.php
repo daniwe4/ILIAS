@@ -4,14 +4,14 @@
 include_once("./Services/Xml/classes/class.ilSaxParser.php");
 
 /**
-* Class ilPluginReader
-*
-* Reads plugin information of plugin.xml files into db
-*
-* @author Alex Killing <alex.killing@gmx.de>
-* @version $Id$
-*
-*/
+ * Class ilPluginReader
+ *
+ * Reads plugin information of plugin.xml files into db
+ *
+ * @author Alex Killing <alex.killing@gmx.de>
+ * @version $Id$
+ *
+ */
 class ilPluginReader extends ilSaxParser
 {
     public function __construct($a_path, $a_ctype, $a_cname, $a_slot_id, $a_pname)
@@ -36,7 +36,7 @@ class ilPluginReader extends ilSaxParser
         $ilDB->manipulate("DELETE FROM il_event_handling WHERE component = " . $ilDB->quote($component, 'text'));
     }
 
-    
+
     public function startParsing()
     {
         if ($this->getInputType() == 'file') {
@@ -47,7 +47,7 @@ class ilPluginReader extends ilSaxParser
         }
         parent::startParsing();
     }
-    
+
     public function setHandlers($a_xml_parser)
     {
         xml_set_object($a_xml_parser, $this);
@@ -56,13 +56,13 @@ class ilPluginReader extends ilSaxParser
     }
 
     /**
-    * start tag handler
-    *
-    * @param	ressouce	internal xml_parser_handler
-    * @param	string		element tag name
-    * @param	array		element attributes
-    * @access	private
-    */
+     * start tag handler
+     *
+     * @param	ressouce	internal xml_parser_handler
+     * @param	string		element tag name
+     * @param	array		element attributes
+     * @access	private
+     */
     public function handlerBeginTag($a_xml_parser, $a_name, $a_attribs)
     {
         global $DIC;
@@ -71,7 +71,7 @@ class ilPluginReader extends ilSaxParser
         switch ($a_name) {
             // base plugin info is still read from the plugin.php
             case 'plugin_tag_analyzed_in_future':
-                
+
                 // check whether record exists
                 $q = "SELECT * FROM il_plugin WHERE " .
                     " component_type = " . $ilDB->quote($this->ctype, "text") .
@@ -117,28 +117,42 @@ class ilPluginReader extends ilSaxParser
                     $ilDB->quote($a_attribs["id"], "text") . ")";
                 $ilDB->manipulate($q);
                 break;
+            // cat-tms-patch start
+            case "pageobject":
+                $comp = "Plugin/" . $this->pname;
+                $ilDB->manipulate(
+                    "INSERT INTO copg_pobj_def " .
+                    "(parent_type, class_name, component, directory) VALUES (" .
+                    $ilDB->quote($a_attribs["parent_type"], "text") . "," .
+                    $ilDB->quote($a_attribs["class_name"], "text") . "," .
+                    $ilDB->quote($comp, "text") . "," .
+                    $ilDB->quote($a_attribs["directory"], "text") .
+                    ")"
+                );
+            break;
+            // cat-tms-patch end
         }
     }
-            
+
     /**
-    * end tag handler
-    *
-    * @param	ressouce	internal xml_parser_handler
-    * @param	string		element tag name
-    * @access	private
-    */
+     * end tag handler
+     *
+     * @param	ressouce	internal xml_parser_handler
+     * @param	string		element tag name
+     * @access	private
+     */
     public function handlerEndTag($a_xml_parser, $a_name)
     {
     }
 
-            
+
     /**
-    * end tag handler
-    *
-    * @param	ressouce	internal xml_parser_handler
-    * @param	string		data
-    * @access	private
-    */
+     * end tag handler
+     *
+     * @param	ressouce	internal xml_parser_handler
+     * @param	string		data
+     * @access	private
+     */
     public function handlerCharacterData($a_xml_parser, $a_data)
     {
         // DELETE WHITESPACES AND NEWLINES OF CHARACTER DATA
@@ -151,4 +165,14 @@ class ilPluginReader extends ilSaxParser
             }
         }
     }
+
+    // cat-tms-patch start
+    public function clearPageObjects()
+    {
+        global $DIC;
+        $ilDB = $DIC->database();
+        $comp = "Plugin/" . $this->pname;
+        $ilDB->manipulate("DELETE FROM copg_pobj_def WHERE component = " . $ilDB->quote($comp, 'text'));
+    }
+    // cat-tms-patch end
 }

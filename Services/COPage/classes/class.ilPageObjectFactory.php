@@ -23,15 +23,17 @@ class ilPageObjectFactory
     public static function getInstance($a_parent_type, $a_id = 0, $a_old_nr = 0, $a_lang = "-")
     {
         include_once("./Services/COPage/classes/class.ilCOPageObjDef.php");
-        $def = ilCOPageObjDef::getDefinitionByParentType($a_parent_type);
+        // cat-tms-patch start
+        $def = self::getDefinition($a_parent_type);
+        // cat-tms-patch end
         $class = $def["class_name"];
         $path = "./" . $def["component"] . "/" . $def["directory"] . "/class." . $class . ".php";
         include_once($path);
         $obj = new $class($a_id, $a_old_nr, $a_lang);
-        
+
         return $obj;
     }
-    
+
     /**
      * Get page config instance
      *
@@ -41,12 +43,14 @@ class ilPageObjectFactory
     public static function getConfigInstance($a_parent_type)
     {
         include_once("./Services/COPage/classes/class.ilCOPageObjDef.php");
-        $def = ilCOPageObjDef::getDefinitionByParentType($a_parent_type);
+        // cat-tms-patch start
+        $def = self::getDefinition($a_parent_type);
+        // cat-tms-patch end
         $class = $def["class_name"] . "Config";
         $path = "./" . $def["component"] . "/" . $def["directory"] . "/class." . $class . ".php";
         include_once($path);
         $cfg = new $class();
-        
+
         return $cfg;
     }
 
@@ -89,4 +93,20 @@ class ilPageObjectFactory
 
         return $obj;
     }*/
+
+    // cat-tms-patch start
+    protected static function getDefinition($a_parent_type)
+    {
+        global $DIC;
+        $objDefinition = $DIC["objDefinition"];
+
+        $def = ilCOPageObjDef::getDefinitionByParentType($a_parent_type);
+        if ($objDefinition->isPlugin($def["parent_type"])) {
+            $pl = ilPluginAdmin::getPluginObjectById($def["parent_type"]);
+            $def["component"] = $pl->getDirectory();
+        }
+
+        return $def;
+    }
+    // cat-tms-patch end
 }

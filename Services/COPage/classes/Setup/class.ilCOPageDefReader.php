@@ -36,7 +36,9 @@ class ilCOPageDefReader
         $ilDB = $this->getDB();
 
         $ilDB->manipulate("DELETE FROM copg_pc_def");
-        $ilDB->manipulate("DELETE FROM copg_pobj_def");
+        // cat-tms-patch start
+        $ilDB->manipulate("DELETE FROM copg_pobj_def WHERE component NOT LIKE 'Plugin/%'");
+        // cat-tms-patch end
     }
 
     /**

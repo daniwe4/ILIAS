@@ -1017,6 +1017,9 @@ abstract class ilPlugin
                 );
             }
 
+            // cat-tms-patch start
+            $this->clearPageObjects();
+            // cat-tms-patch end
             $this->clearEventListening();
 
             // db version is kept in il_plugin - will be deleted, too
@@ -1121,6 +1124,9 @@ abstract class ilPlugin
             $this->getSlotId(),
             $this->getPluginName()
         );
+        // cat-tms-patch start
+        $reader->clearPageObjects();
+        // cat-tms-patch end
         $reader->clearEvents();
         $reader->startParsing();
     }
@@ -1428,4 +1434,21 @@ abstract class ilPlugin
         //This returns the callable of $c[$key] without executing it.
         return $dic->raw($dic_key);
     }
+    
+    // cat-tms-patch start
+    /**
+    * Clear the entries of this plugin in the event handling table
+    */
+    protected function clearPageObjects()
+    {
+        $reader = new ilPluginReader(
+            $this->getDirectory() . '/plugin.xml',
+            $this->getComponentType(),
+            $this->getComponentName(),
+            $this->getSlotId(),
+            $this->getPluginName()
+        );
+        $reader->clearPageObjects();
+    }
+    // cat-tms-patch end
 }
