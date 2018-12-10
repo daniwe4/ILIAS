@@ -5,24 +5,24 @@ require_once("./Services/COPage/classes/class.ilPCSection.php");
 require_once("./Services/COPage/classes/class.ilPageContentGUI.php");
 
 /**
-* Class ilPCSectionGUI
-*
-* User Interface for Section Editing
-*
-* @author Alex Killing <alex.killing@gmx.de>
-* @version $Id$
-*
-* @ilCtrl_Calls ilPCSectionGUI: ilPropertyFormGUI
-*
-* @ingroup ServicesCOPage
-*/
+ * Class ilPCSectionGUI
+ *
+ * User Interface for Section Editing
+ *
+ * @author Alex Killing <alex.killing@gmx.de>
+ * @version $Id$
+ *
+ * @ilCtrl_Calls ilPCSectionGUI: ilPropertyFormGUI
+ *
+ * @ingroup ServicesCOPage
+ */
 class ilPCSectionGUI extends ilPageContentGUI
 {
 
     /**
-    * Constructor
-    * @access	public
-    */
+     * Constructor
+     * @access	public
+     */
     public function __construct(&$a_pg_obj, &$a_content_obj, $a_hier_id, $a_pc_id = "")
     {
         global $DIC;
@@ -31,19 +31,19 @@ class ilPCSectionGUI extends ilPageContentGUI
         $this->lng = $DIC->language();
         $this->ctrl = $DIC->ctrl();
         parent::__construct($a_pg_obj, $a_content_obj, $a_hier_id, $a_pc_id);
-        
+
         $this->setCharacteristics(ilPCSectionGUI::_getStandardCharacteristics());
     }
 
     /**
-    * Get standard characteristics
-    */
+     * Get standard characteristics
+     */
     public static function _getStandardCharacteristics()
     {
         global $DIC;
 
         $lng = $DIC->language();
-        
+
         return array("Block" => $lng->txt("cont_Block"),
             "Mnemonic" => $lng->txt("cont_Mnemonic"),
             "Remark" => $lng->txt("cont_Remark"),
@@ -64,10 +64,10 @@ class ilPCSectionGUI extends ilPageContentGUI
             "Excursus" => $lng->txt("cont_Excursus"),
             "AdvancedKnowledge" => $lng->txt("cont_AdvancedKnowledge"));
     }
-    
+
     /**
-    * Get characteristics
-    */
+     * Get characteristics
+     */
     public static function _getCharacteristics($a_style_id)
     {
         $chars = ilPCSectionGUI::_getStandardCharacteristics();
@@ -92,12 +92,12 @@ class ilPCSectionGUI extends ilPageContentGUI
     }
 
     /**
-    * execute command
-    */
+     * execute command
+     */
     public function executeCommand()
     {
         $this->getCharacteristicsOfCurrentStyle("section");	// scorm-2004
-        
+
         // get next class that processes or forwards current command
         $next_class = $this->ctrl->getNextClass($this);
 
@@ -120,20 +120,20 @@ class ilPCSectionGUI extends ilPageContentGUI
     }
 
     /**
-    * Insert new section form.
-    */
+     * Insert new section form.
+     */
     public function insert(ilPropertyFormGUI $a_form = null)
     {
         $this->edit(true, $a_form);
     }
 
     /**
-    * Edit section form.
-    */
+     * Edit section form.
+     */
     public function edit($a_insert = false, ilPropertyFormGUI $a_form = null)
     {
         $tpl = $this->tpl;
-        
+
         $this->displayValidationError();
 
         if (!$a_form) {
@@ -160,14 +160,14 @@ class ilPCSectionGUI extends ilPageContentGUI
         } else {
             $form->setTitle($this->lng->txt("cont_update_section"));
         }
-        
+
         // characteristic selection
         require_once("./Services/Form/classes/class.ilAdvSelectInputGUI.php");
         $char_prop = new ilAdvSelectInputGUI(
             $this->lng->txt("cont_characteristic"),
             "characteristic"
         );
-            
+
         $chars = $this->getCharacteristics();
         if (is_object($this->content_obj)) {
             if ($chars[$a_seleted_value] == "" && ($this->content_obj->getCharacteristic() != "")) {
@@ -181,7 +181,7 @@ class ilPCSectionGUI extends ilPageContentGUI
         $selected = ($a_insert)
             ? "Block"
             : $this->content_obj->getCharacteristic();
-            
+
         foreach ($chars as $k => $char) {
             $html = '<div class="ilCOPgEditStyleSelectionItem"><div class="ilc_section_' . $k . '" style="' . self::$style_selector_reset . '">' .
                 $char . '</div></div>';
@@ -216,7 +216,9 @@ class ilPCSectionGUI extends ilPageContentGUI
                 $ac->setValueByIntLinkAttributes($l["Type"], $l["Target"], $l["TargetFrame"]);
             }
             if ($l["LinkType"] == "ExtLink") {
-                $ac->setValue($l["Href"]);
+                // cat-tms-patch start #2271
+                $ac->setValue($l["Href"], $l["TargetFrame"]);
+                // cat-tms-patch end
             }
         }
         $form->addItem($ac);
@@ -277,8 +279,8 @@ class ilPCSectionGUI extends ilPageContentGUI
 
 
     /**
-    * Create new Section.
-    */
+     * Create new Section.
+     */
     public function create()
     {
         $form = $this->initForm(true);
@@ -293,13 +295,13 @@ class ilPCSectionGUI extends ilPageContentGUI
                 $this->ctrl->returnToParent($this, "jump" . $this->hier_id);
             }
         }
-        
+
         $this->insert($form);
     }
 
     /**
-    * Update Section.
-    */
+     * Update Section.
+     */
     public function update()
     {
         $form = $this->initForm(false);
@@ -311,7 +313,7 @@ class ilPCSectionGUI extends ilPageContentGUI
                 $this->ctrl->returnToParent($this, "jump" . $this->hier_id);
             }
         }
-        
+
         $this->pg_obj->addHierIDs();
         $this->edit(false, $form);
     }
@@ -345,7 +347,13 @@ class ilPCSectionGUI extends ilPageContentGUI
         }
 
         if ($_POST["link_mode"] == "ext" && $_POST["link"] != "") {
-            $this->content_obj->setExtLink($_POST["link"]);
+            // cat-tms-patch start #2271
+            $target = "";
+            if (isset($_POST[ilLinkInputGUI::NEW_TARGET]) && $_POST[ilLinkInputGUI::NEW_TARGET] == ilLinkInputGUI::NEW_TARGET_VALUE) {
+                $target = $_POST[ilLinkInputGUI::NEW_TARGET];
+            }
+            $this->content_obj->setExtLink($_POST["link"], $target);
+        // cat-tms-patch start
         } elseif ($_POST["link_mode"] == "int" && $_POST["link"] != "") {
             // $_POST["link"] is "crs|96", "chap|2", "term|1", "wpage|1"
             //			var_dump($_POST);

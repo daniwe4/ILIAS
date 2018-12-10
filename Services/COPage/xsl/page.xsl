@@ -230,10 +230,20 @@
 		</xsl:if>
 	</xsl:for-each>
 	<xsl:for-each select="./ExtLink">
+		<!-- cat-tms-patch start 2271 -->
+		<xsl:variable name="targetframe">
+			<xsl:choose>
+				<xsl:when test="@TargetFrame and @TargetFrame!=''">
+					<xsl:value-of select="."/>
+				</xsl:when>
+				<xsl:otherwise>_blank</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		<xsl:attribute name="href"><xsl:value-of select="@Href"/></xsl:attribute>
 		<xsl:attribute name="title"><xsl:value-of select="."/></xsl:attribute>
 		<xsl:attribute name="alt"><xsl:value-of select="."/></xsl:attribute>
-		<xsl:attribute name="target">_blank</xsl:attribute>
+		<xsl:attribute name="target"><xsl:value-of select="$targetframe"/></xsl:attribute>
+		<!-- cat-tms-patch end -->
 		<xsl:if test="@Href = '' or not(@Href)">
 			<xsl:attribute name="href">#</xsl:attribute>
 			<xsl:attribute name="onclick">return false;</xsl:attribute>

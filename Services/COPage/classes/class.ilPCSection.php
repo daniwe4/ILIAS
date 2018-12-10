@@ -5,15 +5,15 @@
 require_once("./Services/COPage/classes/class.ilPageContent.php");
 
 /**
-* Class ilPCSection
-*
-* Section content object (see ILIAS DTD)
-*
-* @author Alex Killing <alex.killing@gmx.de>
-* @version $Id$
-*
-* @ingroup ServicesCOPage
-*/
+ * Class ilPCSection
+ *
+ * Section content object (see ILIAS DTD)
+ *
+ * @author Alex Killing <alex.killing@gmx.de>
+ * @version $Id$
+ *
+ * @ingroup ServicesCOPage
+ */
 class ilPCSection extends ilPageContent
 {
     /**
@@ -35,8 +35,8 @@ class ilPCSection extends ilPageContent
     public $sec_node;
 
     /**
-    * Init page content component.
-    */
+     * Init page content component.
+     */
     public function init()
     {
         global $DIC;
@@ -48,8 +48,8 @@ class ilPCSection extends ilPageContent
     }
 
     /**
-    * Set node
-    */
+     * Set node
+     */
     public function setNode($a_node)
     {
         parent::setNode($a_node);		// this is the PageContent node
@@ -57,11 +57,11 @@ class ilPCSection extends ilPageContent
     }
 
     /**
-    * Create section node in xml.
-    *
-    * @param	object	$a_pg_obj		Page Object
-    * @param	string	$a_hier_id		Hierarchical ID
-    */
+     * Create section node in xml.
+     *
+     * @param	object	$a_pg_obj		Page Object
+     * @param	string	$a_hier_id		Hierarchical ID
+     */
     public function create(&$a_pg_obj, $a_hier_id, $a_pc_id = "")
     {
         $this->node = $this->createPageContentNode();
@@ -72,10 +72,10 @@ class ilPCSection extends ilPageContent
     }
 
     /**
-    * Set Characteristic of section
-    *
-    * @param	string	$a_char		Characteristic
-    */
+     * Set Characteristic of section
+     *
+     * @param	string	$a_char		Characteristic
+     */
     public function setCharacteristic($a_char)
     {
         if (!empty($a_char)) {
@@ -88,10 +88,10 @@ class ilPCSection extends ilPageContent
     }
 
     /**
-    * Get characteristic of section.
-    *
-    * @return	string		characteristic
-    */
+     * Get characteristic of section.
+     *
+     * @return	string		characteristic
+     */
     public function getCharacteristic()
     {
         if (is_object($this->sec_node)) {
@@ -102,7 +102,7 @@ class ilPCSection extends ilPageContent
             return $char;
         }
     }
-    
+
     /**
      * Get lang vars needed for editing
      * @return array array of lang var keys
@@ -285,11 +285,20 @@ class ilPCSection extends ilPageContent
      * Set link of area to an external one
      * @param string $a_href
      */
-    public function setExtLink($a_href)
+    // cat-tms-pach start #2271
+    public function setExtLink($a_href, $target = "")
+    // cat-tms-patch end
     {
         $this->setNoLink();
         if (trim($a_href) != "") {
             $attributes = array("Href" => trim($a_href));
+
+            // cat-tms-pach start #2271
+            if ($target != "") {
+                $attributes["TargetFrame"] = $target;
+            }
+            // cat-tms-pach end
+
             ilDOMUtil::setFirstOptionalElement(
                 $this->dom,
                 $this->sec_node,
@@ -331,7 +340,10 @@ class ilPCSection extends ilPageContent
         foreach ($childs as $child) {
             if ($child->node_name() == "ExtLink") {
                 return array("LinkType" => "ExtLink",
-                    "Href" => $child->get_attribute("Href"));
+                    "Href" => $child->get_attribute("Href"),
+                    // cat-tms-patch start #2271
+                    "TargetFrame" => $child->get_attribute("TargetFrame"));
+                // cat-tms-patch end
             }
             if ($child->node_name() == "IntLink") {
                 return array("LinkType" => "IntLink",
@@ -415,9 +427,9 @@ class ilPCSection extends ilPageContent
                         "page_id" => array("integer", $a_page->getId()),
                         "parent_type" => array("text", $a_page->getParentType()),
                         "unix_ts" => array("integer", $from)
-                        ),
+                    ),
                     array()
-                    );
+                );
             }
             $to = $res->nodeset[$i]->get_attribute("ActiveTo");
             if ($to != "") {
