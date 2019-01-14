@@ -19,6 +19,10 @@ class ilCronManager implements \ilCronManagerInterface
      */
     protected $logger;
 
+    // cat-patch start
+    protected static $cron_thread_id;
+    // cat-patch end
+
     /**
      * ilCronManager constructor.
      * @param \ilSetting $settings
@@ -35,7 +39,9 @@ class ilCronManager implements \ilCronManagerInterface
      */
     public function runActiveJobs()
     {
-        $this->logger->info("CRON - batch start");
+        // cat-tms-patch start
+        $this->logger->info("CRON - batch start in thread " . self::getCurrentCronThreadId());
+        // cat-tms-patch end
 
         $ts = time();
         $this->settings->set("last_cronjob_start_ts", $ts);
@@ -47,7 +53,7 @@ class ilCronManager implements \ilCronManagerInterface
             'Verification of last run datetime (read from database): %s',
             ilDatePresentation::formatDate(
                 new ilDateTime(ilSetting::_lookupValue('common', 'last_cronjob_start_ts'), IL_CAL_UNIX)
-        )
+            )
         ));
         ilDatePresentation::setUseRelativeDates((bool) $useRelativeDates);
 
@@ -70,9 +76,11 @@ class ilCronManager implements \ilCronManagerInterface
             self::runJob($item[0], $item[1]);
         }
 
-        $this->logger->info("CRON - batch end");
+        // cat-tms-patch start
+        $this->logger->info("CRON - batch end in thread " . self::getCurrentCronThreadId());
+        // cat-tms-patch end
     }
-    
+
     /**
      * Run single job manually
      *
@@ -86,9 +94,9 @@ class ilCronManager implements \ilCronManagerInterface
         $ilLog = $DIC->logger()->root();
 
         $result = false;
-        
+
         $ilLog->write("CRON - manual start (" . $a_job_id . ")");
-        
+
         $job = self::getJobInstanceById($a_job_id);
         if ($job) {
             if ($job->isManuallyExecutable()) {
@@ -99,12 +107,12 @@ class ilCronManager implements \ilCronManagerInterface
         } else {
             $ilLog->write("CRON - job " . $a_job_id . " seems invalid or is inactive");
         }
-        
+
         $ilLog->write("CRON - manual end (" . $a_job_id . ")");
-        
+
         return $result;
     }
-        
+
     /**
      * Run single cron job (internal)
      *
@@ -121,9 +129,9 @@ class ilCronManager implements \ilCronManagerInterface
         $ilDB = $DIC->database();
 
         $did_run = false;
-                
+
         include_once "Services/Cron/classes/class.ilCronJobResult.php";
-        
+
         if ($a_job_data === null) {
             // aquire "fresh" job (status) data
             $jobData = self::getCronJobData($a_job->getId());
@@ -160,84 +168,96 @@ class ilCronManager implements \ilCronManagerInterface
             }
         }
         // initiate run?
-        elseif ($a_job->isActive(
-            $a_job_data["job_result_ts"],
-            $a_job_data["schedule_type"],
-            $a_job_data["schedule_value"],
-            $a_manual
-        )) {
-            $ilLog->write("CRON - job " . $a_job_data["job_id"] . " started");
-
+        // cat-tms-patch start
+        elseif (
+            $a_job->isActive(
+                $a_job_data["job_result_ts"],
+                $a_job_data["schedule_type"],
+                $a_job_data["schedule_value"],
+                $a_manual
+            ) &&
+            self::getExecutingCronThreadId($a_job_data["job_id"]) === null
+        ) {
+            // The job is active and no other thread is going to run it. Claim the execution to oneself.
             $ilDB->manipulate("UPDATE cron_job SET" .
                 " running_ts = " . $ilDB->quote(time(), "integer") .
                 " , alive_ts = " . $ilDB->quote(time(), "integer") .
+                " , executing_thread_id = " . $ilDB->quote(self::getCurrentCronThreadId(), "text") .
                 " WHERE job_id = " . $ilDB->quote($a_job_data["job_id"], "text"));
 
             $ts_in = self::getMicrotime();
-            try {
-                $result = $a_job->run();
-            } catch (\Exception $e) {
-                $result = new \ilCronJobResult();
-                $result->setStatus(\ilCronJobResult::STATUS_CRASHED);
-                $result->setMessage(sprintf("Exception: %s", $e->getMessage()));
+            if (self::getExecutingCronThreadId($a_job_data["job_id"]) === self::getCurrentCronThreadId()) {
+                // OK, no other thread claimed the execution of this job in the meantime. Safe to run.
+                $ilLog->write("CRON - job " . $a_job_data["job_id"] . " started by thread " . self::getCurrentCronThreadId());
+                try {
+                    $result = $a_job->run();
+                } catch (\Exception $e) {
+                    $result = new \ilCronJobResult();
+                    $result->setStatus(\ilCronJobResult::STATUS_CRASHED);
+                    $result->setMessage(sprintf("Exception: %s", $e->getMessage()));
 
-                $ilLog->error($e->getMessage());
-                $ilLog->error($e->getTraceAsString());
-            } catch (\Throwable $e) { // Could be appended to the catch block with a | in PHP 7.1
-                $result = new \ilCronJobResult();
-                $result->setStatus(\ilCronJobResult::STATUS_CRASHED);
-                $result->setMessage(sprintf("Exception: %s", $e->getMessage()));
+                    $ilLog->error($e->getMessage());
+                    $ilLog->error($e->getTraceAsString());
+                } catch (\Throwable $e) { // Could be appended to the catch block with a | in PHP 7.1
+                    $result = new \ilCronJobResult();
+                    $result->setStatus(\ilCronJobResult::STATUS_CRASHED);
+                    $result->setMessage(sprintf("Exception: %s", $e->getMessage()));
 
-                $ilLog->error($e->getMessage());
-                $ilLog->error($e->getTraceAsString());
-            }
-            $ts_dur = self::getMicrotime() - $ts_in;
+                    $ilLog->error($e->getMessage());
+                    $ilLog->error($e->getTraceAsString());
+                }
+                $ts_dur = self::getMicrotime() - $ts_in;
 
-            // no proper result
-            if (!$result instanceof ilCronJobResult) {
-                $result = new ilCronJobResult();
-                $result->setStatus(ilCronJobResult::STATUS_CRASHED);
-                $result->setCode(ilCronJobResult::CODE_NO_RESULT);
-                $result->setMessage("Cron job did not return a proper result");
+                // no proper result
+                if (!$result instanceof ilCronJobResult) {
+                    $result = new ilCronJobResult();
+                    $result->setStatus(ilCronJobResult::STATUS_CRASHED);
+                    $result->setCode(ilCronJobResult::CODE_NO_RESULT);
+                    $result->setMessage("Cron job did not return a proper result");
 
-                if (!$a_manual) {
-                    self::sendNotification($a_job, $result);
+                    if (!$a_manual) {
+                        self::sendNotification($a_job, $result);
+                    }
+
+                    $ilLog->write("CRON - job " . $a_job_data["job_id"] . " no result");
+                }
+                // no valid configuration, job won't work
+                elseif ($result->getStatus() == ilCronJobResult::STATUS_INVALID_CONFIGURATION) {
+                    self::deactivateJob($a_job);
+
+                    if (!$a_manual) {
+                        self::sendNotification($a_job, $result);
+                    }
+
+                    $ilLog->write("CRON - job " . $a_job_data["job_id"] . " invalid configuration");
+                }
+                // success!
+                else {
+                    $did_run = true;
                 }
 
-                $ilLog->write("CRON - job " . $a_job_data["job_id"] . " no result");
+                $result->setDuration($ts_dur);
+
+                self::updateJobResult($a_job, $result, $a_manual);
+
+                $ilDB->manipulate("UPDATE cron_job SET" .
+                    " running_ts = " . $ilDB->quote(0, "integer") .
+                    " , alive_ts = " . $ilDB->quote(0, "integer") .
+                    // cat-tms-patch start
+                    " , executing_thread_id = NULL" .
+                    // cat-tms-patch end
+                    " WHERE job_id = " . $ilDB->quote($a_job_data["job_id"], "text"));
+
+                $ilLog->write("CRON - job " . $a_job_data["job_id"] . " finished in thread " . self::getCurrentCronThreadId());
             }
-            // no valid configuration, job won't work
-            elseif ($result->getStatus() == ilCronJobResult::STATUS_INVALID_CONFIGURATION) {
-                self::deactivateJob($a_job);
-
-                if (!$a_manual) {
-                    self::sendNotification($a_job, $result);
-                }
-
-                $ilLog->write("CRON - job " . $a_job_data["job_id"] . " invalid configuration");
-            }
-            // success!
-            else {
-                $did_run = true;
-            }
-
-            $result->setDuration($ts_dur);
-
-            self::updateJobResult($a_job, $result, $a_manual);
-
-            $ilDB->manipulate("UPDATE cron_job SET" .
-                " running_ts = " . $ilDB->quote(0, "integer") .
-                " , alive_ts = " . $ilDB->quote(0, "integer") .
-                " WHERE job_id = " . $ilDB->quote($a_job_data["job_id"], "text"));
-
-            $ilLog->write("CRON - job " . $a_job_data["job_id"] . " finished");
         } else {
-            $ilLog->write("CRON - job " . $a_job_data["job_id"] . " returned status inactive");
+            $ilLog->write("CRON - job " . $a_job_data["job_id"] . " returned status inactive in thread " . self::getCurrentCronThreadId());
         }
-        
+        // cat-tms-patch end
+
         return $did_run;
     }
-    
+
     /**
      * Get job instance (by job id)
      *
@@ -273,7 +293,7 @@ class ilCronManager implements \ilCronManagerInterface
                     return $job;
                 }
             }
-            
+
             return null;
         }
         // system
@@ -289,10 +309,10 @@ class ilCronManager implements \ilCronManagerInterface
                 );
             }
         }
-        
+
         $ilLog->write("CRON - job " . $a_job_id . " seems invalid or is inactive");
     }
-    
+
     /**
      * Get job instance (by job data)
      *
@@ -335,11 +355,11 @@ class ilCronManager implements \ilCronManagerInterface
         } else {
             $mess = " - class file not found";
         }
-        
+
         $ilLog->write("Cron XML - Job " . $a_id . " in class " . $a_class . " (" .
             $class_file . ") is invalid." . $mess);
     }
-    
+
     /**
      * Send notification to admin about job event(s)
      *
@@ -350,7 +370,7 @@ class ilCronManager implements \ilCronManagerInterface
     {
         // :TODO:
     }
-    
+
     public static function createDefaultEntry(ilCronJob $a_job, $a_component, $a_class, $a_path)
     {
         global $DIC;
@@ -376,9 +396,9 @@ class ilCronManager implements \ilCronManagerInterface
 
         if ($job_exists && (
             $row['component'] != $a_component ||
-            $row['class'] != $a_class ||
-            $row['path'] != $a_path
-        )) {
+                $row['class'] != $a_class ||
+                $row['path'] != $a_path
+            )) {
             $ilDB->manipulateF(
                 'UPDATE cron_job SET component = %s, class = %s, path = %s WHERE job_id = %s',
                 ['text', 'text', 'text', 'text'],
@@ -394,7 +414,7 @@ class ilCronManager implements \ilCronManagerInterface
                 $ilDB->quote($a_class, "text") . ", " .
                 $ilDB->quote($a_path, "text") . ")";
             $ilDB->manipulate($sql);
-            
+
             $ilLog->write("Cron XML - Job " . $a_job->getId() . " in class " . $a_class .
                 " added.");
 
@@ -404,7 +424,7 @@ class ilCronManager implements \ilCronManagerInterface
                 $a_job->getDefaultScheduleType(),
                 $a_job->getDefaultScheduleValue()
             );
-            
+
             // #12221
             if (!is_object($ilSetting)) {
                 include_once "Services/Administration/classes/class.ilSetting.php";
@@ -431,7 +451,7 @@ class ilCronManager implements \ilCronManagerInterface
             self::updateJobSchedule($a_job, null, null);
         }
     }
-    
+
     /**
      * Process data from module.xml/service.xml
      *
@@ -449,14 +469,14 @@ class ilCronManager implements \ilCronManagerInterface
         if (!$ilDB->tableExists("cron_job")) {
             return;
         }
-        
+
         // only if job seems valid
         $job = self::getJobInstance($a_id, $a_component, $a_class, $a_path);
         if ($job) {
             self::createDefaultEntry($job, $a_component, $a_class, $a_path);
         }
     }
-    
+
     /**
      * Clear job data
      *
@@ -473,7 +493,7 @@ class ilCronManager implements \ilCronManagerInterface
         if (!$ilDB->tableExists("cron_job")) {
             return;
         }
-        
+
         // gather existing jobs
         $all_jobs = array();
         $sql = "SELECT job_id FROM cron_job" .
@@ -482,7 +502,7 @@ class ilCronManager implements \ilCronManagerInterface
         while ($row = $ilDB->fetchAssoc($set)) {
             $all_jobs[] = $row["job_id"];
         }
-        
+
         if (sizeof($all_jobs)) {
             if (sizeof($a_xml_job_ids)) {
                 // delete obsolete job data
@@ -493,7 +513,7 @@ class ilCronManager implements \ilCronManagerInterface
                             " AND job_id = " . $ilDB->quote($job_id, "text"));
 
                         $ilLog->write("Cron XML - Job " . $job_id . " in class " . $a_component .
-                                " deleted.");
+                            " deleted.");
                     }
                 }
             } else {
@@ -504,7 +524,7 @@ class ilCronManager implements \ilCronManagerInterface
             }
         }
     }
-    
+
     public static function getPluginJobs($a_only_active = false)
     {
         global $DIC;
@@ -512,10 +532,10 @@ class ilCronManager implements \ilCronManagerInterface
         $ilPluginAdmin = $DIC['ilPluginAdmin'];
 
         $res = array();
-        
+
         foreach ($ilPluginAdmin->getActivePluginsForSlot(IL_COMP_SERVICE, "Cron", "crnhk") as $pl_name) {
             $plugin_obj = $ilPluginAdmin->getPluginObject(IL_COMP_SERVICE, "Cron", "crnhk", $pl_name);
-                                
+
             foreach ((array) $plugin_obj->getCronJobInstances() as $job) {
                 $jobData = ilCronManager::getCronJobData($job->getId());
                 $item = array_pop($jobData);
@@ -534,10 +554,10 @@ class ilCronManager implements \ilCronManagerInterface
                 }
             }
         }
-        
+
         return $res;
     }
-    
+
     /**
      * Get cron job configuration/execution data
      *
@@ -551,13 +571,13 @@ class ilCronManager implements \ilCronManagerInterface
         $ilDB = $DIC->database();
 
         $res = array();
-        
+
         if ($a_id && !is_array($a_id)) {
             $a_id = array($a_id);
         }
-        
+
         $sql = "SELECT * FROM cron_job";
-        
+
         $where = array();
         if ($a_id) {
             $where[] = $ilDB->in("job_id", $a_id, "", "text");
@@ -570,18 +590,18 @@ class ilCronManager implements \ilCronManagerInterface
         if (sizeof($where)) {
             $sql .= " WHERE " . implode(" AND ", $where);
         }
-        
+
         // :TODO: discuss job execution order
         $sql .= " ORDER BY job_id";
-        
+
         $set = $ilDB->query($sql);
         while ($row = $ilDB->fetchAssoc($set)) {
             $res[] = $row;
         }
-        
+
         return $res;
     }
-    
+
     /**
      * Reset job
      *
@@ -598,16 +618,19 @@ class ilCronManager implements \ilCronManagerInterface
         $result->setCode(ilCronJobResult::CODE_MANUAL_RESET);
         $result->setMessage("Cron job re-activated by admin");
         self::updateJobResult($a_job, $result, true);
-                
+
         $ilDB->manipulate("UPDATE cron_job" .
             " SET running_ts = " . $ilDB->quote(0, "integer") .
             " , alive_ts = " . $ilDB->quote(0, "integer") .
             " , job_result_ts = " . $ilDB->quote(0, "integer") .
+            // cat-tms-patch start
+            " , executing_thread_id = NULL" .
+            // cat-tms-patch end
             " WHERE job_id = " . $ilDB->quote($a_job->getId(), "text"));
-        
+
         self::activateJob($a_job, true);
     }
-    
+
     /**
      * Activate cron job
      *
@@ -630,12 +653,15 @@ class ilCronManager implements \ilCronManagerInterface
             " , job_status_user_id = " . $ilDB->quote($user_id, "integer") .
             " , job_status_type = " . $ilDB->quote($a_manual, "integer") .
             " , job_status_ts = " . $ilDB->quote(time(), "integer") .
+            // cat-tms-patch start
+            " , executing_thread_id = NULL" .
+            // cat-tms-patch end
             " WHERE job_id = " . $ilDB->quote($a_job->getId(), "text");
         $ilDB->manipulate($sql);
-        
+
         $a_job->activationWasToggled(true);
     }
-    
+
     /**
      * Deactivate cron job
      *
@@ -649,18 +675,21 @@ class ilCronManager implements \ilCronManagerInterface
         $ilUser = $DIC->user();
 
         $user_id = $a_manual ? $ilUser->getId() : 0;
-        
+
         $sql = "UPDATE cron_job SET " .
             " job_status = " . $ilDB->quote(0, "integer") .
             " , job_status_user_id = " . $ilDB->quote($user_id, "integer") .
             " , job_status_type = " . $ilDB->quote($a_manual, "integer") .
             " , job_status_ts = " . $ilDB->quote(time(), "integer") .
+            // cat-tms-patch start
+            " , executing_thread_id = NULL" .
+            // cat-tms-patch end
             " WHERE job_id = " . $ilDB->quote($a_job->getId(), "text");
         $ilDB->manipulate($sql);
-                
+
         $a_job->activationWasToggled(false);
     }
-    
+
     /**
      * Check if given job is currently active
      *
@@ -675,7 +704,7 @@ class ilCronManager implements \ilCronManagerInterface
         }
         return false;
     }
-    
+
     /**
      * Check if given job is currently inactive
      *
@@ -690,7 +719,7 @@ class ilCronManager implements \ilCronManagerInterface
         }
         return false;
     }
-    
+
     /**
      * Save job result
      *
@@ -705,7 +734,7 @@ class ilCronManager implements \ilCronManagerInterface
         $ilUser = $DIC->user();
 
         $user_id = $a_manual ? $ilUser->getId() : 0;
-        
+
         $sql = "UPDATE cron_job SET " .
             " job_result_status = " . $ilDB->quote($a_result->getStatus(), "integer") .
             " , job_result_user_id = " . $ilDB->quote($user_id, "integer") .
@@ -717,7 +746,7 @@ class ilCronManager implements \ilCronManagerInterface
             " WHERE job_id = " . $ilDB->quote($a_job->getId(), "text");
         $ilDB->manipulate($sql);
     }
-    
+
     /**
      * Update job schedule
      *
@@ -740,7 +769,7 @@ class ilCronManager implements \ilCronManagerInterface
             $ilDB->manipulate($sql);
         }
     }
-    
+
     /**
      * Get current microtime
      *
@@ -751,7 +780,7 @@ class ilCronManager implements \ilCronManagerInterface
         list($usec, $sec) = explode(" ", microtime());
         return ((float) $usec + (float) $sec);
     }
-    
+
     /**
      * Keep cron job alive
      *
@@ -766,4 +795,52 @@ class ilCronManager implements \ilCronManagerInterface
             " alive_ts = " . $ilDB->quote(time(), "integer") .
             " WHERE job_id = " . $ilDB->quote($a_job_id, "text"));
     }
+
+    // cat-tms-patch end
+
+    /**
+    * Get the cron thread id of current thread
+    *
+    * @return string
+    */
+    protected static function getCurrentCronThreadId() : string
+    {
+        if (self::$cron_thread_id === null) {
+            self::$cron_thread_id = self::generateId();
+        }
+        return self::$cron_thread_id;
+    }
+
+    /**
+    * Returns the cron thread uuid of the thread that currently claims the execution.
+    *
+    * @param sring $a_job_id
+    * @return string|null
+    */
+    protected static function getExecutingCronThreadId($a_job_id)
+    {
+        assert('is_string($a_job_id)');
+        global $ilDB;
+        $rec = $ilDB->fetchAssoc(
+            $ilDB->query(
+               "SELECT executing_thread_id"
+                       . "      FROM cron_job"
+                       . "      WHERE job_id = " . $ilDB->quote($a_job_id, "text")
+               )
+        );
+
+        if ($rec) {
+            return $rec["executing_thread_id"];
+        }
+        return null;
+    }
+
+    /**
+    * Returns a microtime based uuid.
+    */
+    protected static function generateId() : string
+    {
+        return bin2hex(random_bytes(16));
+    }
+    // cat-tms-patch end
 }
