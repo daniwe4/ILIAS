@@ -223,7 +223,9 @@ class ilTermsOfServiceDocumentFormGUI extends ilPropertyFormGUI
                         throw new ilException($this->lng->txt('form_input_not_valid'));
                     }
 
-                    $originalContent = $content = $this->tmpFileSystem->read($pathToFile);
+                    // cat-tms-patch start
+                    $originalContent = $content = utf8_encode($this->tmpFileSystem->read($pathToFile));
+                    // cat-tms-patch end
 
                     $purifiedHtmlContent = $this->documentPurifier->purify($content);
 
