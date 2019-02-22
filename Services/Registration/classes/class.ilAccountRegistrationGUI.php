@@ -279,6 +279,11 @@ class ilAccountRegistrationGUI
                 if (sizeof($domains)) {
                     $mail_valid = false;
                     foreach ($domains as $domain) {
+                        // cat-tms-patch start 2527
+                        $domain = strtolower($domain);
+                        $email = strtolower($email);
+                        // cat-tms-patch end
+
                         $domain = str_replace("*", "~~~", $domain);
                         $domain = preg_quote($domain);
                         $domain = str_replace("~~~", ".+", $domain);
