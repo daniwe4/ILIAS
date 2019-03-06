@@ -1361,11 +1361,11 @@ class ilObjSession extends ilObject
 
     // for course creation
     /**
-    * Will be called after course creation with configuration options.
-    *
-    * @param       mixed   $config
-    * @return      void
-    */
+     * Will be called after course creation with configuration options.
+     *
+     * @param       mixed   $config
+     * @return      void
+     */
     public function afterCourseCreation($config)
     {
         foreach ($config as $key => $value) {
@@ -1380,12 +1380,12 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Update appointment from config values
-    *
-    * @param mixed         $value
-    *
-    * @return void
-    */
+     * Update appointment from config values
+     *
+     * @param mixed         $value
+     *
+     * @return void
+     */
     protected function updateFromConfig($value)
     {
         $appointment = $this->getFirstAppointment();
@@ -1429,12 +1429,14 @@ class ilObjSession extends ilObject
     }
 
     /**
-    * Updates the first appointmen according to references agenda
-    *
-    * @return void
-    */
+     * Updates the first appointmen according to references agenda
+     *
+     * @return void
+     */
     public function updateFromAgenda()
     {
+        global $ilAppEventHandler;
+
         include_once('./Modules/Session/classes/class.ilEventItems.php');
         $event_items = (new \ilEventItems($this->getId()))->getItems();
         foreach ($event_items as $event_item) {
@@ -1461,6 +1463,14 @@ class ilObjSession extends ilObject
                 $appointment->update();
             }
         }
+        $ilAppEventHandler->raise(
+            'Modules/Session',
+            'update_appointment',
+            [
+                'obj_id' => $this->getId(),
+                'ref_id' => $this->getRefId()
+            ]
+        );
     }
 
     // cat-tms-patch end

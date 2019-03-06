@@ -19,7 +19,7 @@ include_once('./Modules/Session/classes/class.ilSessionFile.php');
  */
 class ilObjSessionGUI extends ilObjectGUI implements ilDesktopItemHandling
 {
-    // cat-tms-patch start
+    // cat-tms-patch start #2286
     const INPUT_TUTOR_SOURCE = "tutor_source";
     const INPUT_TUTOR_SELECTION = "tutor_selection";
 
@@ -1090,6 +1090,10 @@ class ilObjSessionGUI extends ilObjectGUI implements ilDesktopItemHandling
 
         $ilErr = $DIC['ilErr'];
 
+        // cat-tms-patch start #2286
+        $ilAppEventHandler = $DIC["ilAppEventHandler"];
+        // cat-tms-patch end
+
         $old_autofill = $this->object->hasWaitingListAutoFill();
 
         $this->initForm('edit');
@@ -1118,6 +1122,17 @@ class ilObjSessionGUI extends ilObjectGUI implements ilDesktopItemHandling
         // Update event
         $this->object->update();
         $this->object->getFirstAppointment()->update();
+
+        // cat-tms-patch start #2286
+        $ilAppEventHandler->raise(
+            'Modules/Session',
+            'update_appointment',
+            [
+                'obj_id' => $this->object->getId(),
+                'ref_id' => $this->object->getRefId()
+            ]
+        );
+        // cat-tms-patch end
 
         ilObjectServiceSettingsGUI::updateServiceSettingsForm(
             $this->object->getId(),
