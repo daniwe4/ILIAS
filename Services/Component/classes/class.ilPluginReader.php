@@ -129,6 +129,15 @@ class ilPluginReader extends ilSaxParser
                     $ilDB->quote($a_attribs["directory"], "text") .
                     ")"
                 );
+                break;
+            case "baseclass":
+                $dir = ilPlugin::_getDirectory($this->ctype, $this->cname, $this->slot_id, $this->pname);
+                $ilDB->manipulateF(
+                    "INSERT INTO plugins_class (plugin, class, dir) "
+                    . "VALUES (%s,%s,%s)",
+                    array("text", "text", "text"),
+                    array($this->pname, $a_attribs["name"], $dir . $a_attribs["dir"])
+                );
             break;
             // cat-tms-patch end
         }
@@ -173,6 +182,13 @@ class ilPluginReader extends ilSaxParser
         $ilDB = $DIC->database();
         $comp = "Plugin/" . $this->pname;
         $ilDB->manipulate("DELETE FROM copg_pobj_def WHERE component = " . $ilDB->quote($comp, 'text'));
+    }
+
+    public function clearBaseClasses()
+    {
+        global $DIC;
+        $ilDB = $DIC->database();
+        $ilDB->manipulate("DELETE FROM plugins_class WHERE plugin = " . $ilDB->quote($this->pname, 'text'));
     }
     // cat-tms-patch end
 }

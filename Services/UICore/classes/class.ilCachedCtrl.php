@@ -47,6 +47,13 @@ class ilCachedCtrl
      */
     protected $ctrl_classfile_parent = array();
 
+    // cat-tms-patch start
+    /**
+    * @var array
+    */
+    protected $plugin_classes = [];
+    // cat-tms-patch start
+
 
     /**
      * @return ilCachedCtrl
@@ -125,6 +132,13 @@ class ilCachedCtrl
             $this->ctrl_classfile[$rec['cid']] = $rec;
             $this->ctrl_classfile_parent[$rec['class']] = $rec;
         }
+
+        // cat-tms-patch start
+        $set = $this->db->query('SELECT plugins_class.*, LOWER(plugins_class.class) lower_class FROM plugins_class');
+        while ($rec = $this->db->fetchAssoc($set)) {
+            $this->plugin_classes[$rec['lower_class']] = $rec;
+        }
+        // cat-tms-patch end
     }
 
 
@@ -324,4 +338,16 @@ class ilCachedCtrl
 
         $this->db = $DIC->database();
     }
+
+    // cat-tms-patch start
+    /**
+    * @param $class
+    *
+    * @return mixed
+    */
+    public function lookupPluginClass($class)
+    {
+        return $this->plugin_classes[$class];
+    }
+    // cat-tms-patch end
 }
