@@ -5,14 +5,14 @@ use Psr\Http\Message\ServerRequestInterface;
 use ILIAS\UICore\PageContentProvider;
 
 /**
-* StartUp GUI class. Handles Login and Registration.
-*
-* @author	Alex Killing <alex.killing@gmx.de>
-* @version	$Id$
-* @ilCtrl_Calls ilStartUpGUI: ilAccountRegistrationGUI, ilPasswordAssistanceGUI, ilLoginPageGUI
-*
-* @ingroup ServicesInit
-*/
+ * StartUp GUI class. Handles Login and Registration.
+ *
+ * @author	Alex Killing <alex.killing@gmx.de>
+ * @version	$Id$
+ * @ilCtrl_Calls ilStartUpGUI: ilAccountRegistrationGUI, ilPasswordAssistanceGUI, ilLoginPageGUI
+ *
+ * @ingroup ServicesInit
+ */
 class ilStartUpGUI
 {
     const ACCOUNT_MIGRATION_MIGRATE = 1;
@@ -106,10 +106,18 @@ class ilStartUpGUI
                 return $this->ctrl->forwardCommand(new ilPasswordAssistanceGUI());
 
             default:
+                // cat-tms-patch start
+                if (!is_null($next_class) && $next_class != "") {
+                    $class_path = $this->ctrl->lookupClassPath($next_class);
+                    require_once "" . $class_path . "";
+                    $gui = new $next_class();
+                    return $this->ctrl->forwardCommand($gui);
+                }
+                // cat-tms-patch end
                 if (method_exists($this, $cmd)) {
                     return $this->$cmd();
                 }
-    }
+        }
     }
 
     /**
@@ -730,7 +738,7 @@ class ilStartUpGUI
         // If local authentication is enabled for shibboleth users, we
         // display the login form for ILIAS here.
         if (($ilSetting->get("auth_mode") != AUTH_SHIBBOLETH ||
-            $ilSetting->get("shib_auth_allow_local")) &&
+                $ilSetting->get("shib_auth_allow_local")) &&
             $ilSetting->get("auth_mode") != AUTH_CAS) {
             if (!$form instanceof ilPropertyFormGUI) {
                 $form = $this->initStandardLoginForm();
@@ -1214,7 +1222,7 @@ class ilStartUpGUI
                     [$provider]
                 );
                 if (
-                    $frontend->migrateAccount($GLOBALS['DIC']['ilAuthSession'])
+                $frontend->migrateAccount($GLOBALS['DIC']['ilAuthSession'])
                 ) {
                     ilInitialisation::redirectToStartingPage();
                 } else {
@@ -1274,8 +1282,8 @@ class ilStartUpGUI
 
 
     /**
-    * show logout screen
-    */
+     * show logout screen
+     */
     public function doLogout()
     {
         global $DIC;
@@ -1322,9 +1330,9 @@ class ilStartUpGUI
     }
 
     /**
-    * Show user selection screen, if external account could not be mapped
-    * to an ILIAS account, but the provided e-mail address is known.
-    */
+     * Show user selection screen, if external account could not be mapped
+     * to an ILIAS account, but the provided e-mail address is known.
+     */
     public function showUserMappingSelection()
     {
         global $ilAuth, $tpl, $lng;
@@ -1383,8 +1391,8 @@ class ilStartUpGUI
     }
 
     /**
-    * show client list
-    */
+     * show client list
+     */
     public function showClientList()
     {
         global $tpl, $ilIliasIniFile, $lng;
@@ -1479,10 +1487,10 @@ class ilStartUpGUI
     }
 
     /**
-    * show help screen, if cookies are disabled
-    *
-    * to do: link to online help here
-    */
+     * show help screen, if cookies are disabled
+     *
+     * to do: link to online help here
+     */
     public function showNoCookiesScreen()
     {
         global $tpl;
@@ -1570,8 +1578,8 @@ class ilStartUpGUI
     }
 
     /**
-    * process index.php
-    */
+     * process index.php
+     */
     protected function processIndexPHP()
     {
         global $ilIliasIniFile, $ilAuth, $ilSetting;
