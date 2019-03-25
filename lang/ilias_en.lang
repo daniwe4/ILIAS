@@ -16178,3 +16178,7 @@ rbac#:#prgr_visible#:#Links to study programmes are visible and can be used
 rbac#:#prgr_write#:#User can edit settings of links to study programmes
 rbac#:#rbac_create_prgr#:#Create link to study programme
 ui#:#ui_error_in_group#:#There is some error in this part.
+crs#:#crs_objective_result_summary_initial#:#Placement Test: %1$s (%2$s required)
+crs#:#crs_objective_result_summary_qualifying#:#Achievement Test: %1$s (%2$s required)
+crs#:#crs_objective_result_details#:#« Show Details
+orgu#:#scope_4#:#First subsequent Organisational Unit

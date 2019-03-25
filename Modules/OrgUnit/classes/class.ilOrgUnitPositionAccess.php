@@ -133,6 +133,12 @@ class ilOrgUnitPositionAccess implements ilOrgUnitPositionAccessHandler, ilOrgUn
                                 $allowed = $this->ua->getUserIdsOfOrgUnitsOfUsersPosition($position->getId(), $user_id, true);
                                 $allowed_user_ids = array_merge($allowed_user_ids,$allowed);
                                 break;
+                            // cat-tms-patch start #1995
+                            case ilOrgUnitAuthority::SCOPE_SINGLE_SUBSEQUENT_ORGU:
+                                $allowed = $this->ua->getUserIdsOfOrgUnitsOfUsersPosition($position->getId(), $user_id, false, true);
+                                $allowed_user_ids = $allowed_user_ids + $allowed;
+                                break;
+                            // cat-tms-patch end
                         }
                         break;
                     default:
@@ -145,6 +151,12 @@ class ilOrgUnitPositionAccess implements ilOrgUnitPositionAccessHandler, ilOrgUn
                                 $allowed = $this->ua->getUserIdsOfUsersOrgUnitsInPosition($user_id, $position->getId(), $authority->getOver(), true);
                                 $allowed_user_ids = array_merge($allowed_user_ids,$allowed);
                                 break;
+                            // cat-tms-patch start #1995
+                            case ilOrgUnitAuthority::SCOPE_SINGLE_SUBSEQUENT_ORGU:
+                                $allowed = $this->ua->getUserIdsOfUsersOrgUnitsInPosition($user_id, $position->getId(), $authority->getOver(), true);
+                                $allowed_user_ids = $allowed_user_ids + $allowed;
+                                break;
+                            // cat-tms-patch end
                         }
                         break;
                 }

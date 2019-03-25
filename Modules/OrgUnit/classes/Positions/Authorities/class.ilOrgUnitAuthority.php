@@ -15,6 +15,11 @@ class ilOrgUnitAuthority extends \ActiveRecord
     const SCOPE_SAME_ORGU = 1;
     const SCOPE_SUBSEQUENT_ORGUS = 2;
     const SCOPE_ALL_ORGUS = 3;
+
+    // cat-tms-patch start #1995
+    const SCOPE_SINGLE_SUBSEQUENT_ORGU = 4;
+    // cat-tms-patch end
+
     /**
      * @var array
      */
@@ -22,6 +27,9 @@ class ilOrgUnitAuthority extends \ActiveRecord
         = array(
             self::SCOPE_SAME_ORGU,
             self::SCOPE_SUBSEQUENT_ORGUS,
+            // cat-tms-patch start
+            self::SCOPE_SINGLE_SUBSEQUENT_ORGU
+            // cat-tms-patch end
             //		self::SCOPE_ALL_ORGUS,
         );
 

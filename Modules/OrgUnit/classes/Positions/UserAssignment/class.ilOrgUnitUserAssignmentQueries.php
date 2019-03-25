@@ -109,20 +109,23 @@ class ilOrgUnitUserAssignmentQueries
     }
 
 
+    // cat-tms-patch start #1995
     /**
      * @param      $position_id
      * @param      $user_id
      *
      * @param bool $recursive
+     * @param bool $first_subsequent
      *
      * @return \ilOrgUnitUserAssignment[]
      * @internal param $orgunit_ref_id
      */
-    public function getUserIdsOfOrgUnitsOfUsersPosition($position_id, $user_id, $recursive = false)
+    public function getUserIdsOfOrgUnitsOfUsersPosition($position_id, $user_id, $recursive = false, $first_subsequent = false)
     {
-        return ilOrgUnitUserAssignment::where(['orgu_id' => $this->getOrgUnitIdsOfUsersPosition($position_id, $user_id, $recursive)])
+        return ilOrgUnitUserAssignment::where(['orgu_id' => $this->getOrgUnitIdsOfUsersPosition($position_id, $user_id, $recursive, $first_subsequent)])
             ->getArray(null, 'user_id');
     }
+    // cat-tms-patch end
 
 
     /**
@@ -140,51 +143,66 @@ class ilOrgUnitUserAssignmentQueries
     }
 
 
+    // cat-tms-patch start #1995
     /**
      * @param       $user_id
      * @param       $users_position_id
      * @param       $position_id
      *
      * @param bool  $recursive
+     * @param bool $first_subsequent
      *
      * @return int[]
      */
-    public function getUserIdsOfUsersOrgUnitsInPosition($user_id, $users_position_id, $position_id, $recursive = false)
+    public function getUserIdsOfUsersOrgUnitsInPosition($user_id, $users_position_id, $position_id, $recursive = false, $first_subsequent = false)
     {
         return ilOrgUnitUserAssignment::where([
-            'orgu_id' => $this->getOrgUnitIdsOfUsersPosition($users_position_id, $user_id, $recursive),
+            'orgu_id' => $this->getOrgUnitIdsOfUsersPosition($users_position_id, $user_id, $recursive, $first_subsequent),
             'position_id' => $position_id,
         ])->getArray(null, 'user_id');
     }
+    // cat-tms-patch end
 
 
+    // cat-tms-patch start #1995
     /**
      * @param      $position_id
      * @param      $user_id
      *
      * @param bool $recursive
+     * @param bool $first_subsequent
      *
      * @return int[]
      */
-    public function getOrgUnitIdsOfUsersPosition($position_id, $user_id, $recursive = false)
+    public function getOrgUnitIdsOfUsersPosition($position_id, $user_id, $recursive = false, $first_subsequent = false)
     {
         $orgu_ids = ilOrgUnitUserAssignment::where([
             'position_id' => $position_id,
             'user_id' => $user_id,
         ])->getArray(null, 'orgu_id');
 
-        if (!$recursive) {
+        if (!$recursive && !$first_subsequent) {
             return $orgu_ids;
+        }
+
+        if ($first_subsequent && !$recursive) {
+            $subsequent_orgu_ids = [];
+            foreach ($orgu_ids as $orgu_id) {
+                $subsequent_orgu_ids = array_merge($subsequent_orgu_ids, $tree->getChildren($orgu_id));
+            }
+
+            return $subsequent_orgu_ids;
         }
 
         $recursive_orgu_ids = [];
         $tree = ilObjOrgUnitTree::_getInstance();
         foreach ($orgu_ids as $orgu_id) {
-            $recursive_orgu_ids = $recursive_orgu_ids + $tree->getAllChildren($orgu_id);
+            $recursive_orgu_ids = array_merge($recursive_orgu_ids, $tree->getAllChildren($orgu_id));
         }
 
-        return $recursive_orgu_ids;
+        return array_diff($recursive_orgu_ids, $orgu_ids);
     }
+    // cat-tms-patch end
 
 
     /**

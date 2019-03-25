@@ -93,7 +93,7 @@ class ilObjOrgUnitTree
                 // cat-tms-patch start
                 foreach ($this->getAllChildren($ref_id) as $ref_id) {
                     $arr_usr_ids = $arr_usr_ids
-                            + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_EMPLOYEE));
+                        + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_EMPLOYEE));
                 }
                 // cat-tms-patch end
                 break;
@@ -135,7 +135,7 @@ class ilObjOrgUnitTree
             case true:
                 foreach ($this->getAllChildren($ref_id) as $ref_id) {
                     $arr_usr_ids = $arr_usr_ids
-                            + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_SUPERIOR));
+                        + $this->getAssignements($ref_id, ilOrgUnitPosition::getCorePosition(ilOrgUnitPosition::CORE_POSITION_SUPERIOR));
                 }
                 break;
         }
@@ -292,7 +292,9 @@ class ilObjOrgUnitTree
      *
      * @return int[]
      */
-    private function getChildren($ref_id)
+    // cat-tms-patch start #1995
+    public function getChildren($ref_id)
+    // cat-tms-patch start #1995
     {
         $this->loadChildren($ref_id);
 
@@ -668,10 +670,10 @@ class ilObjOrgUnitTree
 
     // cat-tms-patch start (352)
     /**
-    * @param int   $user_id
-    * @param bool  $recursive      if this is true subsequent orgunits of this users superior role get searched as well.
-    * @return int[] returns an array of user_ids of the users which have an superior role in an orgunit of which this user's id has a superior role.
-    */
+     * @param int   $user_id
+     * @param bool  $recursive      if this is true subsequent orgunits of this users superior role get searched as well.
+     * @return int[] returns an array of user_ids of the users which have an superior role in an orgunit of which this user's id has a superior role.
+     */
     public function getSuperiorsUnderUser($user_id, $recursive = true)
     {
         //query for all orgu where user_id is superior.
@@ -696,12 +698,12 @@ class ilObjOrgUnitTree
     }
 
     /**
-    * Get all org units where user is superior
-    *
-    * @param int   $user_id
-    *
-    * @return int[]
-    */
+     * Get all org units where user is superior
+     *
+     * @param int   $user_id
+     *
+     * @return int[]
+     */
     public function getOrgUnitsWhereUserIsSuperior($user_id)
     {
         $q = "SELECT orgu.obj_id, refr.ref_id FROM object_data orgu

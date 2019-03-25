@@ -211,6 +211,9 @@ class ilOrgUnitPositionGUI extends BaseCommands
             'in',
             'scope_' . ilOrgUnitAuthority::SCOPE_SAME_ORGU,
             'scope_' . ilOrgUnitAuthority::SCOPE_SUBSEQUENT_ORGUS,
+            // cat-tms-patch start #1995
+            'scope_' . ilOrgUnitAuthority::SCOPE_SINGLE_SUBSEQUENT_ORGU,
+            // cat-tms-patch end
             'over_' . ilOrgUnitAuthority::OVER_EVERYONE,
         );
         $t = array();
@@ -228,6 +231,9 @@ class ilOrgUnitPositionGUI extends BaseCommands
                 case ilOrgUnitAuthority::SCOPE_SAME_ORGU:
                 case ilOrgUnitAuthority::SCOPE_ALL_ORGUS:
                 case ilOrgUnitAuthority::SCOPE_SUBSEQUENT_ORGUS:
+                // cat-tms-patch start #1995
+                case ilOrgUnitAuthority::SCOPE_SINGLE_SUBSEQUENT_ORGU:
+                // cat-tms-patch end
                 default:
                     $in_txt = $t["scope_" . $ilOrgUnitAuthority->getScope()];
                     break;
