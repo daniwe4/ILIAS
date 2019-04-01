@@ -2507,13 +2507,16 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 $vassignment = $vactions->getAssignment((int) $this->getId());
 
                 if ($vassignment && $vassignment->isListAssignment()) {
-                    $vassignment = $vassignment->withVenueId((int) $value);
+                    $vassignment = $vassignment
+                        ->withVenueId((int) $value["venue_list"])
+                        ->withAdditionalInfo($value['venue_additional']);
                     $vactions->updateAssignment($vassignment);
                 } else {
                     $vactions->removeAssignment((int) $this->getId());
                     $vassignment = $vactions->createListVenueAssignment(
                         (int) $this->getId(),
-                        (int) $value
+                        (int) $value["venue_list"],
+                        $value['venue_additional']
                     );
                 }
             } elseif ($key == "provider_free_text" && ilPluginAdmin::isPluginActive('trainingprovider')) {
@@ -2643,7 +2646,11 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
                 if ($src->isCustomAssignment()) {
                     $vactions->createCustomVenueAssignment($target_id, $src->getVenueText());
                 } else {
-                    $vactions->createListVenueAssignment($target_id, (int) $src->getVenueId());
+                    $vactions->createListVenueAssignment(
+                        $target_id,
+                        (int) $src->getVenueId(),
+                        $src->getAdditionalInfo()
+                    );
                 }
             }
         }

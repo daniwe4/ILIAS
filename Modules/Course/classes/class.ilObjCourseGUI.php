@@ -38,6 +38,7 @@ class ilObjCourseGUI extends ilContainerGUI
     const INPUT_VENUE_SOURCE = "venue_source";
     const INPUT_VENUE_TEXT = "venue_text";
     const INPUT_VENUE_LIST = "venue_list";
+    const INPUT_VENUE_LIST_ADDITIONAL = "venue_additional";
     // cat-tms-patch end
 
     // cat-tms-patch start
@@ -72,6 +73,10 @@ class ilObjCourseGUI extends ilContainerGUI
         $this->SEARCH_USER = 1;
         $this->SEARCH_GROUP = 2;
         $this->SEARCH_COURSE = 3;
+
+        // cat-tms-patch start #2949
+        $this->lng->loadLanguageModule('tms');
+        // cat-tms-patch end
     }
 
     public function gatewayObject()
@@ -299,7 +304,7 @@ class ilObjCourseGUI extends ilContainerGUI
             }
         }
         // cat-tms-patch end
-        
+
         if (strlen($this->object->getSyllabus())) {
             $info->addProperty($this->lng->txt('crs_syllabus'), nl2br(
                 ilUtil::makeClickable($this->object->getSyllabus(), true)
@@ -1163,7 +1168,7 @@ class ilObjCourseGUI extends ilContainerGUI
                         $vactions->updateAssignment($vassignment);
                     } else {
                         $vactions->removeAssignment((int) $this->object->getId());
-                        $vassignment = $vactions->createCustomVenueAssignment(
+                        $vactions->createCustomVenueAssignment(
                             (int) $this->object->getId(),
                             $form->getInput(self::INPUT_VENUE_TEXT)
                         );
@@ -1172,17 +1177,25 @@ class ilObjCourseGUI extends ilContainerGUI
 
                 case ilCourseConstants::VENUE_FROM_LIST:
                     $selected_assignment = $form->getInput(self::INPUT_VENUE_LIST);
+                    $venue_additional = (string) $form->getInput(self::INPUT_VENUE_LIST_ADDITIONAL);
                     if ($selected_assignment === "") {
+                        if ($venue_additional !== "") {
+                            ilUtil::sendInfo($this->lng->txt("no_venue_selected"), true);
+                        }
                         $vactions->removeAssignment((int) $this->object->getId());
                     } else {
                         if ($vassignment && $vassignment->isListAssignment()) {
-                            $vassignment = $vassignment->withVenueId((int) $selected_assignment);
+                            $vassignment = $vassignment
+                                ->withVenueId((int) $selected_assignment)
+                                ->withAdditionalInfo($venue_additional)
+                            ;
                             $vactions->updateAssignment($vassignment);
                         } else {
                             $vactions->removeAssignment((int) $this->object->getId());
-                            $vassignment = $vactions->createListVenueAssignment(
+                            $vactions->createListVenueAssignment(
                                 (int) $this->object->getId(),
-                                (int) $selected_assignment
+                                (int) $selected_assignment,
+                                $venue_additional
                             );
                         }
                     }
@@ -1350,6 +1363,9 @@ class ilObjCourseGUI extends ilContainerGUI
             $venue_opt_list_inp->setOptions($voptions);
             $venue_opt_list->addSubItem($venue_opt_list_inp);
 
+            $venue_opt_list_additional = new ilTextInputGUI($plugin_txt('crs_venue_list_additional'), self::INPUT_VENUE_LIST_ADDITIONAL);
+            $venue_opt_list->addSubItem($venue_opt_list_additional);
+
             //set values
             $vassignment_type = ilCourseConstants::VENUE_FROM_LIST; //default
             $vassignment = $vactions->getAssignment((int) $this->object->getId());
@@ -1363,6 +1379,7 @@ class ilObjCourseGUI extends ilContainerGUI
                 if ($vassignment->isListAssignment()) {
                     $vassignment_type = ilCourseConstants::VENUE_FROM_LIST;
                     $venue_opt_list_inp->setValue($vassignment->getVenueId());
+                    $venue_opt_list_additional->setValue((string) $vassignment->getAdditionalInfo());
                 }
             }
             $venue_opts->setValue($vassignment_type);
@@ -3770,13 +3787,13 @@ class ilObjCourseGUI extends ilContainerGUI
 
     // cat-tms-patch start
     /**
-    * Get all children of type below ref id
-    *
-    * @param int   $ref_id
-    * @param string        $plugin_type
-    *
-    * @return Object[] of plugin type
-    */
+     * Get all children of type below ref id
+     *
+     * @param int   $ref_id
+     * @param string        $plugin_type
+     *
+     * @return Object[] of plugin type
+     */
     protected function getChildrenOfByType($ref_id, $plugin_type)
     {
         $ret = array();
