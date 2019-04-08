@@ -24,21 +24,21 @@
 include_once('./Services/Membership/classes/class.ilParticipants.php');
 
 /**
-*
-* @author Stefan Meyer <meyer@leifos.com>
-* @version $Id$
-*
-*
-* @ingroup ModulesCourse
-*/
+ *
+ * @author Stefan Meyer <meyer@leifos.com>
+ * @version $Id$
+ *
+ *
+ * @ingroup ModulesCourse
+ */
 
 class ilCourseParticipants extends ilParticipants
 {
     const COMPONENT_NAME = 'Modules/Course';
-    
+
     protected static $instances = array();
-    
-    
+
+
     /**
      * Singleton constructor
      *
@@ -56,11 +56,11 @@ class ilCourseParticipants extends ilParticipants
         $this->NOTIFY_ADMINS = 7;
         $this->NOTIFY_STATUS_CHANGED = 8;
         $this->NOTIFY_SUBSCRIPTION_REQUEST = 9;
-        
+
         $this->NOTIFY_REGISTERED = 10;
         $this->NOTIFY_UNSUBSCRIBE = 11;
         $this->NOTIFY_WAITING_LIST = 12;
-        
+
         // ref based constructor
         $refs = ilObject::_getAllReferences($a_obj_id);
         parent::__construct(self::COMPONENT_NAME, array_pop($refs));
@@ -81,7 +81,7 @@ class ilCourseParticipants extends ilParticipants
         }
         return self::$instances[$a_obj_id] = new ilCourseParticipants($a_obj_id);
     }
-    
+
     /**
      * Add user to role
      * @param int $a_usr_id
@@ -95,7 +95,7 @@ class ilCourseParticipants extends ilParticipants
         }
         return false;
     }
-    
+
     /**
      * Get member roles
      * @param int $a_ref_id
@@ -123,14 +123,14 @@ class ilCourseParticipants extends ilParticipants
         }
         return $roles;
     }
-    
+
     public function addSubscriber($a_usr_id)
     {
         global $DIC;
 
         $ilAppEventHandler = $DIC['ilAppEventHandler'];
         $ilLog = $DIC['ilLog'];
-        
+
         parent::addSubscriber($a_usr_id);
 
         $ilLog->write(__METHOD__ . ': Raise new event: Modules/Course addSubscriber');
@@ -138,10 +138,10 @@ class ilCourseParticipants extends ilParticipants
             "Modules/Course",
             'addSubscriber',
             array(
-                    'obj_id' => $this->getObjId(),
-                    'usr_id' => $a_usr_id
-                )
-            );
+                'obj_id' => $this->getObjId(),
+                'usr_id' => $a_usr_id
+            )
+        );
     }
 
     /**
@@ -190,10 +190,10 @@ class ilCourseParticipants extends ilParticipants
         if ($a_manual) {
             $origin = $ilUser->getId();
         }
-        
+
         $query = "SELECT passed FROM obj_members " .
-        "WHERE obj_id = " . $ilDB->quote($a_obj_id, 'integer') . " " .
-        "AND usr_id = " . $ilDB->quote($a_usr_id, 'integer');
+            "WHERE obj_id = " . $ilDB->quote($a_obj_id, 'integer') . " " .
+            "AND usr_id = " . $ilDB->quote($a_usr_id, 'integer');
         $res = $ilDB->query($query);
         $update_query = '';
         if ($res->numRows()) {
@@ -216,7 +216,7 @@ class ilCourseParticipants extends ilParticipants
             } else {
                 $origin_ts = time();
             }
-            
+
             $update_query = "INSERT INTO obj_members (passed,obj_id,usr_id,notification,blocked,origin,origin_ts) " .
                 "VALUES ( " .
                 $ilDB->quote((int) $a_passed, 'integer') . ", " .
@@ -238,7 +238,7 @@ class ilCourseParticipants extends ilParticipants
         }
         return true;
     }
-    
+
     /**
      * Get info about passed status
      *
@@ -250,7 +250,7 @@ class ilCourseParticipants extends ilParticipants
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $sql = "SELECT origin, origin_ts" .
             " FROM obj_members" .
             " WHERE obj_id = " . $ilDB->quote($this->obj_id, "integer") .
@@ -262,7 +262,7 @@ class ilCourseParticipants extends ilParticipants
                 "timestamp" => new ilDateTime($row["origin_ts"], IL_CAL_UNIX));
         }
     }
-    
+
     // Subscription
     public function sendNotification($a_type, $a_usr_id, $a_force_sending_mail = false)
     {
@@ -270,7 +270,7 @@ class ilCourseParticipants extends ilParticipants
 
         $ilObjDataCache = $DIC['ilObjDataCache'];
         $ilUser = $DIC['ilUser'];
-    
+
         include_once './Modules/Course/classes/class.ilCourseMembershipMailNotification.php';
         $mail = new ilCourseMembershipMailNotification();
         $mail->forceSendingMail($a_force_sending_mail);
@@ -282,12 +282,14 @@ class ilCourseParticipants extends ilParticipants
                 $mail->setRecipients(array($a_usr_id));
                 $mail->send();
                 break;
-                
+
             case $this->NOTIFY_ACCEPT_SUBSCRIBER:
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_ACCEPTED_SUBSCRIPTION_MEMBER);
                 $mail->setRefId($this->ref_id);
                 $mail->setRecipients(array($a_usr_id));
-                $mail->send();
+                // cat-tms-patch start #2769
+                //$mail->send();
+                // cat-tms-patch end
                 break;
 
             case $this->NOTIFY_DISMISS_MEMBER:
@@ -303,7 +305,7 @@ class ilCourseParticipants extends ilParticipants
                 $mail->setRecipients(array($a_usr_id));
                 $mail->send();
                 break;
-                
+
             case $this->NOTIFY_UNBLOCK_MEMBER:
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_UNBLOCKED_MEMBER);
                 $mail->setRefId($this->ref_id);
@@ -315,7 +317,9 @@ class ilCourseParticipants extends ilParticipants
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_ADMISSION_MEMBER);
                 $mail->setRefId($this->ref_id);
                 $mail->setRecipients(array($a_usr_id));
-                $mail->send();
+                // cat-tms-patch start #2769
+                //$mail->send();
+                // cat-tms-patch end
                 break;
 
             case $this->NOTIFY_STATUS_CHANGED:
@@ -324,14 +328,14 @@ class ilCourseParticipants extends ilParticipants
                 $mail->setRecipients(array($a_usr_id));
                 $mail->send();
                 break;
-                
+
             case $this->NOTIFY_UNSUBSCRIBE:
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_UNSUBSCRIBE_MEMBER);
                 $mail->setRefId($this->ref_id);
                 $mail->setRecipients(array($a_usr_id));
                 $mail->send();
                 break;
-                
+
             case $this->NOTIFY_REGISTERED:
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_SUBSCRIBE_MEMBER);
                 $mail->setRefId($this->ref_id);
@@ -343,7 +347,7 @@ class ilCourseParticipants extends ilParticipants
                 include_once('./Modules/Course/classes/class.ilCourseWaitingList.php');
                 $wl = new ilCourseWaitingList($this->obj_id);
                 $pos = $wl->getPosition($a_usr_id);
-                    
+
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_WAITING_LIST_MEMBER);
                 $mail->setRefId($this->ref_id);
                 $mail->setRecipients(array($a_usr_id));
@@ -362,14 +366,14 @@ class ilCourseParticipants extends ilParticipants
         }
         return true;
     }
-    
+
     public function sendUnsubscribeNotificationToAdmins($a_usr_id)
     {
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
         $ilObjDataCache = $DIC['ilObjDataCache'];
-        
+
         include_once './Modules/Course/classes/class.ilCourseMembershipMailNotification.php';
         $mail = new ilCourseMembershipMailNotification();
         $mail->setType(ilCourseMembershipMailNotification::TYPE_NOTIFICATION_UNSUBSCRIBE);
@@ -379,15 +383,15 @@ class ilCourseParticipants extends ilParticipants
         $mail->send();
         return true;
     }
-    
-    
+
+
     public function sendSubscriptionRequestToAdmins($a_usr_id)
     {
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
         $ilObjDataCache = $DIC['ilObjDataCache'];
-        
+
         include_once './Modules/Course/classes/class.ilCourseMembershipMailNotification.php';
         $mail = new ilCourseMembershipMailNotification();
         $mail->setType(ilCourseMembershipMailNotification::TYPE_NOTIFICATION_REGISTRATION_REQUEST);
@@ -397,7 +401,7 @@ class ilCourseParticipants extends ilParticipants
         $mail->send();
         return true;
     }
-    
+
 
     public function sendNotificationToAdmins($a_usr_id)
     {
@@ -405,7 +409,7 @@ class ilCourseParticipants extends ilParticipants
 
         $ilDB = $DIC['ilDB'];
         $ilObjDataCache = $DIC['ilObjDataCache'];
-        
+
         include_once './Modules/Course/classes/class.ilCourseMembershipMailNotification.php';
         $mail = new ilCourseMembershipMailNotification();
         $mail->setType(ilCourseMembershipMailNotification::TYPE_NOTIFICATION_REGISTRATION);
@@ -415,8 +419,8 @@ class ilCourseParticipants extends ilParticipants
         $mail->send();
         return true;
     }
-    
-    
+
+
     public function __buildStatusBody(&$user_obj)
     {
         global $DIC;
@@ -437,7 +441,7 @@ class ilCourseParticipants extends ilParticipants
             $body .= $this->lng->txt('crs_member') . "\n";
         }
         $body .= $this->lng->txt('status') . ': ';
-        
+
         if ($this->isNotificationEnabled($user_obj->getId())) {
             $body .= $this->lng->txt("crs_notify") . "\n";
         } else {
@@ -453,13 +457,13 @@ class ilCourseParticipants extends ilParticipants
 
         return $body;
     }
-    
+
     public static function getDateTimeOfPassed($a_obj_id, $a_usr_id)
     {
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $sql = "SELECT origin_ts FROM obj_members" .
             " WHERE usr_id = " . $ilDB->quote($a_usr_id, "integer") .
             " AND obj_id = " . $ilDB->quote($a_obj_id, "integer") .
@@ -470,15 +474,15 @@ class ilCourseParticipants extends ilParticipants
             return date("Y-m-d H:i:s", $res["origin_ts"]);
         }
     }
-    
+
     public static function getPassedUsersForObjects(array $a_obj_ids, array $a_usr_ids)
     {
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $res = array();
-        
+
         $sql = "SELECT usr_id,obj_id FROM obj_members" .
             " WHERE " . $ilDB->in("usr_id", $a_usr_ids, "", "integer") .
             " AND " . $ilDB->in("obj_id", $a_obj_ids, "", "integer") .
@@ -487,7 +491,7 @@ class ilCourseParticipants extends ilParticipants
         while ($row = $ilDB->fetchAssoc($set)) {
             $res[] = $row;
         }
-        
+
         return $res;
     }
 }
