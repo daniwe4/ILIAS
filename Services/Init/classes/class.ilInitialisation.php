@@ -898,6 +898,10 @@ class ilInitialisation
         ) {
             ilUtil::setCookie("_redirect_booking", serialize($params));
         }
+
+        if (strpos($params["target"], "xtrs") == 0) {
+            ilUtil::setCookie("_redirect_search", serialize($params));
+        }
         //cat-tms-patch end
 
         self::redirect(
@@ -1990,6 +1994,13 @@ class ilInitialisation
             $params = unserialize($_COOKIE["_redirect_booking"]);
             ilUtil::setCookie('_redirect_booking', null);
             $url = 'ilias.php?' . http_build_query($params);
+            ilUtil::redirect($url);
+        }
+
+        if ($_COOKIE["_redirect_search"] && !is_null($_COOKIE["_redirect_search"])) {
+            $params = unserialize($_COOKIE["_redirect_search"]);
+            ilUtil::setCookie('_redirect_search', null);
+            $url = 'goto.php?' . http_build_query($params);
             ilUtil::redirect($url);
         }
         //cat-tms-patch end
