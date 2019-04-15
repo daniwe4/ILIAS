@@ -84,9 +84,16 @@ class ilLearningSequenceParticipants extends ilParticipants
         return $rbacreview->isAssignedToAtLeastOneGivenRole($usr_id, $local_roles);
     }
 
-    public function add($usr_id, $role) : bool
+    // cat-tms-patch start #2760
+    /**
+     * Add user to role
+     * @param int $a_usr_id
+     * @param int $a_role
+     */
+    public function add($a_usr_id, $a_role, $skip_check = false)
     {
-        if (parent::add($usr_id, $role)) {
+        if (parent::add($a_usr_id, $a_role, $skip_check)) {
+            // cat-tms-patch start
             // $this->addDesktopItem($usr_id);
             return true;
         }

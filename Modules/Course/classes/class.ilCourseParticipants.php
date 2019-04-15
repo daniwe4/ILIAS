@@ -82,14 +82,16 @@ class ilCourseParticipants extends ilParticipants
         return self::$instances[$a_obj_id] = new ilCourseParticipants($a_obj_id);
     }
 
+    // cat-tms-patch start #2760
     /**
      * Add user to role
      * @param int $a_usr_id
      * @param int $a_role
      */
-    public function add($a_usr_id, $a_role)
+    public function add($a_usr_id, $a_role, $skip_check = false)
     {
-        if (parent::add($a_usr_id, $a_role)) {
+        if (parent::add($a_usr_id, $a_role, $skip_check)) {
+            // cat-tms-patch start
             $this->addRecommendation($a_usr_id);
             return true;
         }

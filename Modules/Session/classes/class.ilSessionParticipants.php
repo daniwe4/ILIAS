@@ -15,11 +15,11 @@ include_once './Modules/Session/classes/class.ilEventParticipants.php';
 class ilSessionParticipants extends ilParticipants
 {
     const COMPONENT_NAME = 'Modules/Session';
-    
+
     protected static $instances = array();
 
     protected $event_part = null;
-    
+
     /**
      * Constructor
      *
@@ -31,8 +31,8 @@ class ilSessionParticipants extends ilParticipants
         $this->event_part = new ilEventParticipants(ilObject::_lookupObjId($a_ref_id));
         parent::__construct(self::COMPONENT_NAME, $a_ref_id);
     }
-    
-    
+
+
     /**
      * Get instance
      * @param int $a_ref_id
@@ -45,7 +45,7 @@ class ilSessionParticipants extends ilParticipants
     }
 
 
-    
+
     /**
      * Get instance
      * @param int $a_ref_id
@@ -58,7 +58,7 @@ class ilSessionParticipants extends ilParticipants
         }
         return self::$instances[$a_ref_id] = new self($a_ref_id);
     }
-    
+
     /**
      * Get event particpants object
      * @return ilEventParticipants
@@ -67,7 +67,7 @@ class ilSessionParticipants extends ilParticipants
     {
         return $this->event_part;
     }
-    
+
     /**
      * no last admin restrictions for sessions
      * @param int[] $a_usr_ids
@@ -77,7 +77,7 @@ class ilSessionParticipants extends ilParticipants
     {
         return false;
     }
-    
+
     /**
      * Static function to check if a user is a participant of the container object
      *
@@ -91,7 +91,7 @@ class ilSessionParticipants extends ilParticipants
         $obj_id = ilObject::_lookupObjId($a_ref_id);
         return ilEventParticipants::_isRegistered($a_usr_id, $obj_id);
     }
-        
+
     /**
      * read participant status
      */
@@ -105,20 +105,22 @@ class ilSessionParticipants extends ilParticipants
             $this->participants_status[$mem_uid]['contact'] = $this->getEventParticipants()->isContact($mem_uid);
         }
     }
-    
+
+    // cat-tms-patch start #2760
     /**
      * Add user to session member role. Additionally the status registered or participated must be set manually
      * @param int $a_usr_id
      * @param int $a_role
      */
-    public function add($a_usr_id, $a_role = "")
+    public function add($a_usr_id, $a_role, $skip_check = false)
     {
-        if (parent::add($a_usr_id, $a_role)) {
+        if (parent::add($a_usr_id, $a_role, $skip_check)) {
+            // cat-tms-patch start
             return true;
         }
         return false;
     }
-    
+
     /**
      * Register user
      * @param int $a_usr_id
@@ -132,7 +134,7 @@ class ilSessionParticipants extends ilParticipants
         $this->getEventParticipants()->register($a_usr_id);
         return true;
     }
-    
+
     /**
      * Unregister user
      * @param int $a_usr_id
