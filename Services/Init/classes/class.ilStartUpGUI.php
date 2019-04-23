@@ -971,10 +971,12 @@ class ilStartUpGUI
 
         if (ilPublicSectionSettings::getInstance()->isEnabledForDomain($_SERVER['SERVER_NAME']) &&
             $ilAccess->checkAccessOfUser(ANONYMOUS_USER_ID, "read", "", ROOT_FOLDER_ID)) {
-            $rtpl->setCurrentBlock("homelink");
+            // cat-tms-patch start #2994/
+            /*$rtpl->setCurrentBlock("homelink");
             $rtpl->setVariable("CLIENT_ID", "?client_id=" . $_COOKIE["ilClientId"] . "&lang=" . $lng->getLangKey());
             $rtpl->setVariable("TXT_HOME", $lng->txt("home"));
-            $rtpl->parseCurrentBlock();
+            $rtpl->parseCurrentBlock();*/
+            // cat-tms-patch end
         }
 
         if ($ilIliasIniFile->readVariable("clients", "list")) {
@@ -1253,10 +1255,12 @@ class ilStartUpGUI
         $client_id = $_GET['client_id'];
 
         if (ilPublicSectionSettings::getInstance()->isEnabledForDomain($_SERVER['SERVER_NAME'])) {
-            $tpl->setCurrentBlock("homelink");
+            // cat-tms-patch start #2994
+            /*$tpl->setCurrentBlock("homelink");
             $tpl->setVariable("CLIENT_ID", "?client_id=" . $client_id . "&lang=" . $lng->getLangKey());
             $tpl->setVariable("TXT_HOME", $lng->txt("home"));
-            $tpl->parseCurrentBlock();
+            $tpl->parseCurrentBlock();*/
+            // cat-tms-patch end
         }
 
         if ($ilIliasIniFile->readVariable("clients", "list")) {
@@ -1880,9 +1884,11 @@ class ilStartUpGUI
             include_once './Services/Init/classes/class.ilPublicSectionSettings.php';
             if (ilPublicSectionSettings::getInstance()->isEnabledForDomain($_SERVER['SERVER_NAME']) &&
                 $ilAccess->checkAccessOfUser(ANONYMOUS_USER_ID, 'read', '', ROOT_FOLDER_ID)) {
-                $tpl->setVariable('LINK_URL', 'index.php?' . $param);
+                // cat-tms-patch start #2994
+                /*$tpl->setVariable('LINK_URL', 'index.php?' . $param);
                 $tpl->setVariable('LINK_TXT', $lng->txt('home'));
-                $tpl->parseCurrentBlock();
+                $tpl->parseCurrentBlock();*/
+                // cat-tms-patch end
             }
         } elseif ($a_show_logout) {
             $view_title = $lng->txt('logout');
