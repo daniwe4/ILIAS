@@ -35,34 +35,45 @@ class ilImportContainer extends ilImport
         if (!file_exists($manifest_file)) {
             return false;
         }
-        
+
         include_once("./Services/Export/classes/class.ilManifestParser.php");
         $parser = new ilManifestParser($manifest_file);
-        
-        
+
+
         // begin-patch optes_lok_export
 
         // Handling single containers without subitems
-        
+
         // @todo: check if this is required
         // all container have container export sets
         $all_importers = array();
-        
+
         if (!$parser->getExportSets()) {
             $this->createDummy($type);
             $import_info = parent::doImportObject($dir, $type);
-            
+
             $all_importers = array_merge($all_importers, $import_info['importers']);
             return $import_info;
             //return $import_info['new_id'];
         }
-        
+
         // Handling containers with subitems
         $first = true;
+
+        // cat-tms-patch start tms_3073
+        $all_new_ids = [];
+        // cat-tms-patch end
+
         foreach ($parser->getExportSets() as $set) {
             $import_info = parent::doImportObject($dir . DIRECTORY_SEPARATOR . $set['path'], $set['type']);
-            
+
             $all_importers = array_merge($all_importers, $import_info['importers']);
+            // cat-tms-patch start tms_3073
+            if (!$first) {
+                $all_new_ids[] = $import_info["new_id"];
+            }
+            // cat-tms-patch end
+
             if ($first) {
                 $ret = $import_info;
                 //$ret = $import_info['new_id'];
@@ -74,10 +85,18 @@ class ilImportContainer extends ilImport
             $importer->afterContainerImportProcessing($this->getMapping());
         }
         // end-patch optes_lok_export
-        
+
+        // cat-tms-patch start tms_3073
+        foreach ($all_new_ids as $new_id) {
+            $ref_id = array_shift(ilObject::_getAllReferences($new_id));
+            $obj = ilObjectFactory::getInstanceByRefId($ref_id);
+            $obj->update();
+        }
+        // cat-tms-patch end
+
         return $ret;
     }
-    
+
     /**
      * Create dummy object
      * @param object $a_type
@@ -91,7 +110,7 @@ class ilImportContainer extends ilImport
 
         $class_name = "ilObj" . $objDefinition->getClassName($a_type);
         $location = $objDefinition->getLocation($a_type);
-        
+
         include_once($location . "/class." . $class_name . ".php");
         $new = new $class_name();
         $new->setTitle('Import');
@@ -99,10 +118,10 @@ class ilImportContainer extends ilImport
         $new->createReference();
         $new->putInTree($this->getMapping()->getTargetId());
         $new->setPermissions($this->getMapping()->getTargetId());
-        
+
         $this->getMapping()->addMapping('Services/Container', 'objs', 0, $new->getId());
         $this->getMapping()->addMapping('Services/Container', 'refs', 0, $new->getRefId());
-        
+
         return $new;
     }
 }
