@@ -15,6 +15,14 @@ trait MyUsersHelper
      */
     public function getUserWhereCurrentCanBookFor($superior_user_id) : array
     {
+        // ATTENTION: This is not the proper way to do caching in general. If you are
+        // tempted to do the same: don't. Talk to Richard instead.
+        static $cache = [];
+
+        if (isset($cache[$superior_user_id])) {
+            return $cache[$superior_user_id];
+        }
+
         $positions = $this->getPositionWithPermissionToBook();
         $orgus = $this->getOrgusByPositionAndUser($positions, $superior_user_id);
 
@@ -31,6 +39,8 @@ trait MyUsersHelper
         uasort($ret, function ($a, $b) {
             return strcmp($a, $b);
         });
+
+        $cache[$superior_user_id] = $ret;
 
         return $ret;
     }
@@ -67,8 +77,12 @@ trait MyUsersHelper
     }
 
     /**
-    * @return int[]
-    */
+     * Get all user ids where user has authorities
+     *
+     * @param int 	§user_id
+     *
+     * @return int[]
+     */
     protected function getMembersByOrgus(array $orgus, int $superior_user_id) : array
     {
         return $this->getTMSPositionHelper()->getUserIdUnderAuthorityOfUserByPositionsAndOrgus($superior_user_id, $orgus, true);
@@ -115,10 +129,10 @@ trait MyUsersHelper
         foreach ($xtrs_objects as $value) {
             foreach (\ilObject::_getAllReferences($value["id"]) as $ref_id) {
                 if (
-       $access->checkAccess("visible", "", $ref_id) &&
-       $access->checkAccess("read", "", $ref_id) &&
-       $access->checkAccess("use_search", "", $ref_id)
-) {
+                    $access->checkAccess("visible", "", $ref_id) &&
+                    $access->checkAccess("read", "", $ref_id) &&
+                    $access->checkAccess("use_search", "", $ref_id)
+                ) {
                     return \ilObjectFactory::getInstanceByRefId($ref_id);
                 }
             }
@@ -128,9 +142,13 @@ trait MyUsersHelper
     }
 
     /**
+     * Get all user ids where user has authorities
+     *
+     * @param int 	§user_id
+     *
      * @return int[]
-    */
-    protected function getMembersUserHasAuthorities(int $user_id) : array
+     */
+    protected function getMembersUserHasAuthorities($user_id)
     {
         require_once("Services/TMS/Positions/TMSPositionHelper.php");
         require_once("Modules/OrgUnit/classes/Positions/UserAssignment/class.ilOrgUnitUserAssignmentQueries.php");
