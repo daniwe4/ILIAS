@@ -24,6 +24,10 @@ use ILIAS\OrgUnit\Provider\OrgUnitToolProvider;
  * @ilCtrl_Calls      ilObjOrgUnitGUI: ilOrgUnitUserAssignmentGUI
  * @ilCtrl_Calls      ilObjOrgUnitGUI: ilOrgUnitTypeGUI
  * @ilCtrl_Calls      ilObjOrgUnitGUI: ilPropertyFormGUI
+ *
+ * // cat-tms-patch start #2491
+ * @ilCtrl_IsCalledBy ilObjOrgUnitGUI: ilObjPluginDispatchGUI
+ * // cat-tms-patch end
  */
 class ilObjOrgUnitGUI extends ilContainerGUI
 {
