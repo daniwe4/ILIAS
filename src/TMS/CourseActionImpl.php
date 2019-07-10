@@ -115,4 +115,9 @@ abstract class CourseActionImpl implements CourseAction
     {
         throw new \LogicException("No modal provided");
     }
+
+    public function openInNewTab() : bool
+    {
+        return true;
+    }
 }

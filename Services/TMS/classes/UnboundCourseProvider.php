@@ -8,6 +8,7 @@ use \ILIAS\TMS\CourseAction;
 
 class UnboundCourseProvider extends SeparatedUnboundProvider
 {
+    const SEND_RECOMMENDATION_ID = "SR01";
 
     /**
      * @var ilLanguage
@@ -71,6 +72,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
         require_once("Services/TMS/CourseActions/ToCourse.php");
         require_once("Services/TMS/CourseActions/ToCourseMemberTab.php");
         require_once("Services/TMS/CourseActions/CancelCourse.php");
+        require_once("Services/TMS/CourseActions/SendRecommendationMail.php");
         return [
             new ToCourse(
                 $entity,
@@ -104,6 +106,18 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
                 [
                     CourseAction::CONTEXT_MY_ADMIN_TRAININGS,
                     CourseAction::CONTEXT_MY_TRAININGS
+                ]
+            ),
+            new SendRecommendationMail(
+                $entity,
+                $owner,
+                $this->user,
+                1500,
+                [
+                    CourseAction::CONTEXT_USER_BOOKING,
+                    CourseAction::CONTEXT_EMPLOYEE_BOOKING .
+                    CourseAction::CONTEXT_SUPERIOR_SEARCH,
+                    CourseAction::CONTEXT_SEARCH
                 ]
             )
         ];

@@ -62,6 +62,10 @@ class CourseActionMock implements TMS\CourseAction
     {
         throw new \LogicException("NYI!");
     }
+    public function openInNewTab() : bool
+    {
+        throw new \LogicException("NYI!");
+    }
 }
 
 class TMS_CourseActionHelperTest extends PHPUnit_Framework_TestCase

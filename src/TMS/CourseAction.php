@@ -85,5 +85,11 @@ interface CourseAction extends Component
      * Return the modal for this action
      * @throws LogicException if no modal is available
      */
-    public function getModal(\ilCtrl $ctrl, UI\Factory $factory, int $usr_id) : Modal;
+    public function getModal(\ilCtrl $ctrl, UI\Factory $factory, int $usr_id);
+
+    /**
+     * Decides if link open in new tab
+     * @return bool
+     */
+    public function openInNewTab() : bool;
 }
