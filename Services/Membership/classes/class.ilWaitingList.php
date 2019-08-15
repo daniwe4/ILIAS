@@ -22,13 +22,13 @@
 */
 
 /**
-* Base class for course and group waiting lists
-*
-* @author Stefan Meyer <smeyer.ilias@gmx.de>
-* @version $Id$
-*
-* @ingroup ServicesMembership
-*/
+ * Base class for course and group waiting lists
+ *
+ * @author Stefan Meyer <smeyer.ilias@gmx.de>
+ * @version $Id$
+ *
+ * @ingroup ServicesMembership
+ */
 
 abstract class ilWaitingList
 {
@@ -36,7 +36,7 @@ abstract class ilWaitingList
     private $obj_id = 0;
     private $user_ids = array();
     private $users = array();
-    
+
     public static $is_on_list = array();
 
 
@@ -57,7 +57,7 @@ abstract class ilWaitingList
 
         $this->read();
     }
-    
+
     /**
      * Lookup waiting lit size
      * @param int $a_obj_id
@@ -67,16 +67,16 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $query = 'SELECT count(usr_id) num from crs_waiting_list WHERE obj_id = ' . $ilDB->quote($a_obj_id, 'integer');
         $res = $ilDB->query($query);
-        
+
         while ($row = $res->fetchRow(ilDBConstants::FETCHMODE_OBJECT)) {
             return (int) $row->num;
         }
         return 0;
     }
-    
+
     /**
      * delete all
      *
@@ -95,7 +95,7 @@ abstract class ilWaitingList
 
         return true;
     }
-    
+
     /**
      * Delete user
      *
@@ -114,7 +114,7 @@ abstract class ilWaitingList
 
         return true;
     }
-    
+
     /**
      * Delete one user entry
      * @param int $a_usr_id
@@ -126,14 +126,14 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $query = "DELETE FROM crs_waiting_list " .
             "WHERE usr_id = " . $ilDB->quote($a_usr_id, 'integer') . ' ' .
             "AND obj_id = " . $ilDB->quote($a_obj_id, 'integer');
         $ilDB->query($query);
         return true;
     }
-    
+
 
     /**
      * get obj id
@@ -157,7 +157,7 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         if ($this->isOnList($a_usr_id)) {
             return false;
         }
@@ -185,7 +185,7 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $query = "UPDATE crs_waiting_list " .
             "SET sub_time = " . $ilDB->quote($a_subtime, 'integer') . " " .
             "WHERE usr_id = " . $ilDB->quote($a_usr_id, 'integer') . " " .
@@ -206,7 +206,7 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $query = "DELETE FROM crs_waiting_list " .
             " WHERE obj_id = " . $ilDB->quote($this->getObjId(), 'integer') . " " .
             " AND usr_id = " . $ilDB->quote($a_usr_id, 'integer') . " ";
@@ -227,7 +227,7 @@ abstract class ilWaitingList
     {
         return isset($this->users[$a_usr_id]) ? true : false;
     }
-    
+
     /**
      * Check if a user on the waiting list
      * @return bool
@@ -241,11 +241,11 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         if (isset(self::$is_on_list[$a_usr_id][$a_obj_id])) {
             return self::$is_on_list[$a_usr_id][$a_obj_id];
         }
-        
+
         $query = "SELECT usr_id " .
             "FROM crs_waiting_list " .
             "WHERE obj_id = " . $ilDB->quote($a_obj_id, 'integer') . " " .
@@ -253,7 +253,7 @@ abstract class ilWaitingList
         $res = $ilDB->query($query);
         return $res->numRows() ? true : false;
     }
-    
+
     /**
      * Preload on list info. This is used, e.g. in the repository
      * to prevent multiple reads on the waiting list table.
@@ -268,7 +268,7 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         if (!is_array($a_usr_ids)) {
             $a_usr_ids = array($a_usr_ids);
         }
@@ -290,7 +290,7 @@ abstract class ilWaitingList
             self::$is_on_list[$rec["usr_id"]][$rec["obj_id"]] = true;
         }
     }
-    
+
 
     /**
      * get number of users
@@ -302,7 +302,7 @@ abstract class ilWaitingList
     {
         return count($this->users);
     }
-    
+
     /**
      * get position
      *
@@ -325,7 +325,7 @@ abstract class ilWaitingList
     {
         return $this->users ? $this->users : array();
     }
-    
+
     /**
      * get user
      *
@@ -337,7 +337,7 @@ abstract class ilWaitingList
     {
         return isset($this->users[$a_usr_id]) ? $this->users[$a_usr_id] : false;
     }
-    
+
     /**
      * Get all user ids of users on waiting list
      *
@@ -361,7 +361,7 @@ abstract class ilWaitingList
         global $DIC;
 
         $ilDB = $DIC['ilDB'];
-        
+
         $this->users = array();
 
         $query = "SELECT * FROM crs_waiting_list " .
@@ -374,9 +374,35 @@ abstract class ilWaitingList
             $this->users[$row->usr_id]['position'] = $counter;
             $this->users[$row->usr_id]['time'] = $row->sub_time;
             $this->users[$row->usr_id]['usr_id'] = $row->usr_id;
-            
+
             $this->user_ids[] = $row->usr_id;
         }
         return true;
     }
+
+    // cat-tms-patch start
+    /**
+    * Get all crs ids where user is on waiting list
+    *
+    * @param int   $a_usr_id
+    *
+    * @return int[]
+    */
+    public static function getIdsWhereUserIsOnList($a_usr_id)
+    {
+        global $ilDB;
+        $ret = array();
+
+        $query = "SELECT obj_id " .
+            "FROM crs_waiting_list " .
+            "WHERE usr_id = " . $ilDB->quote($a_usr_id, 'integer');
+
+        $res = $ilDB->query($query);
+        while ($row = $ilDB->fetchAssoc($res)) {
+            $ret[] = (int) $row["obj_id"];
+        }
+
+        return $ret;
+    }
+    // cat-tms-patch end
 }

@@ -158,7 +158,7 @@ abstract class Player
         $form->addCommandButton(self::COMMAND_ABORT, $this->txt("abort"));
 
         $form->setTitle($this->getPlayerTitle());
-        $current_step->appendToStepForm($form);
+        $current_step->appendToStepForm($form, $this->usr_id);
 
         if ($post) {
             $form->setValuesByArray($post);
@@ -210,7 +210,7 @@ abstract class Player
         $form->addCommandButton(self::COMMAND_ABORT, $this->txt("abort"));
 
         $form->setTitle($this->getPlayerTitle());
-        $current_step->appendToStepForm($form);
+        $current_step->appendToStepForm($form, $this->usr_id);
         $current_step->addDataToForm($form, $step_data);
 
         return $form->getHtml();
@@ -238,7 +238,7 @@ abstract class Player
             $header->setTitle($step->getLabel());
             $form->addItem($header);
             $data = $state->getStepData($i);
-            $step->appendToOverviewForm($data, $form);
+            $step->appendToOverviewForm($data, $form, $this->usr_id);
         }
         return $form;
     }
