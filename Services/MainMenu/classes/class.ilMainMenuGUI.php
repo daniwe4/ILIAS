@@ -258,14 +258,21 @@ class ilMainMenuGUI
                 }
             }
 
-            $this->renderStatusBox($this->tpl);
+            // cat-tms-patch start
+            //$this->renderStatusBox($this->tpl);
 
             // online help
-            $this->renderHelpButtons();
+            //$this->renderHelpButtons();
 
-            $this->renderOnScreenChatMenu();
+            //$this->renderOnScreenChatMenu();
+            //$this->populateWithBuddySystem();
+            //$this->populateWithOnScreenChat();
+            // cat-tms-patch end
+
             $this->renderBackgroundTasks();
-            $this->renderAwareness();
+            // cat-tms-patch start
+            //$this->renderAwareness();
+            // cat-tms-patch end
         }
 
         if ($this->getMode() == self::MODE_FULL) {
