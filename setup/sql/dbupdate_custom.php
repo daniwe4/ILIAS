@@ -514,7 +514,7 @@ try {
     $this->db->addPrimaryKey("plugins_class", array("class"));
 }
 ?>
-<#37>
+<#53>
 <?php
     if (!$ilDB->tableColumnExists('cron_job', 'executing_thread_id')) {
         $field = array(
@@ -527,7 +527,7 @@ try {
     }
 ?>
 
-<#38>
+<#54>
 <?php
 $ilCtrlStructureReader->getStructure();
 ?>
