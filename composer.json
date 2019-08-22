@@ -9,13 +9,13 @@
 	},
 	"scripts": {
 		"post-autoload-dump": [
-		  "php setup/cli.php build-artifacts --yes"
+			"php setup/cli.php build-artifacts --yes"
 		],
 		"test-php-all": [
-		  "./libs/composer/vendor/bin/phpunit -c ./Services/PHPUnit/config/PhpUnitConfig.xml --colors=always --disallow-todo-tests"
+			"./libs/composer/vendor/bin/phpunit -c ./Services/PHPUnit/config/PhpUnitConfig.xml --colors=always --disallow-todo-tests"
 		],
 		"test-php": [
-		  "./CI/PHPUnit/run_tests.sh"
+			"./CI/PHPUnit/run_tests.sh"
 		]
 	},
 	"require": {
@@ -48,7 +48,7 @@
 		"simplesamlphp/simplesamlphp": "^1.18",
 		"conceptsandtraining/ente": "^4.0",
 		"conceptsandtraining/lib-excel-wrapper": "^0.3.0",
-		"conceptsandtraining/wbd": "^6.3",
+		"conceptsandtraining/wbd": "^3.1",
 		"conceptsandtraining/tgic": "^2.0",
 		"conceptsandtraining/lib-historizing": "^2.0.3",
 		"conceptsandtraining/lib-plugin-security": "^0.0.3"
@@ -205,7 +205,7 @@
 			"last_update_by": "Michael Jansen <mjansen@databay.de>",
 			"approved-by": "Jour Fixe",
 			"approved-date": "YYYY-MM-DD"
-		},                
+		},
 		"imsglobal/lti" : {
 			"source": "https://github.com/ILIAS-eLearning/LTI-Tool-Provider-Library-PHP",
 			"used_version": "v3.0.0",
@@ -345,7 +345,7 @@
 			"last_update_by": "Stefan Meyer <smeyer.ilias@gmx.de",
 			"approved_by": "Jour Fixe",
 			"approved-date": "2018-02-26"
-                },
+		},
 		"slim/slim": {
 			"source": "https://github.com/slimphp/Slim",
 			"used_version": "v3.11",
