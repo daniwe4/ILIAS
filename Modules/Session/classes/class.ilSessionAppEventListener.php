@@ -247,7 +247,7 @@ class ilSessionAppEventListener implements ilAppEventListener
     {
         $crs = $this->parameters['object'];
         $crs_start = $crs->getCourseStart();
-        $sessions = $this->getSessionsOfCourse($crs->getRefId());
+        $sessions = $this->getSessionsOfCourse($crs->getId());
 
         foreach ($sessions as $session) {
             $appointment = $session->getFirstAppointment();
@@ -268,7 +268,7 @@ class ilSessionAppEventListener implements ilAppEventListener
                 $checker = self::getTimezoneChecker();
                 $old_start_date = DateTime::createFromFormat("Y-m-d", $appointment->getStart()->get(IL_CAL_FKT_DATE, "Y-m-d", "UTC"));
                 $new_start_date = DateTime::createFromFormat("Y-m-d", $date);
-                
+
                 if ($checker->isSummerTime($old_start_date) && !$checker->isSummerTime($new_start_date)) {
                     $start = explode(":", $start_time);
                     $start[0] = str_pad((int) $start[0] + 1, 2, "0", STR_PAD_LEFT);
@@ -304,8 +304,7 @@ class ilSessionAppEventListener implements ilAppEventListener
     {
         $usr_id = (int) $this->parameters["usr_id"];
         $crs_obj_id = (int) $this->parameters["obj_id"];
-        $crs_ref_id = $this->getReferenceId($crs_obj_id);
-        foreach ($this->getSessionsOfCourse($crs_ref_id) as $session) {
+        foreach ($this->getSessionsOfCourse($crs_obj_id) as $session) {
             $assigned_tutors = $session->getAssignedTutorsIds();
             $assigned_tutors = array_filter($assigned_tutors, function ($id) use ($usr_id) {
                 return $id != $usr_id;
@@ -346,8 +345,7 @@ class ilSessionAppEventListener implements ilAppEventListener
     {
         $usr_id = (int) $this->parameters["usr_id"];
         $crs_obj_id = (int) $this->parameters["obj_id"];
-        $crs_ref_id = $this->getReferenceId($crs_obj_id);
-        foreach ($this->getSessionsOfCourse($crs_ref_id) as $session) {
+        foreach ($this->getSessionsOfCourse($crs_obj_id) as $session) {
             $assigned_tutors = $session->getAssignedTutorsIds();
             array_push($assigned_tutors, $usr_id);
             $session->setAssignedTutors($assigned_tutors);
@@ -360,12 +358,13 @@ class ilSessionAppEventListener implements ilAppEventListener
      * Find sessions underneath course
      * @return ilObjSession[]
      */
-    protected function getSessionsOfCourse(int $crs_ref_id) : array
+    protected function getSessionsOfCourse(int $crs_id) : array
     {
         global $DIC;
 
         $g_tree = $DIC->repositoryTree();
         $ret = array();
+        $crs_ref_id = $this->getReferenceId($crs_id);
         $sessions = $g_tree->getChildsByType($crs_ref_id, "sess");
 
         foreach ($sessions as $session) {
