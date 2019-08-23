@@ -52,7 +52,7 @@ class TMSMailClerk
      */
     private function initSender()
     {
-        $this->sender = new \PHPMailer();
+        $this->sender = new \PHPMailer\PHPMailer\PHPMailer();
         $this->sender->CharSet = "utf-8";
         $this->sender->isHTML(true);
     }
