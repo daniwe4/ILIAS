@@ -246,6 +246,11 @@ class ilSessionAppEventListener implements ilAppEventListener
     protected function updateSessionAppointments()
     {
         $crs = $this->parameters['object'];
+        // If course has no reference id, he is not in the repo and contains no
+        // sessions.
+        if (!$this->getReferenceId($crs->getId())) {
+            return;
+        }
         $crs_start = $crs->getCourseStart();
         $sessions = $this->getSessionsOfCourse($crs->getId());
 
