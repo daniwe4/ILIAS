@@ -54,7 +54,7 @@ class ilTMSMailContextCourse implements Mailing\MailContext
     public function __construct($crs_ref_id)
     {
         assert('is_int($crs_ref_id)');
-        $this->crs_ref_id = $crs_ref_id;
+        $this->crs_ref_id = (int) $crs_ref_id;
 
         global $DIC;
         $this->DIC = $DIC;
