@@ -16367,3 +16367,29 @@ tms#:#user_booked_on_course#:#Sie haben dieses Training bereits gebucht.
 tms#:#user_booked_on_waiting#:#Sie sind bei diesem Trainings bereits auf der Warteliste.
 tms#:#user_not_booked_on_course#:#Sie haben dieses Training nicht gebucht.
 tms#:#user_not_booked_on_waiting#:#Sie sind bei diesem Trainings nicht auf der Warteliste.
+tms#:#create_course_overview_description#:#Bitte prüfen Sie die Angaben und starten Sie die Anlage des Trainings.
+orgu#:#user_assignments_recursive#:#Rekursive Benutzerzuweisun
+tms#:#send_recommendation#:#Kurs empfehlen
+sess#:#event_planer#:#Datum/Uhrzeit
+sess#:#event_static_date#:#Festes Datum
+sess#:#event_relativ_to_crs_date#:#Relativ zum Veranstaltungszeitraum
+sess#:#event_days_offset#:#Veranstaltungstag
+sess#:#event_start_time#:#Startzeit
+sess#:#event_end_time#:#Endzeit
+crs#:#event_tutor_source_manually#:#Eingabe
+crs#:#event_tutor_source_from_course#:#Aus dem Kurs
+crs#:#event_tutor_source#:#Tutor
+common#:#org_op_orgu_see_other_calendars#:#Fremde Kalender sehen
+common#:#org_op_orgu_book_user#:#Benutzer buchen
+tms#:#no_venue_selected#:#Da Sie keinen Veranstaltungsort ausgewählt haben, konnten die Eingaben zu den Details zum Veranstaltungsort nicht gespeichert werden.
+tms#:#no_steps_available#:#Sie können diesen Kurs leider nicht buchen, da dieser ausgebucht ist.
+tms#:#placeholder_desc_crs_important_information#:#Wichtige Informationen des Kurses
+tms#:#msg_input_char_limit_max#:#Sie müssen die festgelegte Höchstzahl von Zeichen beachten. Ihr Beitrag ist zu lang.
+tms#:#course_has_allready_begun#:#Der Kurs hat bereits begonnen. Eine Buchung ist nicht mehr möglich.
+crs#:#event_tutor_selection#:#Auswahl Tutor
+tms#:#course_has_allready_begun_no_cancel#:#Der Kurs hat bereits begonnen. Eine Stornierung ist nicht mehr möglich.
+tms#:#no_document_available#:#Das von Ihnen angeforderte Dokument ist nicht verfügbar.
+success#:#success_decline#:#Kursabsage
+success#:#successfully_decline#:#Ihre Teilnahme am Kurs wurde erfolgreich abgesagt.
+success#:#to_login#:#Zum Login
+tms#:#placeholder_desc_crs_trainer_assignments#:#Die Einsatztage des Trainers, der diese Mail erhält, an diesem Kurs.
