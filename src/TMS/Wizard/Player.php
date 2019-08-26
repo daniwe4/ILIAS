@@ -189,7 +189,9 @@ class Player
      */
     public function maybeAddStepDataToForm(State $state, int $step_number, Step $step, \ilPropertyFormGUI $form)
     {
-        if ($state->hasStepData($step_number)) {
+        $step_data = $this->getStepData($state, $step_number, $step);
+
+        if (!is_null($step_data)) {
             $step_data = $state->getStepData($step_number);
             $step->addDataToForm($form, $step_data);
         }
@@ -311,7 +313,7 @@ class Player
         $messages = [];
         for ($i = 0; $i < count($steps); $i++) {
             $step = $steps[$i];
-            $data = $state->getStepData($i);
+            $data = $this->getStepData($state, $i, $step);
             $message = $step->processStep($data);
             if ($message) {
                 $messages[] = $message;
@@ -334,5 +336,23 @@ class Player
             return $state;
         }
         return new State($this->wizard->getId(), self::START_WITH_STEP);
+    }
+
+    protected function getStepData(State $state, int $step_number, Step $step)
+    {
+        if ($step->needPreviousStepData()) {
+            $step_data = [];
+            foreach ($state->getAllStepData() as $data) {
+                foreach (json_decode($data, true) as $k => $v) {
+                    $step_data[$k] = $v;
+                };
+            }
+            return $step_data;
+        } else {
+            if ($state->hasStepData($step_number)) {
+                $step_data = $state->getStepData($step_number);
+                return $step_data;
+            }
+        }
     }
 }

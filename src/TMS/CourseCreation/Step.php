@@ -43,4 +43,6 @@ interface Step extends Component, WStep
      * @return void
      */
     public function setRequestBuilder(RequestBuilder $request_builder);
+
+    public function needPreviousStepData() : bool;
 }
