@@ -31,7 +31,8 @@ trait CourseSendMailHelper
 
     public function isCourseOnline()
     {
-        return \ilObjCourseAccess::_isOnline($this->getEntityId());
+        $dummy = null;
+        return \ilObjCourseAccess::_isActivated($this->getEntityId(), $dummy, false);
     }
 
     protected function getSubTreeTypes()
