@@ -340,7 +340,10 @@ class Player
 
     protected function getStepData(State $state, int $step_number, Step $step)
     {
-        if ($step->needPreviousStepData()) {
+        if (
+            $step instanceof \CourseCreationStep &&
+            $step->needPreviousStepData()
+        ) {
             $step_data = [];
             foreach ($state->getAllStepData() as $data) {
                 foreach (json_decode($data, true) as $k => $v) {
