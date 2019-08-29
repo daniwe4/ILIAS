@@ -521,12 +521,14 @@ class ilPersonalSettingsGUI
         // hits per page
         if ($this->userSettingVisible("hits_per_page")) {
             $si = new ilSelectInputGUI($this->lng->txt("hits_per_page"), "hits_per_page");
-            
-            $hits_options = array(10,15,20,30,40,50,100,9999);
+
+            // cat-tms-patch start
+            $hits_options = array(10,15,20,30,40,50,100,500,1000,99999);
             $options = array();
 
             foreach ($hits_options as $hits_option) {
-                $hstr = ($hits_option == 9999)
+                $hstr = ($hits_option == 99999)
+                // cat-tms-patch end
                     ? $this->lng->txt("no_limit")
                     : $hits_option;
                 $options[$hits_option] = $hstr;
