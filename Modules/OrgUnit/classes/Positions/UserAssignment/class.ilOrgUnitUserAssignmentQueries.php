@@ -264,14 +264,14 @@ class ilOrgUnitUserAssignmentQueries
     protected function getOrgUnitIdsWhereUsersHasDirectlyPosition($position_id, $user_id)
     {
         return ilOrgUnitUserAssignment::where(
-                       [
-                                           'position_id' => $position_id,
-                                           'user_id' => $user_id,
-                                   ]
-                       )->getArray(
-                           null,
-                           'orgu_id'
-                       );
+            [
+                'position_id' => $position_id,
+                'user_id' => $user_id,
+            ]
+        )->getArray(
+            null,
+            'orgu_id'
+        );
     }
 
     protected function getOrgUnitIdsWhereUsersHasDirectlyPositionOnlyFirstSubsequentChildren($position_id, $user_id)
@@ -301,17 +301,20 @@ class ilOrgUnitUserAssignmentQueries
     }
 
     /**
-    * Get user with any position
-    *
-    * @return int[]        $user_ids
-    */
+     * Get user with any position
+     *
+     * @return int[]        $user_ids
+     */
     public function getUserIdsWithAtLeastOnePosition()
     {
-        return ilOrgUnitUserAssignment::innerjoin("il_orgu_authority", "position_id", "position_id")
-->where([])
-->setPrimaryFieldName('user_id')
-->getArray('user_id', 'user_id')
-;
+        $record_list = ilOrgUnitUserAssignment::innerjoin("il_orgu_authority", "position_id", "position_id");
+        $record_list = $record_list->where([])
+            ->setPrimaryFieldName('user_id');
+        $result = $record_list->getArray('user_id', 'user_id');
+
+        $record_list->setPrimaryFieldName("id");
+
+        return $result;
     }
     // cat-tms-patch end
 }
