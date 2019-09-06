@@ -23,7 +23,7 @@ class ilTMSMailContextTargetUser extends ilTMSMailContextUser
     public function valueFor($placeholder_id, $contexts = array())
     {
         switch ($placeholder_id) {
-            case 'TARGET_USER_MAIL_SALUTATION':
+            case 'TARGET_USER_SALUTATION':
                 return $this->salutation();
             case 'TARGET_USER_FIRST_NAME':
                 return $this->firstName();
@@ -35,7 +35,6 @@ class ilTMSMailContextTargetUser extends ilTMSMailContextUser
                 return $this->email();
             case 'TARGET_USER_TITLE':
                 return $this->title();
-
             default:
                 return null;
         }
