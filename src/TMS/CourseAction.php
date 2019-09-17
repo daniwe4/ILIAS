@@ -4,24 +4,21 @@
 
 namespace ILIAS\TMS;
 
-use CaT\Ente\Component;
+use CaT\Ente\ILIAS\Entity;
 use ILIAS\UI;
 use ILIAS\UI\Implementation\Component\Modal\Modal;
 
 /**
  * This is an information about a course action, noteworthy for a user in some context.
  */
-interface CourseAction extends Component
+interface CourseAction
 {
-    const CONTEXT_SEARCH = 1;
-    const CONTEXT_USER_BOOKING = 2;
-    const CONTEXT_EMPLOYEE_BOOKING = 3;
-    const CONTEXT_EDU_BIO = 4;
-    const CONTEXT_EMPOYEE_EDU_BIO = 5;
-    const CONTEXT_MY_TRAININGS = 6;
-    const CONTEXT_MY_ADMIN_TRAININGS = 7;
-    const CONTEXT_SUPERIOR_SEARCH = 8;
-    const CONTEXT_TEP_SESSION_DETAILS = 9;
+    /**
+     * Get the owner of this action
+     *
+     * @return Entity
+     */
+    public function getEntity();
 
     /**
      * Get the owner of this action
@@ -38,15 +35,6 @@ interface CourseAction extends Component
      * @return int
      */
     public function getPriority();
-
-    /**
-     * Check if the info is relevant in the given context.
-     *
-     * @param mixed 	$context from the list of contexts in this class
-     *
-     * @return bool
-     */
-    public function hasContext($context);
 
     /**
      * Checks the action is allowed for user

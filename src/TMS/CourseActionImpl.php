@@ -4,7 +4,7 @@
 
 namespace ILIAS\TMS;
 
-use CaT\Ente;
+use CaT\Ente\Entity;
 use ILIAS\UI;
 use ILIAS\UI\Implementation\Component\Modal\Modal;
 
@@ -13,14 +13,13 @@ use ILIAS\UI\Implementation\Component\Modal\Modal;
  */
 abstract class CourseActionImpl implements CourseAction
 {
-
     /**
-     * @var	Ente\Entity
+     * @var Entity
      */
     protected $entity;
 
     /**
-     * @var	\ilObject
+     * @var \ilObject
      */
     protected $owner;
 
@@ -30,33 +29,26 @@ abstract class CourseActionImpl implements CourseAction
     protected $priority;
 
     /**
-     * @var	int[]
-     */
-    protected $contexts;
-
-    /**
      * @var int
      */
     protected $current_user_id;
 
-    /**
-     * @param \ilObjUser 	$current_user will most probably be the global user.
-     * @param int[] 	$contexts
-     */
-    public function __construct(Ente\Entity $entity, \ilObject $owner, \ilObjUser $current_user, int $priority, array $contexts)
-    {
+    public function __construct(
+        Entity $entity,
+        \ilObject $owner,
+        \ilObjUser $current_user,
+        int $priority
+    ) {
         $this->entity = $entity;
         $this->owner = $owner;
         $this->priority = $priority;
-        $this->contexts = $contexts;
-
         $this->current_user_id = $current_user->getId();
     }
 
     /**
-     * @inheritdoc
+     * @inheritDoc
      */
-    public function entity()
+    public function getEntity()
     {
         return $this->entity;
     }
@@ -75,14 +67,6 @@ abstract class CourseActionImpl implements CourseAction
     public function getPriority()
     {
         return $this->priority;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function hasContext($context)
-    {
-        return in_array($context, $this->contexts);
     }
 
     /**

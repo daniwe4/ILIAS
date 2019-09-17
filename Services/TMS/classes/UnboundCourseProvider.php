@@ -4,22 +4,30 @@ use \CaT\Ente\ILIAS\SeparatedUnboundProvider;
 use \CaT\Ente\ILIAS\Entity;
 use \ILIAS\TMS\CourseInfo;
 use \ILIAS\TMS\CourseInfoImpl;
-use \ILIAS\TMS\CourseAction;
+
+use \ILIAS\TMS\ActionBuilder;
 
 class UnboundCourseProvider extends SeparatedUnboundProvider
 {
-    const SEND_RECOMMENDATION_ID = "SR01";
-
     /**
      * @var ilLanguage
      */
     protected $lng;
+
+    /**
+     * @var ilObjUser
+     */
+    protected $user;
+
     /**
      * @inheritdocs
      */
     public function componentTypes()
     {
-        return [CourseInfo::class, CourseAction::class];
+        return [
+            CourseInfo::class,
+            ActionBuilder::class
+        ];
     }
 
     /**
@@ -39,8 +47,8 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
         $this->user = $DIC->user();
         $object = $entity->object();
 
-        if ($component_type === CourseAction::class) {
-            return $this->getCourseActions($entity, $this->owner());
+        if ($component_type === ActionBuilder::class) {
+            return $this->getActionBuilder($entity, $this->owner());
         }
 
         if ($component_type === CourseInfo::class) {
@@ -65,61 +73,12 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
     /**
      * Get all possible actions depentent on Booking modalities
      *
-     * @return CourseAction[]
+     * @return ActionBuilder[]
      */
-    protected function getCourseActions(Entity $entity, $owner)
+    protected function getActionBuilder(Entity $entity, $owner) : array
     {
-        require_once("Services/TMS/CourseActions/ToCourse.php");
-        require_once("Services/TMS/CourseActions/ToCourseMemberTab.php");
-        require_once("Services/TMS/CourseActions/CancelCourse.php");
-        require_once("Services/TMS/CourseActions/SendRecommendationMail.php");
         return [
-            new ToCourse(
-                $entity,
-                $owner,
-                $this->user,
-                100,
-                [
-                    CourseAction::CONTEXT_USER_BOOKING,
-                    CourseAction::CONTEXT_EMPLOYEE_BOOKING,
-                    CourseAction::CONTEXT_MY_ADMIN_TRAININGS,
-                    CourseAction::CONTEXT_MY_TRAININGS,
-                    CourseAction::CONTEXT_TEP_SESSION_DETAILS
-                ]
-            ),
-            new ToCourseMemberTab(
-                $entity,
-                $owner,
-                $this->user,
-                200,
-                [
-                    CourseAction::CONTEXT_MY_ADMIN_TRAININGS,
-                    CourseAction::CONTEXT_MY_TRAININGS,
-                    CourseAction::CONTEXT_TEP_SESSION_DETAILS
-                ]
-            ),
-            new CancelCourse(
-                $entity,
-                $owner,
-                $this->user,
-                600,
-                [
-                    CourseAction::CONTEXT_MY_ADMIN_TRAININGS,
-                    CourseAction::CONTEXT_MY_TRAININGS
-                ]
-            ),
-            new SendRecommendationMail(
-                $entity,
-                $owner,
-                $this->user,
-                1500,
-                [
-                    CourseAction::CONTEXT_USER_BOOKING,
-                    CourseAction::CONTEXT_EMPLOYEE_BOOKING .
-                    CourseAction::CONTEXT_SUPERIOR_SEARCH,
-                    CourseAction::CONTEXT_SEARCH
-                ]
-            )
+            new \TMSActionBuilder($entity, $owner, $this->user)
         ];
     }
 

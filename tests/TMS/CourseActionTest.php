@@ -28,7 +28,6 @@ class CourseActionTest extends PHPUnit_Framework_TestCase
     public function test_fields()
     {
         $priority = 10;
-        $contexts = [TMS\CourseAction::CONTEXT_SEARCH];
         $entity = $this->createMock(CaT\Ente\Entity::class);
         $owner = $this->createMock(ilObject::class);
         $user = $this->createMock(\ilObjUser::class);
@@ -37,12 +36,10 @@ class CourseActionTest extends PHPUnit_Framework_TestCase
             ->expects($this->once())
             ->method("getId");
 
-        $action = new _CourseActionImpl($entity, $owner, $user, $priority, $contexts);
+        $action = new _CourseActionImpl($entity, $owner, $user, $priority);
 
-        $this->assertEquals($entity, $action->entity());
+        $this->assertEquals($entity, $action->getEntity());
         $this->assertEquals($owner, $action->getOwner());
         $this->assertEquals($priority, $action->getPriority());
-        $this->assertTrue($action->hasContext(TMS\CourseAction::CONTEXT_SEARCH));
-        $this->assertFalse($action->hasContext(TMS\CourseAction::CONTEXT_USER_BOOKING));
     }
 }
