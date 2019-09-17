@@ -53,7 +53,6 @@ class ilTMSMailContextCourse implements Mailing\MailContext
 
     public function __construct($crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
         $this->crs_ref_id = (int) $crs_ref_id;
 
         global $DIC;
@@ -185,17 +184,21 @@ class ilTMSMailContextCourse implements Mailing\MailContext
     {
         $schedule = array();
         $sessions = $this->getSessionAppointments();
-        foreach ($sessions as $sortdat => $times) {
-            list($date, $start, $end) = $times;
-            $schedule[] = sprintf(
-                "%s, %s - %s %s",
-                $date,
-                $start,
-                $end,
-                $this->g_lang->txt('oclock')
-            );
+        if (count($sessions) > 0) {
+            foreach ($sessions as $sortdat => $times) {
+                list($date, $start, $end) = $times;
+                $schedule[] = sprintf(
+                    "%s, %s - %s %s",
+                    $date,
+                    $start,
+                    $end,
+                    $this->g_lang->txt('oclock')
+                );
+            }
+            return implode(PHP_EOL, $schedule);
         }
-        return implode(PHP_EOL, $schedule);
+
+        return "-";
     }
 
     /**
