@@ -27,7 +27,16 @@ trait MyUsersHelper
         $orgus = $this->getOrgusByPositionAndUser($positions, $superior_user_id);
 
         $ret = array();
-        $members = $this->getMembersByOrgus($orgus, $superior_user_id);
+        $members = $this->getMembersByPositionAndOrgunits(
+            $orgus,
+            array_map(
+                function (\ilOrgUnitPosition $c) {
+                    return (int) $c->getId();
+                },
+                $positions
+            ),
+            $superior_user_id
+        );
         $current = array((string) $superior_user_id);
         $members = array_unique(array_merge($current, $members));
 
@@ -76,16 +85,17 @@ trait MyUsersHelper
         return $ret;
     }
 
-    /**
-     * Get all user ids where user has authorities
-     *
-     * @param int 	§user_id
-     *
-     * @return int[]
-     */
-    protected function getMembersByOrgus(array $orgus, int $superior_user_id) : array
-    {
-        return $this->getTMSPositionHelper()->getUserIdUnderAuthorityOfUserByPositionsAndOrgus($superior_user_id, $orgus, true);
+    protected function getMembersByPositionAndOrgunits(
+        array $orgus,
+        array $positions_ids,
+        int $superior_user_id
+    ) : array {
+        return $this->getTMSPositionHelper()->getUserIdUnderAuthorityOfUserByPositionsAndOrgus(
+            $superior_user_id,
+            $orgus,
+            $positions_ids,
+            true
+        );
     }
 
     protected function getPositionWithPermissionToBook() : array
@@ -98,47 +108,14 @@ trait MyUsersHelper
         return $search->getPositionWithBookPermission();
     }
 
-    protected function getPositionWithPermissionToViewBookings() : array
-    {
-        $search = $this->findSearchObject();
-
-        if (is_null($search)) {
-            return [];
-        }
-
-        return $search->getPositionWithViewBookingPermission();
-    }
-
     protected function findSearchObject()
     {
-        if (!\ilPluginAdmin::isPluginActive("xtrs")) {
+        $ref_id = $this->getTMSSession()->getCurrentSearch();
+        if (is_null($ref_id)) {
             return null;
         }
 
-        $xtrs_objects = \ilObject::_getObjectsDataForType("xtrs", true);
-
-        if (count($xtrs_objects) == 0) {
-            return null;
-        }
-
-        uasort($xtrs_objects, function ($a, $b) {
-            return strcmp($a["id"], $b["id"]);
-        });
-
-        $access = $this->getAccess();
-        foreach ($xtrs_objects as $value) {
-            foreach (\ilObject::_getAllReferences($value["id"]) as $ref_id) {
-                if (
-                    $access->checkAccess("visible", "", $ref_id) &&
-                    $access->checkAccess("read", "", $ref_id) &&
-                    $access->checkAccess("use_search", "", $ref_id)
-                ) {
-                    return \ilObjectFactory::getInstanceByRefId($ref_id);
-                }
-            }
-        }
-
-        return null;
+        return \ilObjectFactory::getInstanceByRefId($ref_id);
     }
 
     /**
@@ -170,5 +147,10 @@ trait MyUsersHelper
         return $this->pos_helper;
     }
 
-    abstract protected function getAccess() : ilAccess;
+    abstract protected function getAccess() : \ilAccess;
+
+    protected function getTMSSession() : \TMSSession
+    {
+        return new \TMSSession();
+    }
 }

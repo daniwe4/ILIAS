@@ -346,7 +346,7 @@ class TMSPositionHelper
     /**
      * Get all visible users for a user id within $orgu_ids, possibly recursive.
      */
-    public function getUserIdUnderAuthorityOfUserByPositionsAndOrgus(
+    public function getUserIdUnderAuthorityOfUserByOrgus(
         int $usr_id,
         array $orgu_ids,
         bool $recursive = false
@@ -362,39 +362,87 @@ class TMSPositionHelper
         }
         $rel_users = [];
         foreach ($this->orgua_queries->getAssignmentsOfUserId($usr_id) as $assignment) {
-            $position = new \ilOrgUnitPosition($assignment->getPositionId());
-            $orgu_id = (int) $assignment->getOrguId();
-            foreach ($position->getAuthorities() as $authority) {
-                $scope = $authority->getScope();
-                $over = (int) $authority->getOver();
-                $rel_orgus = [];
-                switch ($scope) {
-                    case \ilOrgUnitAuthority::SCOPE_ALL_ORGUS:
-                        $rel_orgus = array_merge([$orgu_id], $this->getSubsequentOrgus($orgu_id));
-                        break;
-                    case \ilOrgUnitAuthority::SCOPE_SUBSEQUENT_ORGUS:
-                        $rel_orgus = $this->getSubsequentOrgus($orgu_id);
-                        break;
-                    case \ilOrgUnitAuthority::SCOPE_SINGLE_SUBSEQUENT_ORGU:
-                        $rel_orgus = $this->getFirstSubsequentOrgus($orgu_id);
-                        break;
-                    case \ilOrgUnitAuthority::SCOPE_SAME_ORGU:
-                        $rel_orgus = [$orgu_id];
-                        break;
-                }
-                $rel_orgus = array_intersect($requested_orgus, $rel_orgus);
-                if (count($rel_orgus) === 0) {
-                    continue;
-                }
-                if ($over === \ilOrgUnitAuthority::OVER_EVERYONE) {
-                    $add_users = $this->orgua_queries->getUserIdsOfOrgUnits($rel_orgus);
-                } else {
-                    $add_users = $this->orgua_queries->getUserIdsOfOrgUnitsInPosition($rel_orgus, $over);
-                }
-                $rel_users = array_merge($rel_users, $add_users);
-            }
+            $rel_users = array_merge(
+                $rel_users,
+                $this->bla(
+                    (int) $assignment->getPositionId(),
+                    (int) $assignment->getOrguId(),
+                    $requested_orgus
+                )
+            );
         }
         return array_unique($rel_users);
+    }
+
+    public function getUserIdUnderAuthorityOfUserByPositionsAndOrgus(
+        int $usr_id,
+        array $orgu_ids,
+        array $position_ids,
+        bool $recursive = false
+    ) : array {
+        $requested_orgus = $orgu_ids;
+        if (count($requested_orgus) === 0) {
+            return [];
+        }
+        if ($recursive) {
+            foreach ($requested_orgus as $r_orgu_id) {
+                $requested_orgus = array_merge($requested_orgus, $this->getSubsequentOrgus($r_orgu_id));
+            }
+        }
+
+        $rel_users = [];
+        foreach ($this->orgua_queries->getAssignmentsOfUserId($usr_id) as $assignment) {
+            $position_id = (int) $assignment->getPositionId();
+            if (!in_array($position_id, $position_ids)) {
+                continue;
+            }
+
+            $rel_users = array_merge(
+                $rel_users,
+                $this->bla(
+                     (int) $position_id,
+                     (int) $assignment->getOrguId(),
+                     $requested_orgus
+                )
+            );
+        }
+        return array_unique($rel_users);
+    }
+
+    protected function bla($position_id, $orgu_id, $requested_orgus) : array
+    {
+        $position = new \ilOrgUnitPosition($position_id);
+        $rel_users = [];
+        foreach ($position->getAuthorities() as $authority) {
+            $scope = $authority->getScope();
+            $over = (int) $authority->getOver();
+            $rel_orgus = [];
+            switch ($scope) {
+                case \ilOrgUnitAuthority::SCOPE_ALL_ORGUS:
+                    $rel_orgus = array_merge([$orgu_id], $this->getSubsequentOrgus($orgu_id));
+                    break;
+                case \ilOrgUnitAuthority::SCOPE_SUBSEQUENT_ORGUS:
+                    $rel_orgus = $this->getSubsequentOrgus($orgu_id);
+                    break;
+                case \ilOrgUnitAuthority::SCOPE_SINGLE_SUBSEQUENT_ORGU:
+                    $rel_orgus = $this->getFirstSubsequentOrgus($orgu_id);
+                    break;
+                case \ilOrgUnitAuthority::SCOPE_SAME_ORGU:
+                    $rel_orgus = [$orgu_id];
+                    break;
+            }
+            $rel_orgus = array_intersect($requested_orgus, $rel_orgus);
+            if (count($rel_orgus) === 0) {
+                continue;
+            }
+            if ($over === \ilOrgUnitAuthority::OVER_EVERYONE) {
+                $add_users = $this->orgua_queries->getUserIdsOfOrgUnits($rel_orgus);
+            } else {
+                $add_users = $this->orgua_queries->getUserIdsOfOrgUnitsInPosition($rel_orgus, $over);
+            }
+            $rel_users = array_merge($rel_users, $add_users);
+        }
+        return $rel_users;
     }
 
     /**
