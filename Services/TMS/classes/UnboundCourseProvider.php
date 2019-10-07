@@ -525,8 +525,6 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
                 );
             }
         }
-
-        ksort($vals);
         return $vals;
     }
 
@@ -537,8 +535,10 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
      *
      * @return string[]
      */
-    protected function getAppointmentOutput($appointments)
+    protected function getAppointmentOutput(array $appointments) : array
     {
+        $appointments = $this->sortAppointments($appointments);
+
         $presentation_dates = array_map(
             function ($times) {
                 $date = $times["date"];
@@ -553,14 +553,30 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
             $appointments
         );
 
+        return $presentation_dates;
+    }
+
+    protected function sortAppointments(array $appointments) : array
+    {
         uasort(
-            $presentation_dates,
+            $appointments,
             function ($a, $b) {
-                return strcasecmp($a, $b);
+                $a = strtotime($a["date"]);
+                $b = strtotime($b["date"]);
+
+                if ($a > $b) {
+                    return 1;
+                }
+
+                if ($a < $b) {
+                    return -1;
+                }
+
+                return 0;
             }
         );
 
-        return $presentation_dates;
+        return $appointments;
     }
 
     /**
