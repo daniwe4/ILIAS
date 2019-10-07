@@ -69,8 +69,14 @@ class ilCertificateGUIFactory
             case 'crs':
                 $hasAdditionalElements = true;
 
-                $placeholderDescriptionObject = new ilCoursePlaceholderDescription();
-                $placeholderValuesObject = new ilCoursePlaceholderValues();
+                // cat-tms-patch start #3886
+                global $DIC;
+                $tms_placeholder_description = new ilTMSCertificatePlaceholderDescription($DIC["lng"]);
+                $tms_placeholder_values = new ilTMSCertificatePlaceholderValues($DIC["lng"], $DIC["tree"]);
+                $placeholderDescriptionObject = new ilCoursePlaceholderDescription($tms_placeholder_description);
+                $placeholderValuesObject = new ilCoursePlaceholderValues($tms_placeholder_values);
+                // cat-tms-patch end
+
 
 
                 $formFactory = new ilCertificateSettingsCourseFormRepository(
@@ -148,9 +154,9 @@ class ilCertificateGUIFactory
                 break;
             case 'prg':
                 $placeholderDescriptionObject =
-                new ilStudyProgrammePlaceholderDescription();
+                    new ilStudyProgrammePlaceholderDescription();
                 $placeholderValuesObject =
-                new ilStudyProgrammePlaceholderValues();
+                    new ilStudyProgrammePlaceholderValues();
                 $formFactory = new ilCertificateSettingsStudyProgrammeFormRepository(
                     $object,
                     $certificatePath,
@@ -160,7 +166,7 @@ class ilCertificateGUIFactory
                     $DIC->access(),
                     $DIC->toolbar(),
                     $placeholderDescriptionObject
-                 );
+                );
                 break;
             default:
                 throw new ilException(sprintf('The type "%s" is currently not defined for certificates', $type));

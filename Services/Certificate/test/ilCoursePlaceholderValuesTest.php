@@ -9,11 +9,11 @@ class ilCoursePlaceholderValuesTest extends ilCertificateBaseTestCase
     public function testGetPlaceholderValues()
     {
         $defaultPlaceholderValues = $this->getMockBuilder('ilDefaultPlaceholderValues')
-             ->disableOriginalConstructor()
-             ->getMock();
+            ->disableOriginalConstructor()
+            ->getMock();
 
         $defaultPlaceholderValues->method('getPlaceholderValues')
-             ->willReturn(array());
+            ->willReturn(array());
 
         $language = $this->getMockBuilder('ilLanguage')
             ->disableOriginalConstructor()
@@ -56,7 +56,23 @@ class ilCoursePlaceholderValuesTest extends ilCertificateBaseTestCase
         $ilDateHelper->method('formatDateTime')
             ->willReturn('2018-09-10 10:32:00');
 
+        // cat-tms-start #3886
+        $tms_placeholder_values = $this->getMockBuilder('ilTMSCertificatePlaceholderValues')
+            ->setMethods(['getTMSVariablesForPreview', 'getTMSPlaceholderValues'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $tms_placeholder_values->method('getTMSVariablesForPreview')
+            ->willReturn([]);
+
+        $tms_placeholder_values->method('getTMSPlaceholderValues')
+            ->willReturn([]);
+        // cat-tms-end
+
         $valuesObject = new ilCoursePlaceholderValues(
+            // cat-tms-start #3886
+            $tms_placeholder_values,
+            // cat-tms-end
             $defaultPlaceholderValues,
             $language,
             $objectHelper,
@@ -122,7 +138,23 @@ class ilCoursePlaceholderValuesTest extends ilCertificateBaseTestCase
                 return $input;
             });
 
+        // cat-tms-start #3886
+        $tms_placeholder_values = $this->getMockBuilder('ilTMSCertificatePlaceholderValues')
+            ->setMethods(['getTMSVariablesForPreview', 'getTMSPlaceholderValues'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $tms_placeholder_values->method('getTMSVariablesForPreview')
+            ->willReturn([]);
+
+        $tms_placeholder_values->method('getTMSPlaceholderValues')
+            ->willReturn([]);
+        // cat-tms-end
+
         $valuesObject = new ilCoursePlaceholderValues(
+            // cat-tms-start #3886
+            $tms_placeholder_values,
+            // cat-tms-end
             $defaultPlaceholderValues,
             $language,
             $objectHelper,

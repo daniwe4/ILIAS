@@ -22,16 +22,27 @@ class ilCoursePlaceholderDescription implements ilCertificatePlaceholderDescript
     private $placeholder;
 
     /**
+     * // cat-tms-patch start #3886
+     * @param ilTMSCertificatePlaceholderDescription | null $tms_placeholder_description
+     * // cat-tms-patch end
      * @param ilDefaultPlaceholderDescription|null           $defaultPlaceholderDescriptionObject
      * @param ilLanguage|null                                $language
      * @param ilUserDefinedFieldsPlaceholderDescription|null $userDefinedFieldPlaceHolderDescriptionObject
      */
     public function __construct(
+        // cat-tms-patch start #3886
+        ilTMSCertificatePlaceholderDescription $tms_placeholder_description = null,
+        // cat-tms-patch end
         ilDefaultPlaceholderDescription $defaultPlaceholderDescriptionObject = null,
         ilLanguage $language = null,
         ilUserDefinedFieldsPlaceholderDescription $userDefinedFieldPlaceHolderDescriptionObject = null
     ) {
         global $DIC;
+        // cat-tms-patch start #3886
+        if (is_null($tms_placeholder_description)) {
+            $tms_placeholder_description = new ilTMSCertificatePlaceholderDescription($DIC["lng"]);
+        }
+        // cat-tms-patch end
 
         if (null === $language) {
             $language = $DIC->language();
@@ -48,6 +59,12 @@ class ilCoursePlaceholderDescription implements ilCertificatePlaceholderDescript
         $this->placeholder['COURSE_TITLE'] = $this->language->txt('crs_title');
         $this->placeholder['DATE_COMPLETED'] = ilUtil::prepareFormOutput($language->txt('certificate_ph_date_completed'));
         $this->placeholder['DATETIME_COMPLETED'] = ilUtil::prepareFormOutput($language->txt('certificate_ph_datetime_completed'));
+
+        // cat-tms-patch start #3886
+        if (is_null($tms_placeholder_description)) {
+            $this->placeholder = array_merge($this->placeholder, $tms_placeholder_description->getTMSPlaceholder());
+        }
+        // cat-tms-patch end
     }
 
     /**

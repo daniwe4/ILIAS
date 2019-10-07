@@ -29,7 +29,22 @@ class ilCoursePlaceholderDescriptionTest extends ilCertificateBaseTestCase
         $userDefinePlaceholderMock->method('getPlaceholderDescriptions')
             ->willReturn(array());
 
-        $placeholderDescriptionObject = new ilCoursePlaceholderDescription(null, $languageMock, $userDefinePlaceholderMock);
+        // cat-tms-patch start 3886
+        $tms_placeholder_description = $this->getMockBuilder('ilTMSCertificatePlaceholderDescription')
+            ->setMethods(['getTMSPlaceholder'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $tms_placeholder_description->method('getTMSPlaceholder')
+            ->willReturn([]);
+
+        $placeholderDescriptionObject = new ilCoursePlaceholderDescription(
+            $tms_placeholder_description,
+            null,
+            $languageMock,
+            $userDefinePlaceholderMock
+        );
+        // cat-tms-patch end
 
         $html = $placeholderDescriptionObject->createPlaceholderHtmlDescription($templateMock);
 
@@ -44,8 +59,8 @@ class ilCoursePlaceholderDescriptionTest extends ilCertificateBaseTestCase
             ->getMock();
 
         $languageMock->expects($this->exactly(3))
-                     ->method('txt')
-                     ->willReturn('Something translated');
+            ->method('txt')
+            ->willReturn('Something translated');
 
         $defaultPlaceholder = $this->getMockBuilder('ilDefaultPlaceholderDescription')
             ->disableOriginalConstructor()
@@ -59,7 +74,21 @@ class ilCoursePlaceholderDescriptionTest extends ilCertificateBaseTestCase
                 )
             );
 
-        $placeholderDescriptionObject = new ilCoursePlaceholderDescription($defaultPlaceholder, $languageMock);
+        // cat-tms-patch start 3886
+        $tms_placeholder_description = $this->getMockBuilder('ilTMSCertificatePlaceholderDescription')
+            ->setMethods(['getTMSPlaceholder'])
+            ->disableOriginalConstructor()
+            ->getMock();
+
+        $tms_placeholder_description->method('getTMSPlaceholder')
+            ->willReturn([]);
+
+        $placeholderDescriptionObject = new ilCoursePlaceholderDescription(
+            $tms_placeholder_description,
+            $defaultPlaceholder,
+            $languageMock
+        );
+        // cat-tms-patch end
 
         $placeHolders = $placeholderDescriptionObject->getPlaceholderDescriptions();
 

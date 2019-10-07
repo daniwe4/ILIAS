@@ -36,7 +36,17 @@ class ilCoursePlaceholderValues implements ilCertificatePlaceholderValues
      */
     private $dateHelper;
 
+    // cat-tms-patch start #3886
     /**
+    * @var ilTMSCertificatePlaceholderValues
+    */
+    protected $tms_placeholder_values;
+    // cat-tms-patch end
+
+    /**
+     * // cat-tms-patch start #3886
+     * @param ilTMSCertificatePlaceholderValues | null  $tms_placeholder_values
+     * // cat-tms-patch end
      * @param ilDefaultPlaceholderValues           $defaultPlaceholderValues
      * @param ilLanguage|null                      $language
      * @param ilCertificateObjectHelper|null       $objectHelper
@@ -45,6 +55,9 @@ class ilCoursePlaceholderValues implements ilCertificatePlaceholderValues
      * @param ilCertificateDateHelper|null         $ilDateHelper
      */
     public function __construct(
+        // cat-tms-patch start #3886
+        ilTMSCertificatePlaceholderValues $tms_placeholder_values = null,
+        // cat-tms-patch end
         ilDefaultPlaceholderValues $defaultPlaceholderValues = null,
         ilLanguage $language = null,
         ilCertificateObjectHelper $objectHelper = null,
@@ -52,8 +65,15 @@ class ilCoursePlaceholderValues implements ilCertificatePlaceholderValues
         ilCertificateUtilHelper $ilUtilHelper = null,
         ilCertificateDateHelper $dateHelper = null
     ) {
+        // cat-tms-patch start #3886
+        global $DIC;
+        if (is_null($tms_placeholder_values)) {
+            $tms_placeholder_values = new ilTMSCertificatePlaceholderValues($DIC["lng"], $DIC["tree"]);
+        }
+        $this->tms_placeholder_values = $tms_placeholder_values;
+        // cat-tms-patch end
+
         if (null === $language) {
-            global $DIC;
             $language = $DIC->language();
             $language->loadLanguageModule('certificate');
         }
@@ -118,6 +138,13 @@ class ilCoursePlaceholderValues implements ilCertificatePlaceholderValues
 
         $placeholders['COURSE_TITLE'] = $this->ilUtilHelper->prepareFormOutput($courseObject->getTitle());
 
+        // cat-tms-patch start #3886
+        $placeholders = array_merge(
+            $placeholders,
+            $this->tms_placeholder_values->getTMSPlaceholderValues($courseObject, $userId)
+        );
+        // cat-tms-patch end
+
         return $placeholders;
     }
 
@@ -136,6 +163,12 @@ class ilCoursePlaceholderValues implements ilCertificatePlaceholderValues
         $object = $this->objectHelper->getInstanceByObjId($objId);
 
         $placeholders['COURSE_TITLE'] = ilUtil::prepareFormOutput($object->getTitle());
+        // cat-tms-patch start #3886
+        $placeholders = array_merge(
+            $placeholders,
+            $this->tms_placeholder_values->getTMSVariablesForPreview()
+        );
+        // cat-tms-patch end
 
         return $placeholders;
     }
