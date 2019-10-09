@@ -27,6 +27,9 @@
 /install_client.php
 /Services/GlobalScreen/artifacts/global_screen_providers.php
 /Services/Style/System/data/data.php
+/Services/WebServices/RPC/lib/ilServer.ini
+/apc.php
+/robots.txt
 
 # Directories
 /data
