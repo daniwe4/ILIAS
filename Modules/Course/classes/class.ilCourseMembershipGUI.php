@@ -24,7 +24,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         return new ilMailMemberCourseRoles();
     }
-    
+
     /**
      * Filter user ids by access
      * @param int[] $a_user_ids
@@ -157,7 +157,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
             ilUtil::sendFailure($this->lng->txt("crs_no_users_selected"), true);
             return false;
         }
-        
+
         $a_usr_ids = $this->filterUserIdsByRbacOrPositionOfCurrentUser($a_usr_ids);
 
         $added_users = 0;
@@ -202,7 +202,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         ilUtil::sendFailure($this->lng->txt("crs_users_already_assigned"), true);
         return false;
     }
-    
+
     /**
      * => save button in member table
      */
@@ -214,19 +214,19 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         $ilErr = $DIC['ilErr'];
         $ilUser = $DIC['ilUser'];
         $rbacadmin = $DIC['rbacadmin'];
-        
+
         $visible_members = (array) $_POST['visible_member_ids'];
         $passed = (array) $_POST['passed'];
         $blocked = (array) $_POST['blocked'];
         $contact = (array) $_POST['contact'];
         $notification = (array) $_POST['notification'];
-        
+
         foreach ($visible_members as $member_id) {
             if ($ilAccess->checkAccess("grade", "", $this->getParentObject()->getRefId())) {
                 $this->getMembersObject()->updatePassed($member_id, in_array($member_id, $passed), true);
                 $this->updateLPFromStatus($member_id, in_array($member_id, $passed));
             }
-            
+
             if ($this->getMembersObject()->isAdmin($member_id) or $this->getMembersObject()->isTutor($member_id)) {
                 // remove blocked
                 $this->getMembersObject()->updateBlocked($member_id, 0);
@@ -248,13 +248,13 @@ class ilCourseMembershipGUI extends ilMembershipGUI
                 $this->getMembersObject()->updateBlocked($member_id, in_array($member_id, $blocked));
             }
         }
-            
-        
+
+
         ilUtil::sendSuccess($this->lng->txt('settings_saved'), true);
         $this->ctrl->redirect($this, 'participants');
     }
-    
-    
+
+
     /**
      * @return \ilParticpantTableGUI
      */
@@ -274,8 +274,8 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         $timings_enabled =
             (ilObjectActivation::hasTimings($this->getParentObject()->getRefId()) && ($this->getParentObject()->getViewMode() == IL_CRS_VIEW_TIMING))
         ;
-        
-        
+
+
         include_once './Modules/Course/classes/class.ilCourseParticipantsTableGUI.php';
         return new ilCourseParticipantsTableGUI(
             $this,
@@ -297,7 +297,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         $table = new ilCourseEditParticipantsTableGUI($this, $this->getParentObject());
         $table->setTitle($this->lng->txt($this->getParentObject()->getType() . '_header_edit_members'));
         $table->setData($this->getParentGUI()->readMemberData($participants));
-        
+
         return $table;
     }
 
@@ -308,7 +308,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         $this->tpl->addBlockFile('ADM_CONTENT', 'adm_content', 'tpl.crs_edit_members.html', 'Modules/Course');
     }
-    
+
     /**
      * @todo refactor delete
      */
@@ -316,7 +316,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         return $this->getParentObject()->getLocalCourseRoles($a_translation);
     }
-    
+
     /**
      * Update lp from status
      */
@@ -324,7 +324,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         return $this->getParentGUI()->updateLPFromStatus($a_member_id, $a_passed);
     }
-    
+
     /**
      * init waiting list
      * @return ilCourseWaitingList
@@ -343,7 +343,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         return $this->getParentGUI()->object->getDefaultMemberRole();
     }
-    
+
     /**
      * Deliver certificate for an user on the member list
      * @return type
@@ -352,7 +352,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         return $this->getParentGUI()->deliverCertificateObject();
     }
-    
+
     /**
      * Get print member data
      * @param array $a_members
@@ -383,14 +383,14 @@ class ilCourseMembershipGUI extends ilMembershipGUI
             $olp = ilObjectLP::getInstance($this->getParentObject()->getId());
             $show_tracking = $olp->isActive();
         }
-        
+
         if ($show_tracking) {
             include_once 'Services/Tracking/classes/class.ilLPStatusWrapper.php';
             $completed = ilLPStatusWrapper::_lookupCompletedForObject($this->getParentObject()->getId());
             $in_progress = ilLPStatusWrapper::_lookupInProgressForObject($this->getParentObject()->getId());
             $failed = ilLPStatusWrapper::_lookupFailedForObject($this->getParentObject()->getId());
         }
-        
+
         $profile_data = ilObjUser::_readUsersProfileData($a_members);
 
         // course defined fields
@@ -408,7 +408,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
                     list($f, $field_id) = explode('_', $field);
                     $print_member[$member_id]['udf_' . $field_id] = (string) $value;
                 }
-                
+
                 foreach ((array) $cdfs[$member_id] as $cdf_field => $cdf_value) {
                     $print_member[$member_id]['cdf_' . $cdf_field] = (string) $cdf_value;
                 }
@@ -416,7 +416,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
                 foreach ((array) $profile_data[$member_id] as $field => $value) {
                     $print_member[$member_id][$field] = $value;
                 }
-                
+
                 $print_member[$member_id]['login'] = $tmp_obj->getLogin();
                 $print_member[$member_id]['name'] = $tmp_obj->getLastname() . ', ' . $tmp_obj->getFirstname();
 
@@ -440,11 +440,11 @@ class ilCourseMembershipGUI extends ilMembershipGUI
                         $print_member[$member_id]['status'] = $this->lng->txt("crs_unblocked");
                     }
                 }
-    
+
                 if ($is_admin) {
                     $print_member[$member_id]['passed'] = $this->getMembersObject()->hasPassed($member_id) ?
-                                      $this->lng->txt('crs_member_passed') :
-                                      $this->lng->txt('crs_member_not_passed');
+                        $this->lng->txt('crs_member_passed') :
+                        $this->lng->txt('crs_member_not_passed');
                 }
                 if ($privacy->enabledCourseAccessTimes()) {
                     if (isset($progress[$member_id]['ts']) and $progress[$member_id]['ts']) {
@@ -467,10 +467,14 @@ class ilCourseMembershipGUI extends ilMembershipGUI
                     }
                 }
             }
+
+            // cat-tms-patch start #3295
+            $print_member[$member_id]["org_units"] = ilObjUser::lookupOrgUnitsRepresentation($member_id);
+            // cat-tms-patch end
         }
         return ilUtil::sortArray($print_member, 'name', $_SESSION['crs_print_order'], false, true);
     }
-    
+
     /**
      * Callback from attendance list
      * @param int $a_user_id
