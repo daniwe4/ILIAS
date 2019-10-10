@@ -127,6 +127,13 @@ abstract class ilTMSBookingGUI
             $this->getTranslations()
             );
 
+        if ($this->isCourseAlreadyStarted($crs_ref_id)) {
+            return $ilias_bindings->redirectToPreviousLocation(
+                array($this->g_lng->txt("course_has_allready_begun")),
+                false
+            );
+        }
+
         $booking_allowed = $this->bookingAllowed($crs_ref_id, $usr_id);
         if (!$booking_allowed
             || ((int) $this->g_user->getId() !== $usr_id && !$this->checkIsSuperiorEmployeeBelowCurrent($usr_id))
@@ -211,6 +218,53 @@ abstract class ilTMSBookingGUI
         if ($this->execute_show) {
             $this->g_tpl->show();
         }
+    }
+
+    protected function isCourseAlreadyStarted(int $crs_ref_id) : bool
+    {
+        $crs = ilObjectFactory::getInstanceByRefId($crs_ref_id);
+        $crs_start = $crs->getCourseStart();
+
+        if (is_null($crs_start)) {
+            return false;
+        }
+
+        $now = date('Y-m-d');
+        if (!$now === $crs_start->get(IL_CAL_DATE, "Y-m-d")) {
+            return false;
+        }
+
+        $now = date('Y-m-d H:i:s');
+        $crs_start_date_time = $this->getCrsStartDateTime($crs_ref_id);
+
+        if ($crs_start_date_time < $now) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function getCrsStartDateTime(int $crs_ref_id)
+    {
+        $sessions = $this->getAllChildrenOfByType($crs_ref_id, "sess");
+
+        if (count($sessions) == 0) {
+            return null;
+        }
+
+        $appointments = [];
+        foreach ($sessions as $session) {
+            $appointments[] = ilSessionAppointment::_lookupAppointment($session->getId());
+        }
+
+        $start = PHP_INT_MAX;
+        foreach ($appointments as $appointment) {
+            if ($appointment["start"] < $start) {
+                $start = $appointment["start"];
+            }
+        }
+
+        return date('Y-m-d H:i:s', $start);
     }
 
     /**
