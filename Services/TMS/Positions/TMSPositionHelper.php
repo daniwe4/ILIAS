@@ -364,7 +364,7 @@ class TMSPositionHelper
         foreach ($this->orgua_queries->getAssignmentsOfUserId($usr_id) as $assignment) {
             $rel_users = array_merge(
                 $rel_users,
-                $this->bla(
+                $this->getRelevantUserBy(
                     (int) $assignment->getPositionId(),
                     (int) $assignment->getOrguId(),
                     $requested_orgus
@@ -399,7 +399,7 @@ class TMSPositionHelper
 
             $rel_users = array_merge(
                 $rel_users,
-                $this->bla(
+                $this->getRelevantUserBy(
                      (int) $position_id,
                      (int) $assignment->getOrguId(),
                      $requested_orgus
@@ -409,7 +409,7 @@ class TMSPositionHelper
         return array_unique($rel_users);
     }
 
-    protected function bla($position_id, $orgu_id, $requested_orgus) : array
+    protected function getRelevantUserBy($position_id, $orgu_id, $requested_orgus) : array
     {
         $position = new \ilOrgUnitPosition($position_id);
         $rel_users = [];
