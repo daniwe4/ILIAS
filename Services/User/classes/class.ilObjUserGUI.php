@@ -1171,13 +1171,13 @@ class ilObjUserGUI extends ilObjectGUI
 
         // external account
         include_once('./Services/Authentication/classes/class.ilAuthUtils.php');
-        if (ilAuthUtils::_isExternalAccountEnabled()) {
-            $ext = new ilTextInputGUI($lng->txt("user_ext_account"), "ext_account");
-            $ext->setSize(40);
-            $ext->setMaxLength(250);
-            $ext->setInfo($lng->txt("user_ext_account_desc"));
-            $this->form_gui->addItem($ext);
-        }
+        // cat-tms-patch start tms 3736
+        $ext = new ilTextInputGUI($lng->txt("user_ext_account"), "ext_account");
+        $ext->setSize(40);
+        $ext->setMaxLength(250);
+        $ext->setInfo($lng->txt("user_ext_account_desc"));
+        $this->form_gui->addItem($ext);
+        // cat-tms-patch end
 
         // login data
         $sec_si = new ilFormSectionHeaderGUI();
