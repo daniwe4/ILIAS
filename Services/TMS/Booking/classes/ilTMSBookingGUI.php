@@ -18,6 +18,11 @@ abstract class ilTMSBookingGUI
     const SUPERIOR_BOOKING = "booking_superior";
 
     /**
+     * @var \ILIAS\DI\Container
+     */
+    protected $dic;
+
+    /**
      * @var ilTemplate
      */
     protected $g_tpl;
@@ -58,6 +63,7 @@ abstract class ilTMSBookingGUI
     {
         global $DIC;
 
+        $this->dic = $DIC;
         $this->g_tpl = $DIC->ui()->mainTemplate();
         $this->g_ctrl = $DIC->ctrl();
         $this->g_user = $DIC->user();
@@ -113,8 +119,7 @@ abstract class ilTMSBookingGUI
         if (array_key_exists("usr_id", $_GET)) {
             $usr_id = (int) $_GET["usr_id"];
         } else {
-            global $DIC;
-            $usr_id = (int) $DIC->user()->getId();
+            $usr_id = (int) $this->g_user->getId();
         }
 
         $this->setParameter($crs_ref_id, $usr_id);
@@ -153,10 +158,9 @@ abstract class ilTMSBookingGUI
             $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt($this->getBookingStateMessage())), false);
         }
 
-        global $DIC;
         $state_db = new Wizard\SessionStateDB();
         $wizard = new Booking\Wizard(
-            $DIC,
+            $this->dic,
             $this->getComponentClass(),
             (int) $this->g_user->getId(),
             $crs_ref_id,
