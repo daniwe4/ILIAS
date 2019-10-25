@@ -59,11 +59,6 @@ abstract class ilTMSCancelGUI extends Wizard\Player
      */
     protected $g_event_handler;
 
-    /**
-     * @var ilDateTime
-     */
-    protected $crs_start;
-
     public function __construct($parent_gui, $parent_cmd, $execute_show = true)
     {
         global $DIC;
@@ -106,6 +101,8 @@ abstract class ilTMSCancelGUI extends Wizard\Player
             $this->getTranslations()
         );
 
+        $crs = ilObjectFactory::getInstanceByRefId($crs_ref_id);
+
         if (!$this->canCancelForUser($usr_id)) {
             $ilias_bindings->redirectToPreviousLocation(array("nope"), false);
         }
@@ -114,7 +111,7 @@ abstract class ilTMSCancelGUI extends Wizard\Player
             $ilias_bindings->redirectToPreviousLocation(array($this->getBookingStateMessage()), false);
         }
 
-        if ($this->hasStartdate($crs_ref_id) && $this->isCourseAlreadyStarted($crs_ref_id)) {
+        if ($this->hasStartdate($crs) && $this->isCourseAlreadyStarted($crs)) {
             $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt("course_has_allready_begun")), false);
         }
 
@@ -144,9 +141,9 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         }
     }
 
-    protected function hasStartdate(int $crs_ref_id)
+    protected function hasStartdate(ilObjCourse $crs)
     {
-        $crs_start = $this->getCourseStart($crs_ref_id);
+        $crs_start = $crs->getCourseStart();
 
         if (is_null($crs_start)) {
             return false;
@@ -155,9 +152,9 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         return true;
     }
 
-    protected function isCourseAlreadyStarted(int $crs_ref_id) : bool
+    protected function isCourseAlreadyStarted(ilObjCourse $crs) : bool
     {
-        $crs_start = $this->getCourseStart($crs_ref_id);
+        $crs_start = $crs->getCourseStart();
         $crs_start = new \DateTimeImmutable($crs_start->get(IL_CAL_DATE, "Y-m-d"));
 
         $now = new \DateTimeImmutable(date('Y-m-d'));
@@ -165,7 +162,7 @@ abstract class ilTMSCancelGUI extends Wizard\Player
             return false;
         }
 
-        $crs_start_date_time = $this->getCrsStartDateTime($crs_ref_id);
+        $crs_start_date_time = $this->getCrsStartDateTime($crs->getRefId());
 
         if (is_null($crs_start_date_time)) {
             return $now >= $crs_start;
@@ -201,16 +198,6 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         }
 
         return new \DateTimeImmutable(date('Y-m-d H:i:s', $start));
-    }
-
-    protected function getCourseStart(int $crs_ref_id)
-    {
-        if (is_null($this->crs_start)) {
-            $crs = ilObjectFactory::getInstanceByRefId($crs_ref_id);
-            $this->crs_start = $crs->getCourseStart();
-        }
-
-        return $this->crs_start;
     }
 
     /**
