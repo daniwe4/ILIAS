@@ -128,7 +128,7 @@ abstract class ilTMSBookingGUI
             );
 
         if ($this->isCourseAlreadyStarted($crs_ref_id)) {
-            return $ilias_bindings->redirectToPreviousLocation(
+            $ilias_bindings->redirectToPreviousLocation(
                 array($this->g_lng->txt("course_has_allready_begun")),
                 false
             );
@@ -139,18 +139,18 @@ abstract class ilTMSBookingGUI
             || ((int) $this->g_user->getId() !== $usr_id && !$this->checkIsSuperiorEmployeeBelowCurrent($usr_id))
         ) {
             $this->setParameter(null, null);
-            return $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt("no_permissions_to_book")), false);
+            $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt("no_permissions_to_book")), false);
         }
 
         $skip_duplicate_check = $this->duplicateStepsMayBeSkipped($crs_ref_id);
         if (!$skip_duplicate_check && $this->duplicateCourseBooked($crs_ref_id, $usr_id)) {
             $this->setParameter(null, null);
-            return $ilias_bindings->redirectToPreviousLocation($this->getDuplicatedCourseMessage($usr_id), false);
+            $ilias_bindings->redirectToPreviousLocation($this->getDuplicatedCourseMessage($usr_id), false);
         }
 
         if ($this->userHasBookingState($crs_ref_id, $usr_id)) {
             $this->setParameter(null, null);
-            return $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt($this->getBookingStateMessage())), false);
+            $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt($this->getBookingStateMessage())), false);
         }
 
         global $DIC;
@@ -229,13 +229,19 @@ abstract class ilTMSBookingGUI
             return false;
         }
 
-        $now = date('Y-m-d');
-        if (!$now === $crs_start->get(IL_CAL_DATE, "Y-m-d")) {
+        $crs_start = new \DateTimeImmutable($crs_start->get(IL_CAL_DATE, "Y-m-d"));
+
+        $now = new \DateTimeImmutable(date('Y-m-d'));
+        if (!$now === $crs_start) {
             return false;
         }
 
-        $now = date('Y-m-d H:i:s');
         $crs_start_date_time = $this->getCrsStartDateTime($crs_ref_id);
+        if (is_null($crs_start_date_time)) {
+            return $now >= $crs_start;
+        }
+
+        $now = new \DateTimeImmutable(date('Y-m-d H:i:s'));
 
         if ($crs_start_date_time < $now) {
             return true;
@@ -264,7 +270,7 @@ abstract class ilTMSBookingGUI
             }
         }
 
-        return date('Y-m-d H:i:s', $start);
+        return new \DateTimeImmutable(date('Y-m-d H:i:s', $start));
     }
 
     /**
