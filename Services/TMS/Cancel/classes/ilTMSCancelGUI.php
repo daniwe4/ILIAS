@@ -15,6 +15,11 @@ abstract class ilTMSCancelGUI extends Wizard\Player
     use ILIAS\TMS\MyUsersHelper;
 
     /**
+     * @var \ILIAS\DI\Container
+     */
+    protected $dic;
+
+    /**
      * @var ilTemplate
      */
     protected $g_tpl;
@@ -35,6 +40,11 @@ abstract class ilTMSCancelGUI extends Wizard\Player
     protected $g_lng;
 
     /**
+     * @var ilTree
+     */
+    protected $g_tree;
+
+    /**
      * @var	mixed
      */
     protected $parent_gui;
@@ -49,14 +59,21 @@ abstract class ilTMSCancelGUI extends Wizard\Player
      */
     protected $g_event_handler;
 
+    /**
+     * @var ilDateTime
+     */
+    protected $crs_start;
+
     public function __construct($parent_gui, $parent_cmd, $execute_show = true)
     {
         global $DIC;
 
+        $this->dic = $DIC;
         $this->g_tpl = $DIC->ui()->mainTemplate();
         $this->g_ctrl = $DIC->ctrl();
         $this->g_user = $DIC->user();
         $this->g_lng = $DIC->language();
+        $this->g_tree = $DIC->repositoryTree();
         $this->g_event_handler = $DIC['ilAppEventHandler'];
         $this->g_lng->loadLanguageModule('tms');
 
@@ -78,16 +95,8 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         assert('is_numeric($_GET["usr_id"])');
         $usr_id = (int) $_GET["usr_id"];
 
-        if (!$this->canCancelForUser($usr_id)) {
-            $this->redirectToPreviousLocation(array("nope"), false);
-        }
-
         assert('is_numeric($_GET["crs_ref_id"])');
         $crs_ref_id = (int) $_GET["crs_ref_id"];
-
-        if (!$this->userHasBookingState($crs_ref_id, $usr_id)) {
-            $this->redirectToPreviousLocation(array($this->getBookingStateMessage()), false);
-        }
 
         $ilias_bindings = new Booking\ILIASBindings(
             $this->g_ctrl,
@@ -95,12 +104,23 @@ abstract class ilTMSCancelGUI extends Wizard\Player
             $this->parent_gui,
             $this->parent_cmd,
             $this->getTranslations()
-            );
+        );
 
-        global $DIC;
+        if (!$this->canCancelForUser($usr_id)) {
+            $ilias_bindings->redirectToPreviousLocation(array("nope"), false);
+        }
+
+        if (!$this->userHasBookingState($crs_ref_id, $usr_id)) {
+            $ilias_bindings->redirectToPreviousLocation(array($this->getBookingStateMessage()), false);
+        }
+
+        if ($this->hasStartdate($crs_ref_id) && $this->isCourseAlreadyStarted($crs_ref_id)) {
+            $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt("course_has_allready_begun")), false);
+        }
+
         $state_db = new Wizard\SessionStateDB();
         $wizard = new Booking\Wizard(
-            $DIC,
+            $this->dic,
             $this->getComponentClass(),
             (int) $this->g_user->getId(),
             $crs_ref_id,
@@ -122,6 +142,75 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         if ($this->execute_show) {
             $this->g_tpl->show();
         }
+    }
+
+    protected function hasStartdate(int $crs_ref_id)
+    {
+        $crs_start = $this->getCourseStart($crs_ref_id);
+
+        if (is_null($crs_start)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    protected function isCourseAlreadyStarted(int $crs_ref_id) : bool
+    {
+        $crs_start = $this->getCourseStart($crs_ref_id);
+        $crs_start = new \DateTimeImmutable($crs_start->get(IL_CAL_DATE, "Y-m-d"));
+
+        $now = new \DateTimeImmutable(date('Y-m-d'));
+        if (!$now === $crs_start) {
+            return false;
+        }
+
+        $crs_start_date_time = $this->getCrsStartDateTime($crs_ref_id);
+
+        if (is_null($crs_start_date_time)) {
+            return $now >= $crs_start;
+        }
+
+        $now = new \DateTimeImmutable(date('Y-m-d H:i:s'));
+
+        if ($crs_start_date_time < $now) {
+            return true;
+        }
+
+        return false;
+    }
+
+    protected function getCrsStartDateTime(int $crs_ref_id)
+    {
+        $sessions = $this->getAllChildrenOfByType($crs_ref_id, "sess");
+
+        if (count($sessions) == 0) {
+            return null;
+        }
+
+        $appointments = [];
+        foreach ($sessions as $session) {
+            $appointments[] = ilSessionAppointment::_lookupAppointment($session->getId());
+        }
+
+        $start = PHP_INT_MAX;
+        foreach ($appointments as $appointment) {
+            if ($appointment["start"] < $start) {
+                $start = $appointment["start"];
+            }
+        }
+
+        return new \DateTimeImmutable(date('Y-m-d H:i:s', $start));
+    }
+
+    protected function getCourseStart(int $crs_ref_id)
+    {
+        if (is_null($this->crs_start)) {
+            $crs = ilObjectFactory::getInstanceByRefId($crs_ref_id);
+            $this->crs_start = $crs->getCourseStart();
+        }
+
+        return $this->crs_start;
     }
 
     /**
@@ -219,6 +308,16 @@ abstract class ilTMSCancelGUI extends Wizard\Player
                  'usr_id' => $usr_id
              )
          );
+    }
+
+    public function getAllChildrenOfByType($ref_id, $search_type)
+    {
+        $ret = array();
+        foreach ($this->g_tree->getSubTree($this->g_tree->getNodeData($ref_id), false, $search_type) as $child) {
+            $ret[] = \ilObjectFactory::getInstanceByRefId($child);
+        }
+
+        return $ret;
     }
 
     protected function getAccess()
