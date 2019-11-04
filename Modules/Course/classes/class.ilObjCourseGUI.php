@@ -39,12 +39,10 @@ class ilObjCourseGUI extends ilContainerGUI
     const INPUT_VENUE_TEXT = "venue_text";
     const INPUT_VENUE_LIST = "venue_list";
     const INPUT_VENUE_LIST_ADDITIONAL = "venue_additional";
-    // cat-tms-patch end
-
-    // cat-tms-patch start
     const INPUT_PROVIDER_SOURCE = "provider_source";
     const INPUT_PROVIDER_TEXT = "provider_text";
     const INPUT_PROVIDER_LIST = "provider_list";
+    const INPUT_MEMBER_LIST_TPL = "member_list_template";
     // cat-tms-patch end
 
 
@@ -1202,6 +1200,13 @@ class ilObjCourseGUI extends ilContainerGUI
                     break;
             }
         }
+
+        // cat-tms-patch #4039
+        if (ilPluginAdmin::isPluginActive('xcmb')) {
+            $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
+            $crs_template = (int) $form->getInput(self::INPUT_MEMBER_LIST_TPL);
+            $xcmb->setSelectedCourseTemplate((int) $this->object->getId(), $crs_template);
+        }
         // cat-tms-patch end
 
         $this->object->update();
@@ -1811,6 +1816,29 @@ class ilObjCourseGUI extends ilContainerGUI
         include_once 'Modules/Course/classes/class.ilECSCourseSettings.php';
         $ecs = new ilECSCourseSettings($this->object);
         $ecs->addSettingsToForm($form, 'crs');
+
+        // cat-tms-patch start #4039
+        if (ilPluginAdmin::isPluginActive('xcmb')) {
+            /** @var ilCourseMemberPlugin $xcmb */
+            $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
+            $templates = $xcmb->getMemberListTemplates();
+            $crs_selected_teplate = $xcmb->getSelectedCourseTemplate((int) $this->object->getId());
+
+            if (is_null($crs_selected_teplate)) {
+                $crs_selected_teplate = $xcmb->getMemberListDefaultTemplateId();
+            }
+
+            $si = new ilSelectInputGUI(
+                $xcmb->txt("list_template"),
+                self::INPUT_MEMBER_LIST_TPL
+            );
+            $si->setInfo($xcmb->txt("list_template_info"));
+            $si->setOptions($templates);
+            $si->setValue($crs_selected_teplate);
+            
+            $form->addItem($si);
+        }
+        // cat-tms-patch end
 
         return $form;
     }
