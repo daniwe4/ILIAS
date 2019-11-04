@@ -17,6 +17,10 @@ include_once './Services/Membership/classes/class.ilMembershipGUI.php';
  */
 class ilCourseMembershipGUI extends ilMembershipGUI
 {
+    // cat-tms-patch start #4041
+    const CRS_TEMPLATE_ID = "template_id";
+    // cat-tms-patch end
+
     /**
      * @return ilAbstractMailMemberRoles
      */
@@ -486,4 +490,77 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         }
         return [];
     }
+
+    // cat-tms-patch start #4037
+    protected function showParticipantsToolbar()
+    {
+        global $DIC;
+
+        /** @var \ilToolbarGUI $ilToolbar */
+        $ilToolbar = $DIC['ilToolbar'];
+
+        if ($this->canAddOrSearchUsers()) {
+            include_once './Services/Search/classes/class.ilRepositorySearchGUI.php';
+            ilRepositorySearchGUI::fillAutoCompleteToolbar(
+            $this,
+            $ilToolbar,
+            array(
+        'auto_complete_name' => $this->lng->txt('user'),
+        'user_type' => $this->getParentGUI()->getLocalRoles(),
+        'user_type_default' => $this->getDefaultRole(),
+        'submit_name' => $this->lng->txt('add')
+        )
+        );
+
+            // spacer
+            $ilToolbar->addSeparator();
+
+            // search button
+            $ilToolbar->addButton(
+            $this->lng->txt($this->getParentObject()->getType() . "_search_users"),
+            $this->ctrl->getLinkTargetByClass(
+            'ilRepositorySearchGUI',
+            'start'
+        )
+        );
+
+            // separator
+            $ilToolbar->addSeparator();
+        }
+        // print button
+        if (ilPluginAdmin::isPluginActive('xcmb')) {
+            /** @var ilCourseMemberPlugin $xcmb */
+            $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
+
+            if ($xcmb->isDefaultTemplateDefined()) {
+                $btn = \ilLinkButton::getInstance();
+                $btn->setUrl($this->ctrl->getLinkTarget($this, 'printMembersOutput'));
+                $btn->setCaption($xcmb->txt('download_file'), false);
+                $btn->setTarget('_blank');
+                $ilToolbar->addButtonInstance($btn);
+            }
+        }
+
+        $this->showMailToMemberToolbarButton($ilToolbar, 'participants', false);
+    }
+
+    protected function printMembersOutput()
+    {
+        /** @var ilCourseMemberPlugin $xcmb */
+        $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
+        $list = $xcmb->initAttendanceListFor($this->getParentObject());
+        $list->setCallback(array($this, 'getAttendanceListUserData'));
+
+        $this->member_data = $this->getPrintMemberData(
+            $this->filterUserIdsByRbacOrPositionOfCurrentUser(
+            $this->getMembersObject()->getParticipants()
+        )
+        );
+
+        $list->getNonMemberUserData($this->member_data);
+
+        $list->getFullscreenHTML();
+        exit();
+    }
+    // cat-tms-patch end
 }
