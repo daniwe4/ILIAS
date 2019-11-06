@@ -502,27 +502,27 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         if ($this->canAddOrSearchUsers()) {
             include_once './Services/Search/classes/class.ilRepositorySearchGUI.php';
             ilRepositorySearchGUI::fillAutoCompleteToolbar(
-            $this,
-            $ilToolbar,
-            array(
-        'auto_complete_name' => $this->lng->txt('user'),
-        'user_type' => $this->getParentGUI()->getLocalRoles(),
-        'user_type_default' => $this->getDefaultRole(),
-        'submit_name' => $this->lng->txt('add')
-        )
-        );
+                $this,
+                $ilToolbar,
+                array(
+                    'auto_complete_name' => $this->lng->txt('user'),
+                    'user_type' => $this->getParentGUI()->getLocalRoles(),
+                    'user_type_default' => $this->getDefaultRole(),
+                    'submit_name' => $this->lng->txt('add')
+                )
+            );
 
             // spacer
             $ilToolbar->addSeparator();
 
             // search button
             $ilToolbar->addButton(
-            $this->lng->txt($this->getParentObject()->getType() . "_search_users"),
-            $this->ctrl->getLinkTargetByClass(
-            'ilRepositorySearchGUI',
-            'start'
-        )
-        );
+                $this->lng->txt($this->getParentObject()->getType() . "_search_users"),
+                $this->ctrl->getLinkTargetByClass(
+                    'ilRepositorySearchGUI',
+                    'start'
+                )
+            );
 
             // separator
             $ilToolbar->addSeparator();
@@ -548,13 +548,17 @@ class ilCourseMembershipGUI extends ilMembershipGUI
     {
         /** @var ilCourseMemberPlugin $xcmb */
         $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
-        $list = $xcmb->initAttendanceListFor($this->getParentObject());
+        $template_id = null;
+        if (array_key_exists('template_id', $_GET)) {
+            $template_id = strtoupper($_GET['template_id']);
+        }
+        $list = $xcmb->initAttendanceListFor($this->getParentObject(), $template_id);
         $list->setCallback(array($this, 'getAttendanceListUserData'));
 
         $this->member_data = $this->getPrintMemberData(
             $this->filterUserIdsByRbacOrPositionOfCurrentUser(
-            $this->getMembersObject()->getParticipants()
-        )
+                $this->getMembersObject()->getParticipants()
+            )
         );
 
         $list->getNonMemberUserData($this->member_data);
