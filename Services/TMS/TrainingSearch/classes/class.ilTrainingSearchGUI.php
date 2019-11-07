@@ -81,29 +81,8 @@ class ilTrainingSearchGUI
             return null;
         }
 
-        $xtrs_objects = ilObject::_getObjectsDataForType("xtrs", true);
-
-        if (count($xtrs_objects) == 0) {
-            return null;
-        }
-
-        uasort($xtrs_objects, function ($a, $b) {
-            return strcmp($a["id"], $b["id"]);
-        });
-
-        foreach ($xtrs_objects as $value) {
-            foreach (ilObject::_getAllReferences($value["id"]) as $ref_id) {
-                if (
-                    $this->g_access->checkAccess("visible", "", $ref_id) &&
-                    $this->g_access->checkAccess("read", "", $ref_id) &&
-                    $this->g_access->checkAccess("use_search", "", $ref_id)
-                ) {
-                    return $ref_id;
-                }
-            }
-        }
-
-        return null;
+        $tms_session = new \TMSSession();
+        return $tms_session->getCurrentSearch();
     }
 
     protected function redirectToSearch($search_object)
