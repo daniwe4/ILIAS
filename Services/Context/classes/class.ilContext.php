@@ -15,7 +15,7 @@ class ilContext
 {
     protected static $class_name; // [string]
     protected static $type; // [string]
-    
+
     const CONTEXT_WEB = "ilContextWeb";
     const CONTEXT_CRON = "ilContextCron";
     const CONTEXT_RSS = "ilContextRss";
@@ -34,8 +34,11 @@ class ilContext
     const CONTEXT_SHIBBOLETH = 'ilContextShibboleth';
     const CONTEXT_LTI_PROVIDER = 'ilContextLTIProvider';
     const CONTEXT_SAML = 'ilContextSaml';
-    
-    
+
+    // cat-tms-patch start
+    const CONTEXT_TMS_PRINT = 'TMSContextPrint';
+    // cat-tms-patch end
+
     /**
      * Init context by type
      *
@@ -47,10 +50,10 @@ class ilContext
         include_once "Services/Context/classes/class." . $a_type . ".php";
         self::$class_name = $a_type;
         self::$type = $a_type;
-        
+
         return true;
     }
-    
+
     /**
      * Call context method directly without internal handling
      *
@@ -81,7 +84,7 @@ class ilContext
         }
         return call_user_func(array(self::$class_name, $a_method));
     }
-    
+
     /**
      * Are redirects supported?
      *
@@ -95,15 +98,15 @@ class ilContext
         if (isset($DIC["ilCtrl"])) {
             $ilCtrl = $DIC->ctrl();
         }
-        
+
         // asynchronous calls must never be redirected
         if ($ilCtrl && $ilCtrl->isAsynch()) {
             return false;
         }
-        
+
         return (bool) self::callContext("supportsRedirects");
     }
-    
+
     /**
      * Based on user authentication?
      *
@@ -113,7 +116,7 @@ class ilContext
     {
         return (bool) self::callContext("hasUser");
     }
-    
+
     /**
      * Uses HTTP aka browser
      *
@@ -123,7 +126,7 @@ class ilContext
     {
         return (bool) self::callContext("usesHTTP");
     }
-    
+
     /**
      * Has HTML output
      *
@@ -133,7 +136,7 @@ class ilContext
     {
         return (bool) self::callContext("hasHTML");
     }
-    
+
     /**
      * Uses template engine
      *
@@ -143,7 +146,7 @@ class ilContext
     {
         return (bool) self::callContext("usesTemplate");
     }
-    
+
     /**
      * Init client
      *
@@ -153,7 +156,7 @@ class ilContext
     {
         return (bool) self::callContext("initClient");
     }
-    
+
     /**
      * Try authentication
      *
@@ -163,7 +166,7 @@ class ilContext
     {
         return (bool) self::callContext("doAuthentication");
     }
-    
+
     /**
      * Supports push messages
      *
@@ -173,7 +176,7 @@ class ilContext
     {
         return (bool) self::callContext("supportsPushMessages");
     }
-    
+
     /**
      * Get context type
      *
@@ -183,7 +186,7 @@ class ilContext
     {
         return self::$type;
     }
-    
+
     /**
      * Check if context supports persistent
      * session handling.

@@ -528,13 +528,26 @@ class ilCourseMembershipGUI extends ilMembershipGUI
             $ilToolbar->addSeparator();
         }
         // print button
-        if (ilPluginAdmin::isPluginActive('xcmb')) {
+        if (
+            ilPluginAdmin::isPluginActive('docdeliver') &&
+            ilPluginAdmin::isPluginActive('xcmb')
+        ) {
             /** @var ilCourseMemberPlugin $xcmb */
             $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
 
+            /** @var ilDocumentDeliveryPlugin $xcmb */
+            $docdeliver = ilPluginAdmin::getPluginObjectById('docdeliver');
+
             if ($xcmb->isDefaultTemplateDefined()) {
+                $crs_id = (int) $this->getParentObject()->getId();
+                $template_id = $xcmb->getSelectedCourseTemplate($crs_id);
+                if (is_null($template_id)) {
+                    $template_id = $xcmb->getMemberListDefaultTemplateId();
+                }
+
+                $link = $docdeliver->getLinkForSignatureList($crs_id, $template_id);
                 $btn = \ilLinkButton::getInstance();
-                $btn->setUrl($this->ctrl->getLinkTarget($this, 'printMembersOutput'));
+                $btn->setUrl($link);
                 $btn->setCaption($xcmb->txt('download_file'), false);
                 $btn->setTarget('_blank');
                 $ilToolbar->addButtonInstance($btn);
@@ -542,29 +555,6 @@ class ilCourseMembershipGUI extends ilMembershipGUI
         }
 
         $this->showMailToMemberToolbarButton($ilToolbar, 'participants', false);
-    }
-
-    protected function printMembersOutput()
-    {
-        /** @var ilCourseMemberPlugin $xcmb */
-        $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
-        $template_id = null;
-        if (array_key_exists('template_id', $_GET)) {
-            $template_id = strtoupper($_GET['template_id']);
-        }
-        $list = $xcmb->initAttendanceListFor($this->getParentObject(), $template_id);
-        $list->setCallback(array($this, 'getAttendanceListUserData'));
-
-        $this->member_data = $this->getPrintMemberData(
-            $this->filterUserIdsByRbacOrPositionOfCurrentUser(
-                $this->getMembersObject()->getParticipants()
-            )
-        );
-
-        $list->getNonMemberUserData($this->member_data);
-
-        $list->getFullscreenHTML();
-        exit();
     }
     // cat-tms-patch end
 }
