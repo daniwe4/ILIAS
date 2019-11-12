@@ -824,7 +824,9 @@ class ilImageMapEditorGUI
                 switch ($_POST["area_link_type"]) {
                     case "ext":
                         $area->setLinkType(IL_EXT_LINK);
-                        $area->setHref($_POST["area_link_ext"]);
+                        // cat-tms-patch start
+                        $area->setHref(ilUtil::stripSlashes($_POST["area_link_ext"]));
+                        // cat-tms-patch end
                         break;
 
                     case "int":
