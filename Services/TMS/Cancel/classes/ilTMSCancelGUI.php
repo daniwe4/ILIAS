@@ -112,7 +112,7 @@ abstract class ilTMSCancelGUI extends Wizard\Player
         }
 
         if ($this->hasStartdate($crs) && $this->isCourseAlreadyStarted($crs)) {
-            $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt("course_has_allready_begun")), false);
+            $ilias_bindings->redirectToPreviousLocation(array($this->g_lng->txt("course_has_allready_begun_no_cancel")), false);
         }
 
         $state_db = new Wizard\SessionStateDB();
