@@ -2672,7 +2672,9 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
         if (ilPluginAdmin::isPluginActive('xcmb')) {
             $xcmb = ilPluginAdmin::getPluginObjectById('xcmb');
             $tpl_id = $xcmb->getSelectedCourseTemplate($src_id);
-            $xcmb->setSelectedCourseTemplate($target_id, $tpl_id);
+            if (!is_null($tpl_id)) {
+                $xcmb->setSelectedCourseTemplate($target_id, $tpl_id);
+            }
         }
     }
 
