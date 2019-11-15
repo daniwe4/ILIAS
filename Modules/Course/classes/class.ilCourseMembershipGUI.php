@@ -548,7 +548,7 @@ class ilCourseMembershipGUI extends ilMembershipGUI
                 $link = $docdeliver->getLinkForSignatureList($crs_id, $template_id);
                 $btn = \ilLinkButton::getInstance();
                 $btn->setUrl($link);
-                $btn->setCaption($xcmb->txt('download_file'), false);
+                $btn->setCaption($xcmb->txt('download_blank_file'), false);
                 $btn->setTarget('_blank');
                 $ilToolbar->addButtonInstance($btn);
             }
