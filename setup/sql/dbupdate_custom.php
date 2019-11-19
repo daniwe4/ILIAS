@@ -555,6 +555,18 @@ require_once("Services/Object/classes/class.ilObjectDataCache.php");
 $cache = new ilObjectDataCache();
 require_once("Services/Object/classes/class.ilObject.php");
 
+global $DIC;
+$DIC['ilias'] = new ILIAS();
+$DIC['ilErr'] = new ilErrorHandling();
+$DIC['ilSetting'] = new ilSetting();
+$DIC['ilPluginAdmin'] = new ilPluginAdmin();
+$DIC['objDefinition'] = new ilObjectDefinition();
+$DIC['rbacsystem'] = ilRbacSystem::getInstance();
+define ("ERROR_HANDLER", "PRETTY_PAGE");
+$DIC['tree'] = $tree;
+$DIC['ilAppEventHandler'] = new ilAppEventHandler();
+$DIC['ilAccess'] = new ilAccess();
+
 $provider_db = new CaT\Ente\ILIAS\ilProviderDB($ilDB, $tree, $cache);
 $query = "SELECT od.obj_id FROM object_data od JOIN object_reference oref ON oref.obj_id = od.obj_id WHERE od.type = 'crs' AND oref.deleted IS NULL";
 $result = $ilDB->query($query);
