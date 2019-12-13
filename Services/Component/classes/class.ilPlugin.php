@@ -1020,6 +1020,7 @@ abstract class ilPlugin
             // cat-tms-patch start
             $this->clearPageObjects();
             $this->clearBaseClasses();
+            $this->clearMailContexts();
             // cat-tms-patch end
             $this->clearEventListening();
 
@@ -1128,6 +1129,7 @@ abstract class ilPlugin
         // cat-tms-patch start
         $reader->clearPageObjects();
         $reader->clearBaseClasses();
+        $reader->clearMailContexts();
         // cat-tms-patch end
         $reader->clearEvents();
         $reader->startParsing();
@@ -1463,6 +1465,18 @@ abstract class ilPlugin
             $this->getPluginName()
         );
         $reader->clearBaseClasses();
+    }
+
+    protected function clearMailContexts()
+    {
+        $reader = new ilPluginReader(
+            $this->getDirectory() . '/plugin.xml',
+            $this->getComponentType(),
+            $this->getComponentName(),
+            $this->getSlotId(),
+            $this->getPluginName()
+        );
+        $reader->clearMailContexts();
     }
     // cat-tms-patch end
 }

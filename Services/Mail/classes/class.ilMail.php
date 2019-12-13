@@ -2,6 +2,10 @@
 /* Copyright (c) 1998-2012 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 use ILIAS\BackgroundTasks\Implementation\Bucket\BasicBucket;
+// cat-tms-patch start #4139
+use ILIAS\TMS\Mail\ilMailExtension;
+
+// cat-tms-patch end
 
 /**
  * @author Stefan Meyer <meyer@leifos.com>
@@ -9,6 +13,10 @@ use ILIAS\BackgroundTasks\Implementation\Bucket\BasicBucket;
  */
 class ilMail
 {
+    // cat-tms-patch start #4139
+    use ilMailExtension;
+    // cat-tms-patch end
+
     const ILIAS_HOST = 'ilias';
 
     /** @var ilLanguage */
@@ -931,6 +939,15 @@ class ilMail
                 $this->formatLinebreakMessage($message),
                 (array) $attachments
             );
+
+            // cat-tms-patch start #4139
+            $this->raiseEvenForSendMail(
+                implode(',', $firstAddresses),
+                $subject,
+                $message,
+                (array) $attachments
+            );
+        // cat-tms-patch end
         } elseif (count($usrIdToExternalEmailAddressesMap) > 1) {
             if ($usePlaceholders) {
                 foreach ($usrIdToExternalEmailAddressesMap as $usrId => $addresses) {
@@ -946,6 +963,15 @@ class ilMail
                         $this->formatLinebreakMessage($usrIdToMessageMap[$usrId]),
                         (array) $attachments
                     );
+
+                    // cat-tms-patch start #4139
+                    $this->raiseEvenForSendMail(
+                        implode(',', $addresses),
+                        $subject,
+                        $usrIdToMessageMap[$usrId],
+                        (array) $attachments
+                    );
+                    // cat-tms-patch end
                 }
             } else {
                 $flattenEmailAddresses = iterator_to_array(new RecursiveIteratorIterator(new RecursiveArrayIterator(
@@ -990,6 +1016,15 @@ class ilMail
                         (array) $attachments
                     );
                 }
+
+                // cat-tms-patch start #4139
+                $this->raiseEvenForSendMail(
+                    implode(',', $flattenEmailAddresses),
+                    $subject,
+                    $message,
+                    (array) $attachments
+                );
+                // cat-tms-patch end
             }
         }
     }
@@ -1713,4 +1748,24 @@ class ilMail
     {
         return $message;
     }
+
+    // cat-tms-patch start #4139
+    protected function raiseEvenForSendMail(
+        string $recipients,
+        string $subject,
+        string $message,
+        array $attachments
+    ) {
+        if (!is_null($this->contextId)) {
+            $this->raiseMailSendEvent(
+                $this->contextId,
+                $this->contextParameters,
+                $recipients,
+                $subject,
+                $this->formatLinebreakMessage($message),
+                $attachments
+            );
+        }
+    }
+    // cat-tms-patch end
 }

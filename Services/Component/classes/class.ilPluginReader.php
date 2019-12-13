@@ -138,7 +138,22 @@ class ilPluginReader extends ilSaxParser
                     array("text", "text", "text"),
                     array($this->pname, $a_attribs["name"], $dir . $a_attribs["dir"])
                 );
-            break;
+                break;
+            case 'mailtemplates':
+                $this->in_mail_templates = true;
+                break;
+
+            case 'context':
+                if (!$this->in_mail_templates) {
+                    break;
+                }
+                ilMailTemplateContextService::insertFromXML(
+                    $a_attribs['component'],
+                    $a_attribs['id'],
+                    $a_attribs['class'],
+                    $a_attribs['path']
+                );
+                break;
             // cat-tms-patch end
         }
     }
@@ -189,6 +204,14 @@ class ilPluginReader extends ilSaxParser
         global $DIC;
         $ilDB = $DIC->database();
         $ilDB->manipulate("DELETE FROM plugins_class WHERE plugin = " . $ilDB->quote($this->pname, 'text'));
+    }
+
+    public function clearMailContexts()
+    {
+        global $DIC;
+        $ilDB = $DIC->database();
+        $component = "Plugins/" . $this->pname;
+        $ilDB->manipulate("DELETE FROM mail_tpl_ctx WHERE component = " . $ilDB->quote($component, 'text'));
     }
     // cat-tms-patch end
 }
