@@ -35,9 +35,10 @@ if (!$show_error) {
     }
 }
 
+$tpl = $DIC["tpl"];
+$lng = $DIC["lng"];
+
 if ($show_error) {
-    $tpl = $DIC["tpl"];
-    $lng = $DIC["lng"];
     $tpl->addBlockFile("CONTENT", "content", "tpl.error.html");
     $lng->loadLanguageModule("error");
 
@@ -46,6 +47,19 @@ if ($show_error) {
     $tpl->setCurrentBlock("content");
     $tpl->setVariable("ERROR_MESSAGE", $lng->txt('no_reject_possible'));
     $tpl->setVariable("MESSAGE_HEADING", $lng->txt('error_sry_error'));
+
+    $tpl->show();
+} else {
+    $tpl->addBlockFile("CONTENT", "content", "tpl.cancel_success.html");
+    $lng->loadLanguageModule("success");
+
+    $tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
+
+    $tpl->setCurrentBlock("content");
+    $tpl->setVariable("MESSAGE_HEADING", $lng->txt('success_decline'));
+    $tpl->setVariable("SUCCESS_MESSAGE", $lng->txt('successfully_decline'));
+    $tpl->setVariable("LINK", 'login.php');
+    $tpl->setVariable("TXT_LINK", $lng->txt('to_login'));
 
     $tpl->show();
 }
