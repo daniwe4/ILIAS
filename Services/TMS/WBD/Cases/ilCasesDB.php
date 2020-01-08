@@ -75,7 +75,18 @@ class ilCasesDB implements DB
 	const WBDA_STATUS_STORNO = 'storno';
 
 	const TP_BILDUNGSDIENSTLEISTER = 'Bildungsdienstleister';
+	const TP_SERVICE = 'TP-Service';
+
 	const DATE_REGEX = '#^20[0-9]{2}\\-[0-9]{2}\\-[0-9]{2}$#';
+
+	protected static $tp_pool_for_request = [
+		self::TP_SERVICE
+	];
+
+	protected static $tp_pool_for_report = [
+		self::TP_BILDUNGSDIENSTLEISTER,
+		self::TP_SERVICE
+	];
 
 	/**
 	 * @var \ilDBInterface
@@ -235,7 +246,7 @@ class ilCasesDB implements DB
 	 */
 	public function getIdsForParticipationRequest(int $gutberaten_udf_id, int $announce_wbd_id): array
 	{
-		$space = $this->userSpace($gutberaten_udf_id, $announce_wbd_id);
+		$space = $this->userSpace($gutberaten_udf_id, $announce_wbd_id, self::$tp_pool_for_request);
 		$space->request($space->table(self::TABLE_USR_DATA)->field(self::FIELD_USR_ID))
 			->request($space->table(self::TABLE_WBD_ID)->field(self::FIELD_VALUE), self::FIELD_WBD_ID);
 		$usr_data = $space->table(self::TABLE_USR_DATA);
@@ -254,8 +265,11 @@ class ilCasesDB implements DB
 		return $ret;
 	}
 
-	protected function userSpace(int $gutberaten_udf_id, int $announce_wbd_id) : TableRelations\Tables\TableSpace
-	{
+	protected function userSpace(
+		int $gutberaten_udf_id,
+		int $announce_wbd_id,
+		array $tp_types = []
+	) : TableRelations\Tables\TableSpace {
 		$usr_data = $this->tab_f->Table(self::TABLE_USR_DATA, self::TABLE_USR_DATA)
 			->addField($this->tab_f->field(self::FIELD_USR_ID))
 			->addField($this->tab_f->field(self::FIELD_ACTIVE));
@@ -275,12 +289,22 @@ class ilCasesDB implements DB
 			->addField($this->tab_f->field(self::FIELD_USR_ID))
 			->addField($this->tab_f->field(self::FIELD_FIELD_ID))
 			->addField($this->tab_f->field(self::FIELD_VALUE));
-		$announce_wbd->addConstraint(
-			$this->pre_f->_ALL(
-				$announce_wbd->field(self::FIELD_FIELD_ID)->EQ($this->pre_f->int($announce_wbd_id)),
-				$announce_wbd->field(self::FIELD_VALUE)->EQ($this->pre_f->str(self::TP_BILDUNGSDIENSTLEISTER))
-			)
-		);
+
+		if(count($tp_types) > 0) {
+			$announce_wbd->addConstraint(
+				$this->pre_f->_ALL(
+					$announce_wbd->field(self::FIELD_FIELD_ID)->EQ($this->pre_f->int($announce_wbd_id)),
+					$announce_wbd->field(self::FIELD_VALUE)->IN($this->pre_f->list_str($tp_types))
+				)
+			);
+		} else {
+			$announce_wbd->addConstraint(
+				$this->pre_f->_ALL(
+					$announce_wbd->field(self::FIELD_FIELD_ID)->EQ($this->pre_f->int($announce_wbd_id))
+				)
+			);
+		}
+
 
 		$user_space = $this->tab_f->TableSpace()
 			->addTablePrimary($usr_data)
@@ -367,7 +391,11 @@ class ilCasesDB implements DB
 				->addField($this->tab_f->field(self::FIELD_USR_ID))
 				->addField($this->tab_f->field(self::FIELD_WBD_ANNOUNCEMENT_STATUS))
 				->addField($this->tab_f->field(self::FIELD_WBD_BOOKING_ID));
-		$participation_space = $this->userSpace($gutberaten_udf_id, $announce_wbd_id);
+		$participation_space = $this->userSpace(
+			$gutberaten_udf_id,
+			$announce_wbd_id,
+			self::$tp_pool_for_report
+		);
 		$participation_space
 			->addTablePrimary($participations)
 			->addTablePrimary($courses)
