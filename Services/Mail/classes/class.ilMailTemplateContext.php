@@ -92,7 +92,9 @@ abstract class ilMailTemplateContext
     /**
      * @return array
      */
-    final private function getGenericPlaceholders() : array
+    // cat-tms-patch start #4270
+    final protected function getGenericPlaceholders() : array
+    // cat-tms-patch end
     {
         return [
             'mail_salutation' => [
