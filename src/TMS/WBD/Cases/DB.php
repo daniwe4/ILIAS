@@ -10,16 +10,20 @@ use CaT\WBD\Cases as WBD_CASES;
 
 interface DB
 {
-	/**
-	 * @param int $gutberaten_udf_id
-	 * @param int $announce_wbd_id
-	 * @return WBD_CASES\ReportParticipation[]
-	 */
-	public function getParticipationsToReport(int $gutberaten_udf_id, int $announce_wbd_id): array;
-	/**
-	 * @param int $gutberaten_udf_id
-	 * @param int $announce_wbd_id
-	 * @return WBD_CASES\RequestParticipations[]
-	 */
-	public function getIdsForParticipationRequest(int $gutberaten_udf_id, int $announce_wbd_id): array;
+    /**
+     * @param int $gutberaten_udf_id
+     * @param int $announce_wbd_id
+     * @return WBD_CASES\ReportParticipation[]
+     */
+    public function getParticipationsToReport(int $gutberaten_udf_id, int $announce_wbd_id) : array;
+    /**
+     * @param int $gutberaten_udf_id
+     * @param int $announce_wbd_id
+     * @return WBD_CASES\RequestParticipations[]
+     */
+    public function getIdsForParticipationRequest(int $gutberaten_udf_id, int $announce_wbd_id) : array;
+    /**
+     * @return WBD_CASES\ReportParticipation[]
+     */
+    public function getParticipationsToCancel() : array;
 }

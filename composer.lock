@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6092fd3973cba3e65f7dfd5fc0828b15",
+    "content-hash": "d9e79dc3344524a4c62bf202eb66cb2b",
     "packages": [
         {
             "name": "box/spout",
@@ -269,16 +269,16 @@
         },
         {
             "name": "conceptsandtraining/wbd",
-            "version": "3.1.2",
+            "version": "5.1.2",
             "source": {
                 "type": "git",
                 "url": "git@github.com:conceptsandtraining/lib-wbd.git",
-                "reference": "c5a03e1a37af0f927e3a003510ea9c3225ca0f19"
+                "reference": "11a39b381748cce512d8031aa483314200f156cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/conceptsandtraining/lib-wbd/zipball/c5a03e1a37af0f927e3a003510ea9c3225ca0f19",
-                "reference": "c5a03e1a37af0f927e3a003510ea9c3225ca0f19",
+                "url": "https://api.github.com/repos/conceptsandtraining/lib-wbd/zipball/11a39b381748cce512d8031aa483314200f156cc",
+                "reference": "11a39b381748cce512d8031aa483314200f156cc",
                 "shasum": ""
             },
             "require": {
@@ -309,10 +309,10 @@
             ],
             "description": "Handles couple of services to communicate with idd databases",
             "support": {
-                "source": "https://github.com/conceptsandtraining/lib-wbd/tree/3.1.2",
+                "source": "https://github.com/conceptsandtraining/lib-wbd/tree/5.1.2",
                 "issues": "https://github.com/conceptsandtraining/lib-wbd/issues"
             },
-            "time": "2019-11-12T13:48:34+00:00"
+            "time": "2020-01-15T07:28:12+00:00"
         },
         {
             "name": "container-interop/container-interop",
@@ -2207,17 +2207,17 @@
             ],
             "authors": [
                 {
+                    "name": "Ben Ramsey",
+                    "email": "ben@benramsey.com",
+                    "homepage": "https://benramsey.com"
+                },
+                {
                     "name": "Marijn Huizendveld",
                     "email": "marijn.huizendveld@gmail.com"
                 },
                 {
                     "name": "Thibaud Fabre",
                     "email": "thibaud@aztech.io"
-                },
-                {
-                    "name": "Ben Ramsey",
-                    "email": "ben@benramsey.com",
-                    "homepage": "https://benramsey.com"
                 }
             ],
             "description": "Formerly rhumsaa/uuid. A PHP 5.4+ library for generating RFC 4122 version 1, 3, 4, and 5 universally unique identifiers (UUID).",
@@ -5543,7 +5543,7 @@
             "time": "2020-01-13T08:00:59+00:00"
         },
         {
-            "name": "technosophos/LibRIS",
+            "name": "technosophos/libris",
             "version": "2.0.2",
             "source": {
                 "type": "git",

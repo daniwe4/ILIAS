@@ -578,3 +578,52 @@ while ($row = $ilDB->fetchAssoc($result)) {
     }
 }
 ?>
+
+<#58>
+<?php
+$ilCtrlStructureReader->getStructure();
+?>
+
+<#59>
+<?php
+
+global $DIC;
+$db = $DIC["ilDB"];
+
+$db->query('DELETE FROM il_mm_items WHERE identification LIKE "ilTrainingSearchGlobalScreenProvider|%"');
+
+?>
+
+<#60>
+<?php
+
+global $DIC;
+$db = $DIC["ilDB"];
+
+$db->query('DELETE FROM il_gs_providers WHERE provider_class = "ilTrainingSearchGlobalScreenProvider"');
+
+?>
+
+<#61>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+$reposnses_db = new ilResponsesDB($db, new ilAppEventHandler());
+$reposnses_db->createReportedCourseValuesTable();
+?>
+
+<#62>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+$reposnses_db = new ilResponsesDB($db, new ilAppEventHandler());
+$reposnses_db->createReportedCourseValuesKeys();
+?>
+
+<#63>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+$reposnses_db = new ilResponsesDB($db, new ilAppEventHandler());
+$reposnses_db->createReportedCourseValuesSequence();
+?>
