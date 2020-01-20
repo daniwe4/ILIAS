@@ -14,10 +14,7 @@ class TMSActionBuilder extends ActionBuilderBase
         $ret = [];
 
         if ($with_recommendation_action) {
-            array_push(
-                $ret,
-                new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500)
-            );
+            $ret[1500] = new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500);
         }
 
         return $ret;
@@ -26,14 +23,11 @@ class TMSActionBuilder extends ActionBuilderBase
     protected function getUserBookingActions(bool $with_recommendation_action) : array
     {
         $ret = [
-            new ToCourse($this->entity, $this->owner, $this->user, 100)
+            100 => new ToCourse($this->entity, $this->owner, $this->user, 100)
         ];
 
         if ($with_recommendation_action) {
-            array_push(
-                $ret,
-                new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500)
-            );
+            $ret[1500] = new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500);
         }
 
         return $ret;
@@ -42,14 +36,11 @@ class TMSActionBuilder extends ActionBuilderBase
     protected function getEmployeeBookingActions(bool $with_recommendation_action) : array
     {
         $ret = [
-            new ToCourse($this->entity, $this->owner, $this->user, 100)
+            100 => new ToCourse($this->entity, $this->owner, $this->user, 100)
         ];
 
         if ($with_recommendation_action) {
-            array_push(
-                $ret,
-                new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500)
-            );
+            $ret[1500] = new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500);
         }
 
         return $ret;
@@ -58,18 +49,18 @@ class TMSActionBuilder extends ActionBuilderBase
     protected function getMyTrainingActions(bool $with_recommendation_action) : array
     {
         return [
-            new ToCourse($this->entity, $this->owner, $this->user, 100),
-            new ToCourseMemberTab($this->entity, $this->owner, $this->user, 200),
-            new CancelCourse($this->entity, $this->owner, $this->user, 600)
+            100 => new ToCourse($this->entity, $this->owner, $this->user, 100),
+            200 => new ToCourseMemberTab($this->entity, $this->owner, $this->user, 200),
+            600 => new CancelCourse($this->entity, $this->owner, $this->user, 600)
         ];
     }
 
     protected function getMyAdministratedTrainingActions(bool $with_recommendation_action) : array
     {
         return [
-            new ToCourse($this->entity, $this->owner, $this->user, 100),
-            new ToCourseMemberTab($this->entity, $this->owner, $this->user, 200),
-            new CancelCourse($this->entity, $this->owner, $this->user, 600)
+            100 => new ToCourse($this->entity, $this->owner, $this->user, 100),
+            200 => new ToCourseMemberTab($this->entity, $this->owner, $this->user, 200),
+            600 => new CancelCourse($this->entity, $this->owner, $this->user, 600)
         ];
     }
 
@@ -78,10 +69,7 @@ class TMSActionBuilder extends ActionBuilderBase
         $ret = [];
 
         if ($with_recommendation_action) {
-            array_push(
-                $ret,
-                new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500)
-            );
+            $ret[1500] = new SendRecommendationMail($this->entity, $this->owner, $this->user, 1500);
         }
 
         return $ret;
@@ -90,8 +78,8 @@ class TMSActionBuilder extends ActionBuilderBase
     protected function getTepSessionDetailActions(bool $with_recommendation_action) : array
     {
         return [
-            new ToCourse($this->entity, $this->owner, $this->user, 100),
-            new ToCourseMemberTab($this->entity, $this->owner, $this->user, 200)
+            100 => new ToCourse($this->entity, $this->owner, $this->user, 100),
+            200 => new ToCourseMemberTab($this->entity, $this->owner, $this->user, 200)
         ];
     }
 }

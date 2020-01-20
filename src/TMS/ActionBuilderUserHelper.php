@@ -39,4 +39,15 @@ trait ActionBuilderUserHelper
         }
         return $this->action_builders;
     }
+
+    public function mergeActions(array $actions) : array
+    {
+        $result = [];
+        foreach ($actions as $action) {
+            foreach ($action as $key => $value) {
+                $result[$key] = $value;
+            }
+        }
+        return $result;
+    }
 }
