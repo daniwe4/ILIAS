@@ -282,7 +282,9 @@ class ilCourseParticipants extends ilParticipants
                 $mail->setType(ilCourseMembershipMailNotification::TYPE_REFUSED_SUBSCRIPTION_MEMBER);
                 $mail->setRefId($this->ref_id);
                 $mail->setRecipients(array($a_usr_id));
-                $mail->send();
+                // cat-tms-patch start #4275
+                // $mail->send();
+                // cat-tms-patch end
                 break;
 
             case $this->NOTIFY_ACCEPT_SUBSCRIBER:
