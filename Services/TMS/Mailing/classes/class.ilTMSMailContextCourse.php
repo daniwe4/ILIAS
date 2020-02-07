@@ -151,14 +151,10 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         return $this->crs_ref_id;
     }
 
-    /**
-     * @return string
-     */
-    public function crsTitle()
+
+    public function crsTitle() : string
     {
-        global $ilObjDataCache;
-        $obj_id = $ilObjDataCache->lookupObjId($this->getCourseRefId());
-        return $ilObjDataCache->lookupTitle($obj_id);
+        return $this->getCourseObject()->getTitle();
     }
 
     public function crsImportantInformation()
