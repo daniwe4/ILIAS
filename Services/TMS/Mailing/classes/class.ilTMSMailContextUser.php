@@ -101,14 +101,19 @@ class ilTMSMailContextUser implements Mailing\MailContext
      */
     protected function salutation()
     {
-        $salutation = 'salutation';
         $gender = $this->getUser()->getGender();
-        if ($gender === 'm') {
-            $salutation = 'salutation_m';
+
+        switch ($gender) {
+            case 'm':
+                $salutation = 'salutation_m';
+                break;
+            case 'f':
+                $salutation = 'salutation_f';
+                break;
+            default:
+                return '';
         }
-        if ($gender === 'f') {
-            $salutation = 'salutation_f';
-        }
+
         return $this->g_lang->txt($salutation);
     }
 
