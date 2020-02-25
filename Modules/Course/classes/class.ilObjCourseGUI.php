@@ -1835,7 +1835,7 @@ class ilObjCourseGUI extends ilContainerGUI
             $si->setInfo($xcmb->txt("list_template_info"));
             $si->setOptions($templates);
             $si->setValue($crs_selected_teplate);
-            
+
             $form->addItem($si);
         }
         // cat-tms-patch end
@@ -3761,8 +3761,10 @@ class ilObjCourseGUI extends ilContainerGUI
 
         //put the course member role to the top of the crs_roles array
         if (in_array($crs_member, $local_roles)) {
-            #$crs_roles[$crs_member] = ilObjRole::_getTranslation(array_search ($crs_member, $local_roles));
-            #unset($local_roles[$crs_roles[$crs_member]]);
+            // cat-tms-patch start #4091
+            $crs_roles[$crs_member] = ilObjRole::_getTranslation(array_search($crs_member, $local_roles));
+            unset($local_roles[$crs_roles[$crs_member]]);
+            // cat-tms-patch end
         }
 
         foreach ($local_roles as $title => $role_id) {
