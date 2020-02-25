@@ -16393,3 +16393,4 @@ success#:#success_decline#:#Kursabsage
 success#:#successfully_decline#:#Ihre Teilnahme am Kurs wurde erfolgreich abgesagt.
 success#:#to_login#:#Zum Login
 tms#:#placeholder_desc_crs_trainer_assignments#:#Die Einsatztage des Trainers, der diese Mail erhält, an diesem Kurs.
+tms#:#email_exists#:#Die E-Mail ist bereits vergeben.

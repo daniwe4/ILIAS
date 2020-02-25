@@ -368,6 +368,16 @@ class ilAccountRegistrationGUI
             $form_valid = false;
         }
 
+        // cat-tms-patch start #4331
+        $email = $this->form->getInput("usr_email");
+        if (count(ilObjUser::getUserLoginsByEmail($email)) > 0) {
+            $this->lng->loadLanguageModule("tms");
+            $email_obj = $this->form->getItemByPostVar('usr_email');
+            $email_obj->setAlert($this->lng->txt('email_exists'));
+            $form_valid = false;
+        }
+        // cat-tms-patch end
+
         if (!$form_valid) {
             ilUtil::sendFailure($this->lng->txt('form_input_not_valid'));
         } elseif ($showGlobalTermsOfServieFailure) {
