@@ -186,7 +186,8 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
                 $time,
                 301,
                 [
-                    CourseInfo::CONTEXT_SEARCH_SHORT_INFO
+                    CourseInfo::CONTEXT_SEARCH_SHORT_INFO,
+                    CourseInfo::CONTEXT_USER_BOOKING_SHORT_INFO
                 ]
             );
         }
