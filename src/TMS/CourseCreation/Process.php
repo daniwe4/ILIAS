@@ -15,11 +15,13 @@ class Process
     const EDU_TRACKING = "xetr";
     const COURSE_CLASSIFICATION = "xccl";
     const SESSION = "sess";
+    const COURSE_MAILING = "xcml";
 
     private static $RUN_AT_LAST = array(
         self::COURSE_CLASSIFICATION,
         self::SESSION,
-        self::EDU_TRACKING
+        self::EDU_TRACKING,
+        self::COURSE_MAILING
     );
 
     /**
