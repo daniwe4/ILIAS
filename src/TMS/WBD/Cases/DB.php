@@ -11,11 +11,13 @@ use CaT\WBD\Cases as WBD_CASES;
 interface DB
 {
     /**
-     * @param int $gutberaten_udf_id
-     * @param int $announce_wbd_id
      * @return WBD_CASES\ReportParticipation[]
      */
-    public function getParticipationsToReport(int $gutberaten_udf_id, int $announce_wbd_id) : array;
+    public function getParticipationsToReport(
+        int $gutberaten_udf_id,
+        int $announce_wbd_id,
+        \DateTime $start_date
+    ) : array;
     /**
      * @param int $gutberaten_udf_id
      * @param int $announce_wbd_id
