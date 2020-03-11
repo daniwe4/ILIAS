@@ -203,7 +203,10 @@ class ilObjSessionListGUI extends ilObjectListGUI
 
             // cat-tms-patch start
             if ($session_data['tutor_source'] == ilObjSession::TUTOR_CFG_FROMCOURSE) {
-                if (count($session_data['tutor']['name']) > 0) {
+                if (
+                    $session_data['tutor'] &&
+                    count($session_data['tutor']['name']) > 0
+                ) {
                     $props[] = array(
                         'alert' => false,
                         'property' => $this->lng->txt('event_lecturer'),

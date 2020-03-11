@@ -33,7 +33,8 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         'VENUE_ADDITIONAL_INFO' => 'placeholder_desc_crs_venue_additionalinfo',
         'TRAINING_PROVIDER' => 'placeholder_desc_crs_provider',
         'BOOKING_LINK' => 'placeholder_desc_crs_booking_link',
-        'MEMBERS_COUNT' => 'placeholder_desc_crs_members_count'
+        'MEMBERS_COUNT' => 'placeholder_desc_crs_members_count',
+        'TRAINER_ASSIGNMENTS' => 'placeholder_desc_crs_trainer_assignments',
     );
 
     /**
@@ -120,8 +121,8 @@ class ilTMSMailContextCourse implements Mailing\MailContext
                 return $this->crsBookingLink();
             case 'MEMBERS_COUNT':
                 return $this->crsMembersCount();
-
-
+            case 'TRAINER_ASSIGNMENTS':
+                return $this->assignmentsOfReceivingTrainer($contexts);
             default:
                 return null;
         }
@@ -178,23 +179,27 @@ class ilTMSMailContextCourse implements Mailing\MailContext
      */
     public function crsSchedule()
     {
-        $schedule = array();
         $sessions = $this->getSessionAppointments();
         if (count($sessions) > 0) {
-            foreach ($sessions as $sortdat => $times) {
-                list($date, $start, $end) = $times;
-                $schedule[] = sprintf(
-                    "%s, %s - %s %s",
-                    $date,
-                    $start,
-                    $end,
-                    $this->g_lang->txt('oclock')
-                );
-            }
-            return implode(PHP_EOL, $schedule);
+            return $this->formatAppointments($sessions);
         }
-
         return "-";
+    }
+
+    protected function formatAppointments(array $appointments) : string
+    {
+        $schedule = array();
+        foreach ($appointments as $sortdat => $times) {
+            list($date, $start, $end) = $times;
+            $schedule[] = sprintf(
+                "%s, %s - %s %s",
+                $date,
+                $start,
+                $end,
+                $this->g_lang->txt('oclock')
+            );
+        }
+        return implode(PHP_EOL, $schedule);
     }
 
     /**
@@ -452,14 +457,9 @@ class ilTMSMailContextCourse implements Mailing\MailContext
     }
 
     /**
-     * Get session appointments from within the course
-     *
-     * @param Entity $entity
-     * @param Object 	$object
-     *
-     * @return string
+     * Get session appointments from within the course (optionally filtered for a tutor-id)
      */
-    protected function getSessionAppointments()
+    protected function getSessionAppointments(int $assigned_tutor = null) : array
     {
         $vals = array();
         $sessions = $this->getAllChildrenOfByType($this->getCourseRefId(), "sess");
@@ -471,7 +471,14 @@ class ilTMSMailContextCourse implements Mailing\MailContext
                 $start_date = $appointment->getStart()->get(IL_CAL_FKT_DATE, "d.m.Y");
                 $start_time = $appointment->getStart()->get(IL_CAL_FKT_DATE, "H:i");
                 $end_time = $appointment->getEnd()->get(IL_CAL_FKT_DATE, "H:i");
-                $vals[$sort_date] = array($start_date, $start_time, $end_time);
+                if (is_null($assigned_tutor) ||
+                    (
+                        $session->getTutorSource() === \ilObjSession::TUTOR_CFG_FROMCOURSE
+                        && in_array($assigned_tutor, $session->getAssignedTutorsIds())
+                    )
+                ) {
+                    $vals[$sort_date] = array($start_date, $start_time, $end_time);
+                }
             }
         }
 
@@ -536,6 +543,12 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         return $ilObjDataCache->lookupObjId($this->getCourseRefId());
     }
 
+    protected function getTrainerIds() : array
+    {
+        $participants = $this->getCourseObject()->getMembersObject();
+        return $participants->getTutors();
+    }
+
     /**
      * Get members with trainer-role
      *
@@ -543,10 +556,8 @@ class ilTMSMailContextCourse implements Mailing\MailContext
      */
     protected function getTrainers()
     {
-        $participants = $this->getCourseObject()->getMembersObject();
-        $trainers = $participants->getTutors();
         $ret = [];
-        foreach ($trainers as $trainer_id) {
+        foreach ($this->getTrainerIds() as $trainer_id) {
             $ret[] = new \ilObjUser((int) $trainer_id);
         }
         return $ret;
@@ -595,5 +606,31 @@ class ilTMSMailContextCourse implements Mailing\MailContext
         $sum = $participants->getCountMembers()
             + count($participants->getTutors());
         return (string) $sum;
+    }
+
+    protected function assignmentsOfReceivingTrainer(array $contexts)//: ?string
+    {
+        $usr_context = $this->getUserContextFromContexts($contexts);
+        $trainer_ids = $this->getTrainerIds();
+        if (!is_null($usr_context)
+            && in_array($usr_context->getUsrId(), $trainer_ids)
+        ) {
+            $sessions = $this->getSessionAppointments($usr_context->getUsrId());
+            if (count($sessions) === 0) {
+                return '-';
+            }
+            return $this->formatAppointments($sessions);
+        }
+        return '-';
+    }
+
+    protected function getUserContextFromContexts($contexts)//: ?\ilTMSMailContextUser
+    {
+        foreach ($contexts as $context) {
+            if ($context instanceof \ilTMSMailContextUser) {
+                return $context;
+            }
+        }
+        return null;
     }
 }
