@@ -85,7 +85,13 @@ class ILIASBindings implements Wizard\ILIASBindings
                 \ilUtil::sendInfo($message, true);
             }
         }
-        $this->ctrl->redirect($this->parent_gui, $this->parent_cmd);
+
+        $tms_session = new \TMSSession();
+        if ($tms_session->getCurrentSearch()) {
+            $this->ctrl->redirect($this->parent_gui, $this->parent_cmd);
+        } else {
+            $this->ctrl->redirectToURL(\ilUserUtil::getStartingPointAsUrl());
+        }
     }
 }
 
