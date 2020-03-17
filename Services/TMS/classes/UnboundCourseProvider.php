@@ -869,12 +869,14 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
         $object->initWaitingList();
 
         $min_member = $object->getSubscriptionMinMembers();
-        if ($min_member === null) {
-            $min_member = 0;
+        if ($min_member === null || (int) $min_member === 0) {
+            $plug = \ilPluginAdmin::getPluginObjectById('xbkm');
+            $min_member = $plug->txtClosure()('no_minimum_places');
         }
         $max_member = $object->getSubscriptionMaxMembers();
-        if ($max_member === null) {
-            $max_member = 0;
+        if ($max_member === null || (int) $max_member === 0) {
+            $plug = \ilPluginAdmin::getPluginObjectById('xbkm');
+            $max_member = $plug->txtClosure()('infinity_places');
         }
 
         $values = array();
