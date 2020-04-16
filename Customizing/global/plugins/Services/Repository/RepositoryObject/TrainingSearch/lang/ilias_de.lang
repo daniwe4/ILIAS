@@ -1,0 +1,68 @@
+link#:#Link zum Ergebnis
+type#:#Trainingstyp
+topic#:#Trainingsthema
+duration#:#Zeitraum
+only_bookable#:#Nur buchbare Trainings
+idd_relevant#:#Nur IDD relevante Trainings
+filter#:#Erweiterte Suche
+employees#:#Mitarbeiter
+show_all#:#Alle anzeigen
+conf_options_type#:#Trainingstyp
+conf_options_topic#:#Trainingsthema
+unknown#:#Unbekannt
+no_detail_infos#:#<strong><i>Es liegen keine weiteren Informationen zu diesem Angebot vor.</i></strong>
+header#:#Trainingssuche
+title#:#Titel
+description#:#Beschreibung
+is_online#:#Online
+save#:#Speichern
+cancel#:#Abbrechen
+no_trainings_available#:#Derzeit stehen für Sie keine Trainings zur Buchung zur Verfügung.
+search#:#Erweiterte Suche
+s_title_asc#:#Titel: aufsteigend
+s_title_desc#:#Titel: absteigend
+s_period_asc#:#Zeitraum: aufsteigend
+s_period_desc#:#Zeitraum: absteigend
+s_city_asc#:#Ort: aufsteigend
+s_city_desc#:#Ort: absteigend
+t_user#:#Ansicht: Mitarbeiter
+tabSettings#:#Einstellungen
+tabCourses#:#Trainingssuche
+use_search#:#Trainingssuche verwenden
+xtrs_use_search#:#Trainingssuche verwenden#:#Der Benutzer darf die Trainingssuche verwenden.
+obj_xtrs#:#Trainingssuche
+xtrs_new#:#Trainingssuche hinzufügen
+xtrs_add#:#Anlegen
+objs_xtrs_duplicate#:#Trainingssuche kopieren
+obj_xtrs_duplicate#:#Trainingssuche kopieren
+xtrs_visible#:#Anzeigen: Trainingssuche ist sichbar
+xtrs_read#:#Lesezugriff: Trainingssuche lesen
+xtrs_copy#:#Kopieren: Trainingssuche kopieren
+xtrs_write#:#Einstellungen bearbeiten: Einstellungen der Trainingssuche bearbeiten
+xtrs_delete#:#Löschen: Trainingssuche verschieben oder löschen
+xtrs_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+grp_create_xtrs#:#Trainingssuche anlegen
+cat_create_xtrs#:#Trainingssuche anlegen
+crs_create_xtrs#:#Trainingssuche anlegen
+root_create_xtrs#:#Trainingssuche anlegen
+fold_create_xtrs#:#Trainingssuche anlegen
+objs_xtrs#:#Trainingssuchen
+reset#:#Zurücksetzen
+my_training_search_options#:#Mein Angebot
+page#:#Seite gestalten
+category#:#Trainingskategorie
+goals#:#Ziele und Nutzen
+contents#:#Trainingsinhalte
+orgu_book_user#:#Benutzer buchen
+orgu_view_bookings#:#Buchungen von Benutzer einsehen
+is_local#:#Lokale Verwendung
+settings_saved#:#Einstellungen wurden gespeichert.
+search_tags#:#Tag für Trainingssuche
+actions#:#Aktionen
+full_text#:#Textsuche
+full_text_info#:#Durchsucht die Werte für '%s'.
+relevant_topics#:#Relevante Themen
+relevant_categories#:#Relevante Kategorien
+relevant_target_groups#:#Relevante Zielgruppen
+target_groups#:#Zielgruppen
+is_recommendation_allowed#:#"Kurs empfehlen" aktiv
