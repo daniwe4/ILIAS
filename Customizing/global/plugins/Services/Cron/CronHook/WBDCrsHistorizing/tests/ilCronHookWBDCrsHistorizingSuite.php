@@ -14,7 +14,10 @@ class ilCronHookWBDCrsHistorizingSuite extends TestSuite
         $suite = new self();
 
         // add each test class of the component
-        $suite->addTestSuite(WBDCrsHistorizing\BogusTest::class);
+        $suite->addTestSuite(WBDCrsHistorizing\Digesters\CourseIdDigesterTest::class);
+        $suite->addTestSuite(WBDCrsHistorizing\Digesters\CreatedTSDigesterTest::class);
+        $suite->addTestSuite(WBDCrsHistorizing\Digesters\DeletedDigesterTest::class);
+        $suite->addTestSuite(WBDCrsHistorizing\HistCases\WBDCrsTest::class);
 
         return $suite;
     }
