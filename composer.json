@@ -67,7 +67,9 @@
 		"phpunit/php-timer": "^2.1",
 		"phpspec/prophecy": "^1.8",
 		"theseer/tokenizer": "^1.1",
-		"myclabs/deep-copy": "^1.9"
+		"myclabs/deep-copy": "^1.9",
+		"sensiolabs/security-checker": "^5.0",
+		"roave/security-advisories": "dev-master"
 	},
 	"autoload": {
 		"psr-4" : {
