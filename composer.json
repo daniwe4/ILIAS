@@ -120,6 +120,11 @@
 				"./Customizing/global/plugins/Services/Cron/CronHook/Venues/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/Venues/tests"
 			],
+			"CaT\\Plugins\\WBDCommunicator\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/tests"
+			],
 			"CaT\\Plugins\\WBDCrsHistorizing\\":
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/classes",
