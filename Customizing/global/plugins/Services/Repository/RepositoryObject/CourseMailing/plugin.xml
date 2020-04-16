@@ -1,0 +1,16 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<plugin id="xcml">
+	<events>
+		<event type="listen" id="Modules/Course" />
+		<event type="listen" id="Services/Mail" />
+		<event type="listen" id="Services/Object" />
+	</events>
+	<mailtemplates>
+		<context
+				component="Plugins/CourseMailing"
+				id="xcml_context_invites"
+				class="ilCourseMailingInviteContext"
+				path="Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/classes/Invites/"
+		/>
+	</mailtemplates>
+</plugin>

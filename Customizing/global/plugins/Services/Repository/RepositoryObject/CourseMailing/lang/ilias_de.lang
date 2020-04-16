@@ -1,0 +1,167 @@
+edit#:#Einstellungen
+cancel#:#Abbrechen
+save#:#Speichern
+editMappings#:#Einladungsmails
+editProperties#:#Einstellungen
+settings_header#:#Einstellungen der Kursmailings
+settings_title#:#Titel
+settings_description#:#Beschreibung
+xcml_save#:#Speichern
+xcml_cancel#:#Abbrechen
+obj_xcml#:#Kursmailings
+xcml_new#:#Kursmailings hinzufügen
+objs_xcml_duplicate#:#Kursmailings kopieren
+obj_xcml_duplicate#:#Kursmailing kopieren
+xcml_add#:#Anlegen
+table_rolemappings_title#:#Einladungsmails für lokale Rollen
+il_crs_admin#:#Kursadministrator
+il_crs_tutor#:#Kurstutor
+il_crs_member#:#Kursmitglied
+table_rolemapping_nomail_option#:#Keine eMail
+table_rolemappings_localrole#:#Lokale Rolle am Kurs
+table_rolemappings_mailtemplate#:#Vorlage
+table_rolemappings_attachments#:#Anhänge
+msg_saved#:#Die Einstellungen wurden gespeichert.
+grp_create_xcml#:#Kursmailing anlegen
+crs_create_xcml#:#Kursmailing anlegen
+grp_create_xcml#:#Kursmailing anlegen
+cat_create_xcml#:#Kursmailing anlegen
+crs_create_xcml#:#Kursmailing anlegen
+fold_create_xcml#:#Kursmailing anlegen
+root_create_xcml#:#Kursmailing anlegen
+xcml_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xcml_visible#:#Anzeigen: Kursmailings sind sichtbar und können genutzt werden
+xcml_read#:#Lesezugriff: Kursmailing lesen
+xcml_copy#:#Kopieren: Kursmailing kopieren
+xcml_write#:#Einstellungen bearbeiten: Einstellungen der Kursmailings bearbeiten
+xcml_delete#:#Löschen: Kursmailing verschieben oder löschen
+objs_xcml#:#Kursmailings
+table_automails_template_ident#:#Ident
+table_automails_template_id#:#Id
+table_automails_template_title#:#Titel
+table_automails_template_subject#:#Betreff
+table_automails_onevents#:#Events
+table_automails_sent_last#:#Zuletzt gesendet
+table_automails_sent_next#:#Nächster Versand
+table_automails_actions#:#Aktionen
+show_automails#:#Automatische Mails
+show_logs#:#Log
+actions#:#Aktionen
+action_preview#:#Vorschau
+action_manual_mail#:#Manuell verschicken
+modal_user_selection_title#:#Mail manuell verschicken
+manual_mail_submit#:#Abschicken
+table_automails_title#:#Automatische Mails in diesem Kurs
+back#:#Zurück
+mail_to#:#Empänger
+log_table_title#:#Gesendete Mails
+log_table_mode_user#:#Nach Benutzer
+log_table_mode_mail#:#Nach Vorlage
+datetime_desc#:#Zeitpunkt absteigend
+datetime_asc#:#Zeitpunkt aufsteigend
+usr_login_desc#:#Benutzer (Login) absteigend
+usr_login_asc#:#Benutzer (Login) aufsteigend
+template_ident_asc#:#Mailtemplate aufsteigend
+template_ident_desc#:#Mailtemplate absteigend
+log_table_ifield_templateident#:#Mail-Ident
+log_table_content_label_subject#:#Betreff
+log_table_content_label_msg#:#Nachricht
+log_table_ffields_headline#:#Info
+log_table_ffield_date#:#Zeitpunkt
+log_table_ffield_event#:#Event
+log_table_ffield_error#:#Fehler
+settings_days_invitation#:#Zeitpunkt Einladungsmail
+settings_days_invitation_desc#:#Zeitpunkt der Einladungsmail in Tagen vor Kursbeginn
+settings_days_invitation_reminder#:#Zeitpunkt Erinnerungsmail
+settings_days_invitation_reminder_desc#:#Zeitpunkt der Erinnerungsmail in Tagen vor Kursbeginn
+settings_successful_saved#:#Die Einstellungen wurden erfolgreich gespeichert.
+to_mailing_log#:#Mailing einsehen
+settings_prevent_mailing#:#Automatischen Mailversand unterbinden
+settings_prevent_mailing_info#:#Keine automatischen Mails für dieses Training versenden.
+table_automails_from_object#:#Objekt
+modal_scheduled_mail_title#:#Terminierte Mail manuell verschicken
+manual_sched_owner_title#:#Objekt:
+mailing#:#Kursmailing
+prevent_yes#:#Ja
+prevent_no#:#Nein
+log_table_no_error#:#kein Fehler
+settings_prevent_mailing_edit_info#:#Geändet von %s am %s.
+manual_mail_select_all#:#Alle auswählen
+manual_mail_unselect_all#:#Alle abwählen
+change_log#:#Log
+change_log_row_head#:#Am %s hat %s folgende Änderungen gemacht.
+yes#:#Ja
+no#:#Nein
+attachments_misconfigured#:#Die Einstellungen für Mailanhänge entsprechen nicht den Objekten innerhalb dieses Kurses. Bitte überprüfen Sie die Einstellungen für Einladungsmails.
+log_table_ffield_attachments#:#Anhänge
+log_table_no_attachments#:#keine Anhänge
+not_below_course#:#Diese Kursmailings liegen nicht unterhalb eines Kurses und ist deshalb in ihrer Funktionalität eingeschränkt.
+manual_form_header_recipients#:#Empfänger
+manual_form_header_attachments#:#Anhänge
+calendar_entry#:#Kalendereintrag_%s_%s
+ical_option#:#Kalendereintrag (iCal)
+create_xcml#:#Kursmailing anlegen
+tab_log#:#Log
+read_log#:#Maillog einsehen
+xcml_read_log#:#Benutzer kann den Maillog einsehen.
+view_auto_mails#:#Automatische Mails einsehen
+xcml_view_auto_mails#:#Benutzer kann die automatischen Mails einsehen.
+mail_to_members#:#Mail an Mitglieder
+xcml_mail_to_members#:#Benutzer kann Mails an Kursmitglieder senden.
+tab_member_mail#:#Mail an Mitglieder
+firstname#:#Vorname
+lastname#:#Nachname
+login#:#Benutzername
+sendInvitation#:#Einladung
+sendBooking#:#Buchungsbestätigung
+sendCancellation#:#Stornierungsbestätigung
+showFreetextForm#:#Freitext
+no_user_selected#:#Sie haben keine Empfänger ausgewählt.
+invitation_send#:#Einladung wurde verschickt.
+booking_send#:#Die Buchungsbestätigung wurde verschickt.
+cancellation_send#:#Die Stornierungsbestätigung wurde verschickt.
+recipient_confirm_line#:#Empfänger: %s, %s (%s)
+send_booking_mail#:#Soll die Buchungbestätigung an folgende Personen geschickt werden?
+send_cancellation_mail#:#Soll die Stornierungsbestätigung an folgende Personen geschickt werden?
+send_invitation_mail#:#Soll die Einladung an folgende Personen geschickt werden?
+send_freetex_mail#:#Soll die Freitextmail an folgende Personen geschickt werden?
+freetext_send#:#Die Freitextmail wurde verschickt.
+recipients#:#An
+subject#:#Betreff
+body#:#Nachricht
+form_free_text#:#Erstellen
+members#:#Mitglieder
+roles#:#Rollen
+to_mail_members#:#Mail an Mitglieder
+xcml_context_invites_title#:#Manuelle Einladungsmail
+xcml_context_invites_info#:#Für Benutzer die manuell zu einem Training eingeladen werden sollen.
+user#:#Benutzer
+add#:#Hinzufügen
+firstname#:#Vorname
+lastname#:#Nachname
+invite#:#Eingeladen am
+details_invite#:#Eingeladen von
+crs_part_status#:#Mitgliedsstatus
+rejected#:#Abgesagt am
+details_rejected#:#Abgesagt von
+tab_invites#:#Einladungsmanagement
+delete#:#Benutzer entfernen
+set_rejected#:#Manuell auf abgesagt setzen
+set_invited#:#Manuell auf eingeladen setzen
+send_invite_mail#:#Einladen
+no_user_selected#:#Keine Benutzer ausgewählt
+user_still_added#:#Benutzer sind bereits hinzugefügt.
+sure_delete_user#:#Sind Sie sich sicher, dass Sie folgende Benutzer wirklich entfernen wollen?
+user_deleted#:#Die Benutzer wurden erfolgreich entfernt.
+user_marked_as_invited#:#Die Benutzer wurden erfolgreich als eingeladen markiert.
+user_marked_as_rejected#:#Die Benutzer wurden erfolgreich als abgesagt markiert.
+status_invited#:#Eingeladen
+status_rejected#:#Abgesagt
+reject_invite_link#:#Link um die Einladung abzusagen.
+xcml_context_invites#:#Manuelle Einladung
+to_invite_system#:#Manuelle Einladung
+view_invites#:#Einladungsmanagement anzeigen
+edit_invites#:#Einladungsmanagement editieren
+xcml_view_invites#:#Einladungsmanagement anzeigen
+xcml_edit_invites#:#Einladungsmanagement editieren
+waiting#:#gebucht auf Warteliste
