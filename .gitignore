@@ -33,7 +33,6 @@
 
 # Directories
 /data
-/Customizing/global
 /Customizing/clients
 /setup/sql/ilDBTemplate
 virtual-data
