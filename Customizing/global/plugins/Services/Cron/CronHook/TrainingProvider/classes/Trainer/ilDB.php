@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2016 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\Trainer;
 
 /**
@@ -14,70 +16,77 @@ class ilDB implements DB
     const TABLE_PROVIDER = "tp_provider";
 
     /**
-     * @var /*ilDBPdoMySQLInnoDB
+     * @var \ilDBInterface
      */
     protected $db = null;
 
-    public function __construct(/*ilDBPdoMySQLInnoDB*/ $db)
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function install()
+    public function install() : void
     {
         $this->createTable();
         $this->createSequence();
     }
 
-    /**
-     * @inheritdoc
-     */
     public function create(
-        $title,
-        $salutation,
-        $firstname,
-        $lastname,
-        $provider_id = null,
-        $email = "",
-        $phone = "",
-        $mobile_number = "",
-        $fee = null,
-        $extra_infos = null,
-        $active = true
-    ) {
+        string $title,
+        string $salutation,
+        string $firstname,
+        string $lastname,
+        ?int $provider_id = null,
+        string $email = "",
+        string $phone = "",
+        string $mobile_number = "",
+        ?float $fee = null,
+        ?string $extra_infos = null,
+        bool $active = true
+    ) : Trainer {
         $next_id = $this->getNextId();
-        $trainer = new Trainer($next_id, $title, $salutation, $firstname, $lastname, $provider_id, $email, $phone, $mobile_number, $fee, $extra_infos, $active);
+        $trainer = new Trainer(
+            $next_id,
+            $title,
+            $salutation,
+            $firstname,
+            $lastname,
+            $provider_id,
+            $email,
+            $phone,
+            $mobile_number,
+            $fee,
+            $extra_infos,
+            $active
+        );
 
-        $values = array("id" => array("integer", $trainer->getId())
-                      , "title" => array("text", $trainer->getTitle())
-                      , "salutation" => array("text", $trainer->getSalutation())
-                      , "firstname" => array("text", $trainer->getFirstname())
-                      , "lastname" => array("text", $trainer->getLastname())
-                      , "provider_id" => array("text", $trainer->getProviderId())
-                      , "email" => array("text", $trainer->getEmail())
-                      , "phone" => array("text", $trainer->getPhone())
-                      , "mobile_number" => array("text", $trainer->getMobileNumber())
-                      , "fee" => array("float", $trainer->getFee())
-                      , "extra_infos" => array("float", $trainer->getExtraInfos())
-                      , "active" => array("integer", $trainer->getActive())
-                    );
+        $values = [
+            "id" => ["integer", $trainer->getId()],
+            "title" => ["text", $trainer->getTitle()],
+            "salutation" => ["text", $trainer->getSalutation()],
+            "firstname" => ["text", $trainer->getFirstname()],
+            "lastname" => ["text", $trainer->getLastname()],
+            "provider_id" => ["integer", $trainer->getProviderId()],
+            "email" => ["text", $trainer->getEmail()],
+            "phone" => ["text", $trainer->getPhone()],
+            "mobile_number" => ["text", $trainer->getMobileNumber()],
+            "fee" => ["float", $trainer->getFee()],
+            "extra_infos" => ["text", $trainer->getExtraInfos()],
+            "active" => ["integer", (int) $trainer->getActive()]
+        ];
 
         $this->getDB()->insert(self::TABLE_NAME, $values);
 
         return $trainer;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function select($id)
+    public function select(int $id) : Trainer
     {
-        $query = "SELECT title, salutation, firstname, lastname, provider_id, email, phone, mobile_number, fee, extra_infos, active\n"
-                . " FROM " . self::TABLE_NAME . "\n"
-                . " WHERE id = " . $this->getDB()->quote($id, "integer");
+        $query =
+            "SELECT title, salutation, firstname, lastname, provider_id, email, phone, mobile_number, fee, extra_infos, active" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
         if ($this->getDB()->numRows($res) == 0) {
@@ -99,39 +108,36 @@ class ilDB implements DB
             (float) $row["fee"],
             $row["extra_infos"],
             (bool) $row["active"]
-                    );
+        );
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function update(\CaT\Plugins\TrainingProvider\Trainer\Trainer $trainer)
+    public function update(Trainer $trainer) : void
     {
-        $where = array("id" => array("integer", $trainer->getId()));
+        $where = ["id" => ["integer", $trainer->getId()]];
 
-        $values = array("title" => array("text", $trainer->getTitle())
-                      , "salutation" => array("text", $trainer->getSalutation())
-                      , "firstname" => array("text", $trainer->getFirstname())
-                      , "lastname" => array("text", $trainer->getLastname())
-                      , "provider_id" => array("text", $trainer->getProviderId())
-                      , "email" => array("text", $trainer->getEmail())
-                      , "phone" => array("text", $trainer->getPhone())
-                      , "mobile_number" => array("text", $trainer->getMobileNumber())
-                      , "fee" => array("float", $trainer->getFee())
-                      , "extra_infos" => array("float", $trainer->getExtraInfos())
-                      , "active" => array("integer", $trainer->getActive())
-                    );
+        $values = [
+            "title" => ["text", $trainer->getTitle()],
+            "salutation" => ["text", $trainer->getSalutation()],
+            "firstname" => ["text", $trainer->getFirstname()],
+            "lastname" => ["text", $trainer->getLastname()],
+            "provider_id" => ["integer", $trainer->getProviderId()],
+            "email" => ["text", $trainer->getEmail()],
+            "phone" => ["text", $trainer->getPhone()],
+            "mobile_number" => ["text", $trainer->getMobileNumber()],
+            "fee" => ["float", $trainer->getFee()],
+            "extra_infos" => ["text", $trainer->getExtraInfos()],
+            "active" => ["integer", $trainer->getActive()]
+        ];
 
         $this->getDB()->update(self::TABLE_NAME, $values, $where);
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function delete($id)
+    public function delete(int $id) : void
     {
-        $query = "DELETE FROM " . self::TABLE_NAME . "\n"
-                . " WHERE id = " . $this->getDB()->quote($id, "integer");
+        $query =
+             "DELETE FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $this->getDB()->manipulate($query);
     }
@@ -139,15 +145,15 @@ class ilDB implements DB
     /**
      * Get trainer working for provider
      *
-     * @param int 													$provider_id
-     *
      * @return Trainer[] | []
      */
-    public function getTrainerOf($provider_id)
+    public function getTrainerOf(int $provider_id) : array
     {
-        $query = "SELECT id, title, salutation, firstname, lastname, email, phone, mobile_number, fee, extra_infos, active\n"
-                . " FROM " . self::TABLE_NAME . "\n"
-                . " WHERE provider_id = " . $this->getDB()->quote($provider_id, "integer");
+        $query =
+             "SELECT id, title, salutation, firstname, lastname, email, phone, mobile_number, fee, extra_infos, active" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE provider_id = " . $this->getDB()->quote($provider_id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -167,10 +173,9 @@ class ilDB implements DB
                 $row["phone"],
                 $row["mobile_number"],
                 (float) $row["fee"],
-                (float) $row["firstname"],
                 $row["extra_infos"],
                 (bool) $row["active"]
-                                    );
+            );
         }
 
         return $ret;
@@ -184,30 +189,32 @@ class ilDB implements DB
      *
      * @return array<mixed[]>
      */
-    public function getTrainersRaw($provider_id, array $active_filter = array())
+    public function getTrainersRaw(?int $provider_id, array $active_filter = array()) : array
     {
         $where = null;
         if ($provider_id) {
-            $where = " WHERE train.provider_id = " . $this->getDB()->quote($provider_id, "integer") . "\n";
+            $where = "WHERE train.provider_id = " . $this->getDB()->quote($provider_id, "integer") . PHP_EOL;
         }
 
-        if ($active_filter && array($active_filter) > 0) {
+        if ($active_filter && count($active_filter) > 0) {
             if (!$where) {
                 $where = " WHERE ";
             } else {
                 $where .= "     AND ";
             }
 
-            $where .= $this->getDB()->in("train.active", $active_filter, false, "integer");
+            $where .= $this->getDB()->in("train.active", $active_filter, false, "integer") . PHP_EOL;
         }
 
-        $query = "SELECT train.id, train.lastname, train.firstname, train.title,\n"
-                . " train.email, train.phone, train.mobile_number, train.fee, train.extra_infos, train.active\n"
-                . " , prov.name AS provider\n"
-                . " FROM " . self::TABLE_NAME . " train\n"
-                . " JOIN " . self::TABLE_PROVIDER . " prov\n"
-                . "     ON train.provider_id = prov.id\n"
-                . $where;
+        $query =
+             "SELECT train.id, train.lastname, train.firstname, train.title," . PHP_EOL
+            . "train.email, train.phone, train.mobile_number, train.fee, train.extra_infos, train.active," . PHP_EOL
+            . "prov.name AS provider" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . " train" . PHP_EOL
+            . "JOIN " . self::TABLE_PROVIDER . " prov" . PHP_EOL
+            . "    ON train.provider_id = prov.id" . PHP_EOL
+            . $where . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -222,13 +229,13 @@ class ilDB implements DB
 
     /**
      * Delete all trainers of deleted provider
-     *
-     * @param int 		$provider_id
      */
-    public function deleteByProvider($provider_id)
+    public function deleteByProvider(int $provider_id) : void
     {
-        $query = "DELETE FROM " . self::TABLE_NAME . "\n"
-                . " WHERE provider_id = " . $this->getDB()->quote($provider_id, "integer");
+        $query =
+             "DELETE FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE provider_id = " . $this->getDB()->quote($provider_id, "integer") . PHP_EOL
+        ;
 
         $this->getDB()->manipulate($query);
     }
@@ -236,120 +243,111 @@ class ilDB implements DB
     /**
      * Creates needed tables
      */
-    protected function createTable()
+    protected function createTable() : void
     {
         if (!$this->getDB()->tableExists(self::TABLE_NAME)) {
-            $fields = array(
-                    "id" => array(
+            $fields = [
+                    "id" => [
                         'type' => 'integer',
                         'length' => 4,
                         'notnull' => true
-                    ),
-                    "firstname" => array(
+                    ],
+                    "firstname" => [
                         'type' => 'text',
                         'length' => 32,
                         'notnull' => true
-                    ),
-                    "lastname" => array(
+                    ],
+                    "lastname" => [
                         'type' => 'text',
                         'length' => 32,
                         'notnull' => true
-                    ),
-                    "provider_id" => array(
+                    ],
+                    "provider_id" => [
                         'type' => 'integer',
                         'length' => 4,
                         'notnull' => false
-                    ),
-                    "email" => array(
+                    ],
+                    "email" => [
                         'type' => 'text',
                         'length' => 32,
                         'notnull' => false
-                    ),
-                    "phone" => array(
+                    ],
+                    "phone" => [
                         'type' => 'text',
                         'length' => 32,
                         'notnull' => false
-                    ),
-                    "fee" => array(
+                    ],
+                    "fee" => [
                         'type' => 'float',
                         'notnull' => false
-                    ),
-                    "active" => array(
+                    ],
+                    "active" => [
                         'type' => 'integer',
                         'length' => 1,
                         'notnull' => true
-                    )
-                );
+                    ]
+                ];
 
             $this->getDB()->createTable(self::TABLE_NAME, $fields);
-            $this->getDB()->addPrimaryKey(self::TABLE_NAME, array("id"));
+            $this->getDB()->addPrimaryKey(self::TABLE_NAME, ["id"]);
         }
     }
 
-    /**
-     * Update columns of table
-     *
-     * @return null
-     */
-    public function updateTable1()
+    public function updateTable1() : void
     {
-        $attributes = array('type' => 'text',
-                             'length' => 128,
-                             'notnull' => false
-                );
+        $attributes = [
+            'type' => 'text',
+            'length' => 128,
+            'notnull' => false
+        ];
         $this->getDB()->modifyTableColumn(self::TABLE_NAME, "email", $attributes);
     }
 
-    /**
-     * Update columns of table
-     *
-     * @return null
-     */
-    public function updateTable2()
+    public function updateTable2() : void
     {
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "title")) {
-            $attributes = array('type' => 'text',
-                             'length' => 64,
-                             'notnull' => false
-                );
+            $attributes = [
+                'type' => 'text',
+                'length' => 64,
+                'notnull' => false
+            ];
             $this->getDB()->addTableColumn(self::TABLE_NAME, "title", $attributes);
         }
 
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "salutation")) {
-            $attributes = array('type' => 'text',
-                             'length' => 32,
-                             'notnull' => false
-                );
+            $attributes = [
+                'type' => 'text',
+                'length' => 32,
+                'notnull' => false
+            ];
             $this->getDB()->addTableColumn(self::TABLE_NAME, "salutation", $attributes);
         }
 
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "mobile_number")) {
-            $attributes = array('type' => 'text',
-                             'length' => 64,
-                             'notnull' => false
-                );
+            $attributes = [
+                'type' => 'text',
+                'length' => 64,
+                'notnull' => false
+            ];
             $this->getDB()->addTableColumn(self::TABLE_NAME, "mobile_number", $attributes);
         }
 
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "costs")) {
-            $attributes = array('type' => 'float',
-                                'notnull' => false
-                );
+            $attributes = [
+                'type' => 'float',
+                'notnull' => false
+            ];
             $this->getDB()->addTableColumn(self::TABLE_NAME, "costs", $attributes);
         }
     }
 
-    /**
-     * Update columns of table
-     *
-     * @return null
-     */
-    public function updateTable3()
+    public function updateTable3() : void
     {
-        $attributes = array('type' => 'text',
-                             'length' => 256,
-                             'notnull' => false
-                );
+        $attributes = [
+            'type' => 'text',
+            'length' => 256,
+            'notnull' => false
+        ];
         if ($this->getDB()->tableColumnExists(self::TABLE_NAME, "costs")) {
             $this->getDB()->renameTableColumn(self::TABLE_NAME, "costs", "extra_infos");
         }
@@ -359,22 +357,14 @@ class ilDB implements DB
         }
     }
 
-    /**
-     * Creates needed sequences
-     */
-    protected function createSequence()
+    protected function createSequence() : void
     {
         if (!$this->getDB()->sequenceExists(self::TABLE_NAME)) {
             $this->getDB()->createSequence(self::TABLE_NAME);
         }
     }
 
-    /**
-     * Get the DB handler
-     *
-     * @return \ilDB
-     */
-    protected function getDB()
+    protected function getDB() : \ilDBInterface
     {
         if ($this->db === null) {
             throw new \Exception("No databse defined in trainer db implementation");
@@ -383,12 +373,7 @@ class ilDB implements DB
         return $this->db;
     }
 
-    /**
-     * Get the next id for new provider
-     *
-     * @return int
-     */
-    protected function getNextId()
+    protected function getNextId() : int
     {
         return (int) $this->getDB()->nextId(self::TABLE_NAME);
     }

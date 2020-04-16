@@ -13,44 +13,28 @@ interface DB
 {
     /**
      * Creates a new list-provider assignment
-     *
-     * @param int 		$crs_id
-     * @param int 		$provider_id
-     *
-     * @return \CaT\Plugins\Provider\ProviderAssignment\ListAssignment
      */
-    public function createListProviderAssignment($crs_id, $provider_id);
+    public function createListProviderAssignment(int $crs_id, int $provider_id) : ListAssignment;
 
     /**
-     * Creates a new list-provider assignment
-     *
-     * @param int 		$crs_id
-     * @param string 	$text
-     *
-     * @return \CaT\Plugins\Provider\ProviderAssignment\CustomAssignment
+     * Creates a new custom-provider assignment
      */
-    public function createCustomProviderAssignment($crs_id, $text);
+    public function createCustomProviderAssignment(int $crs_id, string $text) : CustomAssignment;
 
     /**
      * Read assignment of course from DB and return ProviderAssignment (or false)
      *
-     * @param int 		$crs_id
-     *
      * @return \CaT\Plugins\Provider\ProviderAssignment\ProviderAssignment | false
      */
-    public function select($crs_id);
+    public function select(int $crs_id);
 
     /**
      * Update a provider assignment
-     *
-     * @param \CaT\Plugins\Provider\Provider\ProviderAssignment 		$provider_assignment
      */
-    public function update(ProviderAssignment $provider_assignment);
+    public function update(ProviderAssignment $provider_assignment) : void;
 
     /**
      * Delete a provider assignment for a course
-     *
-     * @param int 		$crs_id
      */
-    public function delete($crs_id);
+    public function delete(int $crs_id) : void;
 }

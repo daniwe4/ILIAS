@@ -14,7 +14,15 @@ class ilCronHookTrainingProviderSuite extends TestSuite
         $suite = new self();
 
         // add each test class of the component
-        $suite->addTestSuite(TrainingProvider\BogusTest::class);
+        $suite->addTestSuite(TrainingProvider\Provider\ProviderTest::class);
+        $suite->addTestSuite(TrainingProvider\Provider\ilDBTest::class);
+        $suite->addTestSuite(TrainingProvider\ProviderAssignment\CustomAssignmentTest::class);
+        $suite->addTestSuite(TrainingProvider\ProviderAssignment\ListAssignmentTest::class);
+        $suite->addTestSuite(TrainingProvider\ProviderAssignment\ilDBTest::class);
+        $suite->addTestSuite(TrainingProvider\Tags\TagTest::class);
+        $suite->addTestSuite(TrainingProvider\Tags\ilDBTest::class);
+        $suite->addTestSuite(TrainingProvider\Trainer\TrainerTest::class);
+        $suite->addTestSuite(TrainingProvider\Trainer\ilDBTest::class);
 
         return $suite;
     }

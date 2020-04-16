@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2017 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\ProviderAssignment;
 
 /**
@@ -22,12 +24,8 @@ class ListAssignment implements ProviderAssignment
      */
     protected $provider_id;
 
-
-    public function __construct($crs_id, $provider_id)
+    public function __construct(int $crs_id, int $provider_id)
     {
-        assert('is_int($crs_id)');
-        assert('is_int($provider_id)');
-
         $this->crs_id = $crs_id;
         $this->provider_id = $provider_id;
     }
@@ -35,7 +33,7 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function getCrsId()
+    public function getCrsId() : int
     {
         return $this->crs_id;
     }
@@ -43,7 +41,7 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function isListAssignment()
+    public function isListAssignment() : bool
     {
         return true;
     }
@@ -51,7 +49,7 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function isCustomAssignment()
+    public function isCustomAssignment() : bool
     {
         return false;
     }
@@ -59,7 +57,7 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function getProviderId()
+    public function getProviderId() : int
     {
         return $this->provider_id;
     }
@@ -67,9 +65,8 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function withProviderId($provider_id)
+    public function withProviderId(int $provider_id) : ProviderAssignment
     {
-        assert('is_int($provider_id)');
         $clone = clone $this;
         $clone->provider_id = $provider_id;
         return $clone;
@@ -78,7 +75,7 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function getProviderText()
+    public function getProviderText() : string
     {
         throw new \LogicException("This is a ListAssignment. No provider-text in here.");
     }
@@ -86,7 +83,7 @@ class ListAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function withProviderText($text)
+    public function withProviderText(string $text) : ProviderAssignment
     {
         throw new \LogicException("This is a ListAssignment. No provider-text in here.");
     }

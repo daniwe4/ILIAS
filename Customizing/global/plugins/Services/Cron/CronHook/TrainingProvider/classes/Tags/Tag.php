@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2016 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\Tags;
 
 /**
@@ -25,67 +27,38 @@ class Tag
      */
     protected $color;
 
-    public function __construct($id, $name, $color)
+    public function __construct(int $id, string $name, string $color)
     {
-        assert('is_string($name)');
-        assert('is_string($color)');
-
         $this->id = $id;
         $this->name = $name;
         $this->color = $color;
     }
 
-    /**
-     *
-     * @param string 	$name
-     *
-     * @return Tag
-     */
-    public function withName($name)
+    public function withName(string $name) : Tag
     {
-        assert('is_string($name)');
         $clone = clone $this;
         $clone->name = $name;
         return $clone;
     }
 
-    /**
-     *
-     * @param string 	$color
-     *
-     * @return Tag
-     */
-    public function withColorCode($color)
+    public function withColorCode(string $color) : Tag
     {
-        assert('is_string($color)');
         $clone = clone $this;
         $clone->color = $color;
         return $clone;
     }
 
-    /**
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getColorCode()
+    public function getColorCode() : string
     {
         return $this->color;
     }

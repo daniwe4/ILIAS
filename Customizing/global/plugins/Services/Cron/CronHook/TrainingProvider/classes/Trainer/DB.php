@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2016 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\Trainer;
 
 /**
@@ -10,63 +12,21 @@ namespace CaT\Plugins\TrainingProvider\Trainer;
  */
 interface DB
 {
-
-    /**
-     * Install $this->plugin needed object like tables or sequences
-     */
-    public function install();
-
-    /**
-     * Create a new trainer. Object and DB
-     *
-     * @param string 	$title
-     * @param string 	$salutation
-     * @param string 	$firstname
-     * @param string 	$lastname
-     * @param null | int	$provider_id
-     * @param string 	$email
-     * @param string 	$phone
-     * @param string 	$mobile_number
-     * @param null | float	$fee
-     * @param null | string	$extra_infos
-     * @param bool 	$active
-     *
-     * @return \CaT\Plugins\TrainingProvider\Trainer\Trainer
-     */
+    public function install() : void;
+    public function select(int $id) : Trainer;
+    public function update(Trainer $trainer) : void;
+    public function delete(int $id) : void;
     public function create(
-        $title,
-        $salutation,
-        $firstname,
-        $lastname,
-        $provider_id = null,
-        $email = "",
-        $phone = "",
-        $mobile_number = "",
-        $fee = null,
-        $extra_infos = null,
-        $active = true
-    );
-
-    /**
-     * Get a trainer object
-     *
-     * @param int 	$id
-     *
-     * @return \CaT\Plugins\TrainingProvider\Trainer\Trainer
-     */
-    public function select($id);
-
-    /**
-     * Update a trainer
-     *
-     * @param \CaT\Plugins\TrainingProvider\Trainer\Trainer 	$trainer
-     */
-    public function update(\CaT\Plugins\TrainingProvider\Trainer\Trainer $trainer);
-
-    /**
-     * Delete a trainer
-     *
-     * @param int 	$id
-     */
-    public function delete($id);
+        string $title,
+        string $salutation,
+        string $firstname,
+        string $lastname,
+        ?int $provider_id = null,
+        string $email = "",
+        string $phone = "",
+        string $mobile_number = "",
+        ?float $fee = null,
+        ?string $extra_infos = null,
+        bool $active = true
+    ) : Trainer;
 }

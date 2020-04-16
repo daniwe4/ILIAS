@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2017 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\ProviderAssignment;
 
 /**
@@ -22,12 +24,8 @@ class CustomAssignment implements ProviderAssignment
      */
     protected $text;
 
-
-    public function __construct($crs_id, $text)
+    public function __construct(int $crs_id, string $text)
     {
-        assert('is_int($crs_id)');
-        assert('is_string($text)');
-
         $this->crs_id = $crs_id;
         $this->text = $text;
     }
@@ -35,7 +33,7 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function getCrsId()
+    public function getCrsId() : int
     {
         return $this->crs_id;
     }
@@ -43,7 +41,7 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function isListAssignment()
+    public function isListAssignment() : bool
     {
         return false;
     }
@@ -51,7 +49,7 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function isCustomAssignment()
+    public function isCustomAssignment() : bool
     {
         return true;
     }
@@ -59,7 +57,7 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function getProviderId()
+    public function getProviderId() : int
     {
         throw new \LogicException("This is a CustomAssignment. No provider-id in here.");
     }
@@ -67,7 +65,7 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function withProviderId($id)
+    public function withProviderId(int $id) : ProviderAssignment
     {
         throw new \LogicException("This is a CustomAssignment. No provider-id in here.");
     }
@@ -75,7 +73,7 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function getProviderText()
+    public function getProviderText() : string
     {
         return $this->text;
     }
@@ -83,9 +81,8 @@ class CustomAssignment implements ProviderAssignment
     /**
      * @inheritdoc
      */
-    public function withProviderText($text)
+    public function withProviderText(string $text) : ProviderAssignment
     {
-        assert('is_string($text)');
         $clone = clone $this;
         $clone->text = $text;
         return $clone;

@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2016 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\Trainer;
 
 /**
@@ -10,7 +12,6 @@ namespace CaT\Plugins\TrainingProvider\Trainer;
  */
 class Trainer
 {
-
     /**
      * @var int
      */
@@ -71,21 +72,20 @@ class Trainer
      */
     protected $active = true;
 
-    public function __construct($id, $title, $salutation, $firstname, $lastname, $provider_id = null, $email = "", $phone = "", $mobile_number = "", $fee = null, $extra_infos = null, $active = true)
-    {
-        assert('is_int($id)');
-        assert('is_string($title) || is_null($title)');
-        assert('is_string($salutation) || is_null($title)');
-        assert('is_string($firstname)');
-        assert('is_string($lastname)');
-        assert('is_null($provider_id) || is_int($provider_id)');
-        assert('is_string($email)');
-        assert('is_string($phone)');
-        assert('is_string($mobile_number)');
-        assert('is_null($fee) || is_float($fee)');
-        assert('is_null($extra_infos) || is_string($extra_infos)');
-        assert('is_bool($active)');
-
+    public function __construct(
+        int $id,
+        ?string $title,
+        ?string $salutation,
+        string $firstname,
+        string $lastname,
+        ?int $provider_id = null,
+        string $email = "",
+        string $phone = "",
+        string $mobile_number = "",
+        ?float $fee = null,
+        ?string $extra_infos = null,
+        bool $active = true
+    ) {
         $this->id = $id;
         $this->title = $title;
         $this->salutation = $salutation;
@@ -100,197 +100,139 @@ class Trainer
         $this->active = $active;
     }
 
-    public function withTitle($title)
+    public function withTitle(string $title) : Trainer
     {
-        assert('is_string($title)');
         $clone = clone $this;
         $clone->title = $title;
         return $clone;
     }
 
-    public function withSalutation($salutation)
+    public function withSalutation(string $salutation) : Trainer
     {
-        assert('is_string($salutation)');
         $clone = clone $this;
         $clone->salutation = $salutation;
         return $clone;
     }
 
-    public function withFirstname($firstname)
+    public function withFirstname(string $firstname) : Trainer
     {
-        assert('is_string($firstname)');
         $clone = clone $this;
         $clone->firstname = $firstname;
         return $clone;
     }
 
-    public function withLastname($lastname)
+    public function withLastname(string $lastname) : Trainer
     {
-        assert('is_string($lastname');
         $clone = clone $this;
         $clone->lastname = $lastname;
         return $clone;
     }
 
-    public function withProviderId($provider_id)
+    public function withProviderId(?int $provider_id) : Trainer
     {
-        assert('is_null($provider_id) || is_int($provider_id)');
         $clone = clone $this;
         $clone->provider_id = $provider_id;
         return $clone;
     }
 
-    public function withEmail($email)
+    public function withEmail(string $email) : Trainer
     {
-        assert('is_string($email)');
         $clone = clone $this;
         $clone->email = $email;
         return $clone;
     }
 
-    public function withPhone($phone)
+    public function withPhone(string $phone) : Trainer
     {
-        assert('is_string($phone)');
         $clone = clone $this;
         $clone->phone = $phone;
         return $clone;
     }
 
-    public function withMobileNumber($mobile_number)
+    public function withMobileNumber(string $mobile_number) : Trainer
     {
-        assert('is_string($mobile_number)');
         $clone = clone $this;
         $clone->mobile_number = $mobile_number;
         return $clone;
     }
 
-    public function withFee($fee)
+    public function withFee(?float $fee) : Trainer
     {
-        assert('is_null($fee) || is_float($fee)');
         $clone = clone $this;
         $clone->fee = $fee;
         return $clone;
     }
 
-    public function withExtraInfos($extra_infos)
+    public function withExtraInfos(?string $extra_infos) : Trainer
     {
-        assert('is_null($extra_infos) || is_float($extra_infos)');
         $clone = clone $this;
         $clone->extra_infos = $extra_infos;
         return $clone;
     }
 
-    public function withActive($active)
+    public function withActive(bool $active) : Trainer
     {
-        assert('is_bool($active)');
         $clone = clone $this;
         $clone->active = $active;
         return $clone;
     }
 
-    /**
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getTitle()
+    public function getTitle() : string
     {
         return $this->title;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getSalutation()
+    public function getSalutation() : string
     {
         return $this->salutation;
     }
-    /**
-     *
-     * @return string
-     */
-    public function getFirstname()
+
+    public function getFirstname() : string
     {
         return $this->firstname;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getLastname()
+    public function getLastname() : string
     {
         return $this->lastname;
     }
 
-    /**
-     *
-     * @return null | int
-     */
-    public function getProviderId()
+    public function getProviderId() : ?int
     {
         return $this->provider_id;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail() : string
     {
         return $this->email;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPhone()
+    public function getPhone() : string
     {
         return $this->phone;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getMobileNumber()
+    public function getMobileNumber() : string
     {
         return $this->mobile_number;
     }
 
-    /**
-     *
-     * @return float | null
-     */
-    public function getFee()
+    public function getFee() : ?float
     {
         return $this->fee;
     }
 
-    /**
-     *
-     * @return float | null
-     */
-    public function getExtraInfos()
+    public function getExtraInfos() : ?string
     {
         return $this->extra_infos;
     }
 
-    /**
-     *
-     * @return bool
-     */
-    public function getActive()
+    public function getActive() : bool
     {
         return $this->active;
     }

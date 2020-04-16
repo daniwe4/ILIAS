@@ -71,5 +71,5 @@ interface DB
      *
      * @return bool
      */
-    public function providerNameExist($new_provider_name);
+    public function providerNameExist(string $new_provider_name);
 }

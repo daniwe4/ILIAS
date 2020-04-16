@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2016 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\Tags;
 
 /**
@@ -14,11 +16,11 @@ class ilDB implements DB
     const TABLE_ALLOCATION = "tp_tags_provider";
 
     /**
-     * @var /*ilDBPdoMySQLInnoDB
+     * @var \ilDBInterface
      */
     protected $db = null;
 
-    public function __construct(/*ilDBPdoMySQLInnoDB*/ $db)
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
     }
@@ -26,7 +28,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function install()
+    public function install() : void
     {
         $this->createTable();
         $this->createSequence();
@@ -35,15 +37,16 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($name, $color)
+    public function create(string $name, string $color) : Tag
     {
         $next_id = $this->getNextId();
         $tag = new Tag($next_id, $name, $color);
 
-        $values = array("id" => array("integer", $tag->getId())
-                      , "name" => array("text", $tag->getName())
-                      , "color" => array("text", $tag->getColorCode())
-                    );
+        $values = [
+            "id" => ["integer", $tag->getId()],
+            "name" => ["text", $tag->getName()],
+            "color" => ["text", $tag->getColorCode()]
+        ];
 
         $this->getDB()->insert(self::TABLE_NAME, $values);
 
@@ -53,11 +56,13 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($id)
+    public function select(int $id) : Tag
     {
-        $query = "SELECT name, color\n"
-                . " FROM " . self::TABLE_NAME . "\n"
-                . " WHERE id = " . $this->getDB()->quote($id, "integer");
+        $query =
+             "SELECT name, color" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -73,13 +78,14 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function update(\CaT\Plugins\TrainingProvider\Tags\Tag $tag)
+    public function update(Tag $tag) : void
     {
-        $where = array("id" => array("integer", $tag->getId()));
+        $where = ["id" => ["integer", $tag->getId()]];
 
-        $values = array("name" => array("text", $tag->getName())
-                      , "color" => array("text", $tag->getColorCode())
-                    );
+        $values = [
+            "name" => ["text", $tag->getName()],
+            "color" => ["text", $tag->getColorCode()]
+        ];
 
         $this->getDB()->update(self::TABLE_NAME, $values, $where);
     }
@@ -87,53 +93,47 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($id)
+    public function delete(int $id) : void
     {
         $this->deallocation($id);
 
-        $query = "DELETE FROM " . self::TABLE_NAME . "\n"
-                . " WHERE id = " . $this->getDB()->quote($id, "integer");
+        $query =
+             "DELETE FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $this->getDB()->manipulate($query);
     }
 
     /**
      * Allocate tag to provider
-     *
-     * @param int 													$id
-     * @param int 													$provider_id
      */
-    public function allocate($id, $provider_id)
+    public function allocate(int $id, int $provider_id) : void
     {
-        $values = array("id" => array("integer", $id)
-                      , "provider_id" => array("text", $provider_id)
-                    );
+        $values = [
+            "id" => ["integer", $id],
+            "provider_id" => ["integer", $provider_id]
+        ];
 
         $this->getDB()->insert(self::TABLE_ALLOCATION, $values);
     }
 
-    /**
-     * Deallocate tag
-     *
-     * @param int 													$id
-     */
-    public function deallocation($id)
+    public function deallocation(int $id) : void
     {
-        $query = "DELETE FROM " . self::TABLE_ALLOCATION . "\n"
-                . " WHERE id = " . $this->getDB()->quote($id, "integer");
+        $query =
+             "DELETE FROM " . self::TABLE_ALLOCATION . PHP_EOL
+            . "WHERE id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $this->getDB()->manipulate($query);
     }
 
-    /**
-     * Deallocate tags by provider
-     *
-     * @param int 													$provider_id
-     */
-    public function deleteAllocationByProviderId($provider_id)
+    public function deleteAllocationByProviderId(int $provider_id) : void
     {
-        $query = "DELETE FROM " . self::TABLE_ALLOCATION . "\n"
-                . " WHERE provider_id = " . $this->getDB()->quote($provider_id, "integer");
+        $query =
+             "DELETE FROM " . self::TABLE_ALLOCATION . PHP_EOL
+            . "WHERE provider_id = " . $this->getDB()->quote($provider_id, "integer") . PHP_EOL
+        ;
 
         $this->getDB()->manipulate($query);
     }
@@ -141,17 +141,17 @@ class ilDB implements DB
     /**
      * Get all allocated tags for provider
      *
-     * @param int 													$provider_id
-     *
      * @return Tag[] | []
      */
-    public function getTagsFor($provider_id)
+    public function getTagsFor(int $provider_id) : array
     {
-        $query = "SELECT id, name, color\n"
-                . " FROM " . self::TABLE_NAME . " tags\n"
-                . " JOIN " . self::TABLE_ALLOCATION . " allo\n"
-                . "     ON tags.id = allo.id\n"
-                . " WHERE allo.provider_id = " . $this->getDB()->quote($provider_id, "integer");
+        $query =
+             "SELECT id, name, color" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . " tags" . PHP_EOL
+            . "JOIN " . self::TABLE_ALLOCATION . " allo" . PHP_EOL
+            . "    ON tags.id = allo.id" . PHP_EOL
+            . "WHERE allo.provider_id = " . $this->getDB()->quote($provider_id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -172,13 +172,15 @@ class ilDB implements DB
      *
      * @return array<mixed[]>
      */
-    public function getTagsRaw()
+    public function getTagsRaw() : array
     {
-        $query = "SELECT tag.id, tag.name, tag.color, COUNT(alloc.id) AS allocs\n"
-                . " FROM " . self::TABLE_NAME . " tag\n"
-                . " LEFT JOIN " . self::TABLE_ALLOCATION . " alloc\n"
-                . "     ON tag.id = alloc.id"
-                . " GROUP BY tag.id";
+        $query =
+             "SELECT tag.id, tag.name, tag.color, COUNT(alloc.id) AS allocs" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . " tag" . PHP_EOL
+            . "LEFT JOIN " . self::TABLE_ALLOCATION . " alloc" . PHP_EOL
+            . "    ON tag.id = alloc.id" . PHP_EOL
+            . "GROUP BY tag.id" . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -190,18 +192,15 @@ class ilDB implements DB
         return $ret;
     }
 
-    /**
-     * Get all assigned tags raw
-     *
-     * @return string[]
-     */
-    public function getAssignedTagsRaw()
+    public function getAssignedTagsRaw() : array
     {
-        $query = "SELECT tag.id, tag.name\n"
-                . " FROM " . self::TABLE_NAME . " tag\n"
-                . " JOIN " . self::TABLE_ALLOCATION . " alloc\n"
-                . "     ON tag.id = alloc.id"
-                . " GROUP BY tag.id";
+        $query =
+             "SELECT tag.id, tag.name" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . " tag" . PHP_EOL
+            . "JOIN " . self::TABLE_ALLOCATION . " alloc" . PHP_EOL
+            . "    ON tag.id = alloc.id" . PHP_EOL
+            . "GROUP BY tag.id" . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -213,10 +212,8 @@ class ilDB implements DB
         return $ret;
     }
 
-    public function allocateTags($provider_id, array $tags)
+    public function allocateTags(int $provider_id, array $tags)
     {
-        assert('is_int($provider_id)');
-
         foreach ($tags as $key => $tag) {
             $this->allocate($tag, $provider_id);
         }
@@ -225,44 +222,44 @@ class ilDB implements DB
     /**
      * Creates needed tables
      */
-    protected function createTable()
+    protected function createTable() : void
     {
         if (!$this->getDB()->tableExists(self::TABLE_NAME)) {
-            $fields = array(
-                    "id" => array(
+            $fields = [
+                    "id" => [
                         'type' => 'integer',
                         'length' => 4,
                         'notnull' => true
-                    ),
-                    "name" => array(
+                    ],
+                    "name" => [
                         'type' => 'text',
                         'length' => 16,
                         'notnull' => true
-                    ),
-                    "color" => array(
+                    ],
+                    "color" => [
                         'type' => 'text',
                         'length' => 7,
                         'notnull' => true
-                    )
-                );
+                    ]
+                ];
 
             $this->getDB()->createTable(self::TABLE_NAME, $fields);
             $this->getDB()->addPrimaryKey(self::TABLE_NAME, array("id"));
         }
 
         if (!$this->getDB()->tableExists(self::TABLE_ALLOCATION)) {
-            $fields = array(
-                    "id" => array(
+            $fields = [
+                    "id" => [
                         'type' => 'integer',
                         'length' => 4,
                         'notnull' => true
-                    ),
-                    "provider_id" => array(
+                    ],
+                    "provider_id" => [
                         'type' => 'integer',
                         'length' => 4,
                         'notnull' => true
-                    )
-                );
+                    ]
+                ];
 
             $this->getDB()->createTable(self::TABLE_ALLOCATION, $fields);
             $this->getDB()->addPrimaryKey(self::TABLE_ALLOCATION, array("id", "provider_id"));
@@ -272,30 +269,20 @@ class ilDB implements DB
     /**
      * Creates needed sequences
      */
-    protected function createSequence()
+    protected function createSequence() : void
     {
         if (!$this->getDB()->sequenceExists(self::TABLE_NAME)) {
             $this->getDB()->createSequence(self::TABLE_NAME);
         }
     }
 
-    /**
-     * Change length of tag name
-     *
-     * @return null
-     */
-    public function updateColumn1()
+    public function updateColumn1() : void
     {
-        $field = array('type' => 'text', 'length' => 50, 'notnull' => true);
+        $field = ['type' => 'text', 'length' => 50, 'notnull' => true];
         $this->getDB()->modifyTableColumn(self::TABLE_NAME, "name", $field);
     }
 
-    /**
-     * Get the DB handler
-     *
-     * @return \ilDB
-     */
-    protected function getDB()
+    protected function getDB() : \ilDBInterface
     {
         if ($this->db === null) {
             throw new \Exception("No databse defined in tag db implementation");
@@ -304,12 +291,7 @@ class ilDB implements DB
         return $this->db;
     }
 
-    /**
-     * Get the next id for new provider
-     *
-     * @return int
-     */
-    protected function getNextId()
+    protected function getNextId() : int
     {
         return (int) $this->getDB()->nextId(self::TABLE_NAME);
     }

@@ -1,6 +1,8 @@
 <?php
 /* Copyright (c) 1998-2016 ILIAS open source, Extended GPL, see docs/LICENSE */
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingProvider\Provider;
 
 /**
@@ -111,27 +113,28 @@ class Provider
      */
     protected $tags = array();
 
-    public function __construct($id, $name, $rating = 0.0, $info = "", $address1 = "", $country = "", $address2 = "", $postcode = "", $city = "", $homepage = "", $internal_contact = "", $contact = "", $phone = "", $fax = "", $email = "", $general_agreement = false, $terms = "", $valuta = "", array $trainer = array(), array $tags = array())
-    {
-        assert('is_int($id)');
-        assert('is_string($name)');
-        assert('is_float($rating)');
-        assert('is_string($info)');
-        assert('is_string($address1)');
-        assert('is_string($country)');
-        assert('is_string($address2)');
-        assert('is_string($postcode)');
-        assert('is_string($city)');
-        assert('is_string($homepage)');
-        assert('is_string($internal_contact)');
-        assert('is_string($contact)');
-        assert('is_string($phone)');
-        assert('is_string($fax)');
-        assert('is_string($email)');
-        assert('is_bool($general_agreement)');
-        assert('is_string($terms)');
-        assert('is_string($valuta)');
-
+    public function __construct(
+        int $id,
+        string $name,
+        float $rating = 0.0,
+        string $info = "",
+        string $address1 = "",
+        string $country = "",
+        string $address2 = "",
+        string $postcode = "",
+        string $city = "",
+        string $homepage = "",
+        string $internal_contact = "",
+        string $contact = "",
+        string $phone = "",
+        string $fax = "",
+        string $email = "",
+        bool $general_agreement = false,
+        string $terms = "",
+        string $valuta = "",
+        array $trainer = array(),
+        array $tags = array()
+    ) {
         $this->id = $id;
         $this->name = $name;
         $this->rating = $rating;
@@ -154,314 +157,225 @@ class Provider
         $this->tags = $tags;
     }
 
-    public function withName($name)
+    public function withName(string $name) : Provider
     {
-        assert('is_string($name)');
         $clone = clone $this;
         $clone->name = $name;
         return $clone;
     }
 
-    public function withRating($rating)
+    public function withRating(float $rating) : Provider
     {
-        assert('is_float($rating');
         $clone = clone $this;
         $clone->rating = $rating;
         return $clone;
     }
 
-    public function withInfo($info)
+    public function withInfo(string $info) : Provider
     {
-        assert('is_string($info)');
         $clone = clone $this;
         $clone->info = $info;
         return $clone;
     }
 
-    public function withAddress1($address1)
+    public function withAddress1(string $address1) : Provider
     {
-        assert('is_string($address1)');
         $clone = clone $this;
         $clone->address1 = $address1;
         return $clone;
     }
 
-    public function withCountry($country)
+    public function withCountry(string $country) : Provider
     {
-        assert('is_string($country)');
         $clone = clone $this;
         $clone->country = $country;
         return $clone;
     }
 
-    public function withAddress2($address2)
+    public function withAddress2(string $address2) : Provider
     {
-        assert('is_string($address2)');
         $clone = clone $this;
         $clone->address2 = $address2;
         return $clone;
     }
 
-    public function withPostcode($postcode)
+    public function withPostcode(string $postcode) : Provider
     {
-        assert('is_string($postcode)');
         $clone = clone $this;
         $clone->postcode = $postcode;
         return $clone;
     }
 
-    public function withCity($city)
+    public function withCity(string $city) : Provider
     {
-        assert('is_string($city)');
         $clone = clone $this;
         $clone->city = $city;
         return $clone;
     }
 
-    public function withHomepage($homepage)
+    public function withHomepage(string $homepage) : Provider
     {
-        assert('is_string($homepage)');
         $clone = clone $this;
         $clone->homepage = $homepage;
         return $clone;
     }
 
-    public function withInternalContact($internal_contact)
+    public function withInternalContact(string $internal_contact) : Provider
     {
-        assert('is_string($internal_contact)');
         $clone = clone $this;
         $clone->internal_contact = $internal_contact;
         return $clone;
     }
 
-    public function withContact($contact)
+    public function withContact(string $contact) : Provider
     {
-        assert('is_string($contact)');
         $clone = clone $this;
         $clone->contact = $contact;
         return $clone;
     }
 
-    public function withPhone($phone)
+    public function withPhone(string $phone) : Provider
     {
-        assert('is_string($phone)');
         $clone = clone $this;
         $clone->phone = $phone;
         return $clone;
     }
 
-    public function withFax($fax)
+    public function withFax(string $fax) : Provider
     {
-        assert('is_string($fax)');
         $clone = clone $this;
         $clone->fax = $fax;
         return $clone;
     }
 
-    public function withEmail($email)
+    public function withEmail(string $email) : Provider
     {
-        assert('is_string($email)');
         $clone = clone $this;
         $clone->email = $email;
         return $clone;
     }
 
-    public function withGeneralAgreement($general_agreement)
+    public function withGeneralAgreement(bool $general_agreement) : Provider
     {
-        assert('is_bool($general_agreement)');
         $clone = clone $this;
         $clone->general_agreement = $general_agreement;
         return $clone;
     }
 
-    public function withTerms($terms)
+    public function withTerms(string $terms) : Provider
     {
-        assert('is_string($terms)');
         $clone = clone $this;
         $clone->terms = $terms;
         return $clone;
     }
 
-    public function withValuta($valuta)
+    public function withValuta(string $valuta) : Provider
     {
-        assert('is_string($valuta)');
         $clone = clone $this;
         $clone->valuta = $valuta;
         return $clone;
     }
 
-    public function withTrainer(array $tainer)
+    public function withTrainer(array $trainer) : Provider
     {
         $clone = clone $this;
         $clone->trainer = $trainer;
         return $clone;
     }
 
-    public function withTags(array $tags)
+    public function withTags(array $tags) : Provider
     {
         $clone = clone $this;
         $clone->tags = $tags;
         return $clone;
     }
 
-    /**
-     *
-     * @return int
-     */
-    public function getId()
+    public function getId() : int
     {
         return $this->id;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getName()
+    public function getName() : string
     {
         return $this->name;
     }
 
-    /**
-     *
-     * @return float
-     */
-    public function getRating()
+    public function getRating() : float
     {
         return $this->rating;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getInfo()
+    public function getInfo() : string
     {
         return $this->info;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getAddress1()
+    public function getAddress1() : string
     {
         return $this->address1;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getCountry()
+    public function getCountry() : string
     {
         return $this->country;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getAddress2()
+    public function getAddress2() : string
     {
         return $this->address2;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPostcode()
+    public function getPostcode() : string
     {
         return $this->postcode;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getCity()
+    public function getCity() : string
     {
         return $this->city;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getHomepage()
+    public function getHomepage() : string
     {
         return $this->homepage;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getInternalContact()
+    public function getInternalContact() : string
     {
         return $this->internal_contact;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getContact()
+    public function getContact() : string
     {
         return $this->contact;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getPhone()
+    public function getPhone() : string
     {
         return $this->phone;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getFax()
+    public function getFax() : string
     {
         return $this->fax;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getEmail()
+    public function getEmail() : string
     {
         return $this->email;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getGeneralAgreement()
+    public function getGeneralAgreement() : bool
     {
         return $this->general_agreement;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getTerms()
+    public function getTerms() : string
     {
         return $this->terms;
     }
 
-    /**
-     *
-     * @return string
-     */
-    public function getValuta()
+    public function getValuta() : string
     {
         return $this->valuta;
     }

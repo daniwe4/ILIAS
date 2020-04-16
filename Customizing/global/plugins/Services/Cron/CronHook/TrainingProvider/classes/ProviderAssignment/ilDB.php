@@ -26,10 +26,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function createListProviderAssignment($crs_id, $provider_id)
+    public function createListProviderAssignment(int $crs_id, int $provider_id) : ListAssignment
     {
-        assert('is_int($crs_id)');
-        assert('is_int($provider_id)');
         $va = new ListAssignment($crs_id, $provider_id);
         $values = array(
             "crs_id" => array("integer", $va->getCrsId()),
@@ -43,10 +41,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function createCustomProviderAssignment($crs_id, $text)
+    public function createCustomProviderAssignment(int $crs_id, string $text) : CustomAssignment
     {
-        assert('is_int($crs_id)');
-        assert('is_string($text)');
         $va = new CustomAssignment($crs_id, $text);
         $values = array(
             "crs_id" => array("integer", $va->getCrsId()),
@@ -60,7 +56,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function update(ProviderAssignment $provider_assignment)
+    public function update(ProviderAssignment $provider_assignment) : void
     {
         $where = array(
             "crs_id" => array("integer", $provider_assignment->getCrsId())
@@ -83,11 +79,13 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($crs_id)
+    public function select(int $crs_id)
     {
-        assert('is_int($crs_id)');
-        $query = "SELECT crs_id, provider_id, provider_text FROM " . self::TABLE_NAME
-            . " WHERE crs_id=" . $this->getDB()->quote($crs_id, "integer");
+        $query =
+             "SELECT crs_id, provider_id, provider_text" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE crs_id = " . $this->getDB()->quote($crs_id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -113,7 +111,7 @@ class ilDB implements DB
             );
         }
 
-        if (is_null($venue_id) && !is_null($provider_text)) {
+        if (is_null($provider_id) && !is_null($provider_text)) {
             return new CustomAssignment(
                 (int) $crs_id,
                 $provider_text
@@ -126,26 +124,28 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($crs_id)
+    public function delete(int $crs_id) : void
     {
-        assert('is_int($crs_id)');
-        $query = "DELETE FROM " . self::TABLE_NAME . "\n"
-                . " WHERE crs_id = " . $this->getDB()->quote($crs_id, "integer");
+        $query =
+             "DELETE FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE crs_id = " . $this->getDB()->quote($crs_id, "integer") . PHP_EOL
+        ;
+
         $this->getDB()->manipulate($query);
     }
 
     /**
      * Return all crs obj ids where venue is used
      *
-     * @param int 	$id
-     *
      * @return int[]
      */
-    public function getAffectedCrsObjIds($id)
+    public function getAffectedCrsObjIds(int $id) : array
     {
-        $query = "SELECT crs_id" . PHP_EOL
-                . " FROM " . self::TABLE_NAME . PHP_EOL
-                . " WHERE provider_id = " . $this->getDB()->quote($id, "integer");
+        $query =
+            "SELECT crs_id" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE provider_id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
         $ret = array();
@@ -158,10 +158,8 @@ class ilDB implements DB
 
     /**
      * Install tables for provider assignment
-     *
-     * @return null
      */
-    public function install()
+    public function install() : void
     {
         if (!$this->getDB()->tableExists(self::TABLE_NAME)) {
             $fields = array(
@@ -188,10 +186,8 @@ class ilDB implements DB
 
     /**
      * Get the DB handler
-     *
-     * @return \ilDB
      */
-    protected function getDB()
+    protected function getDB() : \ilDBInterface
     {
         if ($this->db === null) {
             throw new \Exception("no db handler");

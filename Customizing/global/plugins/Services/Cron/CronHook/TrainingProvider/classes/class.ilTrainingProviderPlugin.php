@@ -3,7 +3,6 @@
 
 include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
 
-
 use \CaT\Plugins\TrainingProvider;
 
 /**

@@ -76,14 +76,15 @@ class ilDB implements DB
      */
     public function select($id)
     {
-        $query = "SELECT prov.name, prov.rating, prov.info, prov.address1, prov.country, prov.address2, prov.postcode, prov.city\n"
-                . " , prov.homepage, prov.internal_contact, prov.contact, prov.phone, prov.fax, prov.email, prov.general_agreement, prov.terms, prov.valuta\n"
-                . " , GROUP_CONCAT(alloc.id SEPARATOR '" . self::TAGS_DELIMITER . "') as tags"
-                . " FROM " . self::TABLE_NAME . " prov\n"
-                . " LEFT JOIN " . self::TABLE_TAGS_ALLOCATION . " alloc\n"
-                . "     ON alloc.provider_id = prov.id\n"
-                . " WHERE prov.id = " . $this->getDB()->quote($id, "integer") . "\n"
-                . " GROUP BY prov.id";
+        $query = "SELECT prov.name, prov.rating, prov.info, prov.address1, prov.country, prov.address2, prov.postcode, prov.city" . PHP_EOL
+                . ", prov.homepage, prov.internal_contact, prov.contact, prov.phone, prov.fax, prov.email, prov.general_agreement, prov.terms, prov.valuta" . PHP_EOL
+                . ", GROUP_CONCAT(alloc.id SEPARATOR '" . self::TAGS_DELIMITER . "') as tags" . PHP_EOL
+                . "FROM " . self::TABLE_NAME . " prov" . PHP_EOL
+                . "LEFT JOIN " . self::TABLE_TAGS_ALLOCATION . " alloc" . PHP_EOL
+                . "    ON alloc.provider_id = prov.id" . PHP_EOL
+                . "WHERE prov.id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+                . "GROUP BY prov.id" . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
 
@@ -168,12 +169,12 @@ class ilDB implements DB
      *
      * @return bool
      */
-    public function providerNameExist($new_provider_name)
+    public function providerNameExist(string $new_provider_name)
     {
-        assert('is_string($new_provider_name)');
-        $query = "SELECT count(name) AS name\n"
-                . " FROM " . self::TABLE_NAME . "\n"
-                . " WHERE name = " . $this->getDB()->quote($new_provider_name, "text");
+        $query = "SELECT count(name) AS name" . PHP_EOL
+                . "FROM " . self::TABLE_NAME . PHP_EOL
+                . "WHERE name = " . $this->getDB()->quote($new_provider_name, "text") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
         $row = $this->getDB()->fetchAssoc($res);
@@ -195,24 +196,24 @@ class ilDB implements DB
             $where = " WHERE " . $this->getDB()->in("tags.id", $filtered_tags, false, "integer");
         }
 
-        $query = "SELECT prov.id, prov.name, prov.rating, prov.info\n"
-                . "    , CONCAT_WS('" . self::NEW_LINE_DELIMITER . "', prov.address1, prov.address2, prov.country, prov.postcode, prov.city) AS address\n"
-                . "    , prov.homepage, prov.internal_contact\n"
-                . "    , CONCAT_WS('" . self::NEW_LINE_DELIMITER . "', prov.contact, prov.phone, prov.fax, prov.email) AS contact\n"
-                . "    , 'tags' AS tags\n"
-                . "    , prov.general_agreement, prov.terms, prov.valuta\n"
-                . "    , GROUP_CONCAT(DISTINCT CONCAT_WS(' ', train.salutation, train.title, train.firstname, CONCAT_WS(', ', train.lastname, train.firstname)) SEPARATOR '" . self::NEW_LINE_DELIMITER . "') as trainer\n"
-                . "    , MIN(train.fee) AS min_fee, MAX(train.fee) AS max_fee\n"
-                . "    , GROUP_CONCAT(DISTINCT CONCAT_WS('" . self::TAG_DELIMITER . "', tags.name, tags.color) SEPARATOR '" . self::TAGS_DELIMITER . "') as tags\n"
-                . " FROM " . self::TABLE_NAME . " prov\n"
-                . " LEFT JOIN " . self::TABLE_TRAINER . " train\n"
-                . "    ON prov.id = train.provider_id\n"
-                . " LEFT JOIN " . self::TABLE_TAGS_ALLOCATION . " talloc\n"
-                . "    ON prov.id = talloc.provider_id\n"
-                . " LEFT JOIN " . self::TABLE_TAGS . " tags\n"
-                . "    ON talloc.id = tags.id\n"
-                . $where
-                . " GROUP BY prov.id, train.provider_id"
+        $query = "SELECT prov.id, prov.name, prov.rating, prov.info" . PHP_EOL
+                . "    , CONCAT_WS('" . self::NEW_LINE_DELIMITER . "', prov.address1, prov.address2, prov.country, prov.postcode, prov.city) AS address" . PHP_EOL
+                . "    , prov.homepage, prov.internal_contact" . PHP_EOL
+                . "    , CONCAT_WS('" . self::NEW_LINE_DELIMITER . "', prov.contact, prov.phone, prov.fax, prov.email) AS contact" . PHP_EOL
+                . "    , 'tags' AS tags" . PHP_EOL
+                . "    , prov.general_agreement, prov.terms, prov.valuta" . PHP_EOL
+                . "    , GROUP_CONCAT(DISTINCT CONCAT_WS(' ', train.salutation, train.title, train.firstname, CONCAT_WS(', ', train.lastname, train.firstname)) SEPARATOR '" . self::NEW_LINE_DELIMITER . "') as trainer" . PHP_EOL
+                . "    , MIN(train.fee) AS min_fee, MAX(train.fee) AS max_fee" . PHP_EOL
+                . "    , GROUP_CONCAT(DISTINCT CONCAT_WS('" . self::TAG_DELIMITER . "', tags.name, tags.color) SEPARATOR '" . self::TAGS_DELIMITER . "') as tags" . PHP_EOL
+                . "FROM " . self::TABLE_NAME . " prov" . PHP_EOL
+                . "LEFT JOIN " . self::TABLE_TRAINER . " train" . PHP_EOL
+                . "    ON prov.id = train.provider_id" . PHP_EOL
+                . "LEFT JOIN " . self::TABLE_TAGS_ALLOCATION . " talloc" . PHP_EOL
+                . "    ON prov.id = talloc.provider_id" . PHP_EOL
+                . "LEFT JOIN " . self::TABLE_TAGS . " tags" . PHP_EOL
+                . "    ON talloc.id = tags.id" . PHP_EOL
+                . $where . PHP_EOL
+                . "GROUP BY prov.id, train.provider_id" . PHP_EOL
                 ;
 
         $res = $this->getDB()->query($query);
@@ -239,7 +240,7 @@ class ilDB implements DB
     }
 
     /**
-     * Checks if the new provider namealready exists
+     * Checks if the new provider name already exists
      *
      * @param string 	$name
      *
@@ -247,9 +248,11 @@ class ilDB implements DB
      */
     public function nameExists($name)
     {
-        $query = "SELECT COUNT(name) AS cnt\n"
-                . " FROM " . self::TABLE_NAME . "\n"
-                . " WHERE name = " . $this->getDB()->quote($name, "text");
+        $query =
+             "SELECT COUNT(name) AS cnt" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "WHERE name = " . $this->getDB()->quote($name, "text") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
         $row = $this->getDB()->fetchAssoc($res);
@@ -268,12 +271,13 @@ class ilDB implements DB
      *
      * @return string
      */
-    public function getCurrentProviderName($id)
+    public function getCurrentProviderName(int $id) : string
     {
-        assert('is_int($id)');
-        $query = "SELECT name\n"
-                . " FROM " . self::TABLE_NAME . "\n"
-                . " WHERE id = " . $this->getDB()->quote($id, "integer");
+        $query =
+             "SELECT name" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . "" . PHP_EOL
+            . "WHERE id = " . $this->getDB()->quote($id, "integer") . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
         $row = $this->getDB()->fetchAssoc($res);
@@ -288,9 +292,11 @@ class ilDB implements DB
      */
     public function getProviderOptions()
     {
-        $query = "SELECT id, name\n"
-                . "FROM " . self::TABLE_NAME . "\n"
-                . "ORDER BY name ASC";
+        $query =
+             "SELECT id, name" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+            . "ORDER BY name ASC" . PHP_EOL
+        ;
 
         $res = $this->getDB()->query($query);
         $ret = array();
@@ -328,13 +334,15 @@ class ilDB implements DB
      */
     public function getAllProviders($order_column, $order_direction)
     {
-        $query = "SELECT id,name,rating,info,address1,country,address2,\n"
-                        . "postcode,city,homepage,internal_contact,contact,\n"
-                        . "phone,fax,email,general_agreement,terms,valuta\n"
-                . "FROM " . self::TABLE_NAME;
+        $query =
+            "SELECT id,name,rating,info,address1,country,address2," . PHP_EOL
+            . "postcode,city,homepage,internal_contact,contact," . PHP_EOL
+            . "phone,fax,email,general_agreement,terms,valuta" . PHP_EOL
+            . "FROM " . self::TABLE_NAME . PHP_EOL
+        ;
 
         if ($order_column) {
-            $query .= " ORDER BY " . $order_column . " " . $order_direction;
+            $query .= "ORDER BY " . $order_column . " " . $order_direction . PHP_EOL;
         }
         $res = $this->getDB()->query($query);
 
