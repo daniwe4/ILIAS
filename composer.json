@@ -70,7 +70,42 @@
 	"autoload": {
 		"psr-4" : {
 			"ILIAS\\Tests\\" : "./tests",
-			"ILIAS\\" : "./src"
+			"ILIAS\\" : "./src",
+			"CaT\\Plugins\\AutomaticCancelWaitinglist\\" :
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/AutomaticCancelWaitinglist/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/AutomaticCancelWaitinglist/tests"
+			],
+			"CaT\\Plugins\\CourseCreation\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/CourseCreation/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/CourseCreation/tests"
+			],
+			"CaT\\Plugins\\CronJobSurveillance\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/CronJobSurveillance/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/CronJobSurveillance/tests"
+			],
+			"CaT\\Plugins\\ParticipationsImport\\" :
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/ParticipationsImport/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/ParticipationsImport/tests"
+			],
+			"CaT\\Plugins\\ScheduledEvents\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/ScheduledEvents/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/ScheduledEvents/tests"
+			],
+			"CaT\\Plugins\\SyncExtCalendars\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/SyncExtCalendars/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/SyncExtCalendars/tests"
+			],
+			"CaT\\Plugins\\TrainingProvider\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/TrainingProvider/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/TrainingProvider/tests"
+			]
 		},
 		"classmap": [
 			"./Services/",

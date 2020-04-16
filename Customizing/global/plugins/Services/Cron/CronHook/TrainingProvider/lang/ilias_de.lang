@@ -1,0 +1,99 @@
+title#:#Trainingsanbieter
+description#:#Übersicht aller Trainingsanbieter
+provider#:#Trainingsanbieter
+trainer#:#Trainer
+tags#:#Tags
+name#:#Name
+rating#:#Bewertung
+info#:#Info
+address#:#Adresse
+homepage#:#Homepage
+internal_contact#:#Zuständigkeit intern
+contact#:#Kontaktperson
+phone#:#Telefon
+fax#:#Fax
+email#:#E-Mail
+general_agreement#:#Rahmenvereinbarung
+terms#:#Konditionen
+trainer#:#Trainer
+min_fee#:#Min Honorar (netto) (EUR)
+max_fee#:#Max Honorar (netto) (EUR)
+tags#:#Tags
+actions#:#Aktionen
+edit_provider#:#Bearbeiten
+delete_provider#:#Löschen
+new_provider#:#Neuen Trainingsanbieter anlegen
+address1#:#Adresse
+address2#:#Adresszusatz
+country#:#Land
+postcode#:#Postleitzahl
+city#:#Ort
+save#:#Speichern
+cancel#:#Abbrechen
+yes#:#Ja
+no#:#Nein
+valuta#:#Währung
+confirm_delete_provider#:#Soll der Trainingsanbieter wirklich gelöscht werden? Sie löschen damit auch alle Ihm zugeordneten Trainer.
+new_provider_title#:#Neuen Traininganbieter anlegen
+sh_overall#:#Allgemein:
+sh_rating#:#Bewertung:
+sh_address#:#Anschrift:
+sh_contact#:#Kontakt:
+sh_terms#:#Konditionen:
+tag_name#:#Name
+tag_color#:#Color
+tag_actions#:#Aktionen
+tag_color_exampel#:#Farbbeispiel
+msg_input_is_required#:#Hier ist eine Angabe erforderlich. Bitte geben Sie einen Wert ein.
+address1_short#:#Der Wert für die Anschrift ist zu kurz.
+address1_info#:#Der Wert für die Anschrift muss mindestens %s Zeichen lang sein.
+city_short#:#Der Wert für den Ort ist zu kurz.
+city_info#:#Der Wert für den Ort muss mindestens %s Zeichen lang sein.
+name_info#:#Der Wert für den Namen muss mindestens %s Zeichen lang sein.
+email_not_valid#:#Die eingegebene Emailadresse ist nicht valide.
+provider_name_short#:#Der Wert für den Namen ist zu kurz.
+tag_title#:#Tags verwalten
+new_trainer#:#Neuen Trainer hinzufügen
+new_trainer_title#:#Neuen Trainer hinzufügen
+fee#:#Honorar (netto) (EUR)
+firstname#:#Vorname
+lastname#:#Nachname
+active#:#Aktiv
+please_select#:#-
+firstname_info#:#Der Wert für den Vornamen muss mindestens %s Zeichen lang sein.
+lastname_info#:#Der Wert für den Nachnamen muss mindestens %s Zeichen lang sein.
+trainer_firstname_short#:#Der Wert für den Vornamen ist zu kurz.
+trainer_lastname_short#:#Der Wert für den Nachnamen ist zu kurz.
+edit_trainer#:#Bearbeiten
+delete_trainer#:#Löschen
+confirm_delete_trainer#:#Möchten Sie den Trainer wirklich löschen?
+no_trainer_id#:#Keine ID für den Trainer gefunden.
+no_stars#:#Kein Stern
+one_star#:#*
+two_stars#:#* *
+three_stars#:#* * *
+four_stars#:#* * * *
+five_stars#:#* * * * *
+edit_provider_title#:#Trainingsanbieter bearbeiten
+edit_trainer_title#:#Trainer bearbeiten
+please_select#:#Bitte wählen
+tag_count_allocs#:#Anzahl Zuordnungen
+provider_name_exists#:#Ein Trainingsanbieter mit diesem Namen existiert bereits.
+error_name_to_short#:#Der Name eines Trainingsanbieters ist zu kurz. Dieser muss mindestens %s Zeichen lang sein.
+error_color_code_invalid#:#Der Farbcode eines Trainingsanbieters ist nicht korrekt.
+mobile_number#:#Mobil-Nummer
+extra_infos#:#Zusätzliche Infos
+trainer_title#:#Titel
+salutation#:#Anrede
+inactive#:#Inaktiv
+crs_provider_source#:#Trainingsanbieter
+crs_provider_source_text#:#Freitext
+crs_provider_text#:#Text
+crs_provider_source_list#:#aus Liste
+crs_provider_list#:#Auswahl
+crs_info_provider#:#Trainingsanbieter
+tags_saved#:#Die Tags wurden erfolgreich gespeichert.
+trainer_added#:#Der Trainer wurde erfolgreich hinzugefügt.
+trainer_updated#:#Der Trainer wurde erfolgreich aktualisiert.
+provider_added#:#Der Trainingsanbieter wurde erfolgreich hinzugefügt.
+provider_updated#:#Der Trainingsanbieter wurde erfolgreich aktualisiert.
