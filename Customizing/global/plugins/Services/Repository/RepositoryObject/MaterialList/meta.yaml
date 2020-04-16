@@ -1,0 +1,6 @@
+---
+ComponentType: Services
+ComponentName: Repository
+Slot: RepositoryObject
+SlotId: robj
+Name: MaterialList

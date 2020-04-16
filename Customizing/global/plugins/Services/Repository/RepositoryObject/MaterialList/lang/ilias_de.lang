@@ -1,0 +1,123 @@
+conf_header_configuration#:#Header-Daten im Export
+conf_materials#:#Materiallisteneinträge
+add_entry#:#Feld hinzufügen
+delete#:#Löschen
+save#:#Speichern
+cancel#:#Abbrechen
+configuration_entries#:#Header-Definition
+type#:#Typ
+source_for_value#:#Feld
+type_standard#:#Standardfelder
+type_amd#:#AMD-Felder
+type_function#:#Berechnungen
+configuration_entry_set_value_title#:#Neuen Typ <strong><i>%s</i></strong> konfigurieren.
+configuration_entry_new_success#:#Der neue Eintrag wurde erfolgreich angelegt.
+configuration_entry_update_success#:#Die Einträge wurden erfolgreich aktualisiert.
+configuration_entry_delete_success#:#Die ausgewählten Einträge wurden erfolgreich gelöscht.
+material_add_entries#:#Eintrag hinzufügen
+material_import_list#:#Materialliste importieren (upload)
+material_article_number#:#Artikelnummer
+material_title#:#Bezeichnung
+materials#:#Material
+material_sub_tab_material#:#Materialeinträge
+material_sub_tab_behavior#:#Verhalten
+material_behavior#:#Verhalten wählen
+material_upload#:#Importieren
+material_cancel_upload#:#Abbrechen
+material_upload_form_title#:#Materialliste importieren
+material_file#:#Datei
+free#:#Freie Eingabe
+auto_complete#:#Einträge aus definierter Liste
+mixed#:#Kombination
+objs_xmat#:#Materiallisten
+obj_xmat#:#Materialliste
+fnc_get_venue#:#Veranstaltungsort
+xlsx_venue#:#Veranstaltungsort
+venue#:#Veranstaltungsort
+xmat_new#:#Materialliste hinzufügen
+xmat_add#:#Anlegen
+objs_xmat_duplicate#:#Materialliste kopieren
+edit#:#Einstellungen bearbeiten
+lists_number_per_participant#:#Anzahl pro Teilnehmer
+lists_number_per_course#:#Anzahl pro Training
+lists_article_number_and_title#:#Artikelnummer - Bezeichnung
+lists_table_title#:#Material
+tab_settings#:#Einstellungen
+tab_material#:#Material
+lists_add_entries#:#Material hinzufügen
+lists_export_list#:#Materialliste herunterladen
+lists_export_all_lists#:#Alle Materiallisten herunterladen
+settings_title#:#Titel
+settings_description#:#Beschreibung
+settings_form_title#:#Einstellungen
+material_new_reduced#:#Sie haben zu viele neue Einträge auf einmal hinzufügen wollen. Wir haben es auf %s reduziert.
+list_not_save_article_numbers#:#Folgende Eingaben für 'Artikelnummer - Bezeichnung' konnten nicht gespeichert werden, da die Artikelnummer nicht bekannt ist.
+xlsx_header#:#Materialliste
+confirm_delete_header_settings#:#Sollen die ausgewählten Header-Definitionen wirklich gelöschen werden?
+xlsx_general_info_crs#:#Generelle Angaben zum Traininig
+xlsx_materials#:#Materialien
+xlsx_article_number#:#Artikelnummern
+xlsx_title#:#Bezeichnung
+xlsx_per_course#:#Anzahl/Seminar
+xlsx_course_title#:#Titel
+fnc_get_title#:#Titel
+xlsx_event_period#:#Veranstaltungszeitraum
+fnc_get_event_period#:#Veranstaltungszeitraum
+xlsx_min_member_count#:#minimale Teilnehmerzahl
+fnc_get_min_members#:#minimale Teilnehmerzahl
+xlsx_max_member_count#:#maximale Teilnehmerzahl
+fnc_get_max_members#:#maximale Teilnehmerzahl
+xlsx_member_count#:#Anzahl Mitglieder
+fnc_get_member_count#:#Anzahl Mitglieder
+xlsx_lat#:#Geographische Breite
+xlsx_long#:#Geographische Länge
+list_article_number_not_known#:#Artikelnummer nicht im System vorhanden.
+list_no_article_number#:#Sie haben keine Artikelnummer eingegeben.
+list_article_number_to_long#:#Artikelnummer ist zu lang. Maximal 32 Zeichen.
+list_no_title#:#Sie haben keine Beschreibung eingegeben.
+list_title_to_long#:#Beschreibung ist zu lang. Maximal 256 Zeichen.
+list_number_per_participant_negative#:#Anzahl pro Teilnehmer darf nicht kleiner als 0 sein.
+list_number_per_course_negative#:#Anzhal pro Kurs darf nicht kleiner als 0 sein.
+list_too_much_per_participant#:#In mindestens einer Zeile ist die Anzahl pro Teilnehmer sehr groß. Sind Sie sich sicher, dass diese Anzahl wirklich benötigt wird?
+material_success_save_behavior#:#Das Verhalten wurde erfolgreich geändert.
+material_success_save#:#Die Materiallisteneinträge wurde erfolgreich gespeichert.
+list_success_save#:#Die Materialliste wurde erfolgreich gespeichert.
+list_faults_in_inputs#:#Unvollständige/fehlerhafte Eingabe
+list_number_per_string#:#Bitte verwenden Sie nur Zahlen für die Anzahl.
+delete_existing#:#Bestehendes Material löschen
+delete_existing_info#:#Bestehendes Material wird vor dem Import gelöscht.
+no_materials_imported#:#Es wurden keine Materialien importiert.
+article_number_empty#:#Die Artikelnummer darf nicht leer sein.
+title_empty#:#Die Bezeichnung darf nicht leer sein.
+material_created_succesfull#:#Material wurde erfolgreich angelegt.
+material_updated_succesfull#:#Material wurde erfolgreich aktualisiert.
+confirm_delete_material#:#Soll das folgende Material wirklich gelöscht werden?
+materials_successfull_deleted#:#Materialien wurden erfolgreich gelöscht.
+obj_xmat_duplicate#:#Materialliste kopieren
+grp_create_xmat#:#Materialliste anlegen
+cat_create_xmat#:#Materialliste anlegen
+crs_create_xmat#:#Materialliste anlegen
+fold_create_xmat#:#Materialliste anlegen
+root_create_xmat#:#Materialliste anlegen
+xmat_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xmat_visible#:#Anzeigen: Materiallisten sind sichtbar und können genutzt werden
+xmat_read#:#Lesezugriff: Materialliste lesen
+xmat_copy#:#Kopieren: Materialliste kopieren
+xmat_write#:#Einstellungen bearbeiten: Einstellungen der Materiallisten bearbeiten
+xmat_delete#:#Löschen: Materialliste verschieben oder löschen
+no_minus#:#In der Artikelnummer darf "-" nicht verwendet werden.
+duplicated#:#Die Artikelnummer ist bereits vergeben. Bitte verwenden Sie eine eindeutige Artikelnummer.
+material_import_skiped#:#Aufgrund von doppelter Artikelnummer konnten Zeilen nicht importiert werden.
+fnc_get_tutor#:#Trainer
+recipient_mode#:#Versandadresse
+course_venue#:#Aus den Veranstaltungsort-Einstellungen übernehmen
+selection#:#Auswahl
+recipient#:#Empfänger
+send_days_before#:#Versandzeitpunkt
+save_settings_success#:#Einstellungen wurden erfolgreich gespeichert.
+recipient_info#:#Bitte geben Sie eine gültige E-Mail Adresse ein.
+send_days_before_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Materialliste versendet wird.
+filename_materiallist#:#Materialliste
+no_read_access_for_all_lists#:#Keine Materialliste vorhanden, auf die Sie Lesezugriff haben.
+create_xmat#:#Materialliste anlegen
+confirmation_delete_entries#:#Sollen folgende Einträge aus der Liste entfernt werden: %s?
