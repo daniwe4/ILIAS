@@ -1,0 +1,40 @@
+objs_xatr#:#Trainereinsatzlisten
+obj_xatr#:#Trainereinsatzliste
+xatr_new#:#Trainereinsatzliste hinzufügen
+xatr_add#:#Anlegen
+edit#:#Bearbeiten
+objs_xatr_duplicate#:#Trainereinsatzliste kopieren
+obj_xatr_duplicate#:#Trainereinsatzliste kopieren
+tab_settings#:#Einstellungen
+form_title#:#Einstellungen für Trainereinsatzliste
+title#:#Titel
+description#:#Beschreibung
+save#:#Speichern
+cancel#:#Abbrechen
+grp_create_xatr#:#Trainereinsatzliste anlegen
+cat_create_xatr#:#Trainereinsatzliste anlegen
+crs_create_xatr#:#Trainereinsatzliste anlegen
+fold_create_xatr#:#Trainereinsatzliste anlegen
+root_create_xatr#:#Trainereinsatzliste anlegen
+xatr_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xatr_visible#:#Anzeigen: Trainereinsatzlisten sind sichtbar und können genutzt werden
+xatr_read#:#Lesezugriff: Trainereinsatzliste lesen
+xatr_copy#:#Kopieren: Trainereinsatzliste kopieren
+xatr_write#:#Einstellungen bearbeiten: Einstellungen der Trainereinsatzlisten bearbeiten
+xatr_delete#:#Löschen: Trainereinsatzliste verschieben oder löschen
+no_trainings_available#:#Derzeit haben Sie keine Einsätze als Trainer.
+unknown#:#UNBEKANNT
+no_detail_infos#:#<strong><i>Es liegen keine weiteren Informationen zu diesem Angebot vor.</i></strong>
+to_course#:#Zum Training
+to_course_member#:#Zur Teilnehmerliste
+s_title_asc#:#Titel: aufsteigend
+s_title_desc#:#Titel: absteigend
+s_period_asc#:#Zeitraum: aufsteigend
+s_period_desc#:#Zeitraum: absteigend
+show_all#:#Alle anzeigen
+filter_month#:#Monat
+actions#:#Aktionen
+create_xatr#:#Trainereinsatzliste anlegen
+tab_report#:#Report
+show_info_tab#:#Info-Reiter
+show_info_tab_byline#:#Der Reiter "Info" wird angezeigt.
