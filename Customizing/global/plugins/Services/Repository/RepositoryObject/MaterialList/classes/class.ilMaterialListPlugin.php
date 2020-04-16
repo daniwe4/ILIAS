@@ -1,7 +1,6 @@
 <?php
 include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
 
-
 use \CaT\Plugins\MaterialList;
 
 /**
