@@ -54,7 +54,6 @@
 		"conceptsandtraining/lib-plugin-security": "^0.0.3",
 		"psr/log": "^1.0.1",
 		"box/spout": "2.7.2",
-		"conceptsandtraining/lib-excel-wrapper" : "^0.3.0"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "^1.6",
