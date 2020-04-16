@@ -1,0 +1,30 @@
+domain#:#Domain
+domain_configuration_overview#:#Zuweisung Org-Einheit / Selbstregistrierung
+create#:#Neue Zuweisung vornehmen
+domain_title#:#Domain
+domain_description#:#Beschreibung
+orgus#:#Zuweisung ILIAS Organisationseinheit
+organisational_unit#:#Zuweisung ILIAS Organisationseinheit
+position#:#Zuweisung ILIAS Position
+back#:#Abbrechen
+save#:#Zuweisung ändern
+edit_domain#:#Zuweisung bearbeiten
+no_domains_chosen#:#Keine Zuweisung ausgewählt
+delete_domains#:#Löschen
+please_choose#:#bitte wählen
+actions#:#Aktionen
+edit#:#Bearbeiten
+delete_domain#:#Löschen
+domain_updated#:#Änderungen gespeichert.
+abort#:#Abbrechen
+no_position_failure#:#Keine Position gewählt.
+no_orgus_failure#:#Keine Organisationseinheiten gewählt.
+new_domain_created#:#Neue Domain angelegt.
+domain_failure#:#Fehler: Domain mit dem gleichen Namen existiert bereits.
+role_exists_failure#:#Fehler: Domain mit dem gleichen Namen existiert bereits.
+delete#:#Löschen
+cancel#:#Abbrechen
+delete_domains_conf_head#:#Wollen Sie die folgenden Zuweisungen wirklich löschen: %s ?
+delete_domain_conf_head#:#Wollen Sie die Zuweisung '%s' wirklich löschen?
+domains_deleted#:#Die Zuweisungen wurden erfolgreich gelöscht.
+domain_deleted#:#Die Zuweisung wurde erfolgreich gelöscht.
