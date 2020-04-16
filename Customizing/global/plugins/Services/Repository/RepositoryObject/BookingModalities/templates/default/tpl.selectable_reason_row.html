@@ -1,0 +1,26 @@
+<tr class="{CSS_ROW}">
+	<!-- BEGIN checkb -->
+	<td class="std">
+		<input type="checkbox" name="{POST_VAR}[]" value="{ID}" />
+		<input type="hidden" name="{HIDDEN_ID_POST}" value="{HIDDEN_ID}" />
+	</td>
+	<!-- END checkb -->
+	<td class="std small">
+		{REASON}
+		<!-- BEGIN reason_alert -->
+		<div class="td-help-block">
+			<div class="help-block alert alert-danger" role="alert"><img border="0" src="{IMG_ALERT}" alt="{ALT_ALERT}" /> {TXT_ALERT}</div>
+		</div>
+		<!-- END reason_alert -->
+	</td>
+	<td class="std small">
+		<input type="checkbox" name="{ACTIVE_POST}" value="1" {CHECKED}/>
+	</td>
+</tr>
+<!-- BEGIN message -->
+<tr class="{MESSAGE_CSS_ROW}">
+	<td class="std" colspan="3">
+		{MESSAGE}
+	</td>
+</tr>
+<!-- END message -->
