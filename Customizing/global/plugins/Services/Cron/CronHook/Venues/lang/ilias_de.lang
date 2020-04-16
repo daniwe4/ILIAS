@@ -1,0 +1,117 @@
+title#:#Veranstaltungsort
+description#:#Übersicht aller Veranstaltungsorten
+venues#:#Veranstaltungsorte
+name#:#Name
+rating#:#Bewertung
+info#:#Info
+address#:#Adresse
+map#:#Karte
+homepage#:#Homepage
+internal_contact#:#Zuständigkeit intern
+contact#:#Kontaktperson
+phone#:#Telefon
+fax#:#Fax
+email#:#E-Mail
+general_agreement#:#Rahmenvereinbarung
+terms#:#Konditionen
+tags#:#Tags
+actions#:#Aktionen
+edit_venue#:#Bearbeiten
+delete_venue#:#Löschen
+new_venue#:#Neuen Veranstaltungsort anlegen
+address1#:#Adresse
+address2#:#Adresszusatz
+country#:#Land
+postcode#:#Postleitzahl
+city#:#Ort
+save#:#Speichern
+cancel#:#Abbrechen
+yes#:#Ja
+no#:#Nein
+valuta#:#Währung
+confirm_delete_venue#:#Soll der Veranstaltungsort wirklich gelöscht werden?
+new_venue_title#:#Neuen Veranstaltungsort anlegen
+sh_overall#:#Allgemein:
+sh_rating#:#Bewertung:
+sh_address#:#Anschrift:
+sh_contact#:#Kontakt:
+sh_terms#:#Konditionen:
+tag_name#:#Name
+tag_color#:#Color
+tag_actions#:#Aktionen
+tag_color_exampel#:#Farbbeispiel
+address1_short#:#Der Wert für die Anschrift ist zu kurz.
+address1_info#:#Der Wert für die Anschrift muss mindestens %s Zeichen lang sein.
+city_short#:#Der Wert für den Ort ist zu kurz.
+city_info#:#Der Wert für den Ort muss mindestens %s Zeichen lang sein.
+name_info#:#Der Wert für den Namen muss mindestens %s Zeichen lang sein.
+email_not_valid#:#Die eingegebene Emailadresse ist nicht valide.
+venue_name_short#:#Der Wert für den Namen ist zu kurz.
+tag_title#:#Tags verwalten
+please_select#:#-
+no_stars#:#Kein Stern
+one_star#:#*
+two_stars#:#* *
+three_stars#:#* * *
+four_stars#:#* * * *
+five_stars#:#* * * * *
+edit_venue_title#:#Veranstaltungsort bearbeiten
+please_select#:#Bitte wählen
+tag_count_allocs#:#Anzahl Zuordnungen
+venue_name_exists#:#Ein Veranstaltungsort mit diesem Namen existiert bereits.
+error_name_to_short#:#Der Name eines Veranstaltungsortes ist zu kurz. Dieser muss mindestens %s Zeichen lang sein.
+error_color_code_invalid#:#Der Farbcode eines Veranstaltungsortes ist nicht korrekt.
+crs_venue_source#:#Veranstaltungsort
+crs_venue_source_text#:#Freitext
+crs_venue_text#:#Text
+crs_venue_source_list#:#aus Liste
+crs_venue_list#:#Auswahl
+location#:#Veranstaltungsort
+sh_capacity#:#Raumkapazitäten
+number_rooms#:#Kapazitätsgröße (Anzahl Zimmer)
+number_rooms_overnight#:#Kapazitätsgröße (Anzahl Zimmer)
+min_person_any_room#:#Minimale Personenzahl (Tagungsraum)
+max_person_any_room#:#Maximale Personenzahl (Tagungsraum)
+min_room_size#:#Minimale Raumgröße (qm)
+max_room_size#:#Maximale Raumgröße (qm)
+sh_service#:#Bewirtung
+mail_service#:#Empfangsadresse für Bewirtungsliste
+mail_service_info#:#Bitte geben Sie eine gültige E-Mail Adresse ein.
+mail_room_setup#:#Empfangsadresse für Raumausstattung
+mail_room_setup_info#:#Bitte geben Sie eine gültige E-Mail Adresse ein.
+days_mail_service_list#:#Termin für Versand Bewirtungsinformation
+days_mail_service_list_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Bewirtungsliste versendet wird.
+days_mail_room_setup#:#Termin für Versand Raumausstattungsinformation
+days_mail_room_setup_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Raumausstattung versendet wird.
+room_count#:#Kapazitätsgröße (Anzahl Räume)
+sh_costs#:#Kosten
+fixed_rate_day#:#Tagespauschale (EUR)
+fixed_rate_all_inclusive#:#Vollpensionspauschale (EUR)
+bed_and_breakfast#:#Übernachtung inkl. Frühstück (EUR)
+other#:#Sonstiges (EUR)
+costs_terms#:#Bedingungen
+bed#:#Übernachtung exkl. Frühstück (EUR)
+fixed_rate_conference#:#Tagungspauschale (EUR)
+room_usage#:#Raumnutzung (EUR)
+venue_is_in_use#:#Der Veranstaltungsort wird zur Zeit verwendet und kann deshalb nicht gelöscht werden.
+tags_saved#:#Die Tags wurden erfolgreich gespeichert.
+venue_added#:#Der Veranstaltungsort wurde erfolgreich hinzugefügt.
+venue_updated#:#Der Veranstaltungsort wurde erfolgreich aktualisiert.
+mail_material_list#:#Empfangsadresse für Materialliste
+mail_material_list_info#:#Bitte geben Sie eine gültige E-Mail Adresse ein.
+days_mail_material_list#:#Termin für Versand der Materialliste
+days_mail_material_list_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Materialliste versendet wird.
+mail_accomodation_list#:#Empfangsadresse für Übernachtungsliste
+mail_accomodation_list_info#:#Bitte geben Sie eine gültige E-Mail Adresse ein.
+days_mail_accomodation_list#:#Termin für Versand der Übernachtungsliste
+days_mail_accomodation_list_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Übernachtungsliste versendet wird.
+days_remind_accomodation_list#:#Termin für Erinnerung, Übernachtungsliste
+days_remind_accomodation_list_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der finalen Übernachtungsliste versendet wird.
+vendor_name_exists#:#Ein Veranstalter mit diesem Namen existiert bereits.
+venue#:#Veranstaltungsort
+tags_venue#:#Tags
+tags_search#:#Tags für Trainingssuche
+crs_venue_list_additional#:#Details zum Veranstaltungsort
+venue_additional_info#:#Details zum Veranstaltungsort:
+error_name_tag_to_short#:#Der Name eines Tags ist zu kurz. Dieser muss mindestens %s Zeichen lang sein.
+error_color_code_tag_invalid#:#Der Farbcode eines Tags ist nicht korrekt.

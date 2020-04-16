@@ -1,0 +1,54 @@
+<div class="form-inline">
+	<table class="singlechoicewizard table table-condensed table-striped">
+		<thead>
+			<tr>
+				<th>{NAME_TITLE}<span class="asterisk">*</span></th>
+				<th>{COLOR_TITLE}<span class="asterisk">*</span></th>
+				<th>{COLOR_EXAMPEL_TITLE}</th>
+				<th>{ALLOCS_TITLE}</th>
+				<th>{ACTIONS_TITLE}</th>
+			</tr>
+		</thead>
+		<tbody class="tcont">
+			<!-- BEGIN row -->
+			<tr class="trow">
+				<!-- BEGIN input_name -->
+				<td>
+					<input class="form-control" type="text" id="{NAME_ID}" maxlength="{MAX_LENGTH}" name="{NAME_POST_VAR}[name][{NAME_ROW_NUMBER}]" value="{PROPERTY_VALUE_NAME}" />
+				</td>
+				<!-- END input_name -->
+				<!-- BEGIN input_color -->
+				<td>
+					#&nbsp;<input class="form-control" type="text" id="{COLOR_ID}" name="{COLOR_POST_VAR}[color][{COLOR_ROW_NUMBER}]" value="{PROPERTY_VALUE_COLOR}" />
+				</td>
+				<!-- END input_color -->
+				<!-- BEGIN input_color_exampel -->
+				<td>
+					<div class="ColorExam">
+						{COLOR}
+					</div>
+				</td>
+				<!-- END input_color_exampel -->
+				<!-- BEGIN input_color_error -->
+				<td>
+					<div><img style="height:25px; width:25px;" src="{IMAGE}" /></div>
+				</td>
+				<!-- END input_color_error -->
+				<!-- BEGIN input_color_blank -->
+				<td>
+					<div>&nbsp;</div>
+				</td>
+				<!-- END input_color_blank -->
+				<td>
+					<div class="allocs">{ALLOCS}</div>
+				</td>
+				<td>
+					<button type="button" name="{CMD_ADD}" class="singlechoice_add btn btn-link" id="add_{ID}">{ADD_BUTTON}</button>
+					<button type="button" name="{CMD_REMOVE}" class="singlechoice_remove btn btn-link" id="remove_{ID}">{REMOVE_BUTTON}</button>
+				</td>
+				<input type="hidden" id="{TARGET_ID_ID}" name="{TARGET_ID_POST_VAR}[id][{TARGET_ID_ROW_NUMBER}]" value="{TARGET_ID}" />
+			</tr>
+			<!-- END row -->
+		</tbody>
+	</table>
+</div>
