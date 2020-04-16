@@ -1,0 +1,75 @@
+<tr class="{CSS_ROW}">
+	<td class="std">
+		<!-- BEGIN checkb -->
+		<input type="checkbox" name="{POST_VAR}[{DELETE_COUNTER}]" value="{ID}" />
+		<!-- END checkb -->
+		<input type="hidden" name="{HIDDEN_ID_POST_VAR}[{DELETE_COUNTER}]" value="{HIDDEN_ID}" />
+		<input type="hidden" name="{HIDDEN_IS_BLANK_POST_VAR}" value="{HIDDEN_IS_BLANK}" class="agenda_item_blank"/>
+		<input type="hidden" class="day_start_time" name="day_start_time" value="{DAY_START_TIME}" />
+	</td>
+	<td class="std small">
+		{POSITION}
+	</td>
+	<td class="std agenda_item_selection">
+		{POOL_ITEMS}
+		<!-- BEGIN pool_item_alert -->
+		<div class="td-help-block">
+			<div class="help-block alert alert-danger" role="alert"><img border="0" src="{IMG_ALERT}" alt="{ALT_ALERT}" /> {TXT_ALERT}</div>
+		</div>
+		<!-- END pool_item_alert -->
+	</td>
+	<td class="std agenda_item_contents">
+		<div class="non-edit {C_HIDE_NON_EDIT}">
+			{POOL_ITEM_CONTENTS}
+		</div>
+		<div class="edit-fixed {C_HIDE_FIXED_EDIT}">
+			<textarea name="{I_CONTENT_EDIT_FIXED_POST}" cols="30" rows="3" {CEF_DISABLED}>{I_CONTENT_EDIT_FIXED}</textarea>
+		</div>
+		<div class="blank  {C_HIDE_BLANK}">
+			<textarea name="{I_CONTENT_BLANK_POST}" cols="30" rows="3" {CB_DISABLED}>{I_CONTENT_BLANK}</textarea>
+		</div>
+	</td>
+	<td class="std agenda_item_goals">
+		<div class="non-edit {G_HIDE_NON_EDIT}">
+			{POOL_ITEM_GOALS}
+		</div>
+		<div class="edit-fixed {G_HIDE_FIXED_EDIT}">
+			<textarea name="{I_GOALS_EDIT_FIXED_POST}" cols="30" rows="3" {GEF_DISABLED}>{I_GOALS_EDIT_FIXED}</textarea>
+		</div>
+		<div class="blank {G_HIDE_BLANK}">
+			<textarea name="{I_GOALS_BLANK_POST}" cols="30" rows="3" {GB_DISABLED}>{I_GOALS_BLANK}</textarea>
+		</div>
+	</td>
+
+	<td class="std agenda_item_time agenda_item_duration">
+		{DURATION}
+	</td>
+
+	<td class="std agenda_item_time agenda_item_start">
+		{START_TIME}
+	</td>
+
+	<td class="std agenda_item_time agenda_item_end">
+		{END_TIME}
+	</td>
+
+	<!-- BEGIN idd_relevant -->
+	<td class="std agenda_item_iddrelevance">
+		{POOL_ITEM_IDD_RELEVANCE}
+	</td>
+	<!-- END idd_relevant -->
+
+	<!-- BEGIN idd_time -->
+	<td class="std agenda_idd_time">
+		{IDD_TIME}
+	</td>
+	<!-- END idd_time -->
+
+</tr>
+<!-- BEGIN message -->
+<tr class="{MESSAGE_CSS_ROW}">
+	<td colspan="8">
+		{MESSAGE}
+	</td>
+</tr>
+<!-- END message -->

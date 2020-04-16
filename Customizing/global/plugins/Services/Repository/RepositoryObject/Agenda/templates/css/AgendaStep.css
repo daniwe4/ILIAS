@@ -1,0 +1,21 @@
+#form_agenda_step .control-label {
+	display: none;
+}
+
+@media (min-width: 768px) {
+	#form_agenda_step .col-sm-9 {
+		width: 100% !important;
+	}
+}
+
+.agenda_item_contents {
+	min-width: 300px;
+}
+
+.agenda_item_goals {
+	min-width: 300px;
+}
+
+.agenda_item_time {
+	min-width: 220px;
+}
