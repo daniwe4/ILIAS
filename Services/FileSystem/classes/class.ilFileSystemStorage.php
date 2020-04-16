@@ -40,8 +40,10 @@ abstract class ilFileSystemStorage
     const FACTOR = 100;
     const MAX_EXPONENT = 3;
     const SECURED_DIRECTORY = "sec";
-    
-    private $container_id;
+
+    // cat-tms-patch start
+    protected $container_id;
+    // cat-tms-patch end
     private $storage_type;
     private $path_conversion = false;
 

@@ -1,0 +1,177 @@
+content#:#Report
+properties#:#Einstellungen
+filter_year#:#Kalenderjahr
+filter_types#:#Trainingstypen
+filter_topics#:#Trainingsthemen
+filter_booking_status#:#Buchungsstatus
+filter_participation_status#:#Teilnahmestatus
+filter_edu_programme#:#Bildungsprogramm
+filter_categories#:#Trainingskategorien
+absent#:#keine Teilnahme
+none#:#Noch nicht bearbeitet
+in_progress#:#In Bearbeitung
+successful#:#teilgenommen
+crs_title#:#Trainingstitel
+crs_type#:#Trainingstyp
+crs_date#:#Zeitraum
+venue#:#Veranstaltungsort
+accomodation#:#Übernachtungsort
+nights#:#Übernachtungen
+provider#:#Anbieter
+trainer#:#Trainer
+booking_status#:#Buchungsstatus
+participation_status#:#Teilnahmestatus
+participant#:#gebucht
+waiting#:#gebucht auf Warteliste
+cancelled_after_deadline#:#storniert außerhalb der Stornofrist
+cancelled#:#storniert
+grp_create_xebr#:#Bildungsbiografie anlegen
+cat_create_xebr#:#Bildungsbiografie anlegen
+crs_create_xebr#:#Bildungsbiografie anlegen
+fold_create_xebr#:#Bildungsbiografie anlegen
+root_create_xebr#:#Bildungsbiografie anlegen
+xebr_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xebr_visible#:#Anzeigen: Bildungsbiografien sind sichtbar und können genutzt werden
+xebr_read#:#Lesezugriff: Bildungsbiografie lesen
+xebr_copy#:#Kopieren: Bildungsbiografie kopieren
+xebr_write#:#Einstellungen bearbeiten: Einstellungen der Bildungsbiografien bearbeiten
+xebr_delete#:#Löschen: Bildungsbiografie verschieben oder löschen
+obj_xebr#:#Bildungsbiografie
+objs_xebr#:#Bildungsbiografien
+xebr_add#:#Bildungsbiografie hinzufügen
+xebr_new#:#Bildungsbiografie hinzufügen
+settings_saved_confirm#:#Einstellungen gespeichert.
+objs_xebr_duplicate#:#Bildungsbiografie kopieren
+has_superior_overview#:#Ansicht für Führungskräfte
+filter_lastname#:#Nachname
+firstname#:#Vorname
+lastname#:#Nachname
+email#:#E-Mail
+login#:#Benutzername
+cnt_booked#:#Festplatzbuchungen
+cnt_waiting#:#Warteplatzbuchungen
+cnt_participated#:#Teilnahmen
+cnt_absent#:#abwesend
+cnt_cancelled_after_dl#:#storniert außerhalb der Frist
+idd_learning_time#:#IDD-Lernzeit
+idd_learning_time_booked#:#Gebuchte IDD-Lernzeit
+hours#:#Stunden
+actions#:#Aktionen
+deliver_certificate#:#Zertifikat herunterladen
+orgus_filter#:#Organisationseinheiten
+orgus#:#Organisationseinheiten
+certifacte_name#:#Zertifikat
+sum_idd_achieved#:#IDD-Lernzeit (bisher gesammelt)
+sum_idd_forecast#:#IDD-Lernzeit (bereits gebucht)
+view_edubio_of#:#Hier sehen Sie die Bildungsbiografie von %s %s.
+orgu_view_lp#:#Lernfortschritt einsehen
+orgu_view_lp_recursive#:#Lernfortschritt einsehen (rekursiv)
+xebr_orgu_view_lp#:#Benutzer darf den Lernfortschritt der Mitarbeiter dieser Organisationseinheit einsehen.
+xebr_orgu_view_lp_recursive#:#Benutzer darf den Lernfortschritt der Mitarbeiter dieser und der darunter liegenden Organisationseinheiten einsehen.
+no_permission_to_download#:#Sie besitzen nicht die Berechtigung das Zertifikat herunter zu laden.
+may_not_view_user#:#Sie besitzen nicht die Berechtigung die Bildungbiographie des Benutzers einzusehen.
+waiting_cancelled#:#storniert von Warteliste
+fee#:#Teilnahmegebühr (EUR)
+obj_xebr_duplicate#:#Bildungsbiografie kopieren
+approval_pending#:#Warten auf Genehmigung
+approval_declined#:#Anfrage abgelehnt
+delete_successful#:#Die Zertifikate wurden erfolgreich entfernt.
+crs_ref_id#:#Kurs Referenz-ID
+delete#:#Entfernen
+no_admin_no_action#:#Sie haben nicht die nötigen Rechte um diese Funktion auszuführen.
+no_course#:#Die eingegebene Kurs Referenz-ID ist kein Kurs.
+confirm_header#:#Sollen die Zertifikate für foldenden Kurs wirklich entfernt werden.
+cancel#:#Abbrechen
+delete_certificates#:#Zertifikate entfernen
+create_xebr#:#Bildungsbiografie anlegen
+total_sum_idd_achieved#:#Summe IDD-Lernzeit (bisher gesammelt)
+total_sum_idd_forecast#:#Summe IDD-Lernzeit (bereits gebucht)
+confirm_header_single#:#Soll das Zertifikat für foldenden Kurs und Benutzer wirklich entfernt werden.
+nothing_to_delete#:#Keine Benutzer gefunden, deren Zertifikat entfernt werden muss.
+reason#:#Begründung
+orgus_filter_recursive#:#auch darunterliegende Organisationseinheiten berücksichtigen
+to_scaled_feedback#:#Feedback zum Training
+settings#:#Einstellungen
+visible_columns#:#Spalten
+visible_columns_info#:#Die hier ausgewählten Spalten sind in der Ansicht für Führungskräfte initial sichtbar.
+recommend_training#:#Training empfehlen
+title#:#Title
+description#:#Beschreibung
+online#:#Online
+save#:#Speichern
+invisible_course_topics#:#"Unsichtbare" Trainings
+invisible_course_topics_info#:#Trainings mit einem dieser Themen, werden nicht angezeigt.
+refresh_user_certificates_message#:#Aufgrund einer Systemaktualisierung ist es erforderlich, den Abruf Ihrer bereits generierten Zertifikate einmalig neu zu initialisieren.<br/><br/>Klicken Sie dazu auf "Zertifikate initialisieren".<br/><br/>Die Aktualisierung der Zertifikate kann - abhängig von der Anzahl der Zertifikate - einige Minuten in Anspruch nehmen.<br/><br/>Im Anschluss stehen die Zertifikate wie gewohnt in Ihrer Bildungsbiografie zum Abruf zur Verfügung.<br/><br/>
+refresh_certificates#:#Zertifikate initialisieren
+user_certificates_refreshing_message#:#Die Initialisierung Ihrer Zertifikate ist aktuell noch in Arbeit.<br/><br/>Die Aktualisierung der Zertifikate kann - abhängig von der Anzahl der Zertifikate - einige Minuten in Anspruch nehmen.<br/><br/>Bitte haben Sie noch etwas Geduld.
+recommendation_allowed#:#"Kurs empfehlen" aktiv
+approval_revoked#:#Anfrage zurückgezogen
+schedules#:#Überblickszertifikate
+security#:#Sicherheit
+add_schedule#:#Überblickszertifikat hinzufügen
+title#:#Titel
+schedule#:#Zeitraum
+schedule_from#:#Zeitraum von
+schedule_to#:#Zeitraum bis
+active#:#Aktiv
+edit_schedule#:#Konfiguration bearbeiten
+edit_certificate#:#Überblickszertifikat bearbeiten
+delete_schedule#:#Konfiguration entfernen
+placeholder#:#Platzhalter
+total_idd_value#:#Gesammelte, fest erwirkte IDD Weiterbildungszeit.
+period_start#:#Zeitraum von
+period_end#:#Zeitraum bis
+schedule_created#:#Überblickszertifikat wurde erfolgreich angelegt. Die weitere Konfiguration des Überblickszertifikats ist nun möglich.
+schedule_updated#:#Überblickszertifikat wurde erfolgreich gespeichert.
+should_delete_schedule#:#Möchten Sie die Einstellungen für das Überblickszertifikat wirklich löschen? Die Aktion kann nicht rückgängig gemacht werden. Bereits generierte Zertifikate bleiben auch nach Löschung bestehen.
+schedule_deleted#:#Überblickszertifikat ist erfolgreich entfernt worden.
+new_schedule#:#Neues Überblickszertifikat
+min_idd_value#:#Schwellenwert IDD-Weiterbildungszeit
+usernames#:#Benutzernamen
+username#:#Benutzername
+usernames_info#:#Diese Benutzernamen sind berechtigt das Plugin zu konfigurieren.
+allowed_usernames#:#Berechtigte Benutzernamen
+usernames_saved#:#Die Benutzernamen wurden erfolgreich gespeichert.
+no#:#Nein
+yes#:#Ja
+back#:#Zurück
+period#:#Zeitraum
+received_idd_minutes#:#Ihre erreichte IDD-Weiterbildungszeit
+certificate_download#:#Überblickszertifikat
+certificate_header#:#Überblickszertifikate
+download_overview_certificate#:#Überblickszertifikat abrufen
+xebr_download_overview_certificate#:#Benutzer darf Überblickszertifikate herunterladen
+certificates#:#Überblickszertifikate
+title_is_in_use#:#Dieser Titel ist bereits vergeben. Bitte passen Sie Ihre Eingabe an.
+nothing_to_save#:#Keine Werte zum Speichern eingegeben.
+no_permission#:#Sie besitzen nicht die Berechtigung das Objekt zu bearbeiten.
+activation#:#Sichtbarkeit Tab "%s"
+config_title#:#Konfiguration
+config_saved#:#Die Konfiguration für die Sichtbarkeit des Tabs wurde gespeichert.
+visible#:#Sichtbar
+part_document#:#Überblick Teilnahmen
+participation_document#:#Überblick Teilnahmen aktiv
+part_document_headline#:#Überblick Trainingsteilnahmen
+part_document_name#:#Name:
+part_document_schedule#:#Weiterbildungszeitraum:
+part_document_idd_minutes#:#Summe IDD-Lernzeit:
+part_document_description#:#Im Folgenden sind die Trainings aufgeführt, an denen Sie teilgenommen haben und die im DEVK Campus finalisiert sind. Alle Maßnahmen, die noch offen sind bzw. in der Zukunft liegen, sind nicht in dieser Übersicht enthalten. Diese finden Sie online in Ihrer Bildungsbiografie.
+part_document_hours#:#Stunden
+part_document_print_date#:#Datum des Drucks:
+part_document_user_id#:#ID:
+part_document_page_number#:#Seite
+part_document_clock#:#Uhr
+part_document_crs_title#:#Trainingstitel
+part_document_crs_type#:#Trainingstyp
+part_document_crs_schedule#:#Zeitraum
+part_document_crs_content#:#Trainingsinhalte
+part_document_crs_provider#:#Anbieter
+part_document_crs_idd#:#IDD-Lernzeit
+part_document_download#:#Überblick Trainingsteilnahmen
+part_document_image#:#Logo für Überblick Trainingsteilnahmen
+part_document_logo#:#Logo
+part_document_logo_info#:#Logo für den Überblick der Trainingsteilnahmen. Maximales Format 180x175 Pixel.
+part_document_upload#:#Hochladen
+part_document_image_uploaded#:#Logo wurde erfolgreich hochgeladen/entfernt.
+part_document_file_name#:#Trainingsteilnahmen
+error_creating_certificate_pdf#:#Das Zertifikat konnte nicht erstellt werden. Bitte lassen Sie den Zertifikatsserver durch einen Administrator prüfen.
