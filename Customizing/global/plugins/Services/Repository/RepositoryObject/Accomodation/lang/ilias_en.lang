@@ -1,0 +1,91 @@
+editReservations#:#Reservations
+editProperties#:#Settings
+edit#:#Settings
+editUserReservationList#:#User (Reservations)
+xoac_save#:#Save
+xoac_cancel#:#Cancel
+delete#:#Delete
+add_user_reservation#:#Add User
+export_list#:#Export Accomodation List
+reservation_section_course_info#:#Course/Place of Accommodation
+course_title#:#Course
+course_timetable#:#Schedule
+accomodation_location#:#Place of Accommodation
+reservation_section_reservations#:#Reservation
+reservation_section_user_info#:#Reservations
+user_reservations#:#Overnight Stays
+booking_deadline#:#Booking Deadline
+settings_section_basics#:#Title/Description
+settings_title#:#Title
+settings_description#:#Description
+settings_section_xoac_config#:#Settings
+settings_venue_source#:#Place of Accommodation
+settings_venue_source_course#:#Use Venue at Course
+settings_venue_source_selection#:#Select from Venues
+settings_venue#:#Choice
+settings_max_places#:#Available Spaces
+settings_prior_day#:#Arrival on the Evening Before
+settings_following_day#:#Arrival on the Following Day
+settings_deadline#:#Booking Deadline (days)
+settings_relevant_sessions#:#Relevant Sessions
+user_reservations#:#Reservations
+user_info#:#User
+table_user_name#:#Name
+table_user_login#:#Login
+table_user_mail#:#eMail
+table_user_phone#:#Phone
+table_user_reservations#:#Reservations
+table_user_selfpay#:#Direct Payer
+table_user_edit_button#:#Edit
+reservation_list_firstname#:#Firstname
+reservation_list_lastname#:#Lastname
+reservation_list_reservations#:#Accomodation Days
+reservation_list_selfpay#:#Direct Payer
+reservation_list_nr#:#No.
+reservation_list_date#:#Appointment
+reservation_list_location#:#Location
+reservation_list_trainer#:#Trainer
+reservation_list_headline#:#ACCOMODATION LIST "%s"
+reservation_list_footer_page#:#Page
+reservation_list_function#:#Function
+xoac_visible#:#Show
+xoac_read#:#Read
+xoac_copy#:#Copy
+xoac_write#:#Edit Settings
+xoac_delete#:#Delete
+xoac_edit_permission#:#Change User Permissions
+xoac_create_accomodation_object#:#Create
+book_accomodation#:#Book Accomodation
+xoac_book_accomodation#:#Book Accomodation
+edit_reservations#:#Edit Reservations
+xoac_edit_reservations#:#Edit Reservations
+confirm_delete_user_reservations#:#Delete all reservations for these users?
+reservations_successfully_deleted#:#Deleted reservations.
+no_such_member#:#This is not a member of the course.
+date#:#Date
+table_chk_reservation#:#reservation
+table_chk_selfpay#:#self-paying
+not_below_course#:#This accommodation is not limited to one course and is therefore restricted in its functionality.
+placeholder_desc_accomodation_address#:#Address of accomodation
+placeholder_desc_overnights#:#overnights
+priorday#:#prior evening
+postday#:#next morning
+select_at_least_one_relevant_session#:#Please select at least one relevant session.
+to_settings#:#Accomodation settings
+yes#:#Yes
+no#:#No
+accomodation#:#Accomodations
+accomodation_intended#:#Accomodation intended?
+prior_day_intended#:#Arrival on the Evening Before intended?
+following_day_intended#:#Arrival on the Following Day intended?
+rbac_create_xoac#:#Create Accomodation
+reservation_list_note#:#Notes
+settings_edit_notes#:#Show field Edit Notes
+settings_edit_notes_info#:#Show field Notes for booking process and the tab 'Reservations'.
+notes#:#Notes
+notes_info#:#We would like to point out that this information will be sent to the hotel.
+table_note#:#Note
+booking_step_overview_none#:#No overnight stay
+no_overnight_selected#:#No overnight stays desired
+select_accomodation_wanted#:#Please select one of this fields.
+select_overnights#:#Please select at minimum one accomodation.

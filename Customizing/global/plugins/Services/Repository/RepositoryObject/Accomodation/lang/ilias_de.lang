@@ -1,0 +1,154 @@
+editReservations#:#Eigene Reservierungen
+editProperties#:#Einstellungen
+edit#:#Einstellungen
+editUserReservationList#:#Alle Reservierungen
+obj_xoac#:#Übernachtungen
+xoac_save#:#Speichern
+xoac_cancel#:#Abbrechen
+cancel#:#Abbrechen
+xoac_add#:#Anlegen
+xoac_new#:#Übernachtungen hinzufügen
+objs_xoac_duplicate#:#Übernachtungen kopieren
+obj_xoac_duplicate#:#Übernachtungen kopieren
+delete#:#Löschen
+add_user_reservation#:#Benutzer anzeigen
+export_list#:#Übernachtungsliste exportieren
+list#:#Übernachtungsliste
+reservation_section_course_info#:#Kurs/Übernachtungsort
+course_title#:#Kurs
+course_timetable#:#Zeitplan
+accomodation_location#:#Übernachtungsort
+reservation_section_reservations#:#Buchung
+reservation_section_user_info#:#Buchungen
+user_reservations#:#Übernachtungen
+booking_deadline#:#Reservierungs- und Änderungsfrist
+settings_section_basics#:#Titel/Beschreibung
+settings_title#:#Titel
+settings_description#:#Beschreibung
+settings_section_xoac_config#:#Einstellungen
+settings_venue_source#:#Übernachtungsort
+settings_venue_source_course#:#Veranstaltungsort ist gleichzeitig Übernachtungsort.
+settings_venue_source_selection#:#Auswahl
+settings_venue#:#Auswahl
+settings_max_places#:#Maximal verfügbare Plätze
+settings_prior_day#:#Vorabendanreise (im Buchungsprozess)
+settings_following_day#:#Abreise am Folgetag (im Buchungsprozess)
+settings_deadline#:#Buchungsfrist (in Tagen vor dem Training)
+settings_relevant_sessions#:#Relevante Sitzungen
+user_reservations#:#Reservierungen
+user_info#:#Benutzer
+table_user_name#:#Name
+table_user_login#:#Login
+table_user_mail#:#eMail
+table_user_phone#:#Telefon
+table_user_reservations#:#Reservierungen
+table_user_selfpay#:#Selbstzahler
+table_user_edit_button#:#Bearbeiten
+reservation_list_firstname#:#Vorname
+reservation_list_lastname#:#Nachname
+reservation_list_reservations#:#Übernachtungstage
+reservation_list_selfpay#:#Selbstzahler
+reservation_list_nr#:#Nr.
+reservation_list_date#:#Termin
+reservation_list_location#:#Übernachtungsort
+reservation_list_trainer#:#Trainingsbetreuer
+reservation_list_headline#:#ÜBERNACHTUNGSLISTE "%s"
+reservation_list_footer_page#:#Seite
+reservation_list_function#:#Funktion
+xoac_visible#:#Anzeigen
+xoac_read#:#Lesezugriff
+xoac_copy#:#Kopieren
+xoac_write#:#Einstellungen bearbeiten
+xoac_delete#:#Löschen
+xoac_edit_permission#:#Rechteeinstellungen ändern
+xoac_create_accomodation_object#:#Anlegen
+book_accomodation#:#Übernachtungen buchen
+xoac_book_accomodation#:#Übernachtungen buchen
+edit_reservations#:#Reservierungen bearbeiten
+xoac_edit_reservations#:#Reservierungen bearbeiten
+confirm_delete_user_reservations#:#Sollen alle Reservierungen für diese Benutzer gelöscht werden?
+reservations_successfully_deleted#:#Reservierungen gelöscht.
+no_such_member#:#Dieser Benutzer ist kein Mitglied des Kurses.
+date#:#Datum
+table_chk_reservation#:#Übernachtung
+table_chk_selfpay#:#Selbstzahler
+no_location_configured#:#Es ist kein Übernachtungsort hinterlegt.
+no_available_reservations#:#Es sind keine Übernachtungsmöglichkeiten verfügbar.
+user_reservation_byline#:#Wählen Sie hier Ihre gewünschten Übernachtungen aus.
+table_user_edit_is_selfpay#:#Selbstzahler
+xls_label_title#:#Übernachtungen/Reservierungen
+xls_label_venue#:#Übernachtungsort
+msg_creation_out_of_course_context#:#Dieses Objekt kann nicht außerhalb eines Kurses angelegt werden. <br><a href="%s"> Zurück. </a>
+no_edit_because_of_exisiting_bookings#:#Es sind Benutzer-Reservierungen vorhanden. Die Einstellungen können nicht verändert werden.
+not_below_course#:#Diese Übernachtung liegt nicht unterhalb eines Kurses und ist deshalb in seiner Funktionalität eingeschränkt.
+default_booking_step_label#:#Übernachtungen
+default_booking_step_description#:#Geben Sie hier die geünschten Übernachtungen an.
+booking_accomodations_done#:#Übernachtungen eingetragen.
+objs_xoac#:#Übernachtungen
+booking_step_overview_label#:#Gewünschte Übernachtungen
+booking_step_overview_none#:#Keine Übernachtung gewünscht
+settings_venue_empty_option#:#Bitte wählen Sie einen Ort
+xoac_visible#:#Übernachtung ist sichtbar
+xoac_read#:#Übernachtung ist lesbar
+xoac_copy#:#Übernachtung kopieren
+xoac_write#:#Einstellungen bearbeiten
+xoacdelete#:#Übernachtung löschen
+xoac_edit_permission#:#Rechteeinstellungen ändern
+grp_create_xoac#:#Übernachtung anlegen
+cat_create_xoac#:#Übernachtung anlegen
+crs_create_xoac#:#Übernachtung anlegen
+fold_create_xoac#:#Übernachtung anlegen
+root_create_xoac#:#Übernachtung anlegen
+nights_confirmation#:#Hiermit bestätige ich, dass die eingetragenen Übernachtungen korrekt sind.
+nights_confirmation_alert#:#Bitte bestätigen Sie, dass die eingetragenen Übernachtungen korrekt sind.
+reservation_successful_saved#:#Die Reservierungen wurden erfolgreich gespeichert.
+settings_successful_saved#:#Die Einstellungen wurden erfolgreich gespeichert.
+placeholder_desc_accomodation_address#:#Adresse des Übernachtungsortes (auf den der Benutzer gebucht ist)
+placeholder_desc_all_accomodation_addresses#:#Adressen aller Übernachtungsorte
+placeholder_desc_overnights#:#Übernachtungen des Benutzers
+priorday#:#Vorabend
+postday#:#nächster Morgen
+end_cant_be_smaller_then_start#:#Das Enddatum darf nicht kleiner als das Startdatum sein.
+settings_mail_source#:#Versandadresse
+settings_mailing_source_venue#:#Aus den Übernachtungsort-Einstellungen übernehmen
+settings_mailing_source_object#:#Auswahl
+recipient#:#Empfänger
+send_days_before#:#Versandzeitpunkt
+send_days_before_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Übernachtungsliste versendet wird.
+send_reminder_days_before#:#Versandzeitpunkt Erinnerung
+send_reminder_days_before_info#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der finalen Übernachtungsliste versendet wird.
+filename_accomodationlist#:#Uebernachtungsliste
+xls_label_course#:#Training
+xls_label_tutors#:#Trainer
+xls_label_admins#:#Trainingsbetreuer
+to_settings#:#Übernachtungseinstellungen
+yes#:#Ja
+no#:#Nein
+accomodation#:#Übernachtungsinformationen
+crs_member#:#Kursmitglied
+crs_admin#:#Kursadministrator
+crs_tutor#:#Kurstutor
+crs_waiting#:#(Warteliste)
+table_user_role#:#Funktion
+settings_date_source#:#Zeitraum
+settings_date_source_course#:#Zeitraum des Kurses übernehmen
+settings_date_source_settings#:#Auswahl
+settings_date_start#:#Startdatum
+settings_date_end#:#Enddatum
+placeholder_accomodations_with_no_bookings_for_user#:#Keine Übernachtungen ausgewählt
+delete_user_reservations#:#Reservierungen löschen
+table_user_lastname#:#Nachname
+table_user_firstname#:#Vorname
+create_xoac#:#Übernachtung erstellen
+free_text#:#Freitext
+no_accomodations#:#Keine Übernachtung gewünscht.
+need_accomodations#:#Ja, ich wünsche eine Übernachtung.
+reservation_list_note#:#Anmerkung
+settings_edit_notes#:#Feld Anmerkungen anzeigen
+settings_edit_notes_info#:#Das Feld Anmerkungen wird unter dem Reiter 'Eigene Reservierungen' und im Buchungsprozess angezeigt.
+notes#:#Anmerkungen
+notes_info#:#Wir weisen Sie darauf hin, dass diese Angaben an das Hotel übermittelt werden.
+table_note#:#Anmerkung
+no_overnight_selected#:#Keine Übernachtungen gewünscht
+select_accomodation_wanted#:#Bitte treffen Sie eine Wahl für Reservierungen.
+select_overnights#:#Bitte wählen Sie mindestens eine Übernachtung aus.
