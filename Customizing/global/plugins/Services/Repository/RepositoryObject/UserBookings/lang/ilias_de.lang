@@ -1,0 +1,54 @@
+objs_xubk#:#Buchungen von Benutzer
+obj_xubk#:#Buchungen von Benutzer
+edit#:#Einstellungen bearbeiten
+xubk_new#:#Buchungen von Benutzern hinzufügen
+objs_xubk_duplicate#:#Buchungen von Benutzern kopieren
+xubk_add#:#Anlegen
+objs_xubk_duplicate#:#Buchungen von Benutzern kopieren
+tab_settings#:#Einstellungen
+xubk_settings#:#Einstellungen
+title#:#Titel
+description#:#Beschreibung
+save#:#Speichern
+cancel#:#Abbrechen
+successful_saved#:#Einstellungen wurden erfolgreich gespeichert.
+xubk_visible#:#Buchungen von Benutzer ist sichtbar
+xubk_read#:#Buchungen von Benutzer ist lesbar
+xubk_copy#:#Buchungen von Benutzer kopieren
+xubk_write#:#Einstellungen bearbeiten
+xubk_delete#:#Buchungen von Benutzer löschen
+xubk_edit_permission#:#Rechteeinstellungen ändern
+grp_create_xubk#:#Buchungen von Benutzer anlegen
+cat_create_xubk#:#Buchungen von Benutzer anlegen
+crs_create_xubk#:#Buchungen von Benutzer anlegen
+fold_create_xubk#:#Buchungen von Benutzer anlegen
+root_create_xubk#:#Buchungen von Benutzer anlegen
+header#:#Meine Buchungen
+target_groups#:#Zielgruppen
+goals#:#Ziele und Nutzen
+topics#:#Trainingsthemen
+detail_information#:#Details
+location#:#Ort
+date#:#Datum
+fee#:#Kosten
+book_course#:#Buchen
+title#:#Titel
+type#:#Trainingstyp
+topic#:#Trainingsthema
+target_group#:#Zielgruppe
+city#:#Ort
+provider#:#Anbieter
+duration#:#Zeitraum
+not_min_member#:#Nur Trainings anzeigen, deren Mindestteilnehmerzahl noch nicht erreicht wurde.
+filter#:#Erweiterte Suche
+search#:#Suchen
+cancel_book#:#Buchung stornieren
+superior_view#:#Ansicht Vorgesetzter
+superior_view_info#:#Hiermit aktivieren Sie die Ansicht für Vorgesetzte.
+no_trainings_available#:#Derzeit haben Sie keine Trainings gebucht.
+actions#:#Aktionen
+create_xubk#:#Buchungen von Benutzer anlegen
+local_evaluation#:#Lokale Auswertung
+local_evaluation_info#:#Es werden nur Kurse unterhalb der Kategorie berücksichtigt.
+obj_xubk_duplicate#:#Buchungen von Benutzer kopieren
+recommendation_allowed#:#"Kurs empfehlen" aktiv
