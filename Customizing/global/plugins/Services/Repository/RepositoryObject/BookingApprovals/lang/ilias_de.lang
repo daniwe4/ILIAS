@@ -1,0 +1,72 @@
+objs_xbka#:#Genehmigungen
+obj_xbka#:#Genehmigungen
+xbka_add#:#Anlegen
+xbka_new#:#Genehmigungen hinzufügen
+objs_xbka_duplicate#:#Genehmigungen kopieren
+approval_overview#:#Genehmigungen
+approvals_list#:#Genehmigungen für meine Mitarbeiter
+lastname#:#Nachname
+firstname#:#Vorname
+email#:#E-Mail
+course_title#:#Trainingstitel
+course_date#:#Datum
+course_type#:#Trainingstyp
+course_provider#:#Anbieter
+course_venue#:#Veranstaltungsort
+course_content#:#Trainingsinhalte
+course_goals#:#Ziele und Nutzen
+course_participant_fee#:#Teilnahmegebühr (EUR)
+course_idd_time_units#:#IDD-Lernzeit
+approvals#:#Genehmigungen
+actions#:#Aktionen
+settings#:#Einstellungen
+settings_form_title#:#Einstellungen für Genehmigungen
+settings_title#:#Titel
+settings_description#:#Beschreibung
+save_settings_success#:#Die Einstellungen wurden erfolgreich gespeichert.
+save#:#Speichern
+cancel#:#Abbrechen
+edit#:#Bearbeiten
+xbka_visible#:#Anzeigen: Genehmigungen sind sichtbar und können genutzt werden
+xbka_read#:#Lesezugriff: Genehmigungen lesen
+xbka_copy#:#Kopieren: Genehmigungen kopieren
+xbka_write#:#Einstellungen bearbeiten: Einstellungen an Genehmigungen bearbeiten
+xbka_delete#:#Löschen: Genehmigungen verschieben oder löschen
+xbka_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen an Genehmigungen ändern
+approve#:#Bestätigen
+decline#:#Ablehnen
+multi_action#:#Bestätigen
+no_selection#:#Bitte wählen Sie mindestens eine Genehmigung aus.
+no_approval_permission#:#Sie haben nicht die benötigten Rechte um folgende Benutzer zu bearbeiten:<br><br>
+no_next_approver#:#Bitte beachten Sie, dass die nächste Position in der Genehmigungsfolge für folgende Benutzer nicht vergeben ist. Treffen Sie entsprechende Maßnahmen.
+successfuly_approved#:#Genehmigungen wurden erfolgreich erteilt für:
+approve_confirmed_success#:#Genehmigungen wurden erfolgreich erteilt.
+decline_confirmed_success#:#Genehmigungen wurden erfolgreich abgelehnt.
+status_open#:#offen
+status_approved#:#bestätigt
+status_declined#:#abgelehnt
+finished_approvals#:#Erledigte Genehmigungen
+finished_approvals_list#:#Erledigte Genehmigungen für meine Mitarbeiter
+my_finished_approvals_list#:#Übersicht meiner erledigten Genehmigungen
+settings_superior_view#:#Bearbeitungsansicht (Vorgesetzte)
+my_approvals_overview#:#Meine Genehmigungen
+my_approvals_list#:#Übersicht meiner ausstehenden Genehmigungen
+obj_xbka_duplicate#:#Genehmigungsansicht kopieren
+to_course#:#Details zum Training
+revoke_no_selection#:#Bitte wählen Sie mindestens eine Genehmigungsanfrage aus.
+revoke_success#:#Genehmigungsanfrage(n) zurückgezogen.
+status_revoked_by_user#:#zurückgezogen
+status_no_next_approver#:#Genehmigungsposition ist nicht vergeben
+blocked_approvals#:#Geblockte Genehmigungen
+blocked_approvals_list#:#Geblockte Genehmigungen meiner Mitarbeiter
+revoke#:#Zurückziehen
+msg_confirm_revoke#:#Sind Sie sicher, dass Sie die folgenden Buchungsanfragen zurückziehen möchten?
+msg_confirm_decline#:#Sind Sie sicher, dass Sie die folgenden Buchungsanfragen ablehnen möchten?
+msg_confirm_approve#:#Sind Sie sicher, dass Sie die folgenden Buchungsanfragen freigeben möchten?
+confirm#:#Bestätigen
+confirm_cancel#:#Abbrechen
+fold_create_xbka#:#Genehmigungen erstellen
+cat_create_xbka#:#Genehmigungen erstellen
+root_create_xbka#:#Genehmigungen erstellen
+grp_create_xbka#:#Genehmigungen erstellen
+crs_create_xbka#:#Genehmigungen erstellen

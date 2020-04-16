@@ -1,0 +1,38 @@
+<tr>
+	<!-- BEGIN checkbox_column -->
+	<td class="std">
+		<input type="checkbox" name="{ROW_SELECTION_POSTVAR}[]" value="{BOOKING_REQUEST_ID}" {DISABLED}/>
+	</td>
+	<!-- END checkbox_column -->
+	<td class="std small">
+		{LASTNAME}
+	</td>
+	<td class="std small">
+		{FIRSTNAME}
+	</td>
+	<td class="std small">
+		{EMAIL}
+	</td>
+	<td class="std small">
+		{CRS_TITLE}
+	</td>
+	<td class="std small">
+		{CRS_DATE}
+	</td>
+	<td class="std small">
+		{CRS_TYPE}
+	</td>
+	<!-- BEGIN custom_fields -->
+	<td class="std small">
+		{VAL_CUST}
+	</td>
+	<!-- END custom_fields -->
+	<td class="std small">
+	<!-- BEGIN approvals -->
+		<li>{POSITION}, {STATE} {APPROVAL_DETAILS}</li>
+	<!-- END approvals -->
+	</td>
+	<td class="std small">
+		{ACTIONS}
+	</td>
+</tr>
