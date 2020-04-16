@@ -51,7 +51,10 @@
 		"conceptsandtraining/wbd": "^5.1",
 		"conceptsandtraining/tgic": "^2.0",
 		"conceptsandtraining/lib-historizing": "^2.0.3",
-		"conceptsandtraining/lib-plugin-security": "^0.0.3"
+		"conceptsandtraining/lib-plugin-security": "^0.0.3",
+		"psr/log": "^1.0.1",
+		"box/spout": "2.7.2",
+		"conceptsandtraining/lib-excel-wrapper" : "^0.3.0"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "^1.6",
@@ -105,6 +108,46 @@
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/TrainingProvider/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/TrainingProvider/tests"
+			],
+			"UserCourseHistorizing\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/tests"
+			],
+			"CaT\\Plugins\\Venues\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/Venues/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/Venues/tests"
+			],
+			"CaT\\Plugins\\WBDCrsHistorizing\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/tests"
+			],
+			"CaT\\Plugins\\WorkflowReminder\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/WorkflowReminder/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/WorkflowReminder/tests"
+			],
+			"CaT\\Plugins\\OrguByMailDomain\\":
+			[
+				"./Customizing/global/plugins/Services/EventHandling/EventHook/OrguByMailDomain/classes",
+				"./Customizing/global/plugins/Services/EventHandling/EventHook/OrguByMailDomain/tests"
+			],
+			"CaT\\Plugins\\TrainingStatisticsByOrgUnits\\":
+			[
+				"./Customizing/global/plugins/Services/OrgUnit/OrgUnitTypeHook/TrainingStatisticsByOrgUnits/classes",
+				"./Customizing/global/plugins/Services/OrgUnit/OrgUnitTypeHook/TrainingStatisticsByOrgUnits/tests"
+			],
+			"CaT\\Plugins\\Accomodation\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/tests"
+			],
+			"CaT\\Plugins\\Accounting\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/tests"
 			]
 		},
 		"classmap": [
