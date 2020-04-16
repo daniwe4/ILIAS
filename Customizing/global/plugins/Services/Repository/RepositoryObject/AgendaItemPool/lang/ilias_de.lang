@@ -1,0 +1,77 @@
+agenda_item_pool#:#Bausteinpool
+agenda_items#:#Bausteinpool
+settings#:#Einstellungen
+add_item#:#Baustein hinzufügen
+copy_item#:#Baustein aus anderem Pool kopieren
+copy#:#Kopieren
+title#:#Titel
+descripiton#:#Beschreibung
+topic#:#Trainingsthema
+target_group#:#Zielgruppe
+method#:#Methoden
+is_active#:#Aktiv
+media#:#Medien
+last_change#:#zuletzt geändert
+change_usr#:#zuletzt geändert von
+obj_xaip#:#Bausteinpool
+xaip_new#:#Bausteinpool hinzufügen
+objs_xaip_duplicate#:#Bausteinpool kopieren
+xaip_add#:#Anlegen
+description#:#Beschreibung
+settings_online#:#Online
+settings_online_info#:#Nur wenn der Bausteinpool online geschaltet ist, steht dieser zur Verfügung.
+settings_saved#:#Einstellungen erfolgreich gespeichert.
+save_settings#:#Speichern
+save#:#Anlegen
+cancel#:#Abbrechen
+title_build_agenda_item#:#Baustein
+activate_cc_plugin#:#Bevor ein neuer Baustein erstellt werden kann, muss das Plugin Trainingssteckbrief aktiviert werden.
+delete_confirmation#:#Wollen Sie die ausgewählten Einträge wirklich löschen?
+delete#:#Löschen
+confirm#:#Bestätigen
+online#:#Online
+online_byline#:#Baustein online schalten.
+add_successful#:#Baustein erfolgreich hinzugefügt.
+xaip_visible#:#Anzeigen
+xaip_read#:#Lesezugriff
+xaip_copy#:#Kopieren
+xaip_write#:#Einstellungen bearbeiten
+xaip_delete#:#Löschen
+xaip_edit_permission#:#Rechteeinstellungen ändern
+idd_relevant#:#IDD relevant
+idd_relevant_byline#:#Bestimmt, ob dieser Baustein im Sinne der IDD anrechnungsfähig ist.
+edit#:#Bearbeiten
+objs_xaip#:#Bausteinpool
+actions#:#Aktionen
+update_successful#:#Aktualisierung erfolgreich.
+update#:#Aktualisieren
+entries_delete#:#Einträge wurden erfolgreich gelöscht.
+no_entries_delete#:#Es wurde kein Eintrag ausgewählt.
+no#:#Nein
+yes#:#Ja
+use_agenda_item#:#Bausteine verwenden
+edit_agenda_item#:#Bausteine bearbeiten
+xaip_use_agenda_item#:#Bausteine verwenden
+xaip_edit_agenda_item#:#Bausteine bearbeiten
+pls_select#:#Bitte wählen
+no_entries_selected#:#Es wurden keine Bausteine ausgewählt.
+import_agenda_item_pool#:#Baustein kopieren
+copy_entries#:#Baustein erfolgreich kopiert.
+goals#:#Ziele und Nutzen
+use_training_content#:#Trainingsthema übernehmen
+use_training_content_byline#:#NOCH NICHT BEKANNT
+gdv_learning_content#:#GDV-Lerninhalt
+idd_learning_content#:#IDD-Lerninhalt
+free_text#:#Freitextbaustein hinzufügen
+lt_three_chars#:#Der Wert, den Sie eingegeben haben, erfüllt nicht das vorgegebene Format. Bitte geben Sie mindestens 3 Zeichen ein.
+select_pool_first#:#Bitte wählen Sie zuerst einen Bausteinpool aus.
+obj_xaip_duplicate#:#Bausteinpool kopieren
+grp_create_xaip#:#Bausteinpool anlegen
+cat_create_xaip#:#Bausteinpool anlegen
+crs_create_xaip#:#Bausteinpool anlegen
+root_create_xaip#:#Bausteinpool anlegen
+fold_create_xaip#:#Bausteinpool anlegen
+agenda_item_content#:#Bausteininhalt
+no_delete_title#:#Folgende Bausteine können nicht gelöscht werden, da sie bereits verwendet werden.
+no_possible_delete#:#Keiner der ausgewählten Bausteine kann gelöscht werden.
+create_xaip#:#Bausteinpool anlegen
