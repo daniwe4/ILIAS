@@ -1,0 +1,78 @@
+filesystem_config#:#Dateisystem-Einstellungen
+path#:#Pfad der Importdateiablage
+filetitle_template#:#Format der Importdatei
+path_info#:#Ort, an dem die Importdateien abgelegt werden. Dieser Pfad muss für "www-data" lesbar sein.
+filetitle_template_info#:#Es kann "[INCREMENT]" als Versionsplatzhalter benutzt werden. Z.B. "Import_[INCREMENT].xlsx". Es wird immer die Datei mit dem größten Wert für "[INCREMENT]" importiert.
+save#:#Speichern
+mappings_config#:#Einstellungen zur Übersetzung der Daten
+show_user_mapping#:#Übersetzung Benutzer
+extern_user_id_field#:#Ilias-Benutzerfeld mit der externen Benutzer-Id
+field_select#:#Feld
+login#:#Login
+email#:#Email
+field_login#:#Login
+field_email#:#Email
+extern_user_id_field_info#:#Das ausgewählte Feld sollte die Semantik des Benutzerfeldes in der Teilnahmetabelle tragen.
+booking_status_mapping#:#Übersetzung Buchungsstatus
+participation_status_mapping#:#Übersetzung Teilnahmestatus
+status_extern#:#Externe Statusbezeichnung
+status_ilias#:#Status Ilias
+save_status_mapping#:#Speichern
+delete#:#Löschen
+absent#:#keine Teilnahme
+none#:#Noch nicht bearbeitet
+in_progress#:#In Bearbeitung
+successful#:#teilgenommen
+participant#:#gebucht
+waiting#:#gebucht auf Warteliste
+cancelled_after_deadline#:#storniert außerhalb der Stornofrist
+cancelled#:#storniert
+approval_declined#:#Genehmigung abgeleht
+approval_pending#:#Genehmigung noch nicht erteilt
+waiting_cancelled#:#von der Warteiste storniert worden
+waiting_self_cancelled#:#selbst von der Warteliste storniert
+data_sources_config#:#Konfiguration Format der Datenlieferung
+extern_crs_id_col#:#Spalte externe Trainingskennung
+crs_title_col_title#:#Spalte Trainingstitel
+crs_type_col_title#:#Spalte Trainingstyp
+crs_begin_date_col_title#:#Spalte Trainingsanfang
+crs_end_date_col_title#:#Spalte Trainingsende
+extern_usr_id_col_title#:#Spalte Externe Benutzerkennung
+participation_status_col_title#:#Spalte Teilnahmestatus
+booking_status_col_title#:#Spalte Buchungsstatus
+booking_date_col_title#:#Spalte Buchungsdatum
+participation_date_col_title#:#Spalte Teilnahmedatum
+idd_col_title#:#Spalte IDD-Zeit
+crs_type_default#:#Standardeintrag Trainingstyp
+crs_title_default#:#Standardeintrag Trainingstitel
+participation_status_default#:#Standardeintrag Teilnahmestatus
+booking_status_default#:#Standardeintrag Buchungsstatus
+idd_default_booked#:#Standardeintrag gebuchte IDD-Zeit
+idd_default_achieved#:#Standardeintrag erworbene IDD-Zeit
+extern_crs_id_col_title_info#:#Spalte mit externer Trainingskennung
+extern_usr_id_col_title_info#:#Spalte mit der externen Benutzerkennung
+crs_begin_date_col_title_info#:#Ist kein Datum gesetzt, so wird das Enddatum übernommen.
+crs_end_date_col_title_info#:#Ist kein Datum gesetzt, so wird das Startdatum übernommen.
+booking_date_col_title_info#:#Ist kein Datum gesetzt, so wird das Teilnahmedatum übernommen.
+participation_date_col_title_info#:#Ist kein Datum gesetzt, so wird das Buchungsdatum übernommen.
+crs_type_default_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+crs_title_default_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+participation_status_default_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+booking_status_default_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+idd_default_booked_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+idd_default_achieved_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+import_file_config#:#Definition der Spalten der Importdatei.
+filesystem_configuration#:#Dateisystem-Einstellungen
+crs_provider_col_title#:#Spalte Trainingsanbieter
+crs_venue_col_title#:#Spalte Veranstaltungsort
+crs_idd_col_title#:#Spalte gebuchte IDD-Zeit
+partricipation_idd_col_title#:#Spalte erworbene IDD-Zeit
+crs_provider_default#:#Standardeintrag Trainingsanbieter
+crs_venue_default#:#Standardeintrag Veranstaltungsort
+course_data_info#:#Spaltendefinition Kurstabelle
+participation_data_info#:#Spaltendefinition Teilnahmetabelle
+default_data_info#:#Einstellungen für Standardwerte
+crs_provider_defaul_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+crs_venue_default_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
+invalid_input_idd_default_booked#:#Ungültige eingabe bei den IDD-Zeiten Standardeinstellungen. Bitte nur Zahlen oder nichts eingeben.
+invalid_input_idd_default_achived#:#Ungültige eingabe bei den IDD-Zeiten Standardeinstellungen. Bitte nur Zahlen oder nichts eingeben.

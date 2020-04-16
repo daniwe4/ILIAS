@@ -28,9 +28,6 @@ class ParticipationStatusRelationMappingTest extends TestCase
         $this->assertEquals($psm->ilParticipationStatusForExternStatus('foo'), Mapping::NO_MAPPING_FOUND_STRING);
     }
 
-    /**
-     * @expectException CaT\Plugins\ParticipationsImport\Mappings\RelationException
-     */
     public function test_invalid_status()
     {
         $psm = new ParticipationStatusRelationMapping();

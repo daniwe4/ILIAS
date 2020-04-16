@@ -79,9 +79,6 @@ class BookingStatusRelationMappingTest extends TestCase
         );
     }
 
-    /**
-     * @expectException CaT\Plugins\ParticipationsImport\Mappings\RelationException
-     */
     public function test_invalid_status()
     {
         $psm = new BookingStatusRelationMapping();
