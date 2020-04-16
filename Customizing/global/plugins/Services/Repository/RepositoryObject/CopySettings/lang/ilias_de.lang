@@ -1,0 +1,103 @@
+copy_settings#:#Kopiereinstellungen
+save#:#Speichern
+cancel#:#Abbrechen
+title#:#Titel
+copy#:#Kopieren
+link#:#Verknüpfen
+omit#:#Auslassen
+copy_all#:#Alle kopieren
+link_all#:#Alle verknüpfen
+omit_all#:#Alle auslassen
+missing_perm#:#Fehlende Berechtigung
+tab_settings#:#Einstellungen
+tab_children_settings#:#Kopiereinstellungen
+edit#:#Bearbeiten
+property_title#:#Einstellungen für Kopiereinstellung
+description#:#Beschreibung
+obj_xcps#:#Kopiereinstellung
+objs_xcps#:#Kopiereinstellungen
+xcps_new#:#Kopiereinstellung hinzufügen
+xcps_add#:#Anlegen
+xcps_duplicate#:#Kopiereinstellung kopieren
+obj_xcps_duplicate#:#Kopiereinstellung kopieren
+objs_xcps_duplicate#:#Kopiereinstellung kopieren
+xcps_visible#:#Anzeigen: Kopiereinstellungen ist sichtbar und können genutzt werden
+xcps_read#:#Lesezugriff: Kopiereinstellung lesen
+xcps_create_from_template#:#Neues Objekt mit definierten Einstellungen erstellen
+xcps_copy#:#Kopieren: Kopiereinstellung kopieren
+xcps_write#:#Einstellungen bearbeiten: Einstellung der Kopiereinstellung bearbeiten
+xcps_delete#:#Löschen: Kopiereinstellung verschieben oder löschen
+xcps_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+grp_create_xcps#:#Kopiereinstellung anlegen
+cat_create_xcps#:#Kopiereinstellung anlegen
+crs_create_xcps#:#Kopiereinstellung anlegen
+root_create_xcps#:#Kopiereinstellung anlegen
+fold_create_xcps#:#Kopiereinstellung anlegen
+duplicate_from_template#:#Kurs aus Vorlage anlegen
+choose_course_location#:#Ort für neuen Kurs aussuchen
+xcps_duplicate_from_template#:#Kurs aus Vorlage erzeugen
+xcps_choose_course_location#:#Ort für neuen Kurs aussuchen
+not_below_course#:#Diese Kopiereinstellungen liegen nicht unterhalb eines Kurses und sind deshalb in ihrer Funktionalität eingeschränkt.
+settings_successful_saved#:#Die Einstellungen wurden erfolgreich gespeichert.
+copy_settings_successful_saved#:#Die Kopiereinstellungen wurden erfolgreich gespeichert.
+template_prefix#:#Vorlage
+sec_content#:#Trainingsinhalt
+training_content#:#Trainingsinhalt
+sec_schedule#:#Zeitplan
+day#:#Tag
+time#:#Uhr
+training_period#:#Trainingsablauf
+sec_venue_and_provider#:#Ort und Anbieter
+sec_organisational#:#Organisatorisches
+course_organisation#:#Organisatorisches
+edit_title#:#Kurstitel ändern
+edit_title_info#:#Der Kurstitel darf im Anlagemechanismus für Trainings geändert werden.
+edit_target_groups#:#Zielgruppen ändern
+edit_target_groups_info#:#Die Zielgruppen dürfen im Anlagemechanismus für Trainings geändert werden.
+edit_content#:#Inhalte ändern
+edit_content_info#:#Die Inhalte dürfen im Anlagemechanismus für Trainings geändert werden.
+set_by_agenda#:#Wird aus Ablaufplan bestimmt.
+start_and_end#:#Start- und Endzeit
+destination#:#Ablageort
+selected_destination#:#Gewählter Ablageort
+select_destination#:#Ablageort auswählen
+edit_benefits#:#Ziele und Nutzen ändern
+edit_benefits_info#:#Die Ziele und Nutzen dürfen im Anlagemechanismus für Trainings geändert werden.
+creator_role#:#Rolle des Anlegenden am Training
+crs_admin_role#:#Kursadministrator
+crs_tutor_role#:#Kurstutor
+no_role#:#keine Rolle
+time_mode#:#Modus für Kursstart bei Anlage
+only_future#:#Nur in der Zukunft
+min_days_in_future#:#Tage in der Zukunft
+everytime#:#Immer
+start_must_be_in_future#:#Der Kurs darf nicht vor dem %s starten.
+additional_infos#:#Zusätzliche Informationen
+additional_infos_info#:#Im Anlagemechanismus können zusätzliche Informationen (z. B. für externe Trainings) hinzugefügt werden.
+weblink#:#Weblink
+idd_learningtime#:#IDD-Lernzeit
+edit_idd_learningtime#:#IDD Lernzeit ändern
+edit_idd_learningtime_info#:#Die IDD Lernzeit darf im Anlagemechanismus für Trainings geändert werden.
+hours#:#Stunden
+file#:#Datei hochladen
+create_xcps#:#Kopiereinstellung anlegen
+no_mail#:#Kein Mailversand
+no_mail_info#:#Mit dieser Einstellung können Sie den Mailversand nach der Trainingsanlage deaktivieren.
+il_crs_member#:#Kursmitglied
+suppress_mail_delivery#:#"Mailversand unterdrücken" im Anlageprozess anzeigen
+suppress_mail_delivery_info#:#Mit dieser Einstellung können Sie bestimmen, ob die Option "Mailversand unterdrücken" im Anlageprozess angezeigt wird.
+event_start_time#:#Startzeit
+event_end_time#:#Endzeit
+edit_venue#:#Veranstaltungsort ändern
+edit_venue_info#:#Der Veranstaltungsort darf im Anlagemechanismus für Trainings geändert werden.
+edit_provider#:#Trainingsanbieter ändern
+edit_provider_info#:#Der Trainingsanbieter darf im Anlagemechanismus für Trainings geändert werden.
+edit_gti#:#GTI Einstellungen ändern
+edit_gti_info#:#Im Anlagemechanismus können GTI Informationen geändert werden.
+if_not_set_by_agenda#:#Wenn 'Nein' gewählt ist, wird die Trainingszeit aus dem Ablaufplan bestimmt.
+edit_target_group_description#:#Zielgruppenbeschreibung (Freitext) ändern
+edit_target_group_description_info#:#Die Freitextbeschreibung der Zielgruppen darf im Anlagemechanismus für Trainings geändert werden.
+edit_memberlimits#:#Teilnehmeranzahl ändern
+edit_memberlimits_info#:#Die minimale und maximale Teilnehmerzahl darf im Anlagemechanismus für Trainings geändert werden.
+label_booking_modalitites#:#Buchungsmodalitäten
+sec_modalities#:#Buchungsmodalitäten
