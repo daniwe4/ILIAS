@@ -22,7 +22,7 @@ class ilAdditionalLinkInputGUI extends \ilCustomInputGUI
     }
 
     protected function writeLine(
-        \ilGlobalTemplateInterface $tpl,
+        \ilTemplate $tpl,
         string $postvar,
         string $label,
         string $url

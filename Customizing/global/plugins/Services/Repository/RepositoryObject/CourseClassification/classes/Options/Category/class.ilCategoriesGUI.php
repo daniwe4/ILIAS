@@ -44,7 +44,7 @@ class ilCategoriesGUI extends ilOptionsGUI
         if ($post["caption"] && count($post["caption"]) > 0) {
             foreach ($post["caption"] as $key => $value) {
                 $topics = $this->actions->getTopicsById((int) $post["hidden_id"][$key]);
-                $ret[$key] = new Category\Category((int) $post["hidden_id"][$key], $value, $topics);
+                $ret[$key] = new Category\Category((int) $post["hidden_id"][$key], $value, ...$topics);
             }
         }
 

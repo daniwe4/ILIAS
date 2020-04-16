@@ -69,7 +69,7 @@ class ilActions extends ilOptionActions
      */
     public function getNewOption() : Option
     {
-        return new Category(-1, "", array());
+        return new Category(-1, "", ...[]);
     }
 
     public function getTopicsById(int $category_id) : array

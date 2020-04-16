@@ -20,7 +20,7 @@ class ilDB extends Options\ilDB
     public function create(string $caption) : Options\Option
     {
         $id = $this->getNextId();
-        $option = new Category($id, $caption);
+        $option = new Category($id, $caption, ...[]);
 
         $values = [
             "id" => ["integer", $option->getId()],

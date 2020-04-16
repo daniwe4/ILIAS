@@ -44,7 +44,11 @@ class ilCourseClassificationGUI
     protected $g_ctrl;
 
     /**
+<<<<<<< HEAD
      * @var ilGlobalTemplateInterface
+=======
+     * @var ilTemplate
+>>>>>>> TMS CourseClassification: Add Plugin to MonoRepo and update unit tests
      */
     protected $g_tpl;
 
