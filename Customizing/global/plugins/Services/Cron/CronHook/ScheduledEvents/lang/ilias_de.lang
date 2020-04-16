@@ -1,0 +1,10 @@
+title#:#Scheduled Events
+description#:#Überprüft zeitlich versetzte Events und löst diese bei Fälligkeit aus.
+scheduled_events#:#Event-Queue
+table_title#:#Queued Events
+table_col_id#:#ID
+table_col_issuer_ref#:#Origin RefId
+table_col_due#:#Due
+table_col_component#:#Komponente
+table_col_event#:#Event
+table_col_params#:#Parameter
