@@ -232,7 +232,7 @@ class WBDCrs implements HistCase
         return false;
     }
 
-    private function relevantRole($role_id)
+    protected function relevantRole($role_id)
     {
         $role_title = \ilObject::_lookupTitle($role_id);
         return strpos($role_title, 'il_crs_tutor_') === 0
