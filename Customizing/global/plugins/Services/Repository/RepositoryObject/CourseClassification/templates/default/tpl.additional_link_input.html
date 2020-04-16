@@ -1,0 +1,12 @@
+<!-- BEGIN line -->
+<div class="form-inline">
+	<label for="{POST_VAR}_key[]">{LABEL_LABEL}</label>
+	<input class="form-control" name="{POST_VAR}_key[]" value="{LABEL_VALUE}" type="text" />
+	&nbsp;
+	<label for="{POST_VAR}_value[]">{URL_LABEL}</label>
+	<input class="form-control" name="{POST_VAR}_value[]" value="{URL_VALUE}" type="text" size="80"/>
+	<button type="button" class="btn btn-link" onclick="javascript: var l = $(this).parents('.form-inline'); c = l.clone(); c.children('input').val(''); c.insertAfter(l); return false;" >{SRC_ADD}</button>
+	<button type="button" class="btn btn-link" onclick="javascript: if($(this).parents('.col-sm-9').children().length == 1) {return false}; $(this).parents('.form-inline').remove(); return false;">{SRC_REMOVE}</button>
+</div>
+<!-- END line -->
+

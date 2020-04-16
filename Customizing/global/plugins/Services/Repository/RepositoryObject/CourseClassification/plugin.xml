@@ -1,0 +1,6 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<plugin id="xcml">
+	<events>
+		<event type="listen" id="Plugin/CourseClassification" />
+	</events>
+</plugin>
