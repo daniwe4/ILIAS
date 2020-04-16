@@ -1,0 +1,73 @@
+content#:#Report
+properties#:#Einstellungen
+title#:#Trainingstitel
+crs_type#:#Trainingstyp
+crs_date#:#Starttermin
+crs_date_end#:#Endtermin
+venue#:#Veranstaltungsort
+accomodation#:#Übernachtungsort
+nights_total#:#Summe Übernachtungen
+nights_resolved_count#:#Übernachtungen (Anzahl)
+provider#:#Anbieter
+trainer#:#Trainer
+cnt_booked#:#Festplatzbuchungen (Anzahl)
+cnt_waiting#:#Warteplatzbuchungen (Anzahl)
+cnt_members#:#Buchungen gesamt (Anzahl)
+storno_dl_date#:#Stornierungsfrist
+booking_dl_date#:#Buchungsfrist
+idd_learning_time#:#IDD Lernzeit
+danger_cancel#:#Absagegefährdet
+danger_overbooked#:#Mit Benutzern auf Warteliste
+overbooked#:#Benutzer auf Warteliste
+actions#:#Aktionen
+crs_starts_in#:#Veranstaltungsbeginn im Zeitraum
+booking_dl_date_filter#:#Buchungsfrist vor:
+storno_dl_date_filter#:#Stornofrist vor:
+idd_filter#:#Berücksichtige nur Trainings:
+without_idd#:#ohne IDD-Zeiteinheiten
+with_idd#:#mit IDD-Zeiteinheiten
+filter_venues#:#Veranstaltungsorte
+filter_types#:#Trainingstypen
+filter_categories#:#Trainingskategorien
+filter_topics#:#Trainingsthemen
+filter_templates#:#Trainingsvorlagen
+filter_accomodations#:#Übernachtungsorte
+filter_provider#:#Anbieter
+edu_programme#:#Bildungsprogramme
+please_choose#:#Aktionen
+settings_saved_confirm#:#Einstellungen gespeichert.
+max_members#:#Plätze (max.)
+min_members#:#Plätze (min.)
+infinite#:#unbegrenzt
+none#:#keine
+obj_xtda#:#Trainingsausblick
+objs_xtda#:#Trainingsausblick
+obj_xtda_duplicate#:#Trainingsausblick kopieren
+objs_xtda_duplicate#:#Trainingsausblick kopieren
+obj_xtda_select#:#Trainingsausblick auswählen
+xtda_add#:#Trainingsausblick hinzufügen
+xtda_new#:#Trainingsausblick hinzufügen
+xtda_read#:#Trainingsausblick lesen
+xtda_write#:#Trainingsausblick bearbeiten
+xtda_delete#:#Trainingsausblick löschen
+xtda_visible#:#Trainingsausblick sichtbar
+edit#:#Einstellungen bearbeiten
+xtda_copy#:#Trainingsausblick kopieren
+edit_permission#:#Rechteeinstellungen ändern
+crs_create_xtda#:#Trainingsausblick anlegen
+grp_create_xtda#:#Trainingsausblick anlegen
+fold_create_xtda#:#Trainingsausblick anlegen
+root_create_xtda#:#Trainingsausblick anlegen
+cat_create_xtda#:#Trainingsausblick anlegen
+description#:#Beschreibung
+online#:#Online
+save#:#Speichern
+update#:#Aktuallisieren
+properties#:#Eigenschaften
+create_xtda#:#Trainingsausblick anlegen
+xtda_edit_permission#:#Einstellungen bearbeiten: Einstellungen des Trainingsausblicks bearbeiten
+hist_freetext#:#Freitext
+cnt_free#:#Freie Festplätze (Anzahl)
+filter_available_places#:#Mit freien Festplätzen
+global#:#Global
+local_roles#:#Lokale Rollen
