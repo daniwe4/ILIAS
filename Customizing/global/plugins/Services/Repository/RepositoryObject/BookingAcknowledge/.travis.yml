@@ -1,0 +1,9 @@
+language: php
+  php:
+    - 7.0
+    - 7.1
+  install:
+    composer update --dev
+  script:
+    - ./vendor/bin/security-checker security:check --end-point=https://security.symfony.com/check_lock
+    - ./run_tests.sh
