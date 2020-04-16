@@ -109,7 +109,7 @@
 				"./Customizing/global/plugins/Services/Cron/CronHook/TrainingProvider/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/TrainingProvider/tests"
 			],
-			"UserCourseHistorizing\\":
+			"CaT\\Plugins\\UserCourseHistorizing\\":
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/tests"
