@@ -1,0 +1,10 @@
+jobs_under_surveillance#:#Überwachte Cron Jobs
+title#:#Überwachung Cron Jobs
+wrong_input_warning#:#Es ist ein Fehler aufgetreten. Bitte achten Sie darauf, dass in jeder Zeile ein CronJob ausgewählt ist und die Tolerance einen Wert von mindestens 1 enthält. Jeder CronJob darf nur einmal überwacht werden.
+ccjs_all_jobs_deleted#:#Alle Überwachungen wurden entfernt.
+submit#:#Speichern
+cancel#:#Abbrechen
+delete_all#:#Alle löschen
+job_id#:#Job
+tolerance#:#Toleranz in Minuten
+all_jobs_deleted#:#Alle Überwachungen von CronJobs entfernt.
