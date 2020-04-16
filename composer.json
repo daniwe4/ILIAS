@@ -218,6 +218,11 @@
 			[
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/MaterialList/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/MaterialList/tests"
+			],
+			"CaT\\Plugins\\RoomSetup\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/tests"
 			]
 		},
 		"classmap": [

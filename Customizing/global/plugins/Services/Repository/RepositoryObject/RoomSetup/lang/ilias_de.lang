@@ -1,0 +1,83 @@
+service_options_configuration#:#Bewirtungsoptionen
+service_options#:#Bewirtungsoptionen
+add_entry#:#Eintrag hinzufügen
+name#:#Name
+actions#:#Aktionen
+delete#:#Löschen
+edit_service_option#:#Bearbeiten
+delete_service_option#:#Löschen
+service_option_name#:#Name
+save#:#Speichern
+cancel#:#Abbrechen
+confirm_delete#:#Folgende Einträge werden auch aus allen bestehenden Listen gelöscht. Sollen sie wirklich gelöscht werden?
+confirm_delete_single#:#Folgender Eintrag wird aus allen bestehenden Listen gelöscht. Soll er wirklich gelöscht werden?
+obj_xrse#:#Raumausstattung
+objs_xrse#:#Raumausstattung
+xrse_new#:#Raumausstattung hinzufügen
+objs_xrse_duplicate#:#Raumausstattung kopieren
+obj_xrse_duplicate#:#Raumausstattung kopieren
+xrse_add#:#Anlegen
+tab_settings#:#Einstellungen
+tab_equipment#:#Ausstattung
+settings_form_title#:#Einstellungen
+settings_title#:#Titel
+settings_description#:#Beschreibung
+service#:#Bewirtung
+tags#:#Optionen
+material#:#Material/Bewirtschaftung
+room_information#:#Informationen zur Raumausstattung
+seat_order#:#Sitzordnung/Bestuhlung
+equipment_save_success#:#Die Ausstattung wurde erfolgreich gespeichert.
+edit#:#Einstellungen
+services_option_added#:#Bewirtungsoption wurde hinzugefügt.
+confirm_rename_single#:#Folgende Bewirtungsoption soll umbenannt werden. Dies wirkt sich auf alle bestehenden Objekte aus. Soll der Eintrag umbenannt werden?
+confirm_rename_multi#:#Folgende Bewirtungsoptionen sollen umbenannt werden. Dies wirkt sich auf alle bestehenden Objekte aus. Sollen die Einträg umbenannt werden?
+confirm_rename_text#:#<b>Alt:</b> %s<br><b>Neu:</b> %s
+update#:#Umbenennen
+edit_equipment#:#Ausstattung bearbeiten
+xrse_edit_equipment#:#Der Benutzer darf die Ausstattung bearbeiten
+xrse_visible#:#Raumausstattung ist sichtbar
+xrse_read#:#Raumausstattung lesen
+xrse_write#:#Raumausstattung bearbeiten
+xrse_delete#:#Raumausstattung löschen
+xrse_edit_permission#:#Rechteeinstellung ändern
+rbac_create_xrse#:#Raumausstattung anlegen
+not_needed_permissions#:#Sie besitzen nicht genügend Rechte um diese Aktion aus zu führen.
+save_settings_success#:#Einstellungen wurden erfolgreich gespeichert.
+object_not_below_crs#:#Raumausstattung liegt nicht unterhalb eines Kurses.
+new_service_option#:#Neue Bewirtungsoption anlegen.
+is_active#:#Aktiv
+active#:#Ja
+inactive#:#Nein
+delete_successfull#:#Die ausgewählten Einträge wurden erfolgreich gelöscht, ohne Änderungen an bestehenden zu speichern.
+update_successfull#:#Dieser Eintrag wurde erfolgreich aktualisiert.
+created_successfull#:#Dieser Eintrag wurde erfolgreich angelegt.
+name_empty#:#Der Name muss ausgefüllt sein.
+grp_create_xrse#:#Raumausstattung anlegen
+cat_create_xrse#:#Raumausstattung anlegen
+crs_create_xrse#:#Raumausstattung anlegen
+fold_create_xrse#:#Raumausstattung anlegen
+root_create_xrse#:#Raumausstattung anlegen
+xrse_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xrse_visible#:#Anzeigen: Raumausstattungen sind sichtbar und können genutzt werden
+xrse_read#:#Lesezugriff: Raumausstattung lesen
+xrse_copy#:#Kopieren: Raumausstattung kopieren
+xrse_write#:#Einstellungen bearbeiten: Einstellungen der Raumausstattungen bearbeiten
+xrse_delete#:#Löschen: Raumausstattung verschieben oder löschen
+special_wishes#:#Sonderwünsche
+recipient_mode#:#Versandadresse
+recipient_mode_service#:#Versand der Bewirtung
+recipient_mode_room#:#Versand der Raumausstattung
+course_venue#:#Aus den Veranstaltungsort-Einstellungen übernehmen
+selection#:#Auswahl
+recipient#:#Empfänger
+send_days_before#:#Versandzeitpunkt
+recipient_info#:#Bitte geben Sie eine gültige E-Mail Adresse ein.
+send_days_before_info_service#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Bewirtung versendet wird.
+send_days_before_info_room#:#Tage vor Trainingsbeginn, an dem die E-Mail mit der Raumausstattung versendet wird.
+placeholder_desc_room_service_options#:#Bewirtungsoptionen
+placeholder_desc_room_service_specials#:#Bewirtung, Sonderwünsche
+placeholder_desc_room_setup_info#:#Bewirtschaftung, Raumausstattung
+placeholder_desc_room_setup_seatorder#:#Bewirtschaftung, Sitzordnung/Bestuhlung
+confirm_delete_multi#:#Folgende Einträge werden aus allen bestehenden Listen gelöscht. Soll sie wirklich gelöscht werden?
+create_xrse#:#Raumausstatung anlegen
