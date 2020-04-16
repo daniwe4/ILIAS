@@ -1,0 +1,22 @@
+<form method="POST" action="{COL_SELECTOR_FORM_ACTION}" class="tep_col_selector">
+	<div class="btn-group column_selector">
+		<button type="button" class="btn btn-link dropdown-toggle btn-sm" data-toggle="dropdown" data-container="body">
+			<span>{COL_SELECTOR_LABEL}</span>
+			<span class="caret" alt=""></span>
+		</button>
+
+		<ul class="dropdown-menu pull-right" role="menu">
+
+			<!-- BEGIN col_selector_entry -->
+			<li>
+				<input type="checkbox" name="{F_COL_SELECTOR}[]" id="cs_{COL_SELECTOR_VALUE}" value="{COL_SELECTOR_VALUE}" {COL_SELECTOR_CHECKED}>
+				<label for="cs_{COL_SELECTOR_VALUE}">{COL_SELECTOR_ENTRY_LABEL}</label>
+			</li>
+			<!-- END col_selector_entry -->
+
+			<li>
+				<input type="submit" class="btn btn-default" value="{COL_SELECTOR_BTN_LABEL}">
+			</li>
+		</ul>
+	</div>
+</form>

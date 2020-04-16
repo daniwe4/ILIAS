@@ -1,0 +1,28 @@
+<tr class="{CSS_ROW}">
+	<td class="std">
+		{TYPE}
+		<!-- BEGIN hidden_field -->
+			<input type="hidden" name="{FIELD_NAME_OBJ_INFO}[]" value="{HIDDEN_FIELD_VALUE}" />
+		<!-- END hidden_field -->
+	</td>
+	<td class="std">
+		{TITLE}
+	</td>
+	<td class="std">
+		<input name="{FIELD_NAME_USE}[]" type="checkbox"
+			<!-- BEGIN use --> checked="checked" <!-- END use -->
+			<!-- BEGIN use_disabled --> disabled="true"<!-- END use_disabled -->
+			<!-- BEGIN use_value --> value="{USE_VALUE}"<!-- END use_value -->
+		">
+	</td>
+	<td class="std">
+		<input name="{FIELD_NAME_HIDE_DETAILS}[]" type="checkbox"
+			<!-- BEGIN hide_details --> checked="checked" <!-- END hide_details -->
+			<!-- BEGIN hide_details_disabled --> disabled="true"<!-- END hide_details_disabled -->
+			<!-- BEGIN hide_details_value --> value="{HIDE_DETAILS_VALUE}"<!-- END hide_details_value -->
+		">
+	</td>
+	<td class="std">
+		{ACTIONS}
+	</td>
+</tr>
