@@ -48,7 +48,11 @@ class ilEduTrackingSettingsGUI
     protected $actions;
 
     /**
+<<<<<<< HEAD
      * @var ilGlobalTemplateInterface
+=======
+     * @var ilTemplate
+>>>>>>> TMS EduTracking: Add Plugin to MonoRepo and update unit tests
      */
     protected $g_tpl;
 

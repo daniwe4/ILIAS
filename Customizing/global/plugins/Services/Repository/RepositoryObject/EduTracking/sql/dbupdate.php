@@ -1,34 +1,29 @@
 <#1>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\WBD\Configuration\ilDB($ilDB);
 $wbd_db->createTable();
 ?>
 
 <#2>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\WBD\Configuration\ilDB($ilDB);
 $wbd_db->createPrimaryKey();
 ?>
 
 <#3>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\WBD\Configuration\ilDB($ilDB);
 $wbd_db->createSequence();
 ?>
 
 <#4>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\IDD\Configuration\ilDB($ilDB);
 $wbd_db->createTable();
 ?>
 
 <#5>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\IDD\Configuration\ilDB($ilDB, $app_event_handler);
@@ -37,7 +32,6 @@ $wbd_db->createPrimaryKey();
 
 <#6>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\IDD\Configuration\ilDB($ilDB, $app_event_handler);
@@ -46,28 +40,24 @@ $wbd_db->createSequence();
 
 <#7>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\GTI\Configuration\ilDB($ilDB);
 $wbd_db->createTable();
 ?>
 
 <#8>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\GTI\Configuration\ilDB($ilDB);
 $wbd_db->createPrimaryKey();
 ?>
 
 <#9>
 <?php
-
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\GTI\Configuration\ilDB($ilDB);
 $wbd_db->createSequence();
 ?>
 
 <#10>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\WBD\ilDB($ilDB, $app_event_handler);
@@ -76,7 +66,6 @@ $wbd_db->createTable();
 
 <#11>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\WBD\ilDB($ilDB, $app_event_handler);
@@ -85,7 +74,6 @@ $wbd_db->createPrimaryKey();
 
 <#12>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\IDD\ilDB($ilDB, $app_event_handler);
@@ -94,7 +82,6 @@ $wbd_db->createTable();
 
 <#13>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\IDD\ilDB($ilDB, $app_event_handler);
@@ -144,7 +131,6 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#17>
 <?php
-
 require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/EduTracking/classes/class.ilObjEduTracking.php");
 global $DIC;
 $db = $DIC['ilDB'];
@@ -164,7 +150,6 @@ while ($rec = $db->fetchAssoc($res)) {
 
 <#18>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $gti_db = new CaT\Plugins\EduTracking\Purposes\GTI\ilDB($ilDB, $app_event_handler);
@@ -173,7 +158,6 @@ $gti_db->createTable();
 
 <#19>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $gti_db = new CaT\Plugins\EduTracking\Purposes\GTI\ilDB($ilDB, $app_event_handler);
@@ -258,14 +242,12 @@ while ($row = $db->fetchAssoc($res)) {
 
 <#22>
 <?php
-
 $gti_db = new CaT\Plugins\EduTracking\Purposes\GTI\Configuration\ilDB($ilDB);
 $gti_db->update1();
 ?>
 
 <#23>
 <?php
-
 $gti_db = new CaT\Plugins\EduTracking\Purposes\GTI\Configuration\ilDB($ilDB);
 $gti_db->update2();
 $gti_db->update3();
@@ -274,7 +256,6 @@ $gti_db->update4();
 
 <#24>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $gti_db = new CaT\Plugins\EduTracking\Purposes\GTI\ilDB($ilDB, $app_event_handler);
@@ -283,7 +264,6 @@ $gti_db->update1();
 
 <#25>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $gti_db = new CaT\Plugins\EduTracking\Purposes\GTI\ilDB($ilDB, $app_event_handler);
@@ -331,7 +311,6 @@ while ($row = $db->fetchAssoc($res)) {
 
 <#27>
 <?php
-
 global $DIC;
 $app_event_handler = $DIC['ilAppEventHandler'];
 $wbd_db = new CaT\Plugins\EduTracking\Purposes\WBD\ilDB($ilDB, $app_event_handler);

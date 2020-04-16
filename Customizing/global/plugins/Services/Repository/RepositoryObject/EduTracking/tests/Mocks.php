@@ -13,6 +13,23 @@ require_once "Customizing/global/plugins/Services/Repository/RepositoryObject/Ed
 
 class Mocks extends TestCase
 {
+    public function getMembersObjectMock() : MockObject
+    {
+        $obj = $this->createMock(\ilCourseParticipants::class);
+        $obj
+            ->expects($this->any())
+            ->method('getTutors')
+            ->willReturn([33])
+        ;
+        $obj
+            ->expects($this->any())
+            ->method('getAdmins')
+            ->willReturn([33])
+        ;
+
+        return $obj;
+    }
+
     public function getCrsMock()
     {
         $crs = $this->createMock(\ilObjCourse::class);
@@ -20,6 +37,17 @@ class Mocks extends TestCase
             ->expects($this->any())
             ->method('getId')
             ->willReturn(22)
+        ;
+
+        $crs
+            ->expects($this->any())
+            ->method('getRefId')
+            ->willReturn(33)
+        ;
+        $crs
+            ->expects($this->any())
+            ->method('getMembersObject')
+            ->willReturn($this->getMembersObjectMock())
         ;
 
         return $crs;
@@ -32,6 +60,12 @@ class Mocks extends TestCase
             ->expects($this->any())
             ->method('getId')
             ->willReturn(22)
+        ;
+
+        $obj
+            ->expects($this->any())
+            ->method('getParentCourse')
+            ->willReturn($this->getCrsMock())
         ;
 
         return $obj;
