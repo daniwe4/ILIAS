@@ -223,6 +223,66 @@
 			[
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/tests"
+			],
+			"CaT\\Plugins\\ScaledFeedback\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/tests"
+			],
+			"CaT\\Plugins\\TrainerOperations\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/tests"
+			],
+			"CaT\\Plugins\\TrainingAdminOverview\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingAdminOverview/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingAdminOverview/tests"
+			],
+			"CaT\\Plugins\\TrainingAssignments\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingAssignments/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingAssignments/tests"
+			],
+			"CaT\\Plugins\\TrainingDemandAdvanced\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingDemandAdvanced/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingDemandAdvanced/tests"
+			],
+			"CaT\\Plugins\\TrainingDemandRetarded\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingDemandRetarded/classes" ,
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingDemandRetarded/tests"
+			],
+			"CaT\\Plugins\\TrainingSearch\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/tests"
+			],
+			"CaT\\Plugins\\TrainingStatistics\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingStatistics/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingStatistics/tests"
+			],
+			"CaT\\Plugins\\UserBookings\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/UserBookings/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/UserBookings/tests"
+			],
+			"CaT\\Plugins\\WBDManagement\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/WBDManagement/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/WBDManagement/tests"
+			],
+			"CaT\\Plugins\\WBDReport\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/WBDReport/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/WBDReport/tests"
+			],
+			"CaT\\Plugins\\Webinar\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/tests"
 			]
 		},
 		"classmap": [

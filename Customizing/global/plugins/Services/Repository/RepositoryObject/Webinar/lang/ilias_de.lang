@@ -1,0 +1,124 @@
+vc_type#:#Webinartyp
+please_select#:#Bitte wählen
+tab_member#:#Mitglieder
+tab_settings#:#Einstellungen
+tab_lp#:#Lernfortschritt
+informations#:#Informationen
+title#:#Titel
+description#:#Beschreibung
+url#:#Url
+schedule#:#Zeitraum
+enter#:#Beitreten
+book#:#Buchen
+edit#:#Bearbeiten
+obj_msg_lp_form_saved#:#Einstellungen erfolgreich gespeichert.
+obj_edit_lp#:#Einstellungen
+obj_lp_mode#:#Lernfortschrittsmodus
+obj_lp_mode_text#:#Webinar Teilnahme
+obj_lp_mode_info_text#:#Der Status eines Benutzers wird automatisch auf 'Bestanden' gesetzt, wenn er mindestens die in den Einstellungen definierte Zeit anwesend war.
+obj_save#:#Speichern
+user_booked#:#Benutzer erfolgreich hinzugefügt
+no_booking#:#Benutzer konnte nicht gebucht werden, da er bereits Teilnhemer ist.
+search_no_selection#:#Kein Benutzer ausgewählt.
+should_be_deleted#:#Soll(en) der/die Benutzer wirklich entfernt werden?
+cancel#:#Abbrechen
+wrong_file_type#:#Die Datei ist in einem ungültigen Format (%s erwartet).
+user#:#Benutzer
+add#:#Hinzufügen
+csv_upload_list#:#Auswählen
+upload_csn#:#Liste von CSN hochladen
+upload_generic#:#Liste hochladen
+delete_csn#:#CSN Liste entfernen
+delete_generic#:#Liste entfernen
+download_csn#:#Hochgeladene Liste herunterladen
+download_generic#:#Hochgeladene Liste herunterladen
+download_new_csn#:#Teilnehmer exportieren
+download_new_generic#:#Teilnehmer exportieren
+user_was_booked#:#Benutzer ist bereits Teilnehmer.
+crs_user_booked#:#Teilnehmer vom Kurs wurden erfolgreich aktualisiert.
+users_set_participated#:#Teilnahmestatus für Benutzer auf "teilgenommen" gesetzt.
+users_set_not_participated#:#Teilnahmestatus für Benutzer auf "nicht teilgenommen" gesetzt.
+settings#:#Einstellungen
+save#:#Speichern
+vc#:#Webinartyp
+admission#:#Mitgliederverfahren
+online#:#Online
+user_name#:#Benutzername
+tbl_csn#:#CSN
+delete#:#Löschen
+participated#:#Status auf "teilgenommen" setzen
+not_participated#:#Status auf "nicht teilgenommen" setzen
+name#:#Name
+email#:#E-Mail
+phone#:#Telefon
+minutes#:#Minuten
+status#:#Lernfortschritt
+actions#:#Aktionen
+pin#:#Pin
+required_minutes#:#Bestanden ab
+csn_settings#:#Einstellungen für CSN
+self_booking#:#Selbstbuchung
+no_self_booking#:#Keine Selbstbuchung
+book_from_course#:#Buchung von Kursmitgliedern
+csn#:#CSN
+book_member_from_kurs#:#Teilnehmer aus Kurs aktualisieren
+grp_create_xwbr#:#Webinar anlegen
+cat_create_xwbr#:#Webinar anlegen
+crs_create_xwbr#:#Webinar anlegen
+fold_create_xwbr#:#Webinar anlegen
+root_create_xwbr#:#Webinar anlegen
+xwbr_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xwbr_visible#:#Anzeigen: Webinare sind sichtbar und können genutzt werden
+xwbr_read#:#Lesezugriff: Webinar lesen
+xwbr_copy#:#Kopieren: Webinar kopieren
+xwbr_write#:#Einstellungen bearbeiten: Einstellungen der Webinare bearbeiten
+xwbr_delete#:#Löschen: Webinar verschieben oder löschen
+xwbr_edit_participation#:#Lernfortschritt bearbeiten
+xwbr_edit_member#:#Teilnehmer bearbeiten
+edit_member#:#Teilnehmer bearbeiten
+edit_participation#:#Lernfortschritt bearbeiten
+obj_xwbr#:#Webinar
+objs_xwbr#:#Webinare
+xwbr_new#:#Webinar hinzufügen
+objs_xwbr_duplicate#:#Webinar kopieren
+xwbr_add#:#Anlegen
+obj_xwbr_duplicate#:#Webinar kopieren
+properties_saved#:#Einstellungen wurden erfolgreich gespeichert.
+online_status#:#Status
+webinar_offline#:#Offline
+descripton#:#Beschreibung
+generic#:#Generisch
+tbl_generic#:#Generisch
+generic_settings#:#Einstellungen für Generisch
+tutor_login#:#Login Tutor
+tutor_password#:#Passwort Tutor
+password#:#Passwort
+required_minutes_info#:#Geben Sie hier an, wie viele Minuten der Benutzer im Webinar verweilen muss.
+delete_user#:#Benutzer löschen
+placeholder_desc_link#:#Link zum Webinar
+placeholder_desc_login_trainer#:#Login des Trainers
+placeholder_desc_password#:#Passwort (für Teilnehmer)
+placeholder_desc_password_trainer#:#Passwort des Trainers
+to_webinar_settings#:#Webinareinstellungen
+webinar#:#Webinar
+config#:#Einstellungen
+phone_config#:#Telefonquelle
+select_phone_src#:#Wählen Sie die Telefonquelle:
+phone_office#:#Telefon Arbeit
+phone_home#:#Telefon Privat
+phone_mobile#:#Telefon Mobil
+csn_settings_phone#:#Telefonnummer für Dial-In
+confirm_finish#:#Sind Sie sich sicher, dass Sie dieses Webinar abschließen wollen?
+finish#:#Abschließen
+upload_required#:#CSN-Log Datei verpflichtend
+upload_required_info#:#Die CSN-Log Datei ist beim Abschließen des Webinars verpflichtend.
+list_required#:#Das Webinar konnte nicht abgeschlossen werden, da keine CSN-Log Datei hochgeladen wurde.
+parse_error#:#Die Datei konnte nicht verarbeitet werden:
+placeholder_desc_pin#:#PIN (bei Webinartyp CSN)
+create_xwbr#:#Webinar anlegen
+reminder#:#Reminder nichtfinalisierter Webinare
+save_success#:#Die Einstellungen wurden erfolgreich gespeichert.
+not_finalized_title#:#Reminder nichtfinalisierter Webinare
+interval#:#Intervall
+interval_info#:#Intervall an Tagen, die der Cronjob die einzelnen Webinare überprüft.
+to_webinar_url#:#Link zum Webinar
