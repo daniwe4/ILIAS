@@ -45,7 +45,13 @@
 		"enshrined/svg-sanitize": "^0.13.0",
 		"guzzlehttp/guzzle": "^6.3",
 		"zendframework/zend-httphandlerrunner": "^1.1.0",
-		"simplesamlphp/simplesamlphp": "^1.18"
+		"simplesamlphp/simplesamlphp": "^1.18",
+		"conceptsandtraining/ente": "^4.0",
+		"conceptsandtraining/lib-excel-wrapper": "^0.3.0",
+		"conceptsandtraining/wbd": "^6.3",
+		"conceptsandtraining/tgic": "^2.0",
+		"conceptsandtraining/lib-historizing": "^2.0.3",
+		"conceptsandtraining/lib-plugin-security": "^0.0.3"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "^1.6",
@@ -416,5 +422,19 @@
 				"ILIAS LTI Patches": "./libs/composer/patches/lti.patch"
 			}
 		}
-	}
+	},
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "https://github.com/conceptsandtraining/lib-wbd"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/conceptsandtraining/lib-tgic"
+		},
+		{
+			"type": "vcs",
+			"url": "https://github.com/conceptsandtraining/lib-historizing"
+		}
+	]
 }
