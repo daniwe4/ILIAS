@@ -71,21 +71,44 @@ class ilGlobalSuite extends TestSuite
         $suite = new ilGlobalSuite();
         echo "ILIAS PHPUnit-Tests need installed dev-requirements, please install using 'composer install' in ./libs/composer \n";
         echo "\n";
-        
+
+        // cat tms-patch start
         // scan Modules and Services directories
-        $basedirs = array("Services", "Modules");
+        $basedirs = array("Services", "Modules", "CronHook", "EventHook", "OrgUnitTypeHook", "RepositoryObject");
 
         foreach ($basedirs as $basedir) {
-            // read current directory
-            $dir = opendir($basedir);
+            $test = "tests";
+            switch ($basedir) {
+                case "CronHook":
+                    $path = "Customizing/global/plugins/Services/Cron/" . $basedir;
+                    $dir = opendir($path);
+                    break;
+                case "EventHook":
+                    $path = "Customizing/global/plugins/Services/EventHandling/" . $basedir;
+                    $dir = opendir($path);
+                    break;
+                case "OrgUnitTypeHook":
+                    $path = "Customizing/global/plugins/Services/OrgUnit/" . $basedir;
+                    $dir = opendir($path);
+                    break;
+                case "RepositoryObject":
+                    $path = "Customizing/global/plugins/Services/Repository/" . $basedir;
+                    $dir = opendir($path);
+                    break;
+                default:
+                    $path = $basedir;
+                    // read current directory
+                    $dir = opendir($basedir);
+                    $test = "test";
+            }
 
             while ($file = readdir($dir)) {
-                if ($file != "." && $file != ".." && is_dir($basedir . "/" . $file)) {
+                if ($file != "." && $file != ".." && is_dir($path . "/" . $file)) {
                     $suite_path =
-                        $basedir . "/" . $file . "/test/il" . $basedir . $file . "Suite.php";
+                        $path . "/" . $file . "/" . $test . "/il" . $basedir . $file . "Suite.php";
                     if (is_file($suite_path)) {
                         include_once($suite_path);
-                        
+
                         $name = "il" . $basedir . $file . "Suite";
                         $s = $name::suite();
                         echo "Adding Suite: " . $name . "\n";
@@ -95,6 +118,7 @@ class ilGlobalSuite extends TestSuite
                 }
             }
         }
+        // cat tms-patch end
 
         $suite = self::addTestFolderToSuite($suite);
 
@@ -106,7 +130,7 @@ class ilGlobalSuite extends TestSuite
             $ff->addFilter(
                 new ReflectionClass(GroupExcludeFilter::class),
                 array(self::PHPUNIT_GROUP_FOR_TESTS_REQUIRING_INSTALLED_ILIAS)
-                );
+            );
             $suite->injectFilter($ff);
         } else {
             echo "Found installed ILIAS, running all tests.\n";
