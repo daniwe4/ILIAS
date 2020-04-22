@@ -64,7 +64,7 @@ class ilCasesDB implements DB
     const FIELD_CONTACT_PHONE_XCCL = 'contact_phone_xccl';
     const FIELD_WBD_BOOKING_ID = 'wbd_booking_id';
     const FIELD_WBD_ID = 'wbd_id';
-    const FIELD_CONTANCT_TITLE = 'contact_title';
+    const FIELD_CONTACT_TITLE = 'contact_title';
     const FIELD_CONTACT_FIRSTNAME = 'contact_firstname';
     const FIELD_CONTACT_LASTNAME = 'contact_lastname';
     const FIELD_CONTACT_EMAIL = 'contact_email';
@@ -199,7 +199,7 @@ class ilCasesDB implements DB
             )
             ->request(
                 $this->contactFieldTitleAccordingToEBRFor($space, $contact_mode, $contact_info_static),
-                self::FIELD_CONTANCT_TITLE
+                self::FIELD_CONTACT_TITLE
             )
             ->request(
                 $this->contactFieldFirstnameAccordingToEBRFor($space, $contact_mode, $contact_info_static),
@@ -578,7 +578,7 @@ class ilCasesDB implements DB
             (string) $row[self::FIELD_CRS_TYPE],
             (string) $row[self::FIELD_CRS_CONTENT],
             $this->buildInternalIdByRow($row),
-            (string) $row[self::FIELD_CONTANCT_TITLE],
+            (string) $row[self::FIELD_CONTACT_TITLE],
             (string) $row[self::FIELD_CONTACT_FIRSTNAME],
             (string) $row[self::FIELD_CONTACT_LASTNAME],
             (string) $row[self::FIELD_CONTACT_PHONE],
