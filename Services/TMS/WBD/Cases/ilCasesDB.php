@@ -570,19 +570,19 @@ class ilCasesDB implements DB
         return new Cases\ReportParticipation(
             (int) $row[self::FIELD_CRS_ID],
             (int) $row[self::FIELD_USR_ID],
-            htmlspecialchars((string) $row[self::FIELD_WBD_ID]),
-            htmlspecialchars((string) $row[self::FIELD_CRS_TITLE]),
+            (string) $row[self::FIELD_WBD_ID],
+            (string) $row[self::FIELD_CRS_TITLE],
             (int) $row[self::FIELD_IDD_TIME],
             \DateTime::createFromFormat('Y-m-d', $row[self::FIELD_BEGIN_DATE]),
             \DateTime::createFromFormat('Y-m-d', $row[self::FIELD_END_DATE]),
             (string) $row[self::FIELD_CRS_TYPE],
             (string) $row[self::FIELD_CRS_CONTENT],
-            htmlspecialchars($this->buildInternalIdByRow($row)),
-            htmlspecialchars((string) $row[self::FIELD_CONTANCT_TITLE]),
-            htmlspecialchars((string) $row[self::FIELD_CONTACT_FIRSTNAME]),
-            htmlspecialchars((string) $row[self::FIELD_CONTACT_LASTNAME]),
-            htmlspecialchars((string) $row[self::FIELD_CONTACT_PHONE]),
-            htmlspecialchars((string) $row[self::FIELD_CONTACT_EMAIL])
+            $this->buildInternalIdByRow($row),
+            (string) $row[self::FIELD_CONTANCT_TITLE],
+            (string) $row[self::FIELD_CONTACT_FIRSTNAME],
+            (string) $row[self::FIELD_CONTACT_LASTNAME],
+            (string) $row[self::FIELD_CONTACT_PHONE],
+            (string) $row[self::FIELD_CONTACT_EMAIL]
         );
     }
 
