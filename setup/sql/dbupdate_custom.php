@@ -627,3 +627,28 @@ $db = $DIC["ilDB"];
 $reposnses_db = new ilResponsesDB($db, new ilAppEventHandler());
 $reposnses_db->createReportedCourseValuesSequence();
 ?>
+
+<#64>
+<?php
+global $DIC;
+$sec_db = new \CaT\Security\PluginLogin\ILIAS\ilDB($DIC["ilDB"]);
+$sec_db->createTable();
+?>
+
+<#65>
+<?php
+global $DIC;
+$sec_db = new \CaT\Security\PluginLogin\ILIAS\ilDB($DIC["ilDB"]);
+$sec_db->addPrimaryKey();
+?>
+
+<#66>
+<?php
+global $DIC;
+$query = "UPDATE xwbd_report_crs_values
+    INNER JOIN hhd_crs ON hhd_crs.crs_id = xwbd_report_crs_values.crs_id
+    SET xwbd_report_crs_values.title = hhd_crs.title
+    WHERE (xwbd_report_crs_values.title LIKE '%&quot;%' OR xwbd_report_crs_values.title LIKE '%&amp;%')";
+
+$DIC['ilDB']->manipulate($query);
+?>
