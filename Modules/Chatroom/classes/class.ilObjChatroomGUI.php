@@ -24,9 +24,11 @@ class ilObjChatroomGUI extends ilChatroomObjectGUI
     public function __construct($a_data = null, $a_id = null, $a_call_by_reference = true)
     {
         if (in_array($_REQUEST['cmd'], array('getOSDNotifications', 'removeOSDNotifications'))) {
-            require_once 'Services/Notifications/classes/class.ilNotificationGUI.php';
+            // cat-tms-patch start #3048
+            /*require_once 'Services/Notifications/classes/class.ilNotificationGUI.php';
             $notifications = new ilNotificationGUI();
-            $notifications->{$_REQUEST['cmd'] . 'Object'}();
+            $notifications->{$_REQUEST['cmd'] . 'Object'}();*/
+            // cat-tms-patch end
             exit;
         }
 
