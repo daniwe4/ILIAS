@@ -53,7 +53,8 @@
 		"conceptsandtraining/lib-historizing": "^2.0.3",
 		"conceptsandtraining/lib-plugin-security": "^0.0.3",
 		"psr/log": "^1.0.1",
-		"box/spout": "2.7.2"
+		"box/spout": "^2.7",
+		"setasign/fpdf": "^1.8"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "^1.6",
