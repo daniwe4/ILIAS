@@ -1,54 +1,54 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new \CaT\Plugins\AgendaItemPool\Settings\ilDB($ilDB);
 $db->createSettingsTable();
 ?>
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new \CaT\Plugins\AgendaItemPool\Settings\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new \CaT\Plugins\AgendaItemPool\Settings\ilDB($ilDB);
 $db->createSequence();
 ?>
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new \CaT\Plugins\AgendaItemPool\AgendaItem\ilDB($ilDB);
 $db->createAgendaItemTable();
 ?>
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new \CaT\Plugins\AgendaItemPool\AgendaItem\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new \CaT\Plugins\AgendaItemPool\AgendaItem\ilDB($ilDB);
 $db->createSequence();
 ?>
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new CaT\Plugins\AgendaItemPool\Options\Topic\ilDB($ilDB);
 $db->install();
 ?>
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new CaT\Plugins\AgendaItemPool\Options\Topic\ilDB($ilDB);
 $db->configurePrimaryKeys();
 ?>
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/AgendaItemPool/vendor/autoload.php");
+
 $db = new CaT\Plugins\AgendaItemPool\AgendaItem\ilDB($ilDB);
 $db->update1();
 ?>

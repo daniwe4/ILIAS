@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\ServiceOptions\ilDB as ServiceOptionsDB;
 
 $db = new ServiceOptionsDB($ilDB);
@@ -9,7 +9,7 @@ $db->install();
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Equipment\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -18,7 +18,7 @@ $db->install();
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\ServiceOptions\ilDB as ServiceOptionsDB;
 
 $db = new ServiceOptionsDB($ilDB);
@@ -27,7 +27,7 @@ $db->updateTable1();
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Equipment\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -36,7 +36,7 @@ $db->update1();
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Settings\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -45,7 +45,7 @@ $db->createTable();
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Settings\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -66,7 +66,7 @@ while ($row = $ilDB->fetchAssoc($res)) {
 
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Settings\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -75,7 +75,7 @@ $db->update1();
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Settings\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -84,7 +84,7 @@ $db->update2();
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Settings\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);
@@ -93,7 +93,7 @@ $db->update3();
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/RoomSetup/vendor/autoload.php");
+
 use \CaT\Plugins\RoomSetup\Settings\ilDB as EquipmentDB;
 
 $db = new EquipmentDB($ilDB);

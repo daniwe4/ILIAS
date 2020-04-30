@@ -3,7 +3,7 @@
 /* Copyright (c) 2018 Stefan Hecken <stefan.hecken@concepts-and-training.de> */
 
 require_once "./Services/Cron/classes/class.ilCronHookPlugin.php";
-require_once __DIR__ . "/../vendor/autoload.php";
+
 
 use CaT\Plugins\WorkflowReminder;
 

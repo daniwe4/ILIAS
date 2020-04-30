@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
-require_once __DIR__ . "/../vendor/autoload.php";
+
 require_once 'Services/TMS/RepositoryPluginUtilities/HistorizedRepositoryPlugin.php';
 
 use CaT\Plugins\BookingModalities;

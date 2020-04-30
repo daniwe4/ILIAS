@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use \CaT\Plugins\Accounting\DI;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 /**
  * Config gui to define auto admin exeutions
  *

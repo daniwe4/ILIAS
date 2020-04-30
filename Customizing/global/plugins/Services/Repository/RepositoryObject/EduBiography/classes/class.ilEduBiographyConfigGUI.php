@@ -2,7 +2,7 @@
 
 /* Copyright (c) 2019 Daniel Weise <daniel.weise@concepts-and-training.de> */
 
-require_once __DIR__ . "/../vendor/autoload.php";
+
 
 use CaT\Plugins\EduBiography\DI;
 

@@ -1,7 +1,7 @@
 <?php
 include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
 
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingDemandRetarded/vendor/autoload.php';
+
 
 /**
  * Plugin base class. Keeps all information the plugin needs

@@ -2,7 +2,7 @@
 include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 require_once(__DIR__ . "/class.ilRoomSetupSettingsGUI.php");
 require_once(__DIR__ . "/Equipment/class.ilEquipmentGUI.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 
 /**
  * Plugin object GUI class. Baseclass for all GUI action in ILIAS

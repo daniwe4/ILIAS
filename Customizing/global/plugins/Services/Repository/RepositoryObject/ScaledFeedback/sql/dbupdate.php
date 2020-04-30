@@ -1,90 +1,90 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->install();
 ?>
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Feedback\ilDB($ilDB);
 $db->install();
 ?>
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Settings\ilDB($ilDB);
 $db->install();
 ?>
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->createPrimaryKeyForSets();
 ?>
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->createSequenceForSets();
 ?>
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->createPrimaryKeyForDimensions();
 ?>
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->createSequenceForDimensions();
 ?>
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->createPrimaryKeyForInterim();
 ?>
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->createSequenceForInterim();
 ?>
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Feedback\ilDB($ilDB);
 $db->createPrimaryKeyForFeedback();
 ?>
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Settings\ilDB($ilDB);
 $db->createPrimaryKeyForSettings();
 ?>
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Settings\ilDB($ilDB);
 $db->createSequenceForSettings();
 ?>
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Feedback\ilDB($ilDB);
 $db->update1();
 ?>
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Feedback\ilDB($ilDB);
 $db->update2();
 ?>
 <#15>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->update1();
 ?>
@@ -112,20 +112,20 @@ while ($row = $ilDB->fetchAssoc($result)) {
 ?>
 <#17>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->update2();
 ?>
 <#18>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Config\ilDB($ilDB);
 $db->update3();
 ?>
 
 <#19>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/ScaledFeedback/vendor/autoload.php");
+
 $db = new \CaT\Plugins\ScaledFeedback\Feedback\ilDB($ilDB);
 $db->update2();
 ?>

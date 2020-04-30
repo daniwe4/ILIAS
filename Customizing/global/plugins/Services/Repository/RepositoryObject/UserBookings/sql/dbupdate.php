@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/UserBookings/vendor/autoload.php");
+
 $category_db = new CaT\Plugins\UserBookings\Settings\ilDB($ilDB);
 
 $category_db->createTable();
@@ -8,7 +8,7 @@ $category_db->createTable();
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/UserBookings/vendor/autoload.php");
+
 $category_db = new CaT\Plugins\UserBookings\Settings\ilDB($ilDB);
 
 $category_db->createPrimaryKey();
@@ -16,7 +16,7 @@ $category_db->createPrimaryKey();
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/UserBookings/vendor/autoload.php");
+
 $category_db = new CaT\Plugins\UserBookings\Settings\ilDB($ilDB);
 
 $category_db->migrateExistingObjects();

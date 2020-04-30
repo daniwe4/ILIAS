@@ -1,20 +1,20 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Children\ilDB($ilDB);
 $settings_db->createTable();
 ?>
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Children\ilDB($ilDB);
 $settings_db->createPrimaryKey();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Children\ilDB($ilDB);
 $settings_db->update1();
 ?>
@@ -41,14 +41,14 @@ while ($row = $ilDB->fetchAssoc($res)) {
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\TemplateCourses\ilDB($ilDB);
 $settings_db->createTable();
 ?>
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\TemplateCourses\ilDB($ilDB);
 $settings_db->createPrimaryKey();
 ?>
@@ -97,14 +97,14 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->createTable();
 ?>
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->createPrimaryKey();
 ?>
@@ -133,7 +133,7 @@ while ($row = $ilDB->fetchAssoc($res)) {
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update1();
 ?>
@@ -155,49 +155,49 @@ while ($rec = $ilDB->fetchAssoc($res)) {
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update2();
 ?>
 
 <#15>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update3();
 ?>
 
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update4();
 ?>
 
 <#17>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update5();
 ?>
 
 <#18>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update6();
 ?>
 
 <#19>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update7();
 ?>
 
 <#20>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update8();
 ?>
@@ -234,21 +234,21 @@ while ($row = $db->fetchAssoc($res)) {
 
 <#23>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update9();
 ?>
 
 <#24>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update10();
 ?>
 
 <#25>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update11();
 ?>
@@ -271,14 +271,14 @@ $db->manipulate($q);
 
 <#28>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update12();
 ?>
 
 <#29>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CopySettings/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\CopySettings\Settings\ilDB($ilDB);
 $settings_db->update13();
 ?>

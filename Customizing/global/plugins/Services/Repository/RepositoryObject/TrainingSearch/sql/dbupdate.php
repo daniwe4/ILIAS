@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/vendor/autoload.php");
+
 global $DIC;
 $settings_db = new \CaT\Plugins\TrainingSearch\Settings\ilDB($DIC["ilDB"]);
 $settings_db->createTable();
@@ -8,7 +8,7 @@ $settings_db->createTable();
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/vendor/autoload.php");
+
 global $DIC;
 $settings_db = new \CaT\Plugins\TrainingSearch\Settings\ilDB($DIC["ilDB"]);
 $settings_db->addPrimaryKey();
@@ -33,7 +33,7 @@ ilOrgUnitOperationQueries::registerNewOperation(
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/vendor/autoload.php");
+
 global $DIC;
 $settings_db = new \CaT\Plugins\TrainingSearch\Settings\ilDB($DIC["ilDB"]);
 $settings_db->update1();
@@ -176,7 +176,7 @@ if ($db->tableExists('xtrs_settings_t_g')) {
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/vendor/autoload.php");
+
 global $DIC;
 $settings_db = new \CaT\Plugins\TrainingSearch\Settings\ilDB($DIC["ilDB"]);
 $settings_db->update2();

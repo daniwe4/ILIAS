@@ -2,7 +2,7 @@
 <?php
 global $ilUser;
 
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Settings\ilDB($ilDB, $ilUser);
 $db_costtype = new \CaT\Plugins\Accounting\Config\CostType\ilDB($ilDB, $ilUser);
 $db_vat_rate = new \CaT\Plugins\Accounting\Config\VatRate\ilDB($ilDB, $ilUser);
@@ -43,7 +43,7 @@ $db_data->install();
 <#7>
 <?php
 global $ilUser;
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Settings\ilDB($ilDB, $ilUser);
 $db_settings->setPrimaryKey();
 ?>
@@ -51,7 +51,7 @@ $db_settings->setPrimaryKey();
 <#8>
 <?php
 global $ilUser;
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $data_db = new CaT\Plugins\Accounting\Data\ilDB($ilDB, $ilUser);
 
 $data_db->update1();
@@ -60,7 +60,7 @@ $data_db->update1();
 <#9>
 <?php
 global $ilUser;
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $data_db = new CaT\Plugins\Accounting\Data\ilDB($ilDB, $ilUser);
 
 $data_db->update2();
@@ -69,7 +69,7 @@ $data_db->update2();
 <#10>
 <?php
 global $ilUser;
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $data_db = new CaT\Plugins\Accounting\Data\ilDB($ilDB, $ilUser);
 
 $data_db->update3();
@@ -80,7 +80,7 @@ $data_db->update3();
 global $ilUser;
 $query = "SELECT xacc_objects.obj_id AS xacc_id, object_data.obj_id AS object_id FROM object_data LEFT JOIN xacc_objects ON xacc_objects.obj_id = object_data.obj_id WHERE object_data.type = 'xacc' HAVING xacc_id IS NULL";
 $res = $ilDB->query($query);
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $data_db = new CaT\Plugins\Accounting\Settings\ilDB($ilDB, $ilUser);
 
 while ($row = $ilDB->fetchAssoc($res)) {
@@ -93,7 +93,7 @@ while ($row = $ilDB->fetchAssoc($res)) {
 global $ilUser;
 $query = "SELECT xacc_objects.obj_id AS xacc_id, object_data.obj_id AS object_id FROM object_data LEFT JOIN xacc_objects ON xacc_objects.obj_id = object_data.obj_id WHERE object_data.type = 'xacc' HAVING xacc_id IS NULL";
 $res = $ilDB->query($query);
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $data_db = new CaT\Plugins\Accounting\Settings\ilDB($ilDB, $ilUser);
 
 while ($row = $ilDB->fetchAssoc($res)) {
@@ -103,14 +103,14 @@ while ($row = $ilDB->fetchAssoc($res)) {
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Fees\Fee\ilDB($ilDB);
 $db_settings->createTable();
 ?>
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Fees\Fee\ilDB($ilDB);
 $db_settings->setPrimaryKey();
 ?>
@@ -177,42 +177,42 @@ while ($row = $ilDB->fetchAssoc($result)) {
 <?php
 global $DIC;
 
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Settings\ilDB($ilDB, $DIC["ilUser"]);
 $db_settings->update1();
 ?>
 
 <#19>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Fees\CancellationFee\ilDB($ilDB);
 $db_settings->createTable();
 ?>
 
 <#20>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Fees\CancellationFee\ilDB($ilDB);
 $db_settings->setPrimaryKey();
 ?>
 
 <#21>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Config\Cancellation\Scale\ilDB($ilDB);
 $db_settings->createTable();
 ?>
 
 <#22>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Config\Cancellation\Scale\ilDB($ilDB);
 $db_settings->createPrimaryKey();
 ?>
 
 <#23>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accounting/vendor/autoload.php");
+
 $db_settings = new \CaT\Plugins\Accounting\Config\Cancellation\Scale\ilDB($ilDB);
 $db_settings->createSequence();
 ?>

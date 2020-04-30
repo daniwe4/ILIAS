@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $category_db = new CaT\Plugins\CourseClassification\Options\Category\ilDB($ilDB);
 $eduprogramme_db = new CaT\Plugins\CourseClassification\Options\Eduprogram\ilDB($ilDB);
 $media_db = new CaT\Plugins\CourseClassification\Options\Media\ilDB($ilDB);
@@ -20,105 +20,105 @@ $type_db->install();
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $category_db = new CaT\Plugins\CourseClassification\Options\Category\ilDB($ilDB);
 $category_db->configurePrimaryKeys();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $eduprogramme_db = new CaT\Plugins\CourseClassification\Options\Eduprogram\ilDB($ilDB);
 $eduprogramme_db->configurePrimaryKeys();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $media_db = new CaT\Plugins\CourseClassification\Options\Media\ilDB($ilDB);
 $media_db->configurePrimaryKeys();
 ?>
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $method_db = new CaT\Plugins\CourseClassification\Options\Method\ilDB($ilDB);
 $method_db->configurePrimaryKeys();
 ?>
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $targetgroup_db = new CaT\Plugins\CourseClassification\Options\TargetGroup\ilDB($ilDB);
 $targetgroup_db->configurePrimaryKeys();
 ?>
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $topic_db = new CaT\Plugins\CourseClassification\Options\Topic\ilDB($ilDB);
 $topic_db->configurePrimaryKeys();
 ?>
 
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $type_db = new CaT\Plugins\CourseClassification\Options\Type\ilDB($ilDB);
 $type_db->configurePrimaryKeys();
 ?>
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $category_db = new CaT\Plugins\CourseClassification\Options\Category\ilDB($ilDB);
 $category_db->createSequence();
 ?>
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $eduprogramme_db = new CaT\Plugins\CourseClassification\Options\Eduprogram\ilDB($ilDB);
 $eduprogramme_db->createSequence();
 ?>
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $media_db = new CaT\Plugins\CourseClassification\Options\Media\ilDB($ilDB);
 $media_db->createSequence();
 ?>
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $method_db = new CaT\Plugins\CourseClassification\Options\Method\ilDB($ilDB);
 $method_db->createSequence();
 ?>
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $targetgroup_db = new CaT\Plugins\CourseClassification\Options\TargetGroup\ilDB($ilDB);
 $targetgroup_db->createSequence();
 ?>
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $topic_db = new CaT\Plugins\CourseClassification\Options\Topic\ilDB($ilDB);
 $topic_db->createSequence();
 ?>
 
 <#15>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $type_db = new CaT\Plugins\CourseClassification\Options\Type\ilDB($ilDB);
 $type_db->createSequence();
 ?>
 
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 
 $settings_db->createTables();
@@ -126,7 +126,7 @@ $settings_db->createTables();
 
 <#17>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 
 $settings_db->createPrimaryKeys();
@@ -134,7 +134,7 @@ $settings_db->createPrimaryKeys();
 
 <#18>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 
 $settings_db->update1();
@@ -149,7 +149,7 @@ $settings_db->update1();
 
 <#20>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 
 $settings_db->update2();
@@ -174,21 +174,21 @@ while ($res = $db->fetchAssoc($query)) {
 
 <#22>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 $settings_db->update3();
 ?>
 
 <#23>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 $settings_db->update4();
 ?>
 
 <#24>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\Settings\ilDB($ilDB);
 $settings_db->update5();
 ?>
@@ -242,7 +242,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#29>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseClassification/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\CourseClassification\AdditionalLinks\ilDB($ilDB);
 $settings_db->install();
 ?>

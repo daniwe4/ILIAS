@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once "Customizing/global/plugins/Modules/OrgUnit/OrgUnitExtension/TrainingStatisticsByOrgUnits/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\TrainingStatisticsByOrgUnits\Settings\ilDB($DIC["ilDB"]);
 $db->createTable();
@@ -8,7 +8,7 @@ $db->createTable();
 
 <#2>
 <?php
-require_once "Customizing/global/plugins/Modules/OrgUnit/OrgUnitExtension/TrainingStatisticsByOrgUnits/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\TrainingStatisticsByOrgUnits\Settings\ilDB($DIC["ilDB"]);
 $db->addPrimaryKey();

@@ -1,62 +1,62 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->createRequestsTable();
 ?>
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->createSequenceRequests();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->createPrimaryKeysRequests();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->createApprovalsTable();
 ?>
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->createSequenceApprovals();
 ?>
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->createPrimaryKeysApprovals();
 ?>
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->updateAddActingUser();
 ?>
 
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Settings\ilDB($ilDB);
 $db->createTable();
 ?>
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Settings\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
@@ -100,7 +100,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingApprovals/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingApprovals\Approvals\ilDB($ilDB);
 $db->addCrsId();
 ?>

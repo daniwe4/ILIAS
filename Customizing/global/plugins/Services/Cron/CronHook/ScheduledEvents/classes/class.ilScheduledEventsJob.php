@@ -7,7 +7,7 @@ require_once "Services/Cron/classes/class.ilCronManager.php";
 require_once "Services/Cron/classes/class.ilCronJobResult.php";
 
 require_once("class.ilScheduledEventsPlugin.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 use \CaT\Plugins\ScheduledEvents\Mail;
 
 /**

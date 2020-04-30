@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../vendor/autoload.php';
+
 require_once 'Services/Repository/classes/class.ilRepositoryObjectPlugin.php';
 
 use CaT\Plugins\EduBiography\Settings;

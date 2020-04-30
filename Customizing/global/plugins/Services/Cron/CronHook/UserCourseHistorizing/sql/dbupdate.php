@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -14,7 +14,7 @@ $t_f->BufferTableManager()->createTableFor(new HistCourse());
 
 <#2>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -27,7 +27,7 @@ $t_f->StorageTableManager()->createTableFor(new HistCourse());
 
 <#3>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -40,7 +40,7 @@ $t_f->BufferTableManager()->createTableFor(new HistUserCourse());
 
 <#4>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -115,7 +115,7 @@ HistoryLoadingUtilities::getInstance()->historizeCrsParticipations();
 
 <#17>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -129,7 +129,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistUserCourse());
 
 <#18>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -143,7 +143,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistUserCourse());
 
 <#19>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\ilHistorizeExistingObjects();
 $hist->historize();
 ?>
@@ -175,7 +175,7 @@ $hist->historize();
 
 <#25>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -189,7 +189,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#26>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -232,7 +232,7 @@ foreach ($hc->getAllCourses() as $crs) {
 
 <#28>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\ilHistorizeExistingObjects();
 $hist->historize();
 ?>
@@ -288,7 +288,7 @@ foreach ($hist_usr_course->payloadFields() as $field) {
 
 <#30>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -302,7 +302,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#31>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -316,7 +316,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistCourse());
 
 <#32>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\ilHistorizeExistingObjects();
 foreach ($hist->getAllCourses() as $crs) {
     $hist->accomodation($crs);
@@ -325,7 +325,7 @@ foreach ($hist->getAllCourses() as $crs) {
 
 <#33>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -339,7 +339,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistCourse());
 
 <#34>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -353,7 +353,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#35>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\ilHistorizeExistingObjects();
 foreach ($hist->getAllCourses() as $crs) {
     $hist->courseAccounting($crs);
@@ -362,7 +362,7 @@ foreach ($hist->getAllCourses() as $crs) {
 
 <#36>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -376,7 +376,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistUserCourse());
 
 <#37>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -391,7 +391,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistUserCourse());
 <#38>
 <?php
 global $DIC;
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\RehistorizeBookingStatus($ilDB, $DIC->rbac()->review());
 $hist->run();
 ?>
@@ -399,7 +399,7 @@ $hist->run();
 <#39>
 <?php
 global $DIC;
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\RehistorizeBookingModalities($ilDB, $DIC['tree'], $DIC["objDefinition"]);
 $hist->run();
 ?>
@@ -412,7 +412,7 @@ $DIC['ilDB']->addIndex('hhd_usrcrs', ['usr_id'], 'ius');
 
 <#41>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -426,7 +426,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistUserCourse());
 
 <#42>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -456,7 +456,7 @@ HistoryLoadingUtilities::getInstance()->historizeCrsMembersData();
 
 <#46>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -470,7 +470,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistUserCourse());
 
 <#47>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/HistCases/HistCourse.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -515,7 +515,7 @@ $c->resetAfter(\DateTime::createFromFormat('Y-m-d', '2018-10-01'));
 ?>
 <#53>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -528,7 +528,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#54>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -540,7 +540,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistCourse());
 ?>
 <#55>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -553,7 +553,7 @@ $t_f->BufferTableManager()->createTableFor(new HistSessionCourse());
 
 <#56>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -580,7 +580,7 @@ $db->manipulate($q);
 
 <#59>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -593,7 +593,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#60>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -613,7 +613,7 @@ HistoryLoadingUtilities::getInstance()->historizeCourseData();
 <#62>
 <?php
 global $DIC;
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\RehistorizeParticipationStatus($DIC["ilDB"], $DIC["rbacreview"]);
 $hist->run();
 ?>
@@ -640,7 +640,7 @@ $hist->run();
 
 <#67>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -653,7 +653,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistUserCourse());
 
 <#68>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -666,7 +666,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistUserCourse());
 
 <#69>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -679,7 +679,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistCourse());
 
 <#70>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -700,7 +700,7 @@ HistoryLoadingUtilities::getInstance()->historizeCopySettings();
 
 <#72>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -713,7 +713,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#73>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -732,7 +732,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistCourse());
 
 <#75>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -745,7 +745,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistCourse());
 
 <#76>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -758,7 +758,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistCourse());
 
 <#77>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\ilHistorizeExistingObjects();
 foreach ($hist->getAllCourses() as $crs) {
     $hist->accomodation($crs);
@@ -767,7 +767,7 @@ foreach ($hist->getAllCourses() as $crs) {
 
 <#78>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -780,7 +780,7 @@ $t_f->BufferTableManager()->updateTableFor(new HistUserCourse());
 
 <#79>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -794,7 +794,7 @@ $t_f->StorageTableManager()->updateTableFor(new HistUserCourse());
 <#80>
 <?php
 global $DIC;
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 $hist = new CaT\Plugins\UserCourseHistorizing\RehistorizeLocalRoles($DIC["ilDB"], $DIC["ilAppEventHandler"]);
 $hist->run();
 ?>

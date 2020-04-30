@@ -1,7 +1,7 @@
 <?php
 include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
 require_once 'Services/TMS/ReportUtilities/classes/class.ilTreeObjectDiscovery.php';
-require_once rtrim(__DIR__, '/') . '/../vendor/autoload.php';
+
 
 use CaT\Plugins\TrainingStatistics as TS;
 

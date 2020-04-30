@@ -1,31 +1,31 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 $db = new \CaT\Plugins\CourseMailing\RoleMapping\ilDB($ilDB);
 $db->createTable();
 ?>
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 $db = new \CaT\Plugins\CourseMailing\RoleMapping\ilDB($ilDB);
 $db->createSequence();
 ?>
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 $db = new \CaT\Plugins\CourseMailing\RoleMapping\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $db = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 $db->createTable();
 ?>
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $db = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 $db->createPrimaryKey();
@@ -34,7 +34,7 @@ $db->createPrimaryKey();
 <?php
 //init settings where there are none
 require_once("Services/Object/classes/class.ilObjectFactory.php");
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $sdb = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 
@@ -91,7 +91,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $db = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 $db->update1();
@@ -121,28 +121,28 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 $db = new \CaT\Plugins\CourseMailing\RoleMapping\ilDB($ilDB);
 $db->createAttachmentTable();
 ?>
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 $db = new \CaT\Plugins\CourseMailing\RoleMapping\ilDB($ilDB);
 $db->createPrimaryKeyForAttachments();
 ?>
 
 <#15>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 $db = new \CaT\Plugins\CourseMailing\RoleMapping\ilDB($ilDB);
 $db->singulateAttachmentData();
 ?>
 
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $db = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 $db->createHistTable();
@@ -150,7 +150,7 @@ $db->createHistTable();
 
 <#17>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $db = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 $db->createHistPrimaryKey();
@@ -158,7 +158,7 @@ $db->createHistPrimaryKey();
 
 <#18>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMailing/vendor/autoload.php");
+
 global $DIC;
 $db = new \CaT\Plugins\CourseMailing\Settings\ilDB($ilDB, $DIC->user());
 $db->createHistSequence();

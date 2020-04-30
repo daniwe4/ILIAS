@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\Booking\ilDB($ilDB);
 $storno_db = new CaT\Plugins\BookingModalities\Settings\Storno\ilDB($ilDB);
 $member_db = new CaT\Plugins\BookingModalities\Settings\Member\ilDB($ilDB);
@@ -16,7 +16,7 @@ $approve_role_db->createTable1();
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\Booking\ilDB($ilDB);
 
 $booking_db->createBookingPrimaryKey();
@@ -24,7 +24,7 @@ $booking_db->createBookingPrimaryKey();
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $approve_role_db = new CaT\Plugins\BookingModalities\Settings\ApproveRole\ilDB($ilDB);
 
 $approve_role_db->createApproversPrimaryKey();
@@ -32,7 +32,7 @@ $approve_role_db->createApproversPrimaryKey();
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $storno_db = new CaT\Plugins\BookingModalities\Settings\Storno\ilDB($ilDB);
 
 $storno_db->createStornoPrimaryKey();
@@ -40,7 +40,7 @@ $storno_db->createStornoPrimaryKey();
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $member_db = new CaT\Plugins\BookingModalities\Settings\Member\ilDB($ilDB);
 
 $member_db->createMemberPrimaryKey();
@@ -48,7 +48,7 @@ $member_db->createMemberPrimaryKey();
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $waitinglist_db = new CaT\Plugins\BookingModalities\Settings\Waitinglist\ilDB($ilDB);
 
 $waitinglist_db->createWaitinglistPrimaryKey();
@@ -56,7 +56,7 @@ $waitinglist_db->createWaitinglistPrimaryKey();
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $selectable_roles_db = new CaT\Plugins\BookingModalities\Settings\SelectableRoles\ilDB($ilDB);
 
 $selectable_roles_db->createTable();
@@ -64,7 +64,7 @@ $selectable_roles_db->createTable();
 
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $approve_role_db = new CaT\Plugins\BookingModalities\Settings\ApproveRole\ilDB($ilDB);
 
 $approve_role_db->updateTabe1();
@@ -72,7 +72,7 @@ $approve_role_db->updateTabe1();
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $approve_role_db = new CaT\Plugins\BookingModalities\Settings\ApproveRole\ilDB($ilDB);
 
 $approve_role_db->modifyApproversPrimaryKey();
@@ -80,7 +80,7 @@ $approve_role_db->modifyApproversPrimaryKey();
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $approve_role_db = new CaT\Plugins\BookingModalities\Settings\SelectableReasons\ilDB($ilDB);
 
 $approve_role_db->createTable();
@@ -88,7 +88,7 @@ $approve_role_db->createTable();
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $approve_role_db = new CaT\Plugins\BookingModalities\Settings\SelectableReasons\ilDB($ilDB);
 
 $approve_role_db->createPrimaryKey();
@@ -96,7 +96,7 @@ $approve_role_db->createPrimaryKey();
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $approve_role_db = new CaT\Plugins\BookingModalities\Settings\SelectableReasons\ilDB($ilDB);
 
 $approve_role_db->createSequence();
@@ -104,7 +104,7 @@ $approve_role_db->createSequence();
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $storno_db = new CaT\Plugins\BookingModalities\Settings\Storno\ilDB($ilDB);
 
 $storno_db->update1();
@@ -148,14 +148,14 @@ while ($res = $db->fetchAssoc($query)) {
 ?>
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $docs_db = new CaT\Plugins\BookingModalities\Settings\DownloadableDocument\ilDB($ilDB);
 $docs_db->install();
 ?>
 
 <#17>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $storno_db = new CaT\Plugins\BookingModalities\Settings\Storno\ilDB($ilDB);
 
 $storno_db->update2();
@@ -251,7 +251,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#22>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\Booking\ilDB($ilDB);
 $booking_db->update1();
 ?>
@@ -275,21 +275,21 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#24>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\SelectableRoles\ilDB($ilDB);
 $booking_db->update1();
 ?>
 
 <#25>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\ApproveRole\ilDB($ilDB);
 $booking_db->updateTable2();
 ?>
 
 <#26>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\Booking\ilDB($ilDB);
 
 $booking_db->update2();
@@ -297,7 +297,7 @@ $booking_db->update2();
 
 <#27>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Settings\Booking\ilDB($ilDB);
 
 $booking_db->update3();
@@ -321,21 +321,21 @@ while ($row = $ilDB->fetchAssoc($result)) {
 ?>
 <#29>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Reminder\ilDB($ilDB);
 
 $booking_db->createTable();
 ?>
 <#30>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Reminder\ilDB($ilDB);
 
 $booking_db->createSequence();
 ?>
 <#31>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingModalities/vendor/autoload.php");
+
 $booking_db = new CaT\Plugins\BookingModalities\Reminder\ilDB($ilDB);
 
 $booking_db->createPrimaryKey();

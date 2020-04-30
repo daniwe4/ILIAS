@@ -1,13 +1,13 @@
 <#1>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\UDF\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createTable();
 ?>
 <#2>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\UDF\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createPrimaryKey();
@@ -15,21 +15,21 @@ $db->createPrimaryKey();
 
 <#3>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\Connection\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createTable();
 ?>
 <#4>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\Connection\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createPrimaryKey();
 ?>
 <#5>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\Connection\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createPrimaryKey();
@@ -158,21 +158,21 @@ try {
 
 <#16>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\Tgic\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createTable();
 ?>
 <#17>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\Tgic\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createPrimaryKey();
 ?>
 <#18>
 <?php
-require_once "Customizing/global/plugins/Services/Cron/CronHook/WBDCommunicator/vendor/autoload.php";
+
 global $DIC;
 $db = new CaT\Plugins\WBDCommunicator\Config\Tgic\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createSequence();

@@ -34,7 +34,7 @@ ilDBUpdateNewObjectType::addRBACOperation($type_id, $new_ops_id);
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/vendor/autoload.php");
+
 ilOrgUnitOperationContextQueries::registerNewContext(
     CaT\Plugins\TrainerOperations\ObjTrainerOperations::PLUGIN_ID,
     ilOrgUnitOperationContext::CONTEXT_OBJECT
@@ -49,35 +49,35 @@ ilOrgUnitOperationQueries::registerNewOperation(
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\TrainerOperations\Settings\ilDB($ilDB);
 $settings_db->createTable();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\TrainerOperations\Settings\ilDB($ilDB);
 $settings_db->createPrimaryKeys();
 ?>
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\TrainerOperations\UserSettings\ilDB($ilDB);
 $settings_db->createTable();
 ?>
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\TrainerOperations\UserSettings\ilDB($ilDB);
 $settings_db->createPrimaryKeys();
 ?>
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/TrainerOperations/vendor/autoload.php");
+
 $settings_db = new CaT\Plugins\TrainerOperations\UserSettings\ilDB($ilDB);
 $settings_db->createSequenceTable();
 ?>

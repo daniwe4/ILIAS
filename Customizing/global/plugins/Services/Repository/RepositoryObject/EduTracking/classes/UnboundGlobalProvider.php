@@ -1,8 +1,6 @@
 <?php
 namespace CaT\Plugins\EduTracking;
 
-require_once(__DIR__ . '/../vendor/autoload.php');
-
 use \CaT\Ente\ILIAS\SeparatedUnboundProvider;
 use \CaT\Ente\ILIAS\Entity;
 use \ILIAS\TMS\Mailing;

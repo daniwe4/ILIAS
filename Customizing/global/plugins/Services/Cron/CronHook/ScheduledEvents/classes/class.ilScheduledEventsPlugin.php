@@ -1,7 +1,7 @@
 <?php
 
 require_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
-require_once __DIR__ . '/../vendor/autoload.php';
+
 
 use CaT\Plugins\ScheduledEvents;
 

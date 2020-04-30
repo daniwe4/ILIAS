@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/classes/HistCases/WBDCrs.php';
 
 use CaT\Historization\Persistence\Mysql as Mysql;
@@ -14,7 +14,7 @@ $t_f->BufferTableManager()->createTableFor(new WBDCrs());
 
 <#2>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/vendor/autoload.php';
+
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/classes/HistCases/WBDCrs.php';
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -41,7 +41,7 @@ $rh->rehistorizeAssignments();
 
 <#5>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;
@@ -54,7 +54,7 @@ $t_f->BufferTableManager()->updateTableFor(new WBDCrs());
 
 <#6>
 <?php
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/WBDCrsHistorizing/vendor/autoload.php';
+
 
 use CaT\Historization\Persistence\Mysql as Mysql;
 use CaT\Historization\ILIAS as ILIAS;

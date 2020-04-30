@@ -2,7 +2,7 @@
 include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 require_once(__DIR__ . "/class.ilMaterialListSettingsGUI.php");
 require_once(__DIR__ . "/Lists/class.ilListsGUI.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 
 use \CaT\Plugins\MaterialList;
 

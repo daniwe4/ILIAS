@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 use CaT\Plugins\TrainingStatisticsByOrgUnits\DI;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 /**
  * Plugin base class. Keeps all information the plugin needs.
  */

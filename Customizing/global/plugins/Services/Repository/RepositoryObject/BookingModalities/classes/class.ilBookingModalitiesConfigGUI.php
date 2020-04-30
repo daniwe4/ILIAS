@@ -1,6 +1,6 @@
 <?php
 include_once("./Services/Component/classes/class.ilPluginConfigGUI.php");
-require_once __DIR__ . "/../vendor/autoload.php";
+
 
 use CaT\Plugins\BookingModalities\TableProcessing\TableProcessor;
 use CaT\Plugins\BookingModalities\Settings\SelectableReasons\SelectableReasonsBackend;

@@ -1,6 +1,6 @@
 <?php
 require_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 
 use CaT\Plugins\AgendaItemPool;
 

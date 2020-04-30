@@ -1,7 +1,7 @@
 <?php
 
 
-require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/libs/vendor/autoload.php';
+
 
 require_once 'Customizing/global/plugins/Services/Cron/CronHook/UserCourseHistorizing/classes/class.ilUserCourseHistorizingPlugin.php';
 require_once "Services/Tracking/classes/class.ilLPStatus.php";

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../libs/vendor/autoload.php';
+
 require_once 'Services/Cron/classes/class.ilCronHookPlugin.php';
 
 use CaT\Historization as Hist;

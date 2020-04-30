@@ -2,7 +2,7 @@
 /* Copyright (c) 1998-2017 ILIAS open source, Extended GPL, see docs/LICENSE */
 
 include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 
 use \CaT\Plugins\Venues;
 

@@ -1,7 +1,7 @@
 <?php
 include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
 include_once("Services/Tracking/classes/class.ilLPStatus.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 
 use CaT\Plugins\CourseMember;
 use CaT\Plugins\CourseMember\SignatureList\ConfigurableList\DBConfigurableListConfigRepo;

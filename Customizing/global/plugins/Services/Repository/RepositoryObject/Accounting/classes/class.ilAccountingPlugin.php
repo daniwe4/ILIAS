@@ -5,8 +5,6 @@ use \CaT\Plugins\Accounting\DI;
 use CaT\Plugins\Accounting\Fees\CancellationFee\CancellationFee;
 use CaT\Plugins\Accounting\Config\Cancellation\Scale\Scale;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 /**
  * Plugin base class. Keeps all information the plugin needs
  *

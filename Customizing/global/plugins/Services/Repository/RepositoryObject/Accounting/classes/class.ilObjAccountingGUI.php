@@ -6,7 +6,7 @@ use CaT\Libs\ExcelWrapper;
 use CaT\Plugins\Accounting\DI;
 
 require_once "./Services/Repository/classes/class.ilObjectPluginGUI.php";
-require_once __DIR__ . "/../vendor/autoload.php";
+
 
 
 /**

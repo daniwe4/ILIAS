@@ -1,34 +1,34 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingAcknowledge/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingAcknowledge\Acknowledgments\ilDB($ilDB);
 $db->createTable();
 ?>
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingAcknowledge/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingAcknowledge\Acknowledgments\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingAcknowledge/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingAcknowledge\Acknowledgments\ilDB($ilDB);
 $db->createSequenceRequests();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingAcknowledge/vendor/autoload.php");
+
 $db = new CaT\Plugins\BookingAcknowledge\Acknowledgments\ilDB($ilDB);
 $db->updateTable1();
 ?>
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingAcknowledge/vendor/autoload.php");
+
 ilOrgUnitOperationContextQueries::registerNewContext(
     CaT\Plugins\BookingAcknowledge\BookingAcknowledge::ORGU_CONTEXT,
     ilOrgUnitOperationContext::CONTEXT_OBJECT
@@ -37,7 +37,7 @@ ilOrgUnitOperationContextQueries::registerNewContext(
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/BookingAcknowledge/vendor/autoload.php");
+
 ilOrgUnitOperationQueries::registerNewOperation(
     CaT\Plugins\BookingAcknowledge\BookingAcknowledge::ORGU_OP_SEE_USERBOOKINGS,
     'See Userbookings',

@@ -1,6 +1,6 @@
 <#1>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 use  CaT\Plugins\EduBiography\Settings as Settings;
 
 global $DIC;
@@ -22,7 +22,7 @@ if (!$db->tableExists(Settings\SettingsRepository::DB_TABLE)) {
 ?>
 <#2>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 use  CaT\Plugins\EduBiography\Settings as Settings;
 
 global $DIC;
@@ -31,7 +31,7 @@ $db->addPrimaryKey(Settings\SettingsRepository::DB_TABLE, [Settings\SettingsRepo
 ?>
 <#3>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 use  CaT\Plugins\EduBiography\Settings as Settings;
 
 global $DIC;
@@ -110,7 +110,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#11>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Settings\SettingsRepository($DIC["ilDB"]);
 $db->update1();
@@ -118,7 +118,7 @@ $db->update1();
 
 <#12>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Settings\SettingsRepository($DIC["ilDB"]);
 $db->update2();
@@ -131,7 +131,7 @@ $db->update2();
 
 <#14>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Settings\SettingsRepository($DIC["ilDB"]);
 $db->update3();
@@ -144,7 +144,7 @@ $db->update3();
 
 <#16>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules\ilDB($DIC['ilDB'], $DIC['ilUser']);
 $db->createTable();
@@ -152,7 +152,7 @@ $db->createTable();
 
 <#17>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules\ilDB($DIC['ilDB'], $DIC['ilUser']);
 $db->createSequence();
@@ -160,7 +160,7 @@ $db->createSequence();
 
 <#18>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules\ilDB($DIC['ilDB'], $DIC['ilUser']);
 $db->createPrimaryKey();
@@ -168,7 +168,7 @@ $db->createPrimaryKey();
 
 <#19>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules\ilDB($DIC['ilDB'], $DIC['ilUser']);
 $db->update1();
@@ -176,7 +176,7 @@ $db->update1();
 
 <#20>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\OverviewCertificate\ilDB($DIC['ilDB']);
 $db->createTable();
@@ -184,7 +184,7 @@ $db->createTable();
 
 <#21>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\OverviewCertificate\ilDB($DIC['ilDB']);
 $db->createPrimaryKey();
@@ -192,7 +192,7 @@ $db->createPrimaryKey();
 
 <#22>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $fix = new CaT\Plugins\EduBiography\Fixes\ilFixParticipationStatusAfterDeleteCourse($DIC["ilDB"]);
 $fix->run();
@@ -200,7 +200,7 @@ $fix->run();
 
 <#23>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Activation\ilDB($DIC['ilDB']);
 $db->createTable();
@@ -208,7 +208,7 @@ $db->createTable();
 
 <#24>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Activation\ilDB($DIC['ilDB']);
 $db->createSequence();
@@ -216,7 +216,7 @@ $db->createSequence();
 
 <#25>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Activation\ilDB($DIC['ilDB']);
 $db->createPrimaryKey();
@@ -224,7 +224,7 @@ $db->createPrimaryKey();
 
 <#26>
 <?php
-require_once 'Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/vendor/autoload.php';
+
 global $DIC;
 $db = new CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules\ilDB($DIC['ilDB'], $DIC['ilUser']);
 $db->update2();

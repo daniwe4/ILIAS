@@ -1,12 +1,12 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->createTable();
 ?>
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
@@ -20,13 +20,13 @@ $db->createPrimaryKey();
 ?>
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\Reservation\ilDB($ilDB);
 $db->createTable();
 ?>
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\Reservation\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
@@ -67,7 +67,7 @@ ilDBUpdateNewObjectType::addRBACOperation($xoac_type_id, $new_ops_id);
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->stepUpLocationId();
 ?>
@@ -123,7 +123,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->update1();
 ?>
@@ -136,7 +136,7 @@ $ilDB->manipulate($query);
 
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->update2();
 ?>
@@ -242,7 +242,7 @@ $ilDB->manipulate($query);
 
 <#23>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->update3();
 ?>
@@ -273,21 +273,21 @@ if ($ilDB->tableExists($table_name)) {
 
 <#28>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\Reservation\Note\ilDB($ilDB);
 $db->createTable();
 ?>
 
 <#29>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\Reservation\Note\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
 
 <#30>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Accomodation/vendor/autoload.php");
+
 $db = new \CaT\Plugins\Accomodation\ObjSettings\ilDB($ilDB);
 $db->update4();
 ?>

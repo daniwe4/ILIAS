@@ -1,34 +1,34 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->createTable();
 ?>
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->createPrimaryKey();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->createSequence();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update1();
 ?>
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update2();
 ?>
@@ -60,7 +60,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update3();
 ?>
@@ -106,7 +106,7 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 global $DIC;
 $db = new CaT\Plugins\Agenda\Config\Blocks\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createTable();
@@ -114,7 +114,7 @@ $db->createTable();
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 global $DIC;
 $db = new CaT\Plugins\Agenda\Config\Blocks\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createPrimaryKey();
@@ -122,7 +122,7 @@ $db->createPrimaryKey();
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 global $DIC;
 $db = new CaT\Plugins\Agenda\Config\Blocks\ilDB($DIC["ilDB"], $DIC["ilUser"]);
 $db->createSequence();
@@ -130,44 +130,44 @@ $db->createSequence();
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\Settings\ilDB($ilDB);
 $wbd_db->createTable();
 ?>
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\Settings\ilDB($ilDB);
 $wbd_db->createPrimaryKey();
 ?>
 <#15>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update4();
 ?>
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update5();
 ?>
 <#17>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update6();
 ?>
 <#18>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update7();
 ?>
 <#19>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Agenda/vendor/autoload.php");
+
 $wbd_db = new CaT\Plugins\Agenda\AgendaEntry\ilDB($ilDB);
 $wbd_db->update8();
 ?>

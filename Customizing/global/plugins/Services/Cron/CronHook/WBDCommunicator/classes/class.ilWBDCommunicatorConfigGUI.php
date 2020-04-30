@@ -6,8 +6,6 @@ declare(strict_types = 1);
 
 use CaT\Plugins\WBDCommunicator\DI;
 
-require_once __DIR__ . "/../vendor/autoload.php";
-
 /**
  *
  * @ilCtrl_Calls ilWBDCommunicatorConfigGUI: ilWBDOperationLimitsGUI, ilWBDConnectionGUI, ilWBDUDFGUI, ilTgicGUI

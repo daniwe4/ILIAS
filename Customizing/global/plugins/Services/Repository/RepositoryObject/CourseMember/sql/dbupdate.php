@@ -1,27 +1,27 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\LPOptions\ilDB($ilDB);
 $db->createTable();
 ?>
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\LPOptions\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\LPOptions\ilDB($ilDB);
 $db->createSequence();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -30,7 +30,7 @@ $db->createTable();
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -39,7 +39,7 @@ $db->createPrimaryKey();
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
@@ -48,7 +48,7 @@ $db->createTable();
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
@@ -57,7 +57,7 @@ $db->createPrimaryKey();
 
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -66,7 +66,7 @@ $db->update1();
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
@@ -75,7 +75,7 @@ $db->update1();
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -84,7 +84,7 @@ $db->update2();
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -93,7 +93,7 @@ $db->update3();
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
@@ -102,7 +102,7 @@ $db->update2();
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
@@ -111,7 +111,7 @@ $db->update3();
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
@@ -120,7 +120,7 @@ $db->update4();
 
 <#15>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -129,7 +129,7 @@ $db->update4();
 
 <#16>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 global $DIC;
 
 $db = new CaT\Plugins\CourseMember\Members\ilDB($ilDB, $DIC->user());
@@ -241,35 +241,35 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#21>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\LPOptions\ilDB($ilDB);
 $db->update1();
 ?>
 
 <#22>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\Settings\ilDB($ilDB);
 $db->update5();
 ?>
 
 <#23>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\Reminder\ilDB($ilDB);
 $db->createTable();
 ?>
 
 <#24>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\Reminder\ilDB($ilDB);
 $db->createSequence();
 ?>
 
 <#25>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/vendor/autoload.php");
+
 $db = new CaT\Plugins\CourseMember\Reminder\ilDB($ilDB);
 $db->createPrimaryKey();
 ?>

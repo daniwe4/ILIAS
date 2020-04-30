@@ -2,7 +2,7 @@
 
 /* Copyright (c) 2018 Richard Klees <richard.klees@concepts-and-training.de> */
 
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 require_once("Modules/Course/classes/class.ilObjCourseAccess.php");
 require_once("Services/TMS/PluginObjectFactory.php");
 

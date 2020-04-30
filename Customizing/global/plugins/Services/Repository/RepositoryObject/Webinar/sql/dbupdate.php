@@ -1,97 +1,97 @@
 <#1>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\Webinar\Settings\ilDB($ilDB);
 $settings_db->createTable();
 ?>
 
 <#2>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\Webinar\Settings\ilDB($ilDB);
 $settings_db->createPrimaryKey();
 ?>
 
 <#3>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $participant_db = new \CaT\Plugins\Webinar\Participant\ilDB($ilDB);
 $participant_db->createTable();
 ?>
 
 <#4>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $participant_db = new \CaT\Plugins\Webinar\Participant\ilDB($ilDB);
 $participant_db->createPrimaryKey();
 ?>
 
 <#5>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\CSN\ilDB($ilDB);
 $csn_db->createTable();
 ?>
 
 <#6>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\CSN\ilDB($ilDB);
 $csn_db->createPrimaryKeySettings();
 ?>
 
 <#7>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\CSN\ilDB($ilDB);
 $csn_db->createPrimaryKeyParticipants();
 ?>
 
 <#8>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\CSN\ilDB($ilDB);
 $csn_db->createSequenceParticipants();
 ?>
 
 <#9>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\Webinar\Settings\ilDB($ilDB);
 $settings_db->tableUpdate1();
 ?>
 
 <#10>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $participant_db = new \CaT\Plugins\Webinar\Participant\ilDB($ilDB);
 $participant_db->tableUpdate1();
 ?>
 
 <#11>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\Generic\ilDB($ilDB);
 $csn_db->createTable();
 ?>
 
 <#12>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\Generic\ilDB($ilDB);
 $csn_db->createPrimaryKeySettings();
 ?>
 
 <#13>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\Generic\ilDB($ilDB);
 $csn_db->createPrimaryKeyParticipants();
 ?>
 
 <#14>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\Generic\ilDB($ilDB);
 $csn_db->createSequenceParticipants();
 ?>
@@ -184,21 +184,21 @@ while ($row = $ilDB->fetchAssoc($result)) {
 
 <#20>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\Webinar\Settings\ilDB($ilDB);
 $settings_db->tableUpdate2();
 ?>
 
 <#21>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\Webinar\Settings\ilDB($ilDB);
 $settings_db->tableUpdate3();
 ?>
 
 <#22>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $csn_db = new \CaT\Plugins\Webinar\VC\CSN\ilDB($ilDB);
 $csn_db->update1();
 ?>
@@ -216,7 +216,7 @@ while ($row = $ilDB->fetchAssoc($res)) {
 
 <#24>
 <?php
-require_once("Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/vendor/autoload.php");
+
 $settings_db = new \CaT\Plugins\Webinar\Settings\ilDB($ilDB);
 $settings_db->tableUpdate4();
 ?>

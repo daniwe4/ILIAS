@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . "/../vendor/autoload.php";
+
 include_once("./Services/Cron/classes/class.ilCronHookPlugin.php");
 require_once(__DIR__ . "/class.ilCourseCreationJob.php");
-require_once(__DIR__ . "/../vendor/autoload.php");
+
 
 use CaT\Plugins\CourseCreation;
 

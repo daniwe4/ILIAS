@@ -7,7 +7,6 @@ declare(strict_types=1);
 use CaT\Plugins\WBDManagement\DI;
 use CaT\Plugins\WBDManagement\GutBeraten;
 
-require_once __DIR__ . "/../vendor/autoload.php";
 require_once "./Services/Repository/classes/class.ilRepositoryObjectPlugin.php";
 
 class ilWBDManagementPlugin extends ilRepositoryObjectPlugin
