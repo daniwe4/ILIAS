@@ -15,6 +15,13 @@ class ilTMSCancelActions implements Booking\Actions
     /**
      * @inheritdoc
      */
+    public function bookUser($crs_ref_id, $user_id)
+    {
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function cancelUser($crs_ref_id, $user_id)
     {
         require_once("Modules/Course/classes/class.ilCourseParticipants.php");
