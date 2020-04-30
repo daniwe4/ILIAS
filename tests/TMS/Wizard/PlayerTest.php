@@ -3,6 +3,7 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\Wizard;
+use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . "/../../../Services/Form/classes/class.ilPropertyFormGUI.php");
 
@@ -18,11 +19,11 @@ class _WizardPlayer extends Wizard\Player
     }
 }
 
-class TMS_Wizard_PlayerTest extends PHPUnit_Framework_TestCase
+class TMS_Wizard_PlayerTest extends TestCase
 {
     protected static $count_setups = 0;
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->ilias_bindings = $this->createMock(Wizard\ILIASBindings::class);
         $this->wizard = $this->createMock(Wizard\Wizard::class);

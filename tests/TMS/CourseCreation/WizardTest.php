@@ -3,6 +3,7 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\CourseCreation;
+use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . "/../../../Services/Form/classes/class.ilPropertyFormGUI.php");
 
@@ -38,9 +39,9 @@ class _CourseCreationWizard extends CourseCreation\Wizard
     }
 }
 
-class TMS_CourseCreation_WizardTest extends PHPUnit_Framework_TestCase
+class TMS_CourseCreation_WizardTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->step_count = 0;
     }

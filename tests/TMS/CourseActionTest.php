@@ -6,6 +6,7 @@ require_once(__DIR__ . "/../../Services/Object/classes/class.ilObject.php");
 require_once(__DIR__ . "/../../Services/User/classes/class.ilObjUser.php");
 
 use ILIAS\TMS;
+use PHPUnit\Framework\TestCase;
 
 class _CourseActionImpl extends TMS\CourseActionImpl
 {
@@ -23,7 +24,7 @@ class _CourseActionImpl extends TMS\CourseActionImpl
     }
 }
 
-class CourseActionTest extends PHPUnit_Framework_TestCase
+class CourseActionTest extends TestCase
 {
     public function test_fields()
     {

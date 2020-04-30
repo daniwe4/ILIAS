@@ -24,7 +24,6 @@ class QuickfilterTest extends ILIAS_UI_TestBase
         $sg = new SignalGenerator();
         return new \ILIAS\UI\Implementation\Factory(
             $this->createMock(C\Counter\Factory::class),
-            new IC\Glyph\Factory($sg),
             new IC\Button\Factory($sg),
             $this->createMock(C\Listing\Factory::class),
             $this->createMock(C\Image\Factory::class),
@@ -36,13 +35,18 @@ class QuickfilterTest extends ILIAS_UI_TestBase
             $this->createMock(C\Link\Factory::class),
             new IC\Dropdown\Factory(),
             $this->createMock(C\Item\Factory::class),
-            $this->createMock(C\Icon\Factory::class),
             $this->createMock(C\ViewControl\Factory::class),
             $this->createMock(C\Chart\Factory::class),
             $this->createMock(C\Input\Factory::class),
             $this->createMock(C\Table\Factory::class),
             $this->createMock(C\MessageBox\Factory::class),
-            $this->createMock(C\Card\Factory::class)
+            $this->createMock(C\Card\Factory::class),
+            $this->createMock(C\Layout\Factory::class),
+            $this->createMock(C\MainControls\Factory::class),
+            $this->createMock(C\Tree\Factory::class),
+            $this->createMock(C\Menu\Factory::class),
+            $this->createMock(C\Symbol\Factory::class),
+            $this->createMock(C\Legacy\Factory::class)
         );
     }
 
@@ -106,10 +110,10 @@ class QuickfilterTest extends ILIAS_UI_TestBase
     protected function getQuickfilterExpectedHTML()
     {
         $expected = <<<EOT
-<div class="il-viewcontrol-quickfilter" id=""><div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"  aria-haspopup="true" aria-expanded="false" > <span class="caret"></span></button><ul class="dropdown-menu">
-	<li><button class="btn btn-link" data-action="?quickfilter=internal_rating" id="id_1"  >Best</button></li>
-	<li><button class="btn btn-link" data-action="?quickfilter=date_desc" id="id_2"  >Most Recent</button></li>
-	<li><button class="btn btn-link" data-action="?quickfilter=date_asc" id="id_3"  >Oldest</button></li></ul></div>
+<div class="il-viewcontrol-quickfilter" id=""><div class="dropdown"><button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"  aria-label="actions" aria-haspopup="true" aria-expanded="false" > <span class="caret"></span></button><ul class="dropdown-menu">
+	<li><button class="btn btn-link" data-action="?quickfilter=internal_rating" id="id_1">Best</button></li>
+	<li><button class="btn btn-link" data-action="?quickfilter=date_desc" id="id_2">Most Recent</button></li>
+	<li><button class="btn btn-link" data-action="?quickfilter=date_asc" id="id_3">Oldest</button></li></ul></div>
 </div>
 EOT;
         return $this->normalizeHTML($expected);

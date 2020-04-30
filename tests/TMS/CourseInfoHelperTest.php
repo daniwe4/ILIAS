@@ -3,6 +3,7 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS;
+use PHPUnit\Framework\TestCase;
 
 class CourseInfoHelperTest
 {
@@ -52,7 +53,7 @@ class CourseInfoMock implements TMS\CourseInfo
     }
 }
 
-class TMS_CourseInfoHelperTest extends PHPUnit_Framework_TestCase
+class TMS_CourseInfoHelperTest extends TestCase
 {
     public function test_getCourseInfo()
     {

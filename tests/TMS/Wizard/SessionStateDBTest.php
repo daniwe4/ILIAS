@@ -3,10 +3,11 @@
 /* Copyright (c) 2018 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\Wizard;
+use PHPUnit\Framework\TestCase;
 
-class TMS_Wizard_SessionStateDBTest extends PHPUnit_Framework_TestCase
+class TMS_Wizard_SessionStateDBTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->db = $this->getMockBuilder(Wizard\SessionStateDB::class)
             ->setMethods(["sessionGet", "sessionSet", "sessionClear"])

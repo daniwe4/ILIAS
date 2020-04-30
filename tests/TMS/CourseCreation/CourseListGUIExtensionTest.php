@@ -81,7 +81,7 @@ class TMS_CourseCreation_CourseListGUIExtensionTest extends TestCase
 {
     const CREATE_COURSE_ACTION_LNG_VAR = "create_course_from_template";
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->gui_fake = new _TMS_CourseCreation_CourseListGUIExtension();
         $this->bare = new _TMS_CourseCreation_CourseListGUIExtension_Bare();

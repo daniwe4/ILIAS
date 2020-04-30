@@ -21,7 +21,7 @@ class EluceoICalBuilderTest extends TestCase
     const ORGANIZER_EMAIL = "noreply@cat06.de";
     const ORGANIZER_NAME = "CaT TMS";
 
-    public function setUp()
+    public function setUp() : void
     {
         $this->infos = [
             new CourseInfoImpl($this->createMock(Entity::class), "Titel", "Titel", "", 0, []),
@@ -32,7 +32,7 @@ class EluceoICalBuilderTest extends TestCase
 
     public function testSmoke()
     {
-        $this->assertInternalType("string", $this->builder->getIcalString("ref", $this->infos));
+        $this->assertIsString($this->builder->getIcalString("ref", $this->infos));
     }
 
     public function testFileContentIsString()

@@ -3,6 +3,7 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\Booking;
+use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . "/../../../Services/Form/classes/class.ilPropertyFormGUI.php");
 
@@ -34,9 +35,9 @@ class _BookingWizard extends Booking\Wizard
     }
 }
 
-class TMS_Booking_WizardTest extends PHPUnit_Framework_TestCase
+class TMS_Booking_WizardTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->step_count = 0;
     }

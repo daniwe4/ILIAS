@@ -3,8 +3,9 @@
 /* Copyright (c) 2018 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\Wizard;
+use PHPUnit\Framework\TestCase;
 
-class TMS_Wizard_StateTest extends PHPUnit_Framework_TestCase
+class TMS_Wizard_StateTest extends TestCase
 {
     public function test_getStepData_throws()
     {

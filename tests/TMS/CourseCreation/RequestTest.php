@@ -3,12 +3,13 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\CourseCreation;
+use PHPUnit\Framework\TestCase;
 
 require_once(__DIR__ . "/../../../Services/Form/classes/class.ilPropertyFormGUI.php");
 
-class TMS_CourseCreation_RequestTest extends PHPUnit_Framework_TestCase
+class TMS_CourseCreation_RequestTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->id = 23;
         $this->user_id = 43;

@@ -3,10 +3,11 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\Booking;
+use PHPUnit\Framework\TestCase;
 
-class TMS_Booking_StepAdapterTest extends PHPUnit_Framework_TestCase
+class TMS_Booking_StepAdapterTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->user_id = 667; // the neighbour of the beast
         $this->crs_ref_id = 11;

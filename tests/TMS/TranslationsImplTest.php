@@ -1,9 +1,10 @@
 <?php
 use ILIAS\TMS;
+use PHPUnit\Framework\TestCase;
 
-class TranslationsImplTest extends PHPUnit_Framework_TestCase
+class TranslationsImplTest extends TestCase
 {
-    public function setUp()
+    public function setUp() : void
     {
         $this->txts = array(
             'CONST_1' => 'TXT_1',

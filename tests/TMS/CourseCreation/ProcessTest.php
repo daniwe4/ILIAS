@@ -3,6 +3,7 @@
 /* Copyright (c) 2017 Richard Klees <richard.klees@concepts-and-training.de> */
 
 use ILIAS\TMS\CourseCreation;
+use PHPUnit\Framework\TestCase;
 
 if (!class_exists(\ilTree::class)) {
     require_once("Services/Tree/classes/class.ilTree.php");
@@ -47,7 +48,7 @@ class _CourseCreationProcess extends CourseCreation\Process
     }
 }
 
-class TMS_CourseCreation_ProcessTest extends PHPUnit_Framework_TestCase
+class TMS_CourseCreation_ProcessTest extends TestCase
 {
     public function test_getCopyWizardOptions()
     {
