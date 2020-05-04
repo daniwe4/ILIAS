@@ -539,12 +539,7 @@ $ilCtrlStructureReader->getStructure();
 
 <#56>
 <?php
-global $DIC;
-$cert_migration = new ilTMSCertificateSystemMigration(
-    $DIC['ilDB'],
-    new ilAppEventHandler()
-);
-$cert_migration->run(1000, true, ILIAS_WEB_DIR);
+;
 ?>
 
 <#57>
@@ -596,12 +591,7 @@ $db->query('DELETE FROM il_mm_items WHERE identification LIKE "ilTrainingSearchG
 
 <#60>
 <?php
-
-global $DIC;
-$db = $DIC["ilDB"];
-
-$db->query('DELETE FROM il_gs_providers WHERE provider_class = "ilTrainingSearchGlobalScreenProvider"');
-
+;
 ?>
 
 <#61>
@@ -645,10 +635,17 @@ $sec_db->addPrimaryKey();
 <#66>
 <?php
 global $DIC;
-$query = "UPDATE xwbd_report_crs_values
-    INNER JOIN hhd_crs ON hhd_crs.crs_id = xwbd_report_crs_values.crs_id
-    SET xwbd_report_crs_values.title = hhd_crs.title
-    WHERE (xwbd_report_crs_values.title LIKE '%&quot;%' OR xwbd_report_crs_values.title LIKE '%&amp;%')";
+$db = $DIC['ilDB'];
+if(
+	$db->tableExists('xwbd_report_crs_values') &&
+	$db->tableExists('hhd_crs')
+) {
+    $query = "UPDATE xwbd_report_crs_values
+    	INNER JOIN hhd_crs ON hhd_crs.crs_id = xwbd_report_crs_values.crs_id
+    	SET xwbd_report_crs_values.title = hhd_crs.title
+    	WHERE (xwbd_report_crs_values.title LIKE '%&quot;%' OR xwbd_report_crs_values.title LIKE '%&amp;%')"
+	;
 
-$DIC['ilDB']->manipulate($query);
+    $db->manipulate($query);
+}
 ?>
