@@ -419,7 +419,7 @@ class ilSessionAppEventListener implements ilAppEventListener
     protected function isTutorRole() : bool
     {
         return $this->parameters['role_id'] ==
-            $this->getDefaultTutorRoleFor((int) $this->parameters['role_id']);
+            $this->getDefaultTutorRoleFor((int) $this->parameters['obj_id']);
     }
 
     protected function getDefaultTutorRoleFor(int $crs_id) : ?int
