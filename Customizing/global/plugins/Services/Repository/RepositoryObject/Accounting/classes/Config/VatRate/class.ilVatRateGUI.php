@@ -26,7 +26,7 @@ class ilVatRateGUI
      */
     protected $ctrl;
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
     /**
@@ -60,7 +60,7 @@ class ilVatRateGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilToolbarGUI $toolbar,
         ilTree $tree,
         ilAppEventHandler $event_handler,

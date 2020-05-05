@@ -39,7 +39,7 @@ class ilEmployeeBookingOverviewReportGUI
     protected $access_checker;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -73,7 +73,7 @@ class ilEmployeeBookingOverviewReportGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         FilterViewFactory $fvf,
         ExportFactory $ef,
         ReportTableFactory $rtf,

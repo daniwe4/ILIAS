@@ -20,7 +20,7 @@ abstract class ilPIStatusMappingConfiguratorGUI extends TMSTableParentGUI
     public function __construct(
         \ilParticipationsImportPlugin $plugin,
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         ConfigStorage $cs
     ) {
         $this->plugin = $plugin;

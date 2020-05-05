@@ -38,7 +38,7 @@ class ilCostTypeGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -59,7 +59,7 @@ class ilCostTypeGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilToolbarGUI $toolbar,
         string $plugin_path,
         ilPluginActions $actions,

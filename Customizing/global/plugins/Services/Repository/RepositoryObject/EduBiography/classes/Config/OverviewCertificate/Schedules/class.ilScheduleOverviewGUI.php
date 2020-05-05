@@ -22,7 +22,7 @@ class ilScheduleOverviewGUI extends TMSTableParentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -109,7 +109,7 @@ class ilScheduleOverviewGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilToolbarGUI $toolbar,
         ilTabsGUI $tabs,
         Schedules\DB $db,

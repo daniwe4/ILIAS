@@ -17,7 +17,7 @@ class ilNotFinalizedGUI
      */
     protected $ctrl;
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -35,7 +35,7 @@ class ilNotFinalizedGUI
      */
     protected $usr;
 
-    public function __construct(ilCtrl $ctrl, ilTemplate $tpl, Closure $txt, DB $db, ilObjUser $usr)
+    public function __construct(ilCtrl $ctrl, ilGlobalTemplateInterface $tpl, Closure $txt, DB $db, ilObjUser $usr)
     {
         $this->ctrl = $ctrl;
         $this->tpl = $tpl;

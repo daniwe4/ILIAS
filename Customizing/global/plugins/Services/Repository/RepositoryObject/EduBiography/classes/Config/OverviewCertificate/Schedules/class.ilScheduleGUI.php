@@ -29,7 +29,7 @@ class ilScheduleGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -55,7 +55,7 @@ class ilScheduleGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         string $parent_link,
         Schedules\DB $db,
         Closure $txt

@@ -8,11 +8,11 @@
 class TMSTemplate
 {
 	/**
-	 * @var ilTemplate
+	 * @var ilGlobalTemplateInterface
 	 */
 	protected $tpl;
 
-	public function __construct(ilTemplate $tpl)
+	public function __construct(ilGlobalTemplateInterface $tpl)
 	{
 		$this->tpl = $tpl;
 	}

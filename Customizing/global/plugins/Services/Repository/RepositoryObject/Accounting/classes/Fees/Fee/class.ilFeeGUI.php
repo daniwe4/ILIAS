@@ -15,7 +15,7 @@ class ilFeeGUI
      */
     protected $ctrl;
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
     /**
@@ -41,7 +41,7 @@ class ilFeeGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilAppEventHandler $eventhandler,
         Fee\DB $db,
         \Closure $txt

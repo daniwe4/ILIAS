@@ -19,7 +19,7 @@ class ilFailedCreationRecipientsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         DB $db
     ) {

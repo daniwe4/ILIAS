@@ -15,7 +15,7 @@ class ilWBDCSecurityGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -36,7 +36,7 @@ class ilWBDCSecurityGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         string $plugin_id,
         PluginLogin\DB $db

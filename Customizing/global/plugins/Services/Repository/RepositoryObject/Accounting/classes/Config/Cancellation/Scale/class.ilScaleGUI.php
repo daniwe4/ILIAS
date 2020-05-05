@@ -26,7 +26,7 @@ class ilScaleGUI extends TMSTableParentGUI
      */
     protected $ctrl;
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
     /**
@@ -52,7 +52,7 @@ class ilScaleGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilToolbarGUI $toolbar,
         Closure $txt,
         Scale\DB $scale_db,
@@ -358,7 +358,7 @@ class ilScaleGUI extends TMSTableParentGUI
         };
     }
 
-    protected function addErrorLine(ilTemplate $tpl, array $errors)
+    protected function addErrorLine(ilGlobalTemplateInterface $tpl, array $errors)
     {
         $errors = array_map(
             function ($err) {

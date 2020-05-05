@@ -33,7 +33,7 @@ class ilTrainerGUI
     protected $gCtrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $gTpl;
 

@@ -26,7 +26,7 @@ class ilCourseCreationGUI
     const OPEN_REQUEST_WAITING_INTERVAL = 30000;
 
     /**
-     * @var	\ilTemplate
+     * @var	\ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

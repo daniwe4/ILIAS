@@ -27,7 +27,7 @@ class ilNotYetCancelledGUI extends TMSTableParentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -53,7 +53,7 @@ class ilNotYetCancelledGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilCasesDB $cases_db,
         WBDManagementUDFStorage $storage,
         Closure $txt,

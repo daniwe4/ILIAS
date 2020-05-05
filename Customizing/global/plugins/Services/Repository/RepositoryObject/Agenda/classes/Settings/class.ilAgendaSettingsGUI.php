@@ -25,7 +25,7 @@ class ilAgendaSettingsGUI
     protected $actions;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -36,7 +36,7 @@ class ilAgendaSettingsGUI
 
     public function __construct(
         ilObjAgenda $object,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilCtrl $ctrl
     ) {
         $this->object = $object;

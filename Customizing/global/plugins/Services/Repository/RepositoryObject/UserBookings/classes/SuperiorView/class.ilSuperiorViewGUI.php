@@ -80,7 +80,7 @@ class ilSuperiorViewGUI
     protected $g_access;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

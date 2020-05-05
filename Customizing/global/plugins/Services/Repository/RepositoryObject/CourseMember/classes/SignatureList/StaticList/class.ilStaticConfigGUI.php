@@ -14,7 +14,7 @@ class ilStaticConfigGUI
 
     public function __construct(
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         ilToolbarGUI $toolbar,
         CaT\Plugins\CourseMember\SignatureList\ilActions $actions
     ) {

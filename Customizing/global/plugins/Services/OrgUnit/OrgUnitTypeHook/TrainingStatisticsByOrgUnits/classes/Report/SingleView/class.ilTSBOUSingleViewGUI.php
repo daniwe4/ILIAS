@@ -16,7 +16,7 @@ class ilTSBOUSingleViewGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -42,7 +42,7 @@ class ilTSBOUSingleViewGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         SpoutWriter $spout_writer,
         Report $single_view,
         int $obj_ref_id,

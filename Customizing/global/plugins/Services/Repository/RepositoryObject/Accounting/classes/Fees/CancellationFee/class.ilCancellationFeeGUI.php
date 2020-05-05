@@ -16,7 +16,7 @@ class ilCancellationFeeGUI
      */
     protected $ctrl;
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
     /**
@@ -42,7 +42,7 @@ class ilCancellationFeeGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilAppEventHandler $eventhandler,
         CancellationFee\DB $db,
         Closure $txt

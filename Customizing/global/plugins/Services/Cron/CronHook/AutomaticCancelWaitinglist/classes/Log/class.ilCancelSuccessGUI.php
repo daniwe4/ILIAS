@@ -34,7 +34,7 @@ class ilCancelSuccessGUI extends TMSTableParentGUI
     protected $db;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -43,7 +43,7 @@ class ilCancelSuccessGUI extends TMSTableParentGUI
         Closure $txt,
         ilCtrl $ctrl,
         Log\DB $db,
-        ilTemplate $tpl
+        ilGlobalTemplateInterface $tpl
     ) {
         $this->plugin_path = $plugin_path;
         $this->txt = $txt;

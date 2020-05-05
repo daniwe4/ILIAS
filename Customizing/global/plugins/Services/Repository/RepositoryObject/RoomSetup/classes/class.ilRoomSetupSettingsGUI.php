@@ -27,7 +27,7 @@ class ilRoomSetupSettingsGUI
     protected $g_ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 

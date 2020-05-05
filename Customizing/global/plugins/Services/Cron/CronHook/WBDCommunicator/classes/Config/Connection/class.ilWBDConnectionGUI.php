@@ -23,7 +23,7 @@ class ilWBDConnectionGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -39,7 +39,7 @@ class ilWBDConnectionGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Connection\DB $db,
         Closure $txt
     ) {

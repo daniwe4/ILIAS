@@ -35,7 +35,7 @@ class ilMembersGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -101,7 +101,7 @@ class ilMembersGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilAccess $access,
         ilToolbarGUI $toolbar,
         CourseMember\ilObjActions $object_actions,

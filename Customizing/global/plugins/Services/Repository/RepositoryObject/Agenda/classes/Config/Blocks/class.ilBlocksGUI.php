@@ -19,7 +19,7 @@ class ilBlocksGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -35,7 +35,7 @@ class ilBlocksGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         DB $db,
         Closure $txt
     ) {

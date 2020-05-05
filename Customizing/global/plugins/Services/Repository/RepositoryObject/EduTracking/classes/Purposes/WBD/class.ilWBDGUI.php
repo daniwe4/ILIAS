@@ -64,7 +64,7 @@ class ilWBDGUI
     protected $parent_course;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

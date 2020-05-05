@@ -19,7 +19,7 @@ class ilParticipationDocumentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -35,7 +35,7 @@ class ilParticipationDocumentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         ParticipationDocument\ilFileStorage $file_storage
     ) {

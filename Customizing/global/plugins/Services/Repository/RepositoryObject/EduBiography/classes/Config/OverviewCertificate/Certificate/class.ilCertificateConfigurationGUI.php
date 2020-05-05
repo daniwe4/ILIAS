@@ -19,7 +19,7 @@ class ilCertificateConfigurationGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -45,7 +45,7 @@ class ilCertificateConfigurationGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         string $parent_link,
         Schedules\DB $db,
         Certificate\CertificateGUIFactory $certificate_gui_factory

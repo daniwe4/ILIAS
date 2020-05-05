@@ -23,7 +23,7 @@ class ilEvaluationGUI extends TMSTableParentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -49,7 +49,7 @@ class ilEvaluationGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ScaledFeedback\Feedback\DB $feedback_db,
         ScaledFeedback\Config\DB $config_db,
         \ilObjScaledFeedback $object,

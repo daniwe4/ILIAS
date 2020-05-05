@@ -20,7 +20,7 @@ class ilTSBOUSettingsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -36,7 +36,7 @@ class ilTSBOUSettingsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         ilObjTrainingStatisticsByOrgUnits $object
     ) {

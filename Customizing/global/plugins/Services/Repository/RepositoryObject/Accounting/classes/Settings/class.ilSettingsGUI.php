@@ -25,7 +25,7 @@ class ilSettingsGUI
      */
     protected $ctrl;
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
     /**
@@ -43,7 +43,7 @@ class ilSettingsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilAccess $access,
         ilObjectActions $actions,
         Closure $txt

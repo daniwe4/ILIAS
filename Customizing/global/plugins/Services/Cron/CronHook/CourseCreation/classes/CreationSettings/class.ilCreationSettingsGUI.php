@@ -17,7 +17,7 @@ class ilCreationSettingsGUI
     protected $ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -38,7 +38,7 @@ class ilCreationSettingsGUI
 
     public function __construct(
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilRbacReview $rbacreview,
         ilActions $actions,
         \Closure $txt

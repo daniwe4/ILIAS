@@ -35,7 +35,7 @@ class ilTrainingDemandAdvancedSettingsGUI
     protected $access;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -47,7 +47,7 @@ class ilTrainingDemandAdvancedSettingsGUI
     public function __construct(
         ilCtrl $ctrl,
         ilAccess $access,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilLanguage $lng,
         ilObjTrainingDemandAdvanced $object,
         Closure $txt

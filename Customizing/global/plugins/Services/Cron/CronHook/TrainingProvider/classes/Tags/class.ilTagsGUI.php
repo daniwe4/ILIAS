@@ -20,7 +20,7 @@ class ilTagsGUI
     protected $gCtrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $gTpl;
 

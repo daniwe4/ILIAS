@@ -19,7 +19,7 @@ class ilCancellationRolesGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilRbacReview $rbacreview,
         Closure $txt,
         Roles\DB $roles_db

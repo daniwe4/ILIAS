@@ -74,7 +74,7 @@ abstract class ApprovalGUI extends \TMSTableParentGUI
     protected $g_ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

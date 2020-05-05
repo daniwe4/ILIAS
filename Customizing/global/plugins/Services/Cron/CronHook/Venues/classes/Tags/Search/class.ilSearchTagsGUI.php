@@ -26,7 +26,7 @@ class ilSearchTagsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -42,7 +42,7 @@ class ilSearchTagsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Search\DB $db,
         Closure $txt,
         string $plugin_directory

@@ -35,7 +35,7 @@ class ilGutBeratenGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -96,7 +96,7 @@ class ilGutBeratenGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilObjUser $user,
         ilAccess $access,
         ilToolbarGUI $toolbar,

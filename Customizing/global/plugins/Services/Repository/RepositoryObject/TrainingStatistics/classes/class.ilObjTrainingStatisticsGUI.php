@@ -21,7 +21,7 @@ class ilObjTrainingStatisticsGUI extends ilObjectPluginGUI
     const CMD_TO_REPORT = 'to_report';
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

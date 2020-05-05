@@ -50,7 +50,7 @@ class ilTrainerOperationsGUI
     protected $g_ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $g_tpl;
 
@@ -136,7 +136,7 @@ class ilTrainerOperationsGUI
     public function __construct(
         \Closure $txt,
         \ilCtrl $g_ctrl,
-        \ilTemplate $g_tpl,
+        \ilGlobalTemplateInterface $g_tpl,
         \ilToolbarGUI $toolbar,
         \ILIAS\UI\Implementation\Factory $ui_factory,
         \ILIAS\UI\Implementation\DefaultRenderer $ui_renderer,

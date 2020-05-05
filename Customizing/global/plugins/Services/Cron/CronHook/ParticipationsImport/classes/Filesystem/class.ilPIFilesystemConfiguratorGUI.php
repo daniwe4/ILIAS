@@ -20,7 +20,7 @@ class ilPIFilesystemConfiguratorGUI
     public function __construct(
         \ilParticipationsImportPlugin $plugin,
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilTabsGUI $tabs,
         ConfigStorage $cs
     ) {

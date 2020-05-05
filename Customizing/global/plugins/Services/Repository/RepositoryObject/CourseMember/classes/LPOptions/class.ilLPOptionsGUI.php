@@ -34,7 +34,7 @@ class ilLPOptionsGUI extends TMSTableParentGUI
     protected $g_ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 
@@ -58,7 +58,7 @@ class ilLPOptionsGUI extends TMSTableParentGUI
         LPOptions\ilActions $actions,
         TableProcessor $table_processor,
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilToolbarGUI $toolbar,
         \ilLanguage $lng
     ) {

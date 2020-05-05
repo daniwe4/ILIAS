@@ -22,7 +22,7 @@ class ilObjTrainingDemandAdvancedGUI extends ilObjectPluginGUI
     const CMD_TO_REPORT = 'to_report';
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tabs;
 
@@ -42,7 +42,7 @@ class ilObjTrainingDemandAdvancedGUI extends ilObjectPluginGUI
     protected $user;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     public $tpl;
 

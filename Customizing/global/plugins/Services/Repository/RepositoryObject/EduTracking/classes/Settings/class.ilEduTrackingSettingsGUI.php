@@ -48,7 +48,7 @@ class ilEduTrackingSettingsGUI
     protected $actions;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

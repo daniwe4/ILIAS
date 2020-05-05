@@ -23,7 +23,7 @@ class ilCertificateDownloadGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -74,7 +74,7 @@ class ilCertificateDownloadGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         OverviewCertificate\ilCertificateTableGUI $certificate_table,
         Schedules\DB $schedule_db,

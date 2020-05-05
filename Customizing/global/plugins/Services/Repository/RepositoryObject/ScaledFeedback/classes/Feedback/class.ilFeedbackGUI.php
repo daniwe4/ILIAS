@@ -29,7 +29,7 @@ class ilFeedbackGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -65,7 +65,7 @@ class ilFeedbackGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilObjUser $user,
         ScaledFeedback\Feedback\DB $feedback_db,
         ScaledFeedback\Config\DB $config_db,

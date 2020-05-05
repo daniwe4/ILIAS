@@ -20,7 +20,7 @@ abstract class ilBookingWithApproveGUI
     const SUPERIOR_BOOKING = "booking_superior";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

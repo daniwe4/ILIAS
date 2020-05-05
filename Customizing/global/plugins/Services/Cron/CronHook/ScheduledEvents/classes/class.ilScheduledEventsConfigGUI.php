@@ -28,7 +28,7 @@ class ilScheduledEventsConfigGUI extends ilPluginConfigGUI
     protected $g_tabs;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

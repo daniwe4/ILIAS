@@ -43,7 +43,7 @@ class ilDimensionGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -64,7 +64,7 @@ class ilDimensionGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         DB $db,
         string $parent_gui_link,
         Closure $txt

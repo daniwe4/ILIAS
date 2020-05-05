@@ -35,7 +35,7 @@ class ilDimensionsGUI extends TMSTableParentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -76,7 +76,7 @@ class ilDimensionsGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilTabsGUI $tabs,
         ilToolbarGUI $toolbar,
         DB $db,

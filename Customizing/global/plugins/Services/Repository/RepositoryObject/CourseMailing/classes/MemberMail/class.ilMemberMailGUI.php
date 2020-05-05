@@ -46,7 +46,7 @@ class ilMemberMailGUI extends TMSTableParentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -102,7 +102,7 @@ class ilMemberMailGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilLanguage $lng,
         ilObjUser $user,
         ilFormatMail $umail,

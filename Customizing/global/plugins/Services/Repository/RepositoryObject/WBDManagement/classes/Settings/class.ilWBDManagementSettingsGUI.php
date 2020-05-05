@@ -41,7 +41,7 @@ class ilWBDManagementSettingsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -73,7 +73,7 @@ class ilWBDManagementSettingsGUI
     public function __construct(
         ilObjWBDManagement $object,
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         FileStorage $file_storage,
         Factory $ui_factory,

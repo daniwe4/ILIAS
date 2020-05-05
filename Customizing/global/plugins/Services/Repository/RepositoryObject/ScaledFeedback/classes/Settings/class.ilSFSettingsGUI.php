@@ -31,7 +31,7 @@ class ilSFSettingsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -62,7 +62,7 @@ class ilSFSettingsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ScaledFeedback\Feedback\DB $feedback_db,
         ScaledFeedback\Config\DB $config_db,
         \ilObject $object,

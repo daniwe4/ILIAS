@@ -20,7 +20,7 @@ class ilTrainingAdminOverviewSettingsGUI
     const F_SHOW_INFO_TAB = "f_show_info_tab";
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

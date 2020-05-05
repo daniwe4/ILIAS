@@ -55,7 +55,7 @@ class ilObjSettingsGUI
     protected $access;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 

@@ -34,7 +34,7 @@ class ilObjTrainerOperationsGUI extends ilObjectPluginGUI
     const TAB_CAL_SETTINGS = "cal_settings";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

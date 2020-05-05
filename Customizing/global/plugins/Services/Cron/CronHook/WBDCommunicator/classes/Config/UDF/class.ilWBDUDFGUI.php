@@ -18,7 +18,7 @@ class ilWBDUDFGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -34,7 +34,7 @@ class ilWBDUDFGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         UDF\DB $db,
         Closure $txt
     ) {

@@ -90,11 +90,11 @@ class ilCJSConfigItemGUI extends ilSubEnabledFormPropertyGUI implements ilMultiV
     /**
      * Set a hidden field foreach cron job to observe.
      *
-     * @param 	ilTemplate 	$tpl
+     * @param 	ilGlobalTemplateInterface 	$tpl
      * @param 	array 		$multi_values
      * @return 	void
      */
-    protected function setHiddenFields(ilTemplate $tpl, array $job_settings)
+    protected function setHiddenFields(ilGlobalTemplateInterface $tpl, array $job_settings)
     {
         $id = 0;
         foreach ($job_settings as $job_setting) {

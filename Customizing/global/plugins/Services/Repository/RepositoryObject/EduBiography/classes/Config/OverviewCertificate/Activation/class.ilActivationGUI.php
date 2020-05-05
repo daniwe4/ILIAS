@@ -16,7 +16,7 @@ class ilActivationGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -37,7 +37,7 @@ class ilActivationGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Closure $txt,
         ilObjUser $user,
         Activation\DB $db

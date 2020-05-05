@@ -27,7 +27,7 @@ class ilCancellationFeeReportSettingsGUI
         \ilCancellationFeeReportPlugin $plugin,
         \ilCtrl $ctrl,
         \ilAccess $access,
-        \ilTemplate $tpl
+        \ilGlobalTemplateInterface $tpl
     ) {
         $this->sr = $sr;
         $this->plugin = $plugin;

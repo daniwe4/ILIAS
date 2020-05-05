@@ -40,7 +40,7 @@ class ilMailLogsGUI
     protected $access;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -71,7 +71,7 @@ class ilMailLogsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilAccess $access,
         Factory $factory,
         Renderer $renderer,

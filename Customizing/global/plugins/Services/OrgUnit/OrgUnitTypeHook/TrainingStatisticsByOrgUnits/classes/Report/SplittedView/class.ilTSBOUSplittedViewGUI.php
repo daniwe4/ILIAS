@@ -16,7 +16,7 @@ class ilTSBOUSplittedViewGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -47,7 +47,7 @@ class ilTSBOUSplittedViewGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         SpoutWriter $spout_writer,
         Report $splitted_view,
         Closure $txt,

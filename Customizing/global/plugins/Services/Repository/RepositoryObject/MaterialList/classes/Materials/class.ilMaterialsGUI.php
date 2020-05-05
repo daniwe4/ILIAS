@@ -50,7 +50,7 @@ class ilMaterialsGUI
     protected $plugin_actions;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

@@ -22,7 +22,7 @@ class ilWBDOperationLimitsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -38,7 +38,7 @@ class ilWBDOperationLimitsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         DB $db,
         Closure $txt
     ) {

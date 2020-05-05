@@ -20,7 +20,7 @@ class CertificateGUIFactory
     protected $lng;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -72,7 +72,7 @@ class CertificateGUIFactory
     public function __construct(
         \ilDBInterface $db,
         \ilLanguage $lng,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilCtrl $ctrl,
         \ilAccess $access,
         \ilToolbarGUI $toolbar,

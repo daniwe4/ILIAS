@@ -32,7 +32,7 @@ class ilObjBookingAcknowledgeGUI extends ilObjectPluginGUI
     const TAB_FINISHED = "finished";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

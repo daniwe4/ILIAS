@@ -43,7 +43,7 @@ class ilObjBookingApprovalsGUI extends ilObjectPluginGUI
     const TAB_BLOCKED_APPROVALS = "blocked_approvals";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

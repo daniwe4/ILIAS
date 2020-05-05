@@ -19,7 +19,7 @@ class ilWBDManagementUDFConfigGUI extends TMSTableParentGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -50,7 +50,7 @@ class ilWBDManagementUDFConfigGUI extends TMSTableParentGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilToolbarGUI $toolbar,
         Closure $txt,
         WBDManagementUDFStorage $storage,

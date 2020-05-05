@@ -26,7 +26,7 @@ class ilEmployeeBookingOverviewSettingsGUI
     public function __construct(
         ilObjEmployeeBookingOverview $object,
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         AccessChecker $access_checker,
         Closure $txt,
         SettingsRepository $db

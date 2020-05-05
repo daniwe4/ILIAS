@@ -45,7 +45,7 @@ class ilWBDReportGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -76,7 +76,7 @@ class ilWBDReportGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Report $report,
         DB $db,
         Closure $txt

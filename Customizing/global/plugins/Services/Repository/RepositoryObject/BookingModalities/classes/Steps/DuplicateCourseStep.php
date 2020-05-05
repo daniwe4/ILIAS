@@ -458,7 +458,7 @@ abstract class DuplicateCourseStep
         return $tpl->get();
     }
 
-    protected function fillTemplateWithCourseInfos(\ilTemplate $tpl, $courses)
+    protected function fillTemplateWithCourseInfos(\ilGlobalTemplateInterface $tpl, $courses)
     {
         foreach ($courses as $course) {
             $tpl->setCurrentBlock("crs");

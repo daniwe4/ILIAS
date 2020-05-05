@@ -29,7 +29,7 @@ class ilProviderGUI
     protected $gCtrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $gTpl;
 

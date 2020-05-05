@@ -25,7 +25,7 @@ class ilSelectableReasonsGUI
     const F_ACTIVE = "f_active";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

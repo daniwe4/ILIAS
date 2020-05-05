@@ -23,7 +23,7 @@ class DomainConfigurationOverviewGUI
         OMD\Orgus $orgus,
         \ilOrguByMailDomainPlugin $plugin,
         \ilCtrl $ctrl,
-        \ilTemplate $tpl
+        \ilGlobalTemplateInterface $tpl
     ) {
         $this->domain_configuration_gui = $domain_configuration_gui;
         $this->table = $table;

@@ -54,7 +54,7 @@ class AgendaStep extends \CourseCreationStep
     protected $txt;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 

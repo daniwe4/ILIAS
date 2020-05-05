@@ -30,7 +30,7 @@ class ilCancellationFeeReportGUI
         ilCancellationFeeReportPlugin $plugin,
         ilCtrl $ctrl,
         ilAccess $access,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilObjUser $user
     ) {
         $this->report = $report;

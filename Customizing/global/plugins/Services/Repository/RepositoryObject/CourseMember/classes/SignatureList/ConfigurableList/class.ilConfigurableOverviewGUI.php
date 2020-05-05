@@ -23,7 +23,7 @@ class ilConfigurableOverviewGUI extends \TMSTableParentGUI
     const TABLE_ID = "conf_lists" ;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
     /**
@@ -48,7 +48,7 @@ class ilConfigurableOverviewGUI extends \TMSTableParentGUI
     protected $config_gui;
 
     public function __construct(
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilCtrl $ctrl,
         \ilLanguage $lng,
         \ilPlugin $plugin,

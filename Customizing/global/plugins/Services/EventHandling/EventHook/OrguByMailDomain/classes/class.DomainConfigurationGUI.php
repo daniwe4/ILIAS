@@ -9,7 +9,7 @@ class DomainConfigurationGUI
         OMD\Orgus $orgus,
         \ilOrguByMailDomainPlugin $plugin,
         \ilCtrl $ctrl,
-        \ilTemplate $tpl
+        \ilGlobalTemplateInterface $tpl
     ) {
         $this->config_repository = $config_repository;
         $this->orgus = $orgus;

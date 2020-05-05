@@ -48,7 +48,7 @@ class ilTrainerOperationsSettingsGUI
     protected $g_ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $g_tpl;
 
@@ -67,7 +67,7 @@ class ilTrainerOperationsSettingsGUI
         \Closure $txt,
         \ilPropertyFormGUI $form,
         \ilCtrl $g_ctrl,
-        \ilTemplate $g_tpl,
+        \ilGlobalTemplateInterface $g_tpl,
         ObjTrainerOperations $object,
         Aggregations\Roles $role_utils
     ) {

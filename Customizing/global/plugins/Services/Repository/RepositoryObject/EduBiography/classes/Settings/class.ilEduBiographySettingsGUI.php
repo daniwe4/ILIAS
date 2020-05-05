@@ -28,7 +28,7 @@ class ilEduBiographySettingsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -56,7 +56,7 @@ class ilEduBiographySettingsGUI
         ilObjEduBiography $object,
         ilPlugin $plugin,
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilLanguage $lng,
         ilAccess $access,
         Closure $txt,

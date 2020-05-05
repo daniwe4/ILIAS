@@ -22,7 +22,7 @@ class ilBookingAcknowledgeSettingsGUI
     protected $ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -38,7 +38,7 @@ class ilBookingAcknowledgeSettingsGUI
 
     public function __construct(
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         BookingAcknowledge $object
     ) {
         $this->ctrl = $ctrl;

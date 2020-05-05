@@ -26,7 +26,7 @@ class ilVenueTagsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -42,7 +42,7 @@ class ilVenueTagsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         Venue\DB $db,
         Closure $txt,
         string $plugin_directory

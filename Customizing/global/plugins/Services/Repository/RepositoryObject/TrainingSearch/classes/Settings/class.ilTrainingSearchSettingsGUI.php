@@ -25,7 +25,7 @@ class ilTrainingSearchSettingsGUI
     protected $ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -41,7 +41,7 @@ class ilTrainingSearchSettingsGUI
 
     public function __construct(
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilObjTrainingSearch $object
     ) {
         $this->ctrl = $ctrl;

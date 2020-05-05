@@ -22,7 +22,7 @@ class ilTgicGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -43,7 +43,7 @@ class ilTgicGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         DB $db,
         FileStorage $file_storage,
         Closure $txt

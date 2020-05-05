@@ -33,7 +33,7 @@ class ilReservationGUI
     protected $access;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 

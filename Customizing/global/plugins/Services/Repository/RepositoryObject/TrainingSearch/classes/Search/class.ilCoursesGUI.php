@@ -99,7 +99,7 @@ class ilCoursesGUI
     protected $helper;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -149,7 +149,7 @@ class ilCoursesGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilObjUser $user,
         UI\Factory $factory,
         UI\Renderer $renderer,

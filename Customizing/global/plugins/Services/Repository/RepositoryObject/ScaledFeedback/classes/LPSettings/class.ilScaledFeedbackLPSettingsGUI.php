@@ -19,7 +19,7 @@ class ilScaledFeedbackLPSettingsGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -45,7 +45,7 @@ class ilScaledFeedbackLPSettingsGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilLanguage $lng,
         \ilObject $object,
         LPManager $lp_manager,

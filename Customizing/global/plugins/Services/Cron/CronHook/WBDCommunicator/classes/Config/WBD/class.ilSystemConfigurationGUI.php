@@ -17,7 +17,7 @@ class ilSystemConfigurationGUI
     protected $ctrl;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -33,7 +33,7 @@ class ilSystemConfigurationGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         WBD\DB $db,
         Closure $txt
     ) {

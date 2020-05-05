@@ -19,7 +19,7 @@ class ilCancellationParticipantStatusGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilRbacReview $rbacreview,
         Closure $txt,
         ParticipantStatus\DB $states_db

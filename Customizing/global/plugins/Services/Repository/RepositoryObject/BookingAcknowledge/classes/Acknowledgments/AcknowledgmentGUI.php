@@ -21,7 +21,7 @@ class AcknowledgmentGUI
 
     public function __construct(
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         Report $report,
         \ilObjBookingAcknowledge $object,
         \Closure $txt

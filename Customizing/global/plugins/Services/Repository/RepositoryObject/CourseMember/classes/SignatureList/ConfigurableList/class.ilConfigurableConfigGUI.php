@@ -35,7 +35,7 @@ class ilConfigurableConfigGUI
     protected $parent;
 
     public function __construct(
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilCtrl $ctrl,
         \ilLanguage $lng,
         \ilPlugin $plugin,

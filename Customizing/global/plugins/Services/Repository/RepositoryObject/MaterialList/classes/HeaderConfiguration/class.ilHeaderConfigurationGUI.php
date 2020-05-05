@@ -29,7 +29,7 @@ class ilHeaderConfigurationGUI
     protected $g_toolbar;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

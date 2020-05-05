@@ -26,7 +26,7 @@ class ilPIMappingsConfiguratorGUI
     public function __construct(
         \ilParticipationsImportPlugin $plugin,
         \ilCtrl $ctrl,
-        \ilTemplate $tpl,
+        \ilGlobalTemplateInterface $tpl,
         \ilTabsGUI $tabs,
         UserUtils $uu,
         ConfigStorage $cs,

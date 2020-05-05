@@ -21,7 +21,7 @@ class ilObjCancellationFeeReportGUI extends ilObjectPluginGUI
     const TAB_REPORT = "report";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 

@@ -26,7 +26,7 @@ class ilSetTextGUI
     protected $ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $tpl;
 
@@ -52,7 +52,7 @@ class ilSetTextGUI
 
     public function __construct(
         ilCtrl $ctrl,
-        ilTemplate $tpl,
+        ilGlobalTemplateInterface $tpl,
         ilLanguage $lng,
         DB $db,
         string $cancel_link,

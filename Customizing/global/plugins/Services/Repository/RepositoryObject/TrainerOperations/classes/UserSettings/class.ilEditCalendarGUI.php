@@ -36,7 +36,7 @@ class ilEditCalendarGUI
     protected $g_ctrl;
 
     /**
-     * @var \ilTemplate
+     * @var \ilGlobalTemplateInterface
      */
     protected $g_tpl;
 
@@ -53,7 +53,7 @@ class ilEditCalendarGUI
     public function __construct(
         \Closure $txt,
         \ilCtrl $g_ctrl,
-        \ilTemplate $g_tpl,
+        \ilGlobalTemplateInterface $g_tpl,
         CalendarRepository $il_cal_repo,
         AccessHelper $access
     ) {
