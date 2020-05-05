@@ -33,7 +33,7 @@ class catMethodVariableFormGUI extends ilPropertyFormGUI {
 		$content = $this->getContent();
 		if ($this->getOpenTag())
 		{
-			$opentpl = new ilTemplate('tpl.form_open.html', true, true, "Services/TMS/Form");
+			$opentpl = new ilTemplate('tpl.form_open.html', true, true, "Services/Form");
 			$opentpl->setVariable("METHOD", $this->getMethod());
 			if ($this->getTarget() != "")
 			{
@@ -74,8 +74,8 @@ class catMethodVariableFormGUI extends ilPropertyFormGUI {
 		$html = $tpl->get();
 		
 		// #13531 - get content that has to reside outside of the parent form tag, e.g. panels/layers
-		if(is_array($this->items)) {
-			foreach($this->items as $item)
+		if(is_array($this->getItems())) {
+			foreach($this->getItems() as $item)
 			{
 				// #13536 - ilFormSectionHeaderGUI does NOT extend ilFormPropertyGUI ?!
 				if(method_exists($item, "getContentOutsideFormTag"))
