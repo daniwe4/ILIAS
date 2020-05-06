@@ -681,7 +681,10 @@ class ilCasesDB implements DB
     protected function getContactFor(string $key, $values) : ILIAS\TMS\TableRelations\Tables\DerivedFields\ConstString
     {
         $result = '';
-        if (array_key_exists($key, $values)) {
+        if (
+            array_key_exists($key, $values) &&
+            ! is_null($values[$key])
+        ) {
             $result = $values[$key];
         }
 
