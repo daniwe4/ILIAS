@@ -23,6 +23,7 @@ class ilCourseMailTemplateTutorContextPreview extends ilCourseMailTemplateTutorC
     {
         global $DIC;
         $this->g_lng = $DIC->language();
+        parent::__construct();
     }
 
     /**
