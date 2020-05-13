@@ -18,7 +18,7 @@ class ilObjTrainingDemandAdvancedGUI extends ilObjectPluginGUI
     const TAB_REPORT = 'report';
 
     const CMD_SHOW = 'showContent';
-    const CMD_TO_SETTINGS = 'to_settings';
+    const CMD_TO_SETTINGS = 'editProperties';
     const CMD_TO_REPORT = 'to_report';
 
     /**
