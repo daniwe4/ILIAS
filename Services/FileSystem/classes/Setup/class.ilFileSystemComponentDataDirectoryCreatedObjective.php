@@ -70,4 +70,12 @@ class ilFileSystemComponentDataDirectoryCreatedObjective extends Setup\Objective
         $this->path = $this->buildPath($environment);
         return parent::achieve($environment);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function isApplicable(Setup\Environment $environment) : bool
+    {
+        return !file_exists($this->buildPath($environment));
+    }
 }
