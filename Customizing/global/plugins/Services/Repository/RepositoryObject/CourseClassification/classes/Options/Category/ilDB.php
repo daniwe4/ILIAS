@@ -54,7 +54,7 @@ class ilDB extends Options\ilDB
         while ($row = $this->getDB()->fetchAssoc($result)) {
             if ($category_id != $row["id"]) {
                 if ($category != null) {
-                    $ret[] = $category->withTopics($topics);
+                    $ret[] = $category->withTopics(...$topics);
                     $topics = array();
                 }
                 $category_id = (int) $row["id"];
