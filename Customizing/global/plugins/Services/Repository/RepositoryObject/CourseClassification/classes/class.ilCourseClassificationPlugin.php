@@ -303,14 +303,14 @@ class ilCourseClassificationPlugin extends ilRepositoryObjectPlugin implements H
         $cc_ref = $a_parameter['ref_id'];
         $cc_data = $a_parameter['data']; //course_classification
 
-        $parent_crs = $this->getParentCourse($cc_ref);
+        $parent_crs = $this->getParentCourse((int)$cc_ref);
 
         if ($parent_crs === null) {
             return;
         }
 
         //check, if this is the only or earliest instance of CC within the course
-        $cc = $this->getFirstClassificationBelow($parent_crs->getRefid());
+        $cc = $this->getFirstClassificationBelow((int)$parent_crs->getRefid());
         if ($cc->getRefId() !== $cc_ref) {
             $msg = 'CourseClassification Event: do not update course by ref_id '
                 . $cc_ref
@@ -339,7 +339,7 @@ class ilCourseClassificationPlugin extends ilRepositoryObjectPlugin implements H
                 return \ilObjectFactory::getInstanceByRefId($child["child"]);
             }
             if ($this->obj_def->isContainer($type)) {
-                $ret = $this->getFirstClassificationBelow($child["child"]);
+                $ret = $this->getFirstClassificationBelow((int)$child["child"]);
                 if (!is_null($ret)) {
                     return $ret;
                 }
