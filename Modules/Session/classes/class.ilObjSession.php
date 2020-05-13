@@ -1199,6 +1199,15 @@ class ilObjSession extends ilObject
         }
     }
 
+    /**
+     * Get all assigned tutors.
+     *
+     * @return ilObjUser[]
+     */
+    public function getAssignedTutors() {
+        return array_values($this->assigned_tutors);
+    }
+
     public function getAssignedTutorsIds()
     {
         return array_keys($this->assigned_tutors);
