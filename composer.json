@@ -92,6 +92,11 @@
 				"./Customizing/global/plugins/Services/Cron/CronHook/CronJobSurveillance/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/CronJobSurveillance/tests"
 			],
+			"CaT\\Plugins\\DocumentDelivery\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/DocumentDelivery/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/DocumentDelivery/tests"
+			],
 			"CaT\\Plugins\\ParticipationsImport\\" :
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/ParticipationsImport/classes",
