@@ -55,7 +55,7 @@
 		"psr/log": "^1.0.1",
 		"box/spout": "^2.7",
 		"setasign/fpdf": "^1.8",
-		"eluceo/ical": "^0.14.0"
+		"eluceo/ical": "^0.16.0"
 	},
 	"require-dev": {
 		"mikey179/vfsstream": "^1.6",
