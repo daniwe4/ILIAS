@@ -17,6 +17,11 @@ class ilCourseClassificationPlugin extends ilRepositoryObjectPlugin implements H
      */
     protected $logger;
 
+    /**
+     * @var ilObjectDefinition
+     */
+    protected $obj_def;
+
     public function __construct()
     {
         global $DIC;
@@ -338,7 +343,7 @@ class ilCourseClassificationPlugin extends ilRepositoryObjectPlugin implements H
             if ($type == "xccl") {
                 return \ilObjectFactory::getInstanceByRefId($child["child"]);
             }
-            if ($this->obj_def->isContainer($type)) {
+            if ($this->getILIASObjectDefinition()->isContainer($type)) {
                 $ret = $this->getFirstClassificationBelow((int)$child["child"]);
                 if (!is_null($ret)) {
                     return $ret;
@@ -368,5 +373,14 @@ class ilCourseClassificationPlugin extends ilRepositoryObjectPlugin implements H
             return ilObjectFactory::getInstanceByRefId($parent_crs["ref_id"]);
         }
         return null;
+    }
+
+    protected function getILIASObjectDefinition()
+    {
+        if(is_null($this->obj_def)) {
+            global $DIC;
+            $this->obj_def = $DIC['objDefinition'];
+        }
+        return $this->obj_def;
     }
 }
