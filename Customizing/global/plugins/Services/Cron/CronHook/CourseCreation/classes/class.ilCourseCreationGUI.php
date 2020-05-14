@@ -214,7 +214,6 @@ class ilCourseCreationGUI
 
     public function getHTML()
     {
-        $this->g_tpl->getStandardTemplate();
         return $this->content;
     }
 
