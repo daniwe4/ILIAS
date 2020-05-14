@@ -340,6 +340,9 @@ class ilSessionAppointment implements ilDatePeriod
         $new_app->setStartingTime($this->getStartingTime());
         $new_app->setEndingTime($this->getEndingTime());
         $new_app->toggleFullTime($this->isFullday());
+        // cat-tms-patch start
+        $new_app->setDaysOffset($this->getDaysOffset());
+        // cat-tms-patch end
         $new_app->create();
         return $new_app;
     }
