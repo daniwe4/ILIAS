@@ -101,6 +101,7 @@ class ilCourseMailingInviteContext extends ilMailTemplateContext
                 $usr_id = (int) $recipient->getId();
                 return $pl->getRejectLinkFor($usr_id, $obj_id);
             }
+            return '';
         }
 
         $cur_usr_id = (int) $context_parameters['usr_id'];
@@ -109,7 +110,7 @@ class ilCourseMailingInviteContext extends ilMailTemplateContext
         $this->entity_ref_id = $crs_ref_id;
 
         $contexts = $this->getContexts($cur_usr_id, (int) $recipient->getId(), $crs_ref_id);
-        return $this->replacePlaceholder($placeholder_id, $contexts);
+        return $this->replacePlaceholder($placeholder_id, $contexts) ?? '';
     }
 
     protected function replacePlaceholder(string $placeholder_id, array $contexts)
