@@ -220,7 +220,6 @@ class ilDB implements DB
 
         $ret = array();
         while ($row = $this->getDB()->fetchAssoc($res)) {
-            $row["name"] = trim($row["name"]);
             $ret[] = $row;
         }
 
