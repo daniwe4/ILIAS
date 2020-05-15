@@ -571,15 +571,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
         return $ret;
     }
 
-    /**
-     * Form date.
-     *
-     * @param ilDateTime 	$dat
-     * @param bool 	$use_time
-     *
-     * @return string
-     */
-    protected function formatDate(\ilDateTime $date)
+    protected function formatDate(\ilDateTime $date, bool $use_time = false) : string
     {
         require_once("Services/Calendar/classes/class.ilCalendarUtil.php");
         $out_format = ilCalendarUtil::getUserDateFormat($use_time, true);
@@ -591,15 +583,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
         return $ret;
     }
 
-    /**
-     * Form date period.
-     *
-     * @param ilDateTime 	$dat
-     * @param bool 	$use_time
-     *
-     * @return string
-     */
-    protected function formatPeriod(\ilDateTime $date1, \ilDateTime $date2)
+    protected function formatPeriod(\ilDateTime $date1, \ilDateTime $date2) : string
     {
         return $this->formatDate($date1) . " - " . $this->formatDate($date2);
     }
