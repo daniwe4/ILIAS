@@ -316,10 +316,11 @@ class ilCourseMailingPlugin extends ilRepositoryObjectPlugin
                 $name_values = ilObjUser::_lookupName($recipient);
 
                 $db = $db->setInvitedBy((int) $recipient, (int) $obj->getId(), (int) $current_user->getId());
+                $mail_options = new \ilMailOptions($recipient);
                 $log_db->log(
                     "invite",
                     $this->txt($context_id),
-                    join(",", \ilMailOptions::getExternalEmailsByUserId($recipient)),
+                    join(",", $mail_options->getExternalEmailAddresses()),
                     $name_values["firstname"] . " " . $name_values["lastname"],
                     $recipient,
                     $name_values["login"],
