@@ -262,10 +262,10 @@ class ilObjBookingModalitiesGUI extends ilObjectPluginGUI
                     $tms_book_gui = "ilTMSSelfBookWaitingGUI";
                 }
 
-                $ctrl->initBaseClass("ilPersonalDesktopGUI");
+                $ctrl->initBaseClass("ilTrainingSearchGUI");
                 $ctrl->setParameterByClass($tms_book_gui, "crs_ref_id", $crs_ref_id);
                 $ctrl->setParameterByClass($tms_book_gui, "usr_id", $g_user->getId());
-                $link = $ctrl->getLinkTargetByClass(array("ilPersonalDesktopGUI","ilTrainingSearchGUI", $tms_book_gui), "start", "", false, false);
+                $link = $ctrl->getLinkTargetByClass(array("ilTrainingSearchGUI", $tms_book_gui), "start", "", false, false);
                 $ctrl->setParameterByClass($tms_book_gui, "crs_ref_id", null);
                 $ctrl->setParameterByClass($tms_book_gui, "usr_id", null);
                 if (!substr($link, 0, strlen("ilias.php")) === "ilias.php") {

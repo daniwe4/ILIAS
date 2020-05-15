@@ -4,4 +4,7 @@
 	<events>
 		<event type="listen" id="Modules/Course" />
 	</events>
+	<baseclasses>
+		<baseclass name="ilTrainingSearchGUI" dir="TrainingSearch/classes" />
+	</baseclasses>
 </service>

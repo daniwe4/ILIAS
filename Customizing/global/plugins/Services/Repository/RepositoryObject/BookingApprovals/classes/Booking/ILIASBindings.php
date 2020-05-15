@@ -89,12 +89,13 @@ class ILIASBindings implements Wizard\ILIASBindings
                 \ilUtil::sendInfo($message, true);
             }
         }
-        $this->ctrl->initBaseClass("ilpersonaldesktopgui");
+        $this->ctrl->initBaseClass("ilTrainingSearchGUI");
+        $classes = [get_class($this->parent_gui)];
+        if(! in_array("ilTrainingSearchGUI", $classes)) {
+            array_unshift($classes, "ilTrainingSearchGUI");
+        }
         $link = $this->ctrl->getLinkTargetByClass(
-            [
-                "ilpersonaldesktopgui",
-                get_class($this->parent_gui)
-            ],
+            $classes,
             $this->parent_cmd,
             "",
             false,

@@ -56,9 +56,10 @@ class SelfBookWaiting extends TMS\CourseActionImpl
     {
         $course = $this->entity->object();
 
+        $ctrl->initBaseClass("ilTrainingSearchGUI");
         $ctrl->setParameterByClass("ilTMSSelfBookWaitingGUI", "crs_ref_id", $course->getRefId());
         $ctrl->setParameterByClass("ilTMSSelfBookWaitingGUI", "usr_id", $usr_id);
-        $link = $ctrl->getLinkTargetByClass(array("ilPersonalDesktopGUI", "ilTrainingSearchGUI", "ilTMSSelfBookWaitingGUI"), "start");
+        $link = $ctrl->getLinkTargetByClass(array("TrainingSearchGUI", "ilTMSSelfBookWaitingGUI"), "start");
         $ctrl->setParameterByClass("ilTMSSelfBookWaitingGUI", "crs_ref_id", null);
         $ctrl->setParameterByClass("ilTMSSelfBookWaitingGUI", "usr_id", null);
 

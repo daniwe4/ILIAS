@@ -649,3 +649,8 @@ if(
     $db->manipulate($query);
 }
 ?>
+
+<#67>
+<?php
+$ilCtrlStructureReader->getStructure();
+?>

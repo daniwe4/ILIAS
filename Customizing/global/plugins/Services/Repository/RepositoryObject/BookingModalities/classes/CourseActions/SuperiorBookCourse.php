@@ -54,9 +54,10 @@ class SuperiorBookCourse extends TMS\CourseActionImpl
     {
         $course = $this->entity->object();
 
+        $ctrl->initBaseClass("ilTrainingSearchGUI");
         $ctrl->setParameterByClass("ilTMSSuperiorBookingGUI", "crs_ref_id", $course->getRefId());
         $ctrl->setParameterByClass("ilTMSSuperiorBookingGUI", "usr_id", $usr_id);
-        $link = $ctrl->getLinkTargetByClass(array("ilPersonalDesktopGUI", "ilTrainingSearchGUI", "ilTMSSuperiorBookingGUI"), "start");
+        $link = $ctrl->getLinkTargetByClass(array("ilTrainingSearchGUI", "ilTMSSuperiorBookingGUI"), "start");
         $ctrl->setParameterByClass("ilTMSSuperiorBookingGUI", "crs_ref_id", null);
         $ctrl->setParameterByClass("ilTMSSuperiorBookingGUI", "usr_id", null);
 

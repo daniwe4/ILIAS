@@ -51,9 +51,10 @@ class SelfBookCourse extends TMS\CourseActionImpl
     {
         $course = $this->entity->object();
 
+        $ctrl->initBaseClass("ilTrainingSearchGUI");
         $ctrl->setParameterByClass("ilTMSSelfBookingGUI", "crs_ref_id", $course->getRefId());
         $ctrl->setParameterByClass("ilTMSSelfBookingGUI", "usr_id", $usr_id);
-        $link = $ctrl->getLinkTargetByClass(array("ilPersonalDesktopGUI", "ilTrainingSearchGUI", "ilTMSSelfBookingGUI"), "start");
+        $link = $ctrl->getLinkTargetByClass(array("ilTrainingSearchGUI", "ilTMSSelfBookingGUI"), "start");
         $ctrl->setParameterByClass("ilTMSSelfBookingGUI", "crs_ref_id", null);
         $ctrl->setParameterByClass("ilTMSSelfBookingGUI", "usr_id", null);
 

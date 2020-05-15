@@ -10,61 +10,61 @@ class ilTrainingSearchGUI
     const CMD_SHOW = "show";
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
-    protected $g_tpl;
+    protected $tpl;
 
     /**
      * @var ilCtrl
      */
-    protected $g_ctrl;
+    protected $ctrl;
 
     /**
-     * @var ilPersonalDesktopGUI
+     * @var ilLanguage
      */
-    protected $parent;
+    protected $lng;
 
     /**
-     * @var TrainingSearchDB
+     * @var ilAccessHandler
      */
-    protected $db;
+    protected $access;
 
     public function __construct()
     {
         global $DIC;
 
-        $this->g_tpl = $DIC->ui()->mainTemplate();
-        $this->g_ctrl = $DIC->ctrl();
-        $this->g_lng = $DIC->language();
-        $this->g_access = $DIC["ilAccess"];
+        $this->tpl = $DIC["tpl"];
+        $this->ctrl = $DIC["ilCtrl"];
+        $this->lng = $DIC["lng"];
+        $this->access = $DIC["ilAccess"];
 
-        $this->g_lng->loadLanguageModule('tms');
+        $this->lng->loadLanguageModule('tms');
     }
 
     public function executeCommand()
     {
-        $next_class = $this->g_ctrl->getNextClass();
+        $next_class = $this->ctrl->getNextClass();
 
         switch ($next_class) {
             case "iltmsselfbookinggui":
                 require_once("Services/TMS/Booking/classes/class.ilTMSSelfBookingGUI.php");
                 $gui = new ilTMSSelfBookingGUI($this, self::CMD_SHOW);
-                $this->g_ctrl->forwardCommand($gui);
+                $this->ctrl->forwardCommand($gui);
                 break;
             case "iltmsselfbookwaitinggui":
                 require_once("Services/TMS/Booking/classes/class.ilTMSSelfBookWaitingGUI.php");
                 $gui = new ilTMSSelfBookWaitingGUI($this, self::CMD_SHOW);
-                $this->g_ctrl->forwardCommand($gui);
+                $this->ctrl->forwardCommand($gui);
                 break;
             case "iltmssuperiorbookinggui":
                 require_once("Services/TMS/Booking/classes/class.ilTMSSuperiorBookingGUI.php");
                 $gui = new ilTMSSuperiorBookingGUI($this, self::CMD_SHOW);
-                $this->g_ctrl->forwardCommand($gui);
+                $this->ctrl->forwardCommand($gui);
                 break;
             case "iltmssuperiorbookwaitinggui":
                 require_once("Services/TMS/Booking/classes/class.ilTMSSuperiorBookWaitingGUI.php");
                 $gui = new ilTMSSuperiorBookWaitingGUI($this, self::CMD_SHOW);
-                $this->g_ctrl->forwardCommand($gui);
+                $this->ctrl->forwardCommand($gui);
                 break;
             default:
                 $search_object = $this->findSearchObject();
@@ -88,8 +88,8 @@ class ilTrainingSearchGUI
     protected function redirectToSearch($search_object)
     {
         require_once "Customizing/global/plugins/Services/Repository/RepositoryObject/TrainingSearch/classes/class.ilObjTrainingSearchGUI.php";
-        $this->g_ctrl->setParameterByClass("ilObjTrainingSearchGUI", "ref_id", $search_object);
-        $link = $this->g_ctrl->getLinkTargetByClass(
+        $this->ctrl->setParameterByClass("ilObjTrainingSearchGUI", "ref_id", $search_object);
+        $link = $this->ctrl->getLinkTargetByClass(
             array(
                 "ilObjPluginDispatchGUI",
                 "ilObjTrainingSearchGUI"
@@ -99,20 +99,21 @@ class ilTrainingSearchGUI
             false,
             false
         );
-        $this->g_ctrl->setParameterByClass("ilObjTrainingSearchGUI", "ref_id", null);
+        $this->ctrl->setParameterByClass("ilObjTrainingSearchGUI", "ref_id", null);
         ilUtil::redirect($link);
     }
 
     protected function showNoSearchMessage()
     {
+        global $DIC;
         $form = new ilPropertyFormGUI();
-        $form->setTitle($this->g_lng->txt("header"));
+        $form->setTitle($this->lng->txt("header"));
 
         $ne = new ilNonEditableValueGUI();
-        $ne->setValue($this->g_lng->txt("no_search_object_found"));
+        $ne->setValue($this->lng->txt("no_search_object_found"));
         $form->addItem($ne);
 
-        $this->g_tpl->setContent($form->getHtml());
-        $this->g_tpl->show();
+        $this->tpl->setContent($form->getHtml());
+        $this->tpl->printToStdout();
     }
 }

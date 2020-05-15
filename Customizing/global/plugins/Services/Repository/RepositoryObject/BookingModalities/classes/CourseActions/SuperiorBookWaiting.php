@@ -59,9 +59,10 @@ class SuperiorBookWaiting extends TMS\CourseActionImpl
     {
         $course = $this->entity->object();
 
+        $ctrl->initBaseClass("ilTrainingSearchGUI");
         $ctrl->setParameterByClass("ilTMSSuperiorBookWaitingGUI", "crs_ref_id", $course->getRefId());
         $ctrl->setParameterByClass("ilTMSSuperiorBookWaitingGUI", "usr_id", $usr_id);
-        $link = $ctrl->getLinkTargetByClass(array("ilPersonalDesktopGUI", "ilTrainingSearchGUI", "ilTMSSuperiorBookWaitingGUI"), "start");
+        $link = $ctrl->getLinkTargetByClass(array("ilTrainingSearchGUI", "ilTMSSuperiorBookWaitingGUI"), "start");
         $ctrl->setParameterByClass("ilTMSSuperiorBookWaitingGUI", "crs_ref_id", null);
         $ctrl->setParameterByClass("ilTMSSuperiorBookWaitingGUI", "usr_id", null);
 
