@@ -77,6 +77,11 @@
 		"psr-4" : {
 			"ILIAS\\Tests\\" : "./tests",
 			"ILIAS\\" : "./src",
+			"CaT\\Plugins\\COTextSearch\\" :
+			[
+				"./Customizing/global/plugins/Services/COPage/PageComponent/COTextSearch/classes",
+				"./Customizing/global/plugins/Services/COPage/PageComponent/COTextSearch/tests"
+			],
 			"CaT\\Plugins\\AutomaticCancelWaitinglist\\" :
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/AutomaticCancelWaitinglist/classes",
