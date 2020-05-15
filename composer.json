@@ -97,6 +97,11 @@
 				"./Customizing/global/plugins/Services/Cron/CronHook/CronJobSurveillance/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/CronJobSurveillance/tests"
 			],
+			"CaT\\Plugins\\DataChanges\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/DataChanges/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/DataChanges/tests"
+			],
 			"CaT\\Plugins\\DocumentDelivery\\":
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/DocumentDelivery/classes",

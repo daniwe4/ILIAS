@@ -1,0 +1,5 @@
+---
+ComponentType: Services
+ComponentName: Cron
+Slot: CronHook
+SlotId: crnhk
