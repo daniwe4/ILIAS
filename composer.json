@@ -212,6 +212,11 @@
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/CourseMember/tests"
 			],
+			"CaT\\Plugins\\EnhancedLPReport\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/EnhancedLPReport/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/EnhancedLPReport/tests"
+			],
 			"CaT\\Plugins\\EduBiography\\":
 			[
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/EduBiography/classes",
