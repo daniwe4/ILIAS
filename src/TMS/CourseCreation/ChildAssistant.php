@@ -12,28 +12,20 @@ trait ChildAssistant
      *
      * @return Object 	of search type
      */
-    protected function getAllChildrenOfByType($ref_id, $search_type)
+    protected function getAllChildrenOfByType(int $ref_id, string $search_type) : array
     {
-        $g_tree = $this->getDIC()->repositoryTree();
-        $g_objDefinition = $this->getDIC()["objDefinition"];
-        $childs = $g_tree->getChilds($ref_id);
-        $ret = array();
+        $children = $this->tree->getSubTree(
+            $this->tree->getNodeData($ref_id),
+            true,
+            $search_type
+        );
 
-        foreach ($childs as $child) {
-            $type = $child["type"];
-            if ($type == $search_type) {
-                $ret[] = \ilObjectFactory::getInstanceByRefId($child["child"]);
-            }
-
-            if ($g_objDefinition->isContainer($type)) {
-                $rec_ret = $this->getAllChildrenOfByType($child["child"], $search_type);
-                if (!is_null($rec_ret)) {
-                    $ret = array_merge($ret, $rec_ret);
-                }
-            }
-        }
-
-        return $ret;
+        return array_map(
+            function ($node) {
+                return ilObjectFactory::getInstanceByRefId($node["child"]);
+            },
+            $children
+        );
     }
 
     /**

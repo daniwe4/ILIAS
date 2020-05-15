@@ -385,22 +385,13 @@ class AccomodationStep extends \CourseCreationStep
         }
     }
 
-    /**
-     * Get CourseClassification where user as permission to copy
-     *
-     * @return ilObjCourseClassification | null
-     */
-    protected function getAccomodations()
+    protected function getAccomodations() : array
     {
         $xoacs = $this->getAllChildrenOfByType($this->getEntityRefId(), "xoac");
         $xoacs = array_filter($xoacs, function ($xccl) {
             $xoac_ref_id = $xccl->getRefId();
             return $this->checkAccess(["visible", "read", "copy"], $xoac_ref_id);
         });
-
-        if (count($xoacs) == 0) {
-            return null;
-        }
 
         return $xoacs;
     }
