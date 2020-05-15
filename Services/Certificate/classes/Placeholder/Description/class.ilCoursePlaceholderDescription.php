@@ -61,9 +61,7 @@ class ilCoursePlaceholderDescription implements ilCertificatePlaceholderDescript
         $this->placeholder['DATETIME_COMPLETED'] = ilUtil::prepareFormOutput($language->txt('certificate_ph_datetime_completed'));
 
         // cat-tms-patch start #3886
-        if (is_null($tms_placeholder_description)) {
-            $this->placeholder = array_merge($this->placeholder, $tms_placeholder_description->getTMSPlaceholder());
-        }
+        $this->placeholder = array_merge($this->placeholder, $tms_placeholder_description->getTMSPlaceholder());
         // cat-tms-patch end
     }
 
