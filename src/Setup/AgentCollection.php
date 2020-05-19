@@ -136,7 +136,9 @@ class AgentCollection implements Agent
 
     protected function getXObjective(string $which, Config $config = null) : Objective
     {
-        $this->checkConfig($config);
+        if (!is_null($config)) {
+            $this->checkConfig($config);
+        }
 
         $gs = [];
         foreach ($this->agents as $k => $c) {

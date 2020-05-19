@@ -7,7 +7,7 @@ use ILIAS\Setup\UnachievableException;
 use ILIAS\Setup\NoConfirmationException;
 use ILIAS\Setup\Agent;
 use ILIAS\Setup\Objective;
-use ILIAS\Setup\Environment;
+use ILIAS\Setup\AgentFinder;
 use ILIAS\Setup\Config;
 use ILIAS\Setup\ObjectiveIterator;
 use ILIAS\Setup\Objective\ObjectiveWithPreconditions;
@@ -25,14 +25,9 @@ abstract class BaseCommand extends Command
     protected static $defaultName = "install";
 
     /**
-     * @var callable
+     * @var AgentFinder
      */
-    protected $lazy_agent;
-
-    /**
-     * @var Agent|null
-     */
-    protected $agent;
+    protected $agent_finder;
 
     /**
      * @var ConfigReader
@@ -45,25 +40,18 @@ abstract class BaseCommand extends Command
     protected $preconditions;
 
     /**
-     * @var callable $lazy_agent must return a Setup\Agent
+     * @var callable $lazy_system_agent must return a Setup\Agent
      * @var Objective[] $preconditions will be achieved before command invocation
      */
-    public function __construct(callable $lazy_agent, ConfigReader $config_reader, array $preconditions)
-    {
+    public function __construct(
+        AgentFinder $agent_finder,
+        ConfigReader $config_reader,
+        array $preconditions
+    ) {
         parent::__construct();
-        $this->lazy_agent = $lazy_agent;
-        $this->agent = null;
+        $this->agent_finder = $agent_finder;
         $this->config_reader = $config_reader;
         $this->preconditions = $preconditions;
-    }
-
-    protected function getAgent() : Agent
-    {
-        if ($this->agent !== null) {
-            return $this->agent;
-        }
-        $this->agent = ($this->lazy_agent)();
-        return $this->agent;
     }
 
     public function configure()
@@ -82,9 +70,9 @@ abstract class BaseCommand extends Command
 
         $this->printIntroMessage($io);
 
-        $config = $this->readAgentConfig($this->getAgent(), $input);
-        $environment = $this->buildEnvironment($this->getAgent(), $config, $io);
-        $goal = $this->getObjective($this->getAgent(), $config);
+        $config = $this->readAgentConfig($this->agent_finder->getSystemAgents(), $input);
+        $environment = $this->buildEnvironment($this->agent_finder->getSystemAgents(), $config, $io);
+        $goal = $this->getObjective($this->agent_finder->getSystemAgents(), $config);
         if (count($this->preconditions) > 0) {
             $goal = new ObjectiveWithPreconditions(
                 $goal,
@@ -154,7 +142,7 @@ abstract class BaseCommand extends Command
             $config_overwrites[$k] = $v;
         }
         $config_content = $this->config_reader->readConfigFile($config_file, $config_overwrites);
-        $trafo = $this->agent->getArrayToConfigTransformation();
+        $trafo = $agent->getArrayToConfigTransformation();
         return $trafo->transform($config_content);
     }
 
