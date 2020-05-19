@@ -73,28 +73,28 @@ function build_container_for_setup(string $executed_in_directory)
     };
     $c["command.install"] = function ($c) {
         return new \ILIAS\Setup\CLI\InstallCommand(
-            $c["agent"],
+            $c["agent_finder"],
             $c["config_reader"],
             $c["common_preconditions"]
         );
     };
     $c["command.update"] = function ($c) {
         return new \ILIAS\Setup\CLI\UpdateCommand(
-            $c["agent"],
+            $c["agent_finder"],
             $c["config_reader"],
             $c["common_preconditions"]
         );
     };
     $c["command.build-artifacts"] = function ($c) {
         return new \ILIAS\Setup\CLI\BuildArtifactsCommand(
-            $c["agent"],
+            $c["agent_finder"],
             $c["config_reader"],
             []// TODO: $c["common_preconditions"]
         );
     };
     $c["command.reload-control-structure"] = function ($c) {
         return new \ILIAS\Setup\CLI\ReloadControlStructureCommand(
-            $c["agent"],
+            $c["agent_finder"],
             $c["config_reader"],
             $c["common_preconditions"]
         );
@@ -107,19 +107,13 @@ function build_container_for_setup(string $executed_in_directory)
         ];
     };
 
-    $c["agent"] = function ($c) {
-        return function () use ($c) {
-            return new ILIAS\Setup\AgentCollection(
-                $c["ui.field_factory"],
-                $c["refinery"],
-                $c["agents"]
-            );
-        };
-    };
-
     $c["agent_finder"] = function ($c) {
-        return new ILIAS\Setup\ImplementationOfInterfaceFinder(
-            ILIAS\Setup\Agent::class
+        return new ILIAS\Setup\ImplementationOfAgentFinder(
+            ILIAS\Setup\Agent::class,
+            $c["ui.field_factory"],
+            $c["refinery"],
+            $c["common_agent"],
+            $c["lng"]
         );
     };
 
@@ -129,27 +123,6 @@ function build_container_for_setup(string $executed_in_directory)
             $c["data_factory"],
             $c["password_manager"]
         );
-    };
-
-    $c["agents"] = function ($c) {
-        $agents["common"] = $c["common_agent"];
-        foreach ($c["agent_finder"]->getMatchingClassNames() as $cls) {
-            if (preg_match("/ILIAS\\\\Setup\\\\.*/", $cls)) {
-                continue;
-            }
-            $name = get_agent_name_by_class($cls);
-            if (isset($agents[$name])) {
-                throw new \RuntimeException(
-                    "Encountered duplicate agent $name in $cls"
-                );
-            }
-            $agents[strtolower($name)] = new $cls(
-                $c["refinery"],
-                $c["data_factory"],
-                $c["lng"]
-            );
-        };
-        return $agents;
     };
 
     $c["ui.field_factory"] = function ($c) {
