@@ -313,9 +313,10 @@ class ilCourseMailingPlugin extends ilRepositoryObjectPlugin
             /** @var \ilTMSMailingLogsDB $log_db */
             $log_db = $this->getDIC()['log.db'];
             foreach ($recipients as $recipient) {
+                $recipient = (int)$recipient;
                 $name_values = ilObjUser::_lookupName($recipient);
 
-                $db = $db->setInvitedBy((int) $recipient, (int) $obj->getId(), (int) $current_user->getId());
+                $db = $db->setInvitedBy($recipient, (int) $obj->getId(), (int) $current_user->getId());
                 $mail_options = new \ilMailOptions($recipient);
                 $log_db->log(
                     "invite",
