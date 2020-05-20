@@ -23,7 +23,7 @@ abstract class ilTMSBookingGUI
     protected $dic;
 
     /**
-     * @var ilTemplate
+     * @var ilGlobalTemplateInterface
      */
     protected $g_tpl;
 
@@ -220,7 +220,7 @@ abstract class ilTMSBookingGUI
         assert('is_string($content)');
         $this->g_tpl->setContent($content);
         if ($this->execute_show) {
-            $this->g_tpl->show();
+            $this->g_tpl->printToStdout();
         }
     }
 
