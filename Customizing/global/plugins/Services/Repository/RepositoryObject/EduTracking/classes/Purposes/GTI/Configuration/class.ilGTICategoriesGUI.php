@@ -15,6 +15,8 @@ class ilGTICategoriesGUI extends TMSTableParentGUI
 
     const F_CATEGORIES = "categories";
 
+    const DEFAULT_ID = -1;
+
     /**
      * @var Configuration\ilActions
      */
@@ -96,9 +98,23 @@ class ilGTICategoriesGUI extends TMSTableParentGUI
             $this->g_ctrl->redirect($this, self::CMD_SHOW_CATEGORIES);
         }
 
-        $confirmation = new ilConfirmationGUI();
+        $selected = $post['check'];
+        $to_delete = array_filter(
+            $selected,
+            function($val) {
+                return $val != self::DEFAULT_ID;
+            }
+        );
 
-        foreach ($post['check'] as $key => $value) {
+        if (count(array_diff($to_delete, $selected)) == 0) {
+            \ilUtil::sendInfo($this->txt('no_saved_entries_delete'), true);
+            if(count($to_delete) == 0) {
+                $this->g_ctrl->redirect($this, self::CMD_SHOW_CATEGORIES);
+            }
+        }
+
+        $confirmation = new ilConfirmationGUI();
+        foreach ($to_delete as $key => $value) {
             $confirmation->addHiddenItem('check[]', $value);
             $confirmation->addItem('item[]', "", $this->actions->getTitleById((int) $value));
         }
@@ -204,7 +220,7 @@ class ilGTICategoriesGUI extends TMSTableParentGUI
 
         $categories = array();
         for ($i = 0; $i < $num_entries; $i++) {
-            $categories[] = new Configuration\CategoryGTI(-1, "");
+            $categories[] = new Configuration\CategoryGTI(self::DEFAULT_ID, "");
         }
 
         return $categories;
