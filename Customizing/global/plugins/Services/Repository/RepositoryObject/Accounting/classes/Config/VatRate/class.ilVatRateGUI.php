@@ -414,7 +414,7 @@ class ilVatRateGUI
         }
 
         foreach ($this->getOptionsFromPost() as $key => $vatrate) {
-            $ret[$key] = array("object" => $vatrate, "errors" => array());
+            $ret[$key] = array("object" => $vatrate, "errors" => array(), "message" => []);
             $ret[$key]["delete"] = array_key_exists($key, $del_array);
             $ret[$key]["old_label"] = $post["old_label"][$key];
             $ret[$key]["old_value"] = $post["old_value"][$key];

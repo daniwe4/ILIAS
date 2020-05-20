@@ -360,7 +360,7 @@ class ilCostTypeGUI
         }
 
         foreach ($this->getOptionsFromPost() as $key => $costtype) {
-            $ret[$key] = array("object" => $costtype, "errors" => array());
+            $ret[$key] = array("object" => $costtype, "errors" => array(), "message" => []);
             $ret[$key]["delete"] = array_key_exists($key, $del_array);
             $ret[$key]["old_label"] = $post["old_label"][$key];
             $ret[$key]["old_value"] = $post["old_value"][$key];
