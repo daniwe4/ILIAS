@@ -77,7 +77,11 @@ class ilObjEduTrackingGUI extends ilObjectPluginGUI
     */
     public function afterSave(ilObject $newObj)
     {
-        $minutes = $this->plugin->getCourseTrainingtimeInMinutes((int) $newObj->getParentCourse()->getRefId());
+        $minutes = 0;
+        $parent = $newObj->getParentCourse();
+        if(! is_null($parent)) {
+            $minutes = $this->plugin->getCourseTrainingtimeInMinutes((int) $parent->getRefId());
+        }
         $gti_settings = $newObj->getActionsFor("GTI")->select();
         $gti_settings = $gti_settings->withMinutes($minutes);
         $newObj->getActionsFor("GTI")->update($gti_settings);
