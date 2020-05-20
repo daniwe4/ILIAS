@@ -90,7 +90,7 @@ class ilActions extends ilOptionActions
         return $this->db->getCategoriesForForm();
     }
 
-    public function getCategoryById(int $category_id) : Option
+    public function getCategoryById(int $category_id) : ?Option
     {
         return $this->db->getCategoryById($category_id);
     }
