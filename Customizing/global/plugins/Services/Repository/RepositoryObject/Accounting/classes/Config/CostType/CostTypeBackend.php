@@ -33,6 +33,10 @@ class CostTypeBackend implements Backend
         if (!preg_match('/^[a-zA-Z0-9\_\-]*$/', $obj->getValue()) || $obj->getValue() === null) {
             $record["errors"]["value"][] = "export_is_not_match";
         }
+
+        if ($obj->getLabel() === null || $obj->getLabel() === "") {
+            $record["errors"]["label"][] = "value_no_label";
+        }
         return $record;
     }
 

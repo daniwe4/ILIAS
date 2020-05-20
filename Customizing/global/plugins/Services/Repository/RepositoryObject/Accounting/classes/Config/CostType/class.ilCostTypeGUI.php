@@ -14,7 +14,6 @@ use \CaT\Plugins\Accounting\Config\CostType\CostType;
 class ilCostTypeGUI
 {
     const CMD_SHOW_COSTTYPE = "showCosttypes";
-    const CMD_SHOW_CONFIRMATION_EDIT = "showConfirmationEdit";
     const CMD_SHOW_CONFIRMATION_MULTI_DELETE = "showConfirmationMultiDelete";
     const CMD_ADD_COSTTYPE = "addCosttypes";
     const CMD_DELETE_COSTTYPE = "deleteCosttypes";
