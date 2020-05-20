@@ -793,7 +793,11 @@ class ilDataGUI extends TMSTableParentGUI
         $entries = [];
         $post = $_POST;
         $hidden_ids = $post["hidden_id"];
-        if (count($hidden_ids) > 0) {
+        if (
+            ! is_null($hidden_ids) &&
+            is_array($hidden_ids) &&
+            count($hidden_ids) > 0
+        ) {
             $ref_id = $this->object_actions->getObject()->getRefId();
             foreach ($hidden_ids as $pos => $id) {
                 if ($this->access->checkAccess("add_entries", "", $ref_id)
