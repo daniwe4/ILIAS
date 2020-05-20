@@ -80,7 +80,7 @@ class ilTMSMailContextCourse implements Mailing\MailContext
     /**
      * @inheritdoc
      */
-    public function valueFor($placeholder_id, $contexts = array())
+    public function valueFor(string $placeholder_id, array $contexts = array()) : ?string
     {
         switch ($placeholder_id) {
             case 'COURSE_TITLE':
@@ -139,7 +139,7 @@ class ilTMSMailContextCourse implements Mailing\MailContext
     /**
      * @inheritdoc
      */
-    public function placeholderDescriptionForId($placeholder_id)
+    public function placeholderDescriptionForId(string $placeholder_id) : string
     {
         return $this->g_lang->txt(self::$PLACEHOLDER[$placeholder_id]);
     }

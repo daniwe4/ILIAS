@@ -29,7 +29,7 @@ class MailContextRoomSetup extends \ilTMSMailContextEnte
     /**
      * @inheritdoc
      */
-    public function placeholderDescriptionForId($placeholder_id)
+    public function placeholderDescriptionForId(string $placeholder_id) : string
     {
         $desc = self::$PLACEHOLDERS[$placeholder_id];
         $obj = \ilPluginAdmin::getPluginObjectById("xrse");
@@ -39,7 +39,7 @@ class MailContextRoomSetup extends \ilTMSMailContextEnte
     /**
      * @inheritdoc
      */
-    public function valueFor($placeholder_id, $contexts = array())
+    public function valueFor(string $placeholder_id, array $contexts = array()) : ?string
     {
         if (!in_array($placeholder_id, $this->placeholderIds())) {
             return null;

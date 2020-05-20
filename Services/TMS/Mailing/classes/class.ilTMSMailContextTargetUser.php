@@ -20,7 +20,7 @@ class ilTMSMailContextTargetUser extends ilTMSMailContextUser
     /**
      * @inheritdoc
      */
-    public function valueFor($placeholder_id, $contexts = array())
+    public function valueFor(string $placeholder_id, array $contexts = array()) : ?string
     {
         switch ($placeholder_id) {
             case 'TARGET_USER_SALUTATION':

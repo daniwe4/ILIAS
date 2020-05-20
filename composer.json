@@ -117,6 +117,11 @@
 				"./Customizing/global/plugins/Services/Cron/CronHook/ScheduledEvents/classes",
 				"./Customizing/global/plugins/Services/Cron/CronHook/ScheduledEvents/tests"
 			],
+			"CaT\\Plugins\\StatusMails\\":
+			[
+				"./Customizing/global/plugins/Services/Cron/CronHook/StatusMails/classes",
+				"./Customizing/global/plugins/Services/Cron/CronHook/StatusMails/tests"
+			],
 			"CaT\\Plugins\\SyncExtCalendars\\":
 			[
 				"./Customizing/global/plugins/Services/Cron/CronHook/SyncExtCalendars/classes",

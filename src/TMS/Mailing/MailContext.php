@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /* Copyright (c) 2017 Nils Haagen <nils.haagen@concepts-and-training.de> */
 
 namespace ILIAS\TMS\Mailing;
@@ -15,7 +17,6 @@ namespace ILIAS\TMS\Mailing;
  */
 interface MailContext
 {
-
     /**
      * Get a value for a placeholder.
      * Some resolvements require more than one context - all contexts of
@@ -25,7 +26,7 @@ interface MailContext
      * @param MailContext[] 	$contexts
      * @return string|null
      */
-    public function valueFor($placeholder_id, $contexts = array());
+    public function valueFor(string $placeholder_id, array $contexts = []) : ?string;
 
     /**
      * get a description for this placeholder
@@ -33,5 +34,5 @@ interface MailContext
      * @param string 	$placeholder_id
      * @return string
      */
-    public function placeholderDescriptionForId($placeholder_id);
+    public function placeholderDescriptionForId(string $placeholder_id) : string;
 }

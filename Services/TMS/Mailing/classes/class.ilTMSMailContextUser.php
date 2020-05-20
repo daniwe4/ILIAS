@@ -43,7 +43,7 @@ class ilTMSMailContextUser implements Mailing\MailContext
     /**
      * @inheritdoc
      */
-    public function valueFor($placeholder_id, $contexts = array())
+    public function valueFor(string $placeholder_id, array $contexts = array()) : ?string
     {
         switch ($placeholder_id) {
             case 'MAIL_SALUTATION':
@@ -72,7 +72,7 @@ class ilTMSMailContextUser implements Mailing\MailContext
     /**
      * @inheritdoc
      */
-    public function placeholderDescriptionForId($placeholder_id)
+    public function placeholderDescriptionForId(string $placeholder_id) : string
     {
         return $this->g_lang->txt(static::$PLACEHOLDER[$placeholder_id]);
     }

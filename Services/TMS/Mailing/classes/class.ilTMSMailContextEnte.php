@@ -30,12 +30,12 @@ abstract class ilTMSMailContextEnte implements Mailing\MailContext
     /**
      * @inheritdoc
      */
-    abstract public function valueFor($placeholder_id, $contexts = array());
+    abstract public function valueFor(string $placeholder_id, array $contexts = array()) : ?string;
 
     /**
      * @inheritdoc
      */
-    abstract public function placeholderDescriptionForId($placeholder_id);
+    abstract public function placeholderDescriptionForId(string $placeholder_id) : string;
 
     /**
      * @inheritdoc

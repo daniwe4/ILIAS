@@ -1,0 +1,13 @@
+placeholder_statusmails_booked#:#Buchungen der Mitarbeiter (nur in Turnusmail S01)
+placeholder_statusmails_waiting#:#Buchungen der Mitarbeiter auf Warteliste  (nur in Turnusmail S01)
+placeholder_statusmails_canceled#:#Absagen der Mitarbeiter (nur in Turnusmail S01)
+placeholder_statusmails_completed#:#Bestandene Trainings der Mitarbeiter (nur in Turnusmail S01)
+placeholder_statusmails_failed#:#Nicht bestandene Trainings der Mitarbeiter (nur in Turnusmail S01)
+placeholder_statusmails_waiting_canceled#:#Absagen von Warteliste (nur in Turnusmail S01)
+placeholder_statusmail_trainings_next_week#:#Anstehende Trainings der Mitarbeiter (nur in Turnusmail S02)
+placeholder_statusmails_approval_pending#:#Offene Buchungsanfragen der Mitarbeiter (nur in Turnusmail S02)
+placeholder_statusmails_approval_approved#:#Genehmigte Buchungsanfragen der Mitarbeiter (nur in Turnusmail S02)
+stat_user_activities_title#:#Statusmail: Aktivitäten von Benutzer
+stat_user_activities_description#:#Listet die Aktivitäten von Benutzern auf und versendet diese an Benutzer mit entsprechenden Authoritäten.
+stat_upcomming_trainings_title#:#Statusmail: Zukünftige Aktivitäten von Benutzer
+stat_upcomming_trainings_description#:#Listet die zukünftigen Aktivitäten von Benutzern auf und versendet diese an Benutzer mit entsprechenden Authoritäten.
