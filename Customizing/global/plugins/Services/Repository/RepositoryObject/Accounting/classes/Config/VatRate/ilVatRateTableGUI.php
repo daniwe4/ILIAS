@@ -50,7 +50,8 @@ class ilVatRateTableGUI extends \ilTable2GUI
         $this->setExternalSegmentation(false);
         $this->setShowRowsSelector(false);
         $this->setLimit(0);
-        $this->setDefaultOrderField("name");
+        $this->setDefaultOrderField("label");
+        $this->setDefaultOrderDirection("asc");
 
         $this->addColumn("", "", "1", true);
         $this->addColumn($this->txt("xacc_value") . ' <span class="asterisk">*</span>', "value");

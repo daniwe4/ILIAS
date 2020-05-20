@@ -157,13 +157,13 @@ class ilVatRateGUI
 
         if ($order_field == "label") {
             usort($sorted_data, function ($a, $b) {
-                return strcmp($a["object"]->getLabel(), $b["object"]->getLabel());
+                return strnatcmp($a["object"]->getLabel(), $b["object"]->getLabel());
             });
         }
 
         if ($order_field == "value") {
             usort($sorted_data, function ($a, $b) {
-                return strcmp($a["object"]->getValue(), $b["object"]->getValue());
+                return $a["object"]->getValue() > $b["object"]->getValue();
             });
         }
 
