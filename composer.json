@@ -164,8 +164,8 @@
 			],
 			"CaT\\Plugins\\TrainingStatisticsByOrgUnits\\":
 			[
-				"./Customizing/global/plugins/Services/OrgUnit/OrgUnitTypeHook/TrainingStatisticsByOrgUnits/classes",
-				"./Customizing/global/plugins/Services/OrgUnit/OrgUnitTypeHook/TrainingStatisticsByOrgUnits/tests"
+				"Customizing/global/plugins/Modules/OrgUnit/OrgUnitExtension/TrainingStatisticsByOrgUnits/classes",
+				"Customizing/global/plugins/Modules/OrgUnit/OrgUnitExtension/TrainingStatisticsByOrgUnits/tests"
 			],
 			"CaT\\Plugins\\Accomodation\\":
 			[
