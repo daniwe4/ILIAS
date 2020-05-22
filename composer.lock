@@ -152,16 +152,16 @@
         },
         {
             "name": "conceptsandtraining/lib-historizing",
-            "version": "2.0.4",
+            "version": "2.0.5",
             "source": {
                 "type": "git",
                 "url": "git@github.com:conceptsandtraining/lib-historizing.git",
-                "reference": "47346883966aeec562b3cfa5b43b5cf334c08bee"
+                "reference": "4eaabda8668f7d31e35a1806a5040006aebae577"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/conceptsandtraining/lib-historizing/zipball/47346883966aeec562b3cfa5b43b5cf334c08bee",
-                "reference": "47346883966aeec562b3cfa5b43b5cf334c08bee",
+                "url": "https://api.github.com/repos/conceptsandtraining/lib-historizing/zipball/4eaabda8668f7d31e35a1806a5040006aebae577",
+                "reference": "4eaabda8668f7d31e35a1806a5040006aebae577",
                 "shasum": ""
             },
             "require-dev": {
@@ -178,10 +178,10 @@
             ],
             "description": "Handles historizing content for courses",
             "support": {
-                "source": "https://github.com/conceptsandtraining/lib-historizing/tree/master",
+                "source": "https://github.com/conceptsandtraining/lib-historizing/tree/2.0.5",
                 "issues": "https://github.com/conceptsandtraining/lib-historizing/issues"
             },
-            "time": "2020-04-02T10:10:11+00:00"
+            "time": "2020-05-22T07:24:24+00:00"
         },
         {
             "name": "conceptsandtraining/lib-plugin-security",
