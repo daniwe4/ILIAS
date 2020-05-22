@@ -766,8 +766,7 @@ class Report
                             ->groupBy($nights_src->field('usr_id'));
             $nights_space->request($nights_src->field('crs_id'))
                             ->request($nights_src->field('usr_id'))
-                            ->request($this->tf->groupConcat('nights', $this->tf->dateFormat('nights', $nights_src->field('list_data'))))
-                            ->addFilter($nights_src->field('usr_id')->EQ()->int((int) $this->user_id));
+                            ->request($this->tf->groupConcat('nights', $this->tf->dateFormat('nights', $nights_src->field('list_data'))));
             $nights = $this->tf->DerivedTable($nights_space, 'nights');
 
             $space = $space
