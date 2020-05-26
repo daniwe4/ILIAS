@@ -532,7 +532,7 @@ abstract class ParallelCourseStep
         return $this->txt("info_can_storno");
     }
 
-    protected function fillTemplateWithCourseInfos(\ilGlobalTemplateInterface $tpl, $courses)
+    protected function fillTemplateWithCourseInfos(\ilTemplate $tpl, $courses)
     {
         foreach ($courses as $key => $course) {
             $tpl->setCurrentBlock("crs");
