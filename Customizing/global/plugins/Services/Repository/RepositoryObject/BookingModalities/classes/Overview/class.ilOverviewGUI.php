@@ -106,6 +106,11 @@ class ilOverviewGUI extends TMSTableParentGUI
      */
     protected function showBookings()
     {
+        if (is_null($this->actions->getObject()->getParentCourse())) {
+            ilUtil::sendInfo($this->txt("not_below_crs"));
+            return;
+        }
+
         $table = $this->getTable($this->txt("booking_table_title"), self::S_BOOKING_DATE);
 
         $limit = (int) $table->getLimit();
@@ -129,6 +134,11 @@ class ilOverviewGUI extends TMSTableParentGUI
      */
     protected function showCancellations()
     {
+        if (is_null($this->actions->getObject()->getParentCourse())) {
+            ilUtil::sendInfo($this->txt("not_below_crs"));
+            return;
+        }
+
         $table = $this->getTable($this->txt("cancellation_table_title"), self::S_CANCEL_DATE);
 
         $limit = (int) $table->getLimit();

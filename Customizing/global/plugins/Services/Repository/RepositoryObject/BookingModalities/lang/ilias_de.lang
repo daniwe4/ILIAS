@@ -235,3 +235,4 @@ btn_register#:#Registrieren
 anonymous_decision_title#:#Buchung eines Trainings
 anonymous_decision_form_text#:#Für die Buchung eines Trainings benötigen Sie ein Benutzerkonto. Wechseln Sie über "%s" zur Anmeldung, wenn Sie bereits ein Benutzerkonto besitzen. Nach der Anmeldung werden Sie direkt zur Buchung des Trainings weitergeleitet.<br \><br \>Wenn Sie noch kein Benutzerkonto besitzen, klicken Sie auf "%s". Bitte beachten Sie, dass Sie nach der Registrierung die Buchung des Trainings erneut durchführen müssen.
 hard_cancel_costs#:#<i>Ihre Stornierungsgebühr beträgt %s Euro.</i>
+not_below_crs#:#Diese Buchungsmodalität liegt nicht unterhalb eines Kurses und ist deshalb in seiner Funktionalität eingeschränkt.
