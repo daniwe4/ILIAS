@@ -114,6 +114,7 @@ class ilObjEduBiography extends ilObjectPlugin
             ->withHasSuperiorOverview($settings->hasSuperiorOverview())
             ->withInvisibleCourseTopics($settings->getInvisibleCourseTopics())
             ->withInitVisibleColumns($settings->getInitVisibleColumns())
+            ->withRecommendationAllowed($settings->getRecommendationAllowed())
         ;
 
         $new_obj->setSettings($n_settings);
