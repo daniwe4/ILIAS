@@ -1132,7 +1132,6 @@ class Report
                     $space->table('crs')->field('venue'),
                     $space->table('crs')->field('accomodation')
                 )],
-                ['accomodation' => $space->table('crs')->field('accomodation')],
                 true,
                 true
             )
@@ -1334,12 +1333,12 @@ class Report
 
         return $this->pf->_ANY(
             $this->pf->_OR(
-                        $max_members->IS_NULL(),
-                        $max_members->EQ()->int(0)
+                $max_members->IS_NULL(),
+                $max_members->EQ()->int(0)
                     ),
             $this->pf->_AND(
-                        $max_members->GT()->int(0),
-                        $booked->LT($max_members)
+                $max_members->GT()->int(0),
+                $booked->LT($max_members)
                     ),
             $booked->IS_NULL()
                 );
