@@ -1624,17 +1624,22 @@ class ilObjCourse extends ilContainer implements ilMembershipRegistrationCodes
             $this->setStatusDetermination((int) $row->status_dt);
             $this->setMailToMembersType($row->mail_members_type);
 
-            if ($row->period_time_indication) {
-                $this->setCoursePeriod(
-                    new \ilDateTime($row->period_start, IL_CAL_DATETIME, \ilTimeZone::UTC),
-                    new \ilDateTime($row->period_end, IL_CAL_DATETIME, \ilTimeZone::UTC)
-                );
-            } elseif (!is_null($row->period_start) && !is_null($row->period_end)) {
-                $this->setCoursePeriod(
-                    new \ilDate($row->period_start, IL_CAL_DATE),
-                    new \ilDate($row->period_end, IL_CAL_DATE)
-                );
+            // cat-tms-patch start #4655
+            if (!is_null($row->period_start) && !is_null($row->period_end)) {
+                if ($row->period_time_indication) {
+                    $this->setCoursePeriod(
+                        new \ilDateTime($row->period_start, IL_CAL_DATETIME, \ilTimeZone::UTC),
+                        new \ilDateTime($row->period_end, IL_CAL_DATETIME, \ilTimeZone::UTC)
+                    );
+                } else {
+                    $this->setCoursePeriod(
+                        new \ilDate($row->period_start, IL_CAL_DATE),
+                        new \ilDate($row->period_end, IL_CAL_DATE)
+                    );
+                }
             }
+            // cat-tms-patch end
+
             $this->toggleCourseStartTimeIndication((bool) $row->period_time_indication);
             $this->setCancellationEnd($row->leave_end ? new ilDate($row->leave_end, IL_CAL_UNIX) : null);
             $this->setWaitingListAutoFill($row->auto_wait);
