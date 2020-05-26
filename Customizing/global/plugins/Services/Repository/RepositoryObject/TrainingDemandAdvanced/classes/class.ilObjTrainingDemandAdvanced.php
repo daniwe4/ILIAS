@@ -15,13 +15,28 @@ class ilObjTrainingDemandAdvanced extends ilObjectPlugin
      */
     protected $current_usr_id;
 
+    /**
+     * @var TDA\Settings\Settings
+     */
+    protected $settings;
+
+    /**
+     * @var ilTree
+     */
+    protected $tree;
+
+    /**
+     * @var TDA\Settings\DBSettingsRepository
+     */
+    protected $settings_repository;
+
     public function __construct($a_ref_id = 0)
     {
         parent::__construct($a_ref_id = 0);
 
         global $DIC;
         $this->db = $DIC['ilDB'];
-        $this->g_tree = $DIC['tree'];
+        $this->tree = $DIC['tree'];
         $this->settings_repository = new TDA\Settings\DBSettingsRepository($this->db);
         $this->current_usr_id = (int) $DIC["ilUser"]->getId();
     }
@@ -63,7 +78,7 @@ class ilObjTrainingDemandAdvanced extends ilObjectPlugin
      */
     public function doDelete()
     {
-        $this->delete($this->settings);
+        $this->settings_repository->delete($this->settings);
     }
 
     /**
@@ -72,7 +87,10 @@ class ilObjTrainingDemandAdvanced extends ilObjectPlugin
      */
     public function doCloneObject($new_obj, $a_target_id, $a_copy_id = null)
     {
-        $new_obj->settings = $new_obj->settings->withGlobal($this->settings->isGlobal());
+        $new_obj->settings = $new_obj->settings
+            ->withGlobal($this->settings->isGlobal())
+            ->withLocalRoles($this->settings->getLocalRoles())
+        ;
         $new_obj->update();
     }
 
@@ -93,7 +111,7 @@ class ilObjTrainingDemandAdvanced extends ilObjectPlugin
             $this->plugin,
             $this->db,
             new TDA\ActionLinksHelper(),
-            new ilTreeObjectDiscovery($this->g_tree),
+            new ilTreeObjectDiscovery($this->tree),
             $this->settings,
             $this,
             $this->current_usr_id
