@@ -221,7 +221,7 @@ class ilSelectableReasonsGUI
         }
 
         foreach ($this->getOptionsFromPost($post) as $key => $reason) {
-            $ret[$key] = array("object" => $reason, "errors" => array());
+            $ret[$key] = array("object" => $reason, "errors" => array(), "message" => []);
             $ret[$key]["delete"] = in_array($key, $del_array);
         }
 
