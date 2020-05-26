@@ -14,15 +14,16 @@ trait ChildAssistant
      */
     protected function getAllChildrenOfByType(int $ref_id, string $search_type) : array
     {
-        $children = $this->tree->getSubTree(
-            $this->tree->getNodeData($ref_id),
+        $tree = $this->getDIC()["tree"];
+        $children = $tree->getSubTree(
+            $tree->getNodeData($ref_id),
             true,
             $search_type
         );
 
         return array_map(
             function ($node) {
-                return ilObjectFactory::getInstanceByRefId($node["child"]);
+                return \ilObjectFactory::getInstanceByRefId($node["child"]);
             },
             $children
         );
