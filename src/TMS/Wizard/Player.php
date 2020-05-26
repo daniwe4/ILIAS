@@ -192,7 +192,6 @@ class Player
         $step_data = $this->getStepData($state, $step_number, $step);
 
         if (!is_null($step_data)) {
-            $step_data = $state->getStepData($step_number);
             $step->addDataToForm($form, $step_data);
         }
     }
