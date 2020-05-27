@@ -77,7 +77,7 @@ approval_pending#:#Warten auf Genehmigung
 approval_declined#:#Anfrage abgelehnt
 delete_successful#:#Die Zertifikate wurden erfolgreich entfernt.
 crs_ref_id#:#Kurs Referenz-ID
-delete#:#Entfernen
+delete#:#Löschen
 no_admin_no_action#:#Sie haben nicht die nötigen Rechte um diese Funktion auszuführen.
 no_course#:#Die eingegebene Kurs Referenz-ID ist kein Kurs.
 confirm_header#:#Sollen die Zertifikate für foldenden Kurs wirklich entfernt werden.
