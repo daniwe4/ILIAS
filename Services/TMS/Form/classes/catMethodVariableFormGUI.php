@@ -33,7 +33,7 @@ class catMethodVariableFormGUI extends ilPropertyFormGUI {
 		$content = $this->getContent();
 		if ($this->getOpenTag())
 		{
-			$opentpl = new ilTemplate('tpl.form_open.html', true, true, "Services/Form");
+			$opentpl = new ilTemplate('tpl.form_open.html', true, true, "Services/TMS/Form");
 			$opentpl->setVariable("METHOD", $this->getMethod());
 			if ($this->getTarget() != "")
 			{
