@@ -114,11 +114,10 @@ class CoursePeriodStep extends \CourseCreationStep
                 $item->setHours($hh);
                 $item->setMinutes($mm);
 
-                if (count($this->getAgendaOfSession($session)) == 0) {
+                if (!is_null($this->getAgendaOfSession($session))) {
                     $end_hour = $appointment->getEnd()->get(IL_CAL_FKT_DATE, "H");
                     $end_minutes = $appointment->getEnd()->get(IL_CAL_FKT_DATE, "i");
                     $pend = self::F_SESSION . "_" . self::F_END;
-
 
                     $item = $form->getItemByPostVar($pend . "[" . $ref_id . "]");
                     $item->setHours($hh + $end_hour - $start_hour);
