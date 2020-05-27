@@ -145,7 +145,7 @@ crs_part_status#:#Mitgliedsstatus
 rejected#:#Abgesagt am
 details_rejected#:#Abgesagt von
 tab_invites#:#Einladungsmanagement
-delete#:#Benutzer entfernen
+delete_usr#:#Benutzer entfernen
 set_rejected#:#Manuell auf abgesagt setzen
 set_invited#:#Manuell auf eingeladen setzen
 send_invite_mail#:#Einladen

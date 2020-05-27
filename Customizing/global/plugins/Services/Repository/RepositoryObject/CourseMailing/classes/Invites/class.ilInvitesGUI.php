@@ -271,7 +271,7 @@ class ilInvitesGUI extends TMSTableParentGUI
             $table->addMultiCommand(self::CMD_INVITE_MAIL, $this->txt("send_invite_mail"));
             $table->addMultiCommand(self::CMD_INVITE_USER, $this->txt("set_invited"));
             $table->addMultiCommand(self::CMD_REJECT_USER, $this->txt("set_rejected"));
-            $table->addMultiCommand(self::CMD_CONFIRM_DELETE_USER, $this->txt("delete"));
+            $table->addMultiCommand(self::CMD_CONFIRM_DELETE_USER, $this->txt("delete_usr"));
         }
 
         return $table;
