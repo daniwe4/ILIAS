@@ -16368,7 +16368,6 @@ tms#:#user_booked_on_waiting#:#Sie sind bei diesem Trainings bereits auf der War
 tms#:#user_not_booked_on_course#:#Sie haben dieses Training nicht gebucht.
 tms#:#user_not_booked_on_waiting#:#Sie sind bei diesem Trainings nicht auf der Warteliste.
 tms#:#create_course_overview_description#:#Bitte prüfen Sie die Angaben und starten Sie die Anlage des Trainings.
-orgu#:#user_assignments_recursive#:#Rekursive Benutzerzuweisun
 tms#:#send_recommendation#:#Kurs empfehlen
 sess#:#event_planer#:#Datum/Uhrzeit
 sess#:#event_static_date#:#Festes Datum
