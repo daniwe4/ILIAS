@@ -17,6 +17,11 @@ class ilGenerator extends \ilPdfGenerator
     private $logger;
 
     /**
+     * @var \ilLanguage
+     */
+    private $lng;
+
+    /**
      * @var \ilCertificateRpcClientFactoryHelper|null
      */
     private $rpcHelper;
@@ -34,17 +39,20 @@ class ilGenerator extends \ilPdfGenerator
     /**
      * @param \ilUserCertificateRepository $userCertificateRepository
      * @param \ilLogger $logger
+     * @param \ilLanguage $lng
      * @param \ilCertificateRpcClientFactoryHelper|null $rpcHelper
      * @param \ilCertificatePdfFileNameFactory|null $pdfFileNameFactory
      */
     public function __construct(
         \ilUserCertificateRepository $userCertificateRepository,
         \ilLogger $logger,
+        \ilLanguage $lng,
         \ilCertificateRpcClientFactoryHelper $rpcHelper = null,
         \ilCertificatePdfFileNameFactory $pdfFileNameFactory = null
     ) {
         $this->certificateRepository = $userCertificateRepository;
         $this->logger = $logger;
+        $this->lng = $lng;
 
         if (null === $rpcHelper) {
             $rpcHelper = new \ilCertificateRpcClientFactoryHelper();
@@ -52,7 +60,7 @@ class ilGenerator extends \ilPdfGenerator
         $this->rpcHelper = $rpcHelper;
 
         if (null === $pdfFileNameFactory) {
-            $pdfFileNameFactory = new \ilCertificatePdfFileNameFactory();
+            $pdfFileNameFactory = new \ilCertificatePdfFileNameFactory($this->lng);
         }
         $this->pdfFilenameFactory = $pdfFileNameFactory;
     }

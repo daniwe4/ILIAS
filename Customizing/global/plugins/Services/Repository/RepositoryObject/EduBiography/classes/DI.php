@@ -161,7 +161,8 @@ trait DI
         $container["config.certificate.pdfgenerator"] = function ($c) {
             return new Config\OverviewCertificate\Certificate\ilGenerator(
                 $c["il_certificate.user.repository"],
-                $c["il_certificate.logger"]
+                $c["il_certificate.logger"],
+                $c["lng"]
             );
         };
 
