@@ -55,7 +55,7 @@ class ilRatingTextualGui extends ilFormPropertyGUI
         return $tpl->get();
     }
 
-    public function insert(ilGlobalTemplateInterface $tpl)
+    public function insert(ilTemplate $tpl)
     {
         $html = $this->render();
 
