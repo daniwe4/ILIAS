@@ -184,11 +184,17 @@ trait ScheduledEvents
      */
     public function getDueDates()
     {
+        $ret = [];
+
         $parent_course = $this->getParentCourse();
+
+        if (is_null($parent_course)) {
+            return $ret;
+        }
+
         $course_start = $parent_course->getCourseStart();
         $all_offset_days = $this->getEffectiveMailOffsetDays();
 
-        $ret = [];
         foreach ($all_offset_days as $setting_type => $offset_days) {
             if (is_null($course_start) || is_null($offset_days)) {
                 $ret[$setting_type] = null;
@@ -218,6 +224,11 @@ trait ScheduledEvents
     {
         if (!is_null($this->getRefId())) {
             $parent_course = $this->getParentCourse();
+
+            if (is_null($parent_course)) {
+                return;
+            }
+
             $schedule = $this->getSchedule();
 
             $this->deleteExistingMailingEvents();
