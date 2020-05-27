@@ -176,9 +176,12 @@ abstract class Report
     protected function participationStatusOptions()
     {
         $plugin = $this->plugin;
-        $return = ['none' => $plugin->txt('none')
-                ,'successful' => $plugin->txt('successful')
-                ,'absent' => $plugin->txt('absent')];
+        $return = [
+            'none' => $plugin->txt('none'),
+            'successful' => $plugin->txt('successful'),
+            'absent' => $plugin->txt('absent'),
+            'in_progress' => $plugin->txt('in_progress')
+        ];
         asort($return);
         return $return;
     }
