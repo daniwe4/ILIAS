@@ -326,6 +326,11 @@
 			[
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessment/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessment/tests"
+			],
+			"CaT\\Plugins\\CareerGoal\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/CareerGoal/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/CareerGoal/tests"
 			]
 		},
 		"classmap": [
