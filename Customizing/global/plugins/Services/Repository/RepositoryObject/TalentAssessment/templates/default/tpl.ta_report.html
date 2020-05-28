@@ -1,0 +1,84 @@
+<style>
+	.ta_report_header {
+		font-size:21px;
+		font-weight:bold;
+	}
+
+	.ta_report_subtitle {
+		margin-top: 10px;
+		font-weight: bold;
+		font-style:italic;
+		padding-left: 5px;
+	}
+
+	.ta_report_subtitle_value {
+		margin-bottom: 40px;
+	}
+
+	.ta_report_subtitle_value > div {
+		background-color: #f5f5f6;
+		height:30px;
+		padding: 5px;
+	}
+
+	.ta_report_subtitle > div, .ta_report_subtitle_value > div {
+		float:left;
+	}
+
+	.ta_report_subtitle > div:first-child, .ta_report_subtitle_value > div:first-child {
+		width:40%;
+		padding-right:2px;
+		margin-right:5px;
+	}
+
+	.ta_report_subtitle > div:nth-of-type(2), .ta_report_subtitle_value > div:nth-of-type(2) {
+		width:24%;
+		padding-right:2px;
+		margin-right:5px;
+	}
+
+	.ta_report_subtitle > div:nth-of-type(3), .ta_report_subtitle_value > div:nth-of-type(3) {
+		width:10%;
+	}
+
+	.ta_report_clear {
+		clear:both;
+	}
+
+	.ta_report_summary_title {
+		margin-top:20px;
+		font-size:18px;
+		font-weight:bold;
+	}
+
+	.ta_report_summary {
+		margin-top:5px;
+	}
+
+	.ta_report_result {
+		margin-top: 15px;
+		font-weight:bold;
+	}
+</style>
+<div class="ta_report_header">{TA_TITLE}</div>
+<div class="ta_report_subtitle">
+	<div>{SUB_FIRST}</div>
+	<div>{SUB_SECOND}</div>
+	<div>{SUB_THIRD}</div>
+</div>
+<div class="ta_report_clear"></div>
+<div class="ta_report_subtitle_value">
+	<div>{VALUE_FIRST}</div>
+	<div>{VALUE_SECOND}</div>
+	<div>{VALUE_THIRD}</div>
+</div>
+<div class="ta_report_clear"></div>
+<!-- BEGIN diagramm_svg -->
+<div class="ta_report_diagramm">{DIAGRAMM}</div>
+<!-- END diagramm_svg -->
+<!-- BEGIN diagramm_png -->
+<div class="ta_report_diagramm"><img src="{DIAGRAMM}" height="100%" width="100%"\></div>
+<!-- END diagramm_png -->
+<div class="ta_report_summary_title">{SUMMARY_TITLE}</div>
+<div class="ta_report_summary">{SUMMARY}</div>
+<div class="ta_report_result">{RESULT}</div>

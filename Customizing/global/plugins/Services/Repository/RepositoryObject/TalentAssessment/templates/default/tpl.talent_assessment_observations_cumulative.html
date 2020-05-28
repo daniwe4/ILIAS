@@ -1,0 +1,34 @@
+<!-- BEGIN table -->
+<table class="tbl">
+	<!-- BEGIN tr_header -->
+	<tr class="header_row">
+		<td class="center_txt left_col_width">Anforderung</td>
+		<!-- BEGIN observations -->
+		<td class="center_txt brd_lr" colspan="{COL_SPAN_HEAD}">{OBS_TITLE}</td>
+		<!-- END observations -->
+		<td class="center_txt right_col_width">Mittelwert</td>
+	</tr>
+	<!-- END tr_header -->
+	<!-- BEGIN tr_observer -->
+	<tr>
+	  <td class="right_border">&nbsp;</td>
+		<!-- BEGIN observer -->
+		<td class="brd_lr" style="padding-left:{pad}%; white-space: normal;"><div class="rotate block">{OBSERVER_LASTNAME}{OBSERVER_FIRSTNAME}</div></td>
+		<!-- END observer -->
+		<td class="left_border">&nbsp;</td>
+	</tr>
+	<!-- END tr_observer -->
+	<!-- BEGIN tr_requirement -->
+	{PTS_ROW}
+	<!-- END tr_requirement -->
+	<!-- BEGIN tr_sum -->
+	<tr class="result_row">
+		<td class="center_txt">Mittelwert</td>
+		<!-- BEGIN bla -->
+		<td colspan="{COL_SPAN_FOOTER}" class="center_txt brd_lr" >{PTS}</td>
+		<!-- END bla -->
+		<td class="center_txt" >{MIDDLE_TOTAL}</td>
+	</tr>
+	<!-- BEGIN tr_sum -->
+</table>
+<!-- END table -->

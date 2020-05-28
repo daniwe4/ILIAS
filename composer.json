@@ -321,6 +321,11 @@
 			[
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessmentReport/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessmentReport/tests"
+			],
+			"CaT\\Plugins\\TalentAssessment\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessment/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessment/tests"
 			]
 		},
 		"classmap": [
