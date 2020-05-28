@@ -114,7 +114,7 @@ class CoursePeriodStep extends \CourseCreationStep
                 $item->setHours($hh);
                 $item->setMinutes($mm);
 
-                if (!is_null($this->getAgendaOfSession($session))) {
+                if (is_null($this->getAgendaOfSession($session))) {
                     $end_hour = $appointment->getEnd()->get(IL_CAL_FKT_DATE, "H");
                     $end_minutes = $appointment->getEnd()->get(IL_CAL_FKT_DATE, "i");
                     $pend = self::F_SESSION . "_" . self::F_END;
