@@ -336,7 +336,8 @@ class ilEduBiographyPlugin extends ilRepositoryObjectPlugin
                     [
                         "firstname",
                         "lastname",
-                        "username"
+                        "username",
+                        "org_units"
                     ]
                 )
                 ) {
