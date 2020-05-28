@@ -316,6 +316,11 @@
 			[
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/tests"
+			],
+			"CaT\\Plugins\\TalentAssessmentReport\\":
+			[
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessmentReport/classes",
+				"./Customizing/global/plugins/Services/Repository/RepositoryObject/TalentAssessmentReport/tests"
 			]
 		},
 		"classmap": [

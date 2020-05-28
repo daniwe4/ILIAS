@@ -1,0 +1,52 @@
+all_observations#:#alle Assessmenttermine
+all_observations_info#:#Hier sehen Sie auf einen Blick alle Assessments.
+start_date#:#Datum
+result#:#Ergebnis
+org_unit#:#Organisationseinheit
+observer#:#Beobachter
+career_goal#:#Karriereziel
+fullname#:#Name
+org_unit_supervisor#:#Vorgesetzte
+venue#:#Veranstaltungsort
+actions#:#Aktionen
+ta_failed#:#Anforderungen nicht erfüllt
+ta_failed_short#:#nicht erfüllt
+ta_passed#:#Anforderungen erfüllt
+ta_passed_short#:#erfüllt
+ta_maybe#:#Anforderungen teilweise erfüllt
+ta_in_progress#:#in Bearbeitung
+content#:#Inhalt
+settings#:#Einstellungen
+show_pdf#:#Ergebnisbericht
+open#:#Beobachtungen bearbeiten
+title#:#Titel
+description#:#Beschreibung
+is_admin#:#Alle Termine anzeigen
+is_online#:#Online
+save#:#Speichern
+cancel#:#Abbrechen
+my_observations#:#Assessmenttermine
+my_observations_info#:#Hier sehen Sie auf einen Blick alle Assessments, denen Sie als Beobachter zugeordnet sind.
+objs_xtar#:#Assessment Reports
+obj_xtar#:#Assessment Report
+xtar_new#:#Assessment Report hinzufügen
+xtar_duplicate#:#Assessment Report kopieren
+xtar_add#:#Anlegen
+xtar_edit#:#Einstellungen
+objs_xtar_duplicate#:#Assessment Report kopieren
+obj_xtar_duplicate#:#Assessment Report kopieren
+grp_create_xtar#:#Assessment Report anlegen
+cat_create_xtar#:#Assessment Report anlegen
+crs_create_xtar#:#Assessment Report anlegen
+fold_create_xtar#:#Assessment Report anlegen
+root_create_xtar#:#Assessment Report anlegen
+xtar_edit_permission#:#Rechteeinstellungen ändern: Rechteeinstellungen ändern
+xtar_visible#:#Anzeigen: Assessment Reports sind sichtbar und können genutzt werden
+xtar_read#:#Lesezugriff: Assessment Report lesen
+xtar_copy#:#Kopieren: Assessment Report kopieren
+xtar_write#:#Einstellungen bearbeiten: Einstellungen der Assessment Reports bearbeiten
+xtar_delete#:#Löschen: Assessment Report verschieben oder löschen
+settings_successful_saved#:#Einstellungen erfolgreich gespeichert.
+status#:#Status
+offline#:#Offline
+create_xtar#:#Assessment Report anlegen
