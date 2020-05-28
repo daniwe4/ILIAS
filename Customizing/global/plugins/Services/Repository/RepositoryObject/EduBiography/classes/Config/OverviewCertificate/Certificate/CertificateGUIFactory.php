@@ -103,7 +103,6 @@ class CertificateGUIFactory
     {
         require_once __DIR__ . "/class.ilOverviewCertificateGUI.php";
         return new \ilOverviewCertificateGUI(
-            $this->getAdapter($id),
             $this->getPlaceholder(),
             $this->getPlaceholderValues(),
             $id,
@@ -112,15 +111,6 @@ class CertificateGUIFactory
             $this->getFormRepository($id),
             $this->getDeleteAction(),
             $this->getTemplateRepository()
-        );
-    }
-
-    protected function getAdapter(int $id) : ilCertificateAdapter
-    {
-        return new ilCertificateAdapter(
-            $id,
-            $this->getPlaceholder(),
-            $this->getPlaceholderValues()
         );
     }
 
@@ -147,8 +137,8 @@ class CertificateGUIFactory
         return new ilFormRepository(
             $id,
             $this->getPath($id),
+            false,
             $this->lng,
-            $this->tpl,
             $this->ctrl,
             $this->access,
             $this->toolbar,

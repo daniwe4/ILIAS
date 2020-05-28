@@ -10,15 +10,14 @@ class ilOverviewCertificateGUI extends ilCertificateGUI
     const TYPE = "xebr";
 
     /**
+     * @var ilCertificateBackgroundImageDelete
+     */
+    protected $backgroundImageDelete;
+
+    /**
      * @var \ILIAS\Filesystem\Filesystem
      */
     protected $fileSystem;
-
-    /**
-     * ilCertificate object reference
-     * @var ilCertificate
-     */
-    protected $certifcateObject;
 
     /**
      * The reference to the ILIAS control class
@@ -158,7 +157,6 @@ class ilOverviewCertificateGUI extends ilCertificateGUI
     protected $parent_link;
 
     public function __construct(
-        ilCertificateAdapter $adapter,
         ilCertificatePlaceholderDescription $placeholderDescriptionObject,
         ilCertificatePlaceholderValues $placeholderValuesObject,
         $objectId,
@@ -175,17 +173,11 @@ class ilOverviewCertificateGUI extends ilCertificateGUI
         ilCertificateTemplatePreviewAction $previewAction = null,
         \ILIAS\FileUpload\FileUpload $fileUpload = null,
         ilSetting $settings = null,
-        \ILIAS\Filesystem\Filesystem $fileSystem = null
+        ilCertificateBackgroundImageDelete $backgroundImageDelete = null,
+        \ILIAS\Filesystem\Filesystem $fileSystem = null,
+        ilCertificateBackgroundImageFileService $imageFileService = null
     ) {
         global $DIC;
-
-        $this->certifcateObject = new ilCertificate(
-            $adapter,
-            $placeholderDescriptionObject,
-            $placeholderValuesObject,
-            $objectId,
-            $certificatePath
-        );
 
         $this->lng = $DIC['lng'];
         $this->tpl = $DIC['tpl'];
@@ -292,9 +284,22 @@ class ilOverviewCertificateGUI extends ilCertificateGUI
         }
         $this->fileSystem = $fileSystem;
 
-        $this->parent_link = $parent_link;
+        if (null === $imageFileService) {
+            $imageFileService = new ilCertificateBackgroundImageFileService(
+                $this->certificatePath,
+                $this->fileSystem
+            );
+        }
 
-        $this->ctrl->saveParameterByClass(self::class, ["schedule_id"]);
+        if (null === $backgroundImageDelete) {
+            $backgroundImageDelete = new ilCertificateBackgroundImageDelete(
+                $this->certificatePath,
+                $imageFileService
+            );
+        }
+        $this->backgroundImageDelete = $backgroundImageDelete;
+
+        $this->parent_link = $parent_link;
     }
 
     /**
