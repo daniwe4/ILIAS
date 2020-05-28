@@ -148,7 +148,18 @@ class ilProviderGUI
         $email = trim($post[ilActions::F_EMAIL]);
         $terms = trim($post[ilActions::F_TERMS]);
         $valuta = trim($post[ilActions::F_VALUTA]);
-        $tags = $post[ilActions::F_TAGS];
+        $tags = [];
+        if (
+            isset($post[ilActions::F_TAGS]) &&
+            is_array($post[ilActions::F_TAGS])
+        ) {
+            $tags = array_map(
+                function ($v) {
+                    return (int) $v;
+                },
+                (array) $post[ilActions::F_TAGS]
+            );
+        }
 
         $this->actions->createProvider($name, $rating, $info, $address1, $country, $address2, $postcode, $city, $homepage, $internal_contact, $contact, $phone, $fax, $email, $general_agreement, $terms, $valuta, $tags);
 

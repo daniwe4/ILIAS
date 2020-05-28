@@ -231,7 +231,19 @@ class ilActions
         $email = trim($post[self::F_EMAIL]);
         $terms = trim($post[self::F_TERMS]);
         $valuta = trim($post[self::F_VALUTA]);
-        $tags = $post[self::F_TAGS];
+
+        $tags = [];
+        if (
+            isset($post[self::F_TAGS]) &&
+            is_array($post[self::F_TAGS])
+        ) {
+            $tags = array_map(
+                function ($v) {
+                    return (int) $v;
+                },
+                (array) $post[self::F_TAGS]
+            );
+        }
 
         $provider = new Provider\Provider($provider_id, $name, $rating, $info, $address1, $country, $address2, $postcode, $city, $homepage, $internal_contact, $contact, $phone, $fax, $email, $general_agreement, $terms, $valuta, array(), $tags);
 
