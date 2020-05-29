@@ -180,9 +180,9 @@ class CertificateGUIFactory
         );
     }
 
-    protected function getDeleteAction() : \ilCertificateTemplateDeleteAction
+    protected function getDeleteAction() : ilTMSCertificateDeleteAction
     {
-        return new \ilCertificateTemplateDeleteAction(
+        return new ilTMSCertificateDeleteAction(
             $this->getTemplateRepository()
         );
     }

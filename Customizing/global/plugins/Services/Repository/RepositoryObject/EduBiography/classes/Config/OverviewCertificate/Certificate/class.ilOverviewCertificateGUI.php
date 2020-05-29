@@ -1,7 +1,5 @@
 <?php
 
-use CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules;
-
 /**
  * @ilCtrl_Calls: ilOverviewCertificateGUI: ilPropertyFormGUI
  */
@@ -393,7 +391,7 @@ class ilOverviewCertificateGUI extends ilCertificateGUI
         $template = $this->templateRepository->fetchCurrentlyUsedCertificate($this->objectId);
         $templateId = $template->getId();
 
-        $this->deleteAction->delete($templateId, $this->objectId);
+        $this->deleteAction->delete((int) $templateId, $this->objectId);
         $this->ctrl->redirect($this, "certificateEditor");
     }
 
