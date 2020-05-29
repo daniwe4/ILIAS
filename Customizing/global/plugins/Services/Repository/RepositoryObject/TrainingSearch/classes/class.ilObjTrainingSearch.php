@@ -73,9 +73,14 @@ class ilObjTrainingSearch extends ilObjectPlugin
     {
         $new_obj->doRead();
         $new_obj->updateSettings(function (TrainingSearch\Settings\Settings $s) {
-            return $s->withIsOnline($this->getSettings()->getIsOnline())
-                ->withIsLocal($this->getSettings()->isLocal())
-                ;
+            $settings = $this->getSettings();
+            return $s->withIsOnline($settings->getIsOnline())
+                ->withIsLocal($settings->isLocal())
+                ->withIsRecommendationAllowed($settings->isRecommendationAllowed())
+                ->withRelevantCategories($settings->relevantCategories())
+                ->withRelevantTargetGroups($settings->relevantTargetGroups())
+                ->withRelevantTopics($settings->relevantTopics())
+            ;
         });
 
         $new_obj->update();
