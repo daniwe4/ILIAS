@@ -16388,8 +16388,9 @@ tms#:#course_has_allready_begun#:#Der Kurs hat bereits begonnen. Eine Buchung is
 crs#:#event_tutor_selection#:#Auswahl Tutor
 tms#:#course_has_allready_begun_no_cancel#:#Der Kurs hat bereits begonnen. Eine Stornierung ist nicht mehr möglich.
 tms#:#no_document_available#:#Das von Ihnen angeforderte Dokument ist nicht verfügbar.
-success#:#success_decline#:#Kursabsage
-success#:#successfully_decline#:#Ihre Teilnahme am Kurs wurde erfolgreich abgesagt.
-success#:#to_login#:#Zum Login
+tms#:#crs_reject#:#Kursabsage
+tms#:#successfully_decline#:#Ihre Teilnahme am Kurs wurde erfolgreich abgesagt.
+tms#:#to_login#:#Zum Login
 tms#:#placeholder_desc_crs_trainer_assignments#:#Die Einsatztage des Trainers, der diese Mail erhält, an diesem Kurs.
 tms#:#email_exists#:#Die E-Mail ist bereits vergeben.
+tms#:#no_reject_possible#:#Ihre Teilnahme am Kurs konnte nicht abgesagt werden.

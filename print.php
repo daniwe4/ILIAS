@@ -40,14 +40,19 @@ $document = null;
 try {
     $document = $doc_deliver->printDocumentForHash($file);
 } catch (\Exception $e) {
-    $tpl = $DIC["tpl"];
-    $lng = $DIC["lng"];
-    $tpl->addBlockFile("CONTENT", "content", "tpl.error.html");
+    $DIC->globalScreen()->tool()->context()->claim()->external();
     $lng->loadLanguageModule("error");
-    $tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
-    $tpl->setCurrentBlock("content");
-    $tpl->setVariable("ERROR_MESSAGE", $lng->txt('no_document_available'));
-    $tpl->setVariable("MESSAGE_HEADING", $lng->txt('error_sry_error'));
+    $lng->loadLanguageModule("tms");
 
-    $tpl->show();
+    $local_tpl = new ilGlobalTemplate("tpl.main.html", true, true);
+    $local_tpl->addBlockFile("CONTENT", "content", "tpl.print.html");
+    $local_tpl->setVariable("MESSAGE_TYPE", 'alert-danger');
+    $local_tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
+    $local_tpl->setVariable("MESSAGE_HEADING", $lng->txt('error_sry_error'));
+    $local_tpl->setVariable("ERROR_MESSAGE", $lng->txt('no_document_available'));
+    $local_tpl->setVariable("LINK", 'login.php');
+    $local_tpl->setVariable("TXT_LINK", $lng->txt('to_login'));
+
+    $tpl->setContent($local_tpl->get());
+    $tpl->printToStdout();
 }

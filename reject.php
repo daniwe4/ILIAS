@@ -35,31 +35,27 @@ if (!$show_error) {
     }
 }
 
-$tpl = $DIC["tpl"];
-$lng = $DIC["lng"];
-
+$DIC->globalScreen()->tool()->context()->claim()->external();
+$lng->loadLanguageModule("tms");
+$local_tpl = new ilGlobalTemplate("tpl.main.html", true, true);
+$local_tpl->addBlockFile("CONTENT", "content", "tpl.reject.html");
+$local_tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
+$local_tpl->setVariable("MESSAGE_HEADING", $lng->txt('crs_reject'));
+$show_error = true;
 if ($show_error) {
-    $tpl->addBlockFile("CONTENT", "content", "tpl.error.html");
-    $lng->loadLanguageModule("error");
+    $local_tpl->setVariable("MESSAGE_TYPE", 'alert-danger');
+    $local_tpl->setVariable("MESSAGE", $lng->txt('no_reject_possible'));
+    $local_tpl->setVariable("LINK", 'login.php');
+    $local_tpl->setVariable("TXT_LINK", $lng->txt('to_login'));
 
-    $tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
-
-    $tpl->setCurrentBlock("content");
-    $tpl->setVariable("ERROR_MESSAGE", $lng->txt('no_reject_possible'));
-    $tpl->setVariable("MESSAGE_HEADING", $lng->txt('error_sry_error'));
-
-    $tpl->show();
+    $tpl->setContent($local_tpl->get());
+    $tpl->printToStdout();
 } else {
-    $tpl->addBlockFile("CONTENT", "content", "tpl.cancel_success.html");
-    $lng->loadLanguageModule("success");
+    $local_tpl->setVariable("MESSAGE_TYPE", 'alert-success');
+    $local_tpl->setVariable("MESSAGE", $lng->txt('successfully_decline'));
+    $local_tpl->setVariable("LINK", 'login.php');
+    $local_tpl->setVariable("TXT_LINK", $lng->txt('to_login'));
 
-    $tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
-
-    $tpl->setCurrentBlock("content");
-    $tpl->setVariable("MESSAGE_HEADING", $lng->txt('success_decline'));
-    $tpl->setVariable("SUCCESS_MESSAGE", $lng->txt('successfully_decline'));
-    $tpl->setVariable("LINK", 'login.php');
-    $tpl->setVariable("TXT_LINK", $lng->txt('to_login'));
-
-    $tpl->show();
+    $tpl->setContent($local_tpl->get());
+    $tpl->printToStdout();
 }
