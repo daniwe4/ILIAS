@@ -201,6 +201,9 @@ class ilTrainingSearchSettingsGUI
                 self::F_RELEVANT_TOPICS
             );
             $topics->setOptions($actions->getTopicOptions());
+            $topics->setWidthUnit("%");
+            $topics->setWidth(100);
+            $topics->setHeight(150);
             $form->addItem($topics);
 
             $categories = new \ilMultiSelectInputGUI(
@@ -208,6 +211,9 @@ class ilTrainingSearchSettingsGUI
                 self::F_RELEVANT_CATEGORIES
             );
             $categories->setOptions($actions->getCategoryOptions());
+            $categories->setWidthUnit("%");
+            $categories->setWidth(100);
+            $categories->setHeight(150);
             $form->addItem($categories);
 
             $target_groups = new \ilMultiSelectInputGUI(
@@ -215,6 +221,9 @@ class ilTrainingSearchSettingsGUI
                 self::F_RELEVANT_TARGET_GROUPS
             );
             $target_groups->setOptions($actions->getTargetGroupOptions());
+            $target_groups->setWidthUnit("%");
+            $target_groups->setWidth(100);
+            $target_groups->setHeight(150);
             $form->addItem($target_groups);
         }
 
