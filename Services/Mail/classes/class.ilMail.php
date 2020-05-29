@@ -833,6 +833,10 @@ class ilMail
         $usrIdToExternalEmailAddressesMap = [];
         $usrIdToMessageMap = [];
 
+        // cat-tms-patch start #4139 + 4663 + 4663
+        $mails_for_event = [];
+        // cat-tms-patch end
+
         foreach ($usrIds as $usrId) {
             $user = $this->getUserInstanceById($usrId);
             $mailOptions = $this->getMailOptionsByUserId($user->getId());
@@ -847,6 +851,14 @@ class ilMail
             }
 
             if ($user->getActive()) {
+                // cat-tms-patch start #4139 + 4663
+                $mails_for_event[] = new EventData(
+                    (int) $usrId,
+                    $subject,
+                    $message,
+                    (array) $attachments
+                );
+                // cat-tms-patch end
                 $wantsToReceiveExternalEmail = (
                     $mailOptions->getIncomingType() == ilMailOptions::INCOMING_EMAIL ||
                     $mailOptions->getIncomingType() == ilMailOptions::INCOMING_BOTH
@@ -905,6 +917,10 @@ class ilMail
             $usrIdToExternalEmailAddressesMap,
             $usrIdToMessageMap
         );
+
+        // cat-tms-patch start #4139 + 4663
+        $this->raiseEventForSendMail(...$mails_for_event);
+        // cat-tms-patch end
     }
 
     /**
@@ -939,15 +955,6 @@ class ilMail
                 $this->formatLinebreakMessage($message),
                 (array) $attachments
             );
-
-            // cat-tms-patch start #4139
-            $this->raiseEvenForSendMail(
-                implode(',', $firstAddresses),
-                $subject,
-                $message,
-                (array) $attachments
-            );
-        // cat-tms-patch end
         } elseif (count($usrIdToExternalEmailAddressesMap) > 1) {
             if ($usePlaceholders) {
                 foreach ($usrIdToExternalEmailAddressesMap as $usrId => $addresses) {
@@ -963,15 +970,6 @@ class ilMail
                         $this->formatLinebreakMessage($usrIdToMessageMap[$usrId]),
                         (array) $attachments
                     );
-
-                    // cat-tms-patch start #4139
-                    $this->raiseEvenForSendMail(
-                        implode(',', $addresses),
-                        $subject,
-                        $usrIdToMessageMap[$usrId],
-                        (array) $attachments
-                    );
-                    // cat-tms-patch end
                 }
             } else {
                 $flattenEmailAddresses = iterator_to_array(new RecursiveIteratorIterator(new RecursiveArrayIterator(
@@ -1016,15 +1014,6 @@ class ilMail
                         (array) $attachments
                     );
                 }
-
-                // cat-tms-patch start #4139
-                $this->raiseEvenForSendMail(
-                    implode(',', $flattenEmailAddresses),
-                    $subject,
-                    $message,
-                    (array) $attachments
-                );
-                // cat-tms-patch end
             }
         }
     }
@@ -1749,22 +1738,21 @@ class ilMail
         return $message;
     }
 
-    // cat-tms-patch start #4139
-    protected function raiseEvenForSendMail(
-        string $recipients,
-        string $subject,
-        string $message,
-        array $attachments
+    // cat-tms-patch start #4139 + 4663
+    protected function raiseEventForSendMail(
+        EventData ...$data_for_mail_event
     ) {
         if (!is_null($this->contextId)) {
-            $this->raiseMailSendEvent(
-                $this->contextId,
-                $this->contextParameters,
-                $recipients,
-                $subject,
-                $this->formatLinebreakMessage($message),
-                $attachments
-            );
+            foreach ($data_for_mail_event as $data) {
+                $this->raiseMailSendEvent(
+                    $this->contextId,
+                    $this->contextParameters,
+                    $data->getUsrId(),
+                    $data->getSubject(),
+                    $this->formatLinebreakMessage($data->getMessage()),
+                    $data->getAttachments()
+                );
+            }
         }
     }
     // cat-tms-patch end
