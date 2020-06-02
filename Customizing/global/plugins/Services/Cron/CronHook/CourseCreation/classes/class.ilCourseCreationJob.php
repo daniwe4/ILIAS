@@ -150,6 +150,9 @@ class ilCourseCreationJob extends ilCronJob
                 $this->logger->error("Error when creating course:\n$e");
                 $request = $request->withFinishedTS(new \DateTime());
                 $this->request_db->update($request);
+                if (is_null($request->getTargetRefId())) {
+                    throw new \Exception("No course was created" . $e->getMessage());
+                }
                 $this->send_mails->sendFailMails($request, $e);
             }
             $this->ping();
