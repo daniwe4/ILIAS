@@ -9,4 +9,5 @@ interface DB
     public function createAssignmentSettings(int $obj_id, bool $show_info_tab = false);
     public function selectByObjId(int $obj_id) : AssignmentSettings;
     public function updateAssignmentsSettings(AssignmentSettings $settings);
+    public function delete(int $obj_id);
 }

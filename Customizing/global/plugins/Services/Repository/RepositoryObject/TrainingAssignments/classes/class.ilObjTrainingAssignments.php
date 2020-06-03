@@ -80,8 +80,8 @@ class ilObjTrainingAssignments extends ilObjectPlugin
     public function doDelete()
     {
         $obj_id = (int) $this->getId();
-        $this->getSettingsDB()->delete($obj_id);
         $this->deleteUnboundProviders();
+        $this->getSettingsDB()->delete($obj_id);
     }
 
     /**

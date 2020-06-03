@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\TrainingAssignments\Settings;
 
 class ilDB implements DB
@@ -25,7 +27,7 @@ class ilDB implements DB
             'show_info_tab' => ['integer', $settings->getShowInfoTab()]
         ];
 
-        $this->getDB()->insert(self::TABLE_NAME, $values);
+        $this->db->insert(self::TABLE_NAME, $values);
 
         return $settings;
     }
@@ -35,16 +37,16 @@ class ilDB implements DB
         $sql =
              'SELECT obj_id, show_info_tab' . PHP_EOL
             . 'FROM ' . self::TABLE_NAME . PHP_EOL
-            . 'WHERE obj_id = ' . $this->getDB()->quote($obj_id, 'integer') . PHP_EOL
+            . 'WHERE obj_id = ' . $this->db->quote($obj_id, 'integer') . PHP_EOL
         ;
 
-        $result = $this->getDB()->query($sql);
+        $result = $this->db->query($sql);
 
-        if ($this->getDB()->numRows($result) == 0) {
+        if ($this->db->numRows($result) == 0) {
             return new AssignmentSettings($obj_id);
         }
 
-        return $this->getAssignmentObject($this->getDB()->fetchAssoc($result));
+        return $this->getAssignmentObject($this->db->fetchAssoc($result));
     }
 
 
@@ -53,7 +55,15 @@ class ilDB implements DB
         $obj_id = $settings->getObjId();
         $where = ['obj_id' => ['integer', $obj_id]];
         $values = ['show_info_tab' => ['integer', (int) $settings->getShowInfoTab()]];
-        $this->getDB()->replace(self::TABLE_NAME, $where, $values);
+        $this->db->replace(self::TABLE_NAME, $where, $values);
+    }
+
+    public function delete(int $obj_id)
+    {
+        $q = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
+            . " WHERE obj_id = " . $this->db->quote($obj_id, "integer");
+
+        $this->db->manipulate($q);
     }
 
     protected function getAssignmentObject(array $row)
@@ -66,7 +76,7 @@ class ilDB implements DB
 
     public function createTable()
     {
-        if (!$this->getDB()->tableExists(self::TABLE_NAME)) {
+        if (!$this->db->tableExists(self::TABLE_NAME)) {
             $fields = [
                 'obj_id' => [
                     'type' => 'integer',
@@ -81,20 +91,12 @@ class ilDB implements DB
                 ]
             ];
 
-            $this->getDB()->createTable(self::TABLE_NAME, $fields);
+            $this->db->createTable(self::TABLE_NAME, $fields);
         }
     }
 
     public function createPrimaryKey()
     {
-        $this->getDB()->addPrimaryKey(self::TABLE_NAME, ['obj_id']);
-    }
-
-    protected function getDB()
-    {
-        if (!$this->db) {
-            throw new \Exception("no Database");
-        }
-        return $this->db;
+        $this->db->addPrimaryKey(self::TABLE_NAME, ['obj_id']);
     }
 }
