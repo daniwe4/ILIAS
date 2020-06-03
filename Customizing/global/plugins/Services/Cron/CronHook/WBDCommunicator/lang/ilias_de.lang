@@ -95,3 +95,5 @@ announcements_start_date#:#Startdatum
 announcements_start_date_info#:#Nur Weiterbildungsmaßnahmen nach diesem Datum melden
 requests#:#Import Meldungen
 cancellations#:#Stornierungen
+nothing_to_save#:#Keine Änderungen zum Speichern gefunden.
+no_permission#:#Sie besitzen nicht die nötigen rechte um auf das Objekt zuzugreifen.
