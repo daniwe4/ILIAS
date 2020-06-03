@@ -100,9 +100,9 @@ class IliasRepository
         $query = "SELECT obj_id FROM crs_settings WHERE" . PHP_EOL
             . $this->g_db->in("obj_id", $course_obj_ids, false, "integer") . PHP_EOL
             . "AND ((" . PHP_EOL
-            . "	crs_start <= " . $end->getTimestamp()
+            . "	period_start <= " . $this->g_db->quote($end->format("Y-m-d 23:59:59"), "text")
             . " 	AND "
-            . "	crs_end >= " . $start->getTimestamp()
+            . "	period_end >= " . $this->g_db->quote($start->format("Y-m-d 00:00:00"), "text")
             . "))";
 
         $res = $this->g_db->query($query);
