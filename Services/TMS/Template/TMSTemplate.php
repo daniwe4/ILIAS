@@ -7,27 +7,33 @@
  */
 class TMSTemplate
 {
-	/**
-	 * @var ilGlobalTemplateInterface
-	 */
-	protected $tpl;
+    /**
+     * @var ilGlobalTemplateInterface
+     */
+    protected $tpl;
 
-	public function __construct(ilGlobalTemplateInterface $tpl)
-	{
-		$this->tpl = $tpl;
-	}
+    public function __construct(ilGlobalTemplateInterface $tpl)
+    {
+        $this->tpl = $tpl;
+    }
 
-	public function setTitle(string $title)
-	{
-		$this->tpl->setTitle($title);
-	}
+    public function setTitle(string $title)
+    {
+        $this->tpl->setTitle($title);
+    }
 
-	public function setContent(string $content)
-	{
-		$this->tpl->setContent($content);
-	}
+    public function setContent(string $content)
+    {
+        $this->tpl->setContent($content);
+    }
 
-	public function show() {
-		return;
-	}
+    public function show()
+    {
+        return;
+    }
+
+    public function printToStdout()
+    {
+        return;
+    }
 }
