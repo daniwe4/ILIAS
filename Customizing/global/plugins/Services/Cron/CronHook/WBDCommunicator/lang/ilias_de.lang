@@ -97,3 +97,4 @@ requests#:#Import Meldungen
 cancellations#:#Stornierungen
 nothing_to_save#:#Keine Änderungen zum Speichern gefunden.
 no_permission#:#Sie besitzen nicht die nötigen rechte um auf das Objekt zuzugreifen.
+op_limits_saved#:#Einstellungen für Operationsbeschränkungen wurden erfolgreich gespeichert.

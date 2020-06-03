@@ -111,6 +111,7 @@ class ilWBDOperationLimitsGUI
             $this->db->setStartDateForAnnouncement(DateTime::createFromFormat("Y-m-d", $date->get(IL_CAL_DATE)));
         }
 
+        ilUtil::sendSuccess($this->txt("op_limits_saved"), true);
         $this->ctrl->redirect($this, self::CMD_SHOW);
     }
 
