@@ -51,10 +51,10 @@ $db->update3();
 global $DIC;
 $db = $DIC["ilDB"];
 
-$q = "SELECT obj_id FROM object_data WHERE type = 'xwbm'";
+$q = "SELECT id FROM object_data od JOIN " . \CaT\Ente\ILIAS\ilProviderDB::PROVIDER_TABLE . " prv ON prv.owner = od.obj_id WHERE od.type = 'xwbm'";
 $res = $db->query($q);
 while ($row = $db->fetchAssoc($res)) {
-    $db->manipulate("DELETE FROM " . \CaT\Ente\ILIAS\ilProviderDB::PROVIDER_TABLE . " WHERE id = " . $db->quote($row["obj_id"], "integer"));
-    $db->manipulate("DELETE FROM " . \CaT\Ente\ILIAS\ilProviderDB::COMPONENT_TABLE . " WHERE id = " . $db->quote($row["obj_id"], "integer"));
+    $db->manipulate("DELETE FROM " . \CaT\Ente\ILIAS\ilProviderDB::PROVIDER_TABLE . " WHERE id = " . $db->quote($row["id"], "integer"));
+    $db->manipulate("DELETE FROM " . \CaT\Ente\ILIAS\ilProviderDB::COMPONENT_TABLE . " WHERE id = " . $db->quote($row["id"], "integer"));
 }
 ?>

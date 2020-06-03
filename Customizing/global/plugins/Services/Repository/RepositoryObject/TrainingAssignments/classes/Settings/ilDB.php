@@ -69,8 +69,8 @@ class ilDB implements DB
     protected function getAssignmentObject(array $row)
     {
         return new AssignmentSettings(
-            $row['obj_id'],
-            $row['show_info_tab']
+            (int) $row['obj_id'],
+            (bool) $row['show_info_tab']
         );
     }
 
