@@ -187,4 +187,16 @@ class ilOrgUnitUserAssignmentGUI extends BaseCommands
         ilUtil::sendSuccess($this->txt("users_successfuly_added"), true);
         $this->ctrl()->redirect($this, self::CMD_INDEX);
     }
+
+    public function addSubTabs()
+    {
+        $this->pushSubTab(
+            self::SUBTAB_ASSIGNMENTS,
+            $this->ctrl()->getLinkTarget($this, self::CMD_INDEX)
+        );
+        $this->pushSubTab(
+            self::SUBTAB_ASSIGNMENTS_RECURSIVE,
+            $this->ctrl()->getLinkTarget($this, self::CMD_ASSIGNMENTS_RECURSIVE)
+        );
+    }
 }
