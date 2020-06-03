@@ -40,3 +40,21 @@ $db->createPrimaryKey();
 $db = new \CaT\Plugins\WBDManagement\Settings\ilDB($ilDB);
 $db->update2();
 ?>
+<#8>
+<?php
+
+$db = new \CaT\Plugins\WBDManagement\Settings\ilDB($ilDB);
+$db->update3();
+?>
+<#9>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+
+$q = "SELECT obj_id FROM object_data WHERE type = 'xwbm'";
+$res = $db->query($q);
+while ($row = $db->fetchAssoc($res)) {
+    $db->manipulate("DELETE FROM " . ilProviderDB::PROVIDER_TABLE . " WHERE id = " . $db->quote($row["obj_id"], "integer"));
+    $db->manipulate("DELETE FROM " . ilProviderDB::COMPONENT_TABLE . " WHERE id = " . $db->quote($row["obj_id"], "integer"));
+}
+?>

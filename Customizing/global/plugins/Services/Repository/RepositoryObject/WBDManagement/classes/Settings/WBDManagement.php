@@ -19,11 +19,6 @@ class WBDManagement
     protected $online;
 
     /**
-     * @var bool
-     */
-    protected $show_in_cockpit;
-
-    /**
      * @var string
      */
     protected $document_path;
@@ -36,13 +31,11 @@ class WBDManagement
     public function __construct(
         int $obj_id,
         bool $online = false,
-        bool $show_in_cockpit = false,
         string $document_path = null,
         string $email = null
     ) {
         $this->obj_id = $obj_id;
         $this->online = $online;
-        $this->show_in_cockpit = $show_in_cockpit;
         $this->document_path = $document_path;
         $this->email = $email;
     }
@@ -61,18 +54,6 @@ class WBDManagement
     {
         $clone = clone $this;
         $clone->online = $online;
-        return $clone;
-    }
-
-    public function isShowInCockpit() : bool
-    {
-        return $this->show_in_cockpit;
-    }
-
-    public function withShowInCockpit(bool $show_in_cockppit) : WBDManagement
-    {
-        $clone = clone $this;
-        $clone->show_in_cockpit = $show_in_cockppit;
         return $clone;
     }
 

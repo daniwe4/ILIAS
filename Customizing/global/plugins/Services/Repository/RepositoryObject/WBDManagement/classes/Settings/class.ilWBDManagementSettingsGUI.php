@@ -22,7 +22,6 @@ class ilWBDManagementSettingsGUI
     const F_DESCRIPTION = "description";
     const F_EMAIL = "email";
     const F_IS_ONLINE = "is_online";
-    const F_SHOW_IN_COCKPIT = "show_in_cockpit";
     const F_FILE_UPLOAD = "file_upload";
     const F_DELETE_FILE = "file_upload_delete";
 
@@ -146,7 +145,6 @@ class ilWBDManagementSettingsGUI
         $title = htmlentities($post[self::F_TITLE]);
         $description = htmlentities($post[self::F_DESCRIPTION]);
         $email = htmlentities($post[self::F_EMAIL]);
-        $show_in_cockpit = (bool) $post[self::F_SHOW_IN_COCKPIT];
         $is_online = (bool) $post[self::F_IS_ONLINE];
 
         if (isset($post[self::F_DELETE_FILE])) {
@@ -161,17 +159,8 @@ class ilWBDManagementSettingsGUI
             $file = $this->importFile($files[self::F_FILE_UPLOAD]);
         }
 
-        if ($this->object->getSettings()->isShowInCockpit() && !$show_in_cockpit) {
-            $this->object->deleteProvider();
-        }
-
-        if (!$this->object->getSettings()->isShowInCockpit() && $show_in_cockpit) {
-            $this->object->createProvider();
-        }
-
-        $fnc = function (WBDManagement $s) use ($show_in_cockpit, $is_online, $file, $email) {
+        $fnc = function (WBDManagement $s) use ($is_online, $file, $email) {
             $s = $s
-                ->withShowInCockpit($show_in_cockpit)
                 ->withOnline($is_online)
                 ->withDocumentPath($file)
                 ->withEmail($email)
@@ -248,7 +237,6 @@ class ilWBDManagementSettingsGUI
             self::F_TITLE => html_entity_decode($obj->getTitle()),
             self::F_DESCRIPTION => html_entity_decode($obj->getDescription()),
             self::F_EMAIL => html_entity_decode($obj->getSettings()->getEmail()),
-            self::F_SHOW_IN_COCKPIT => $obj->getSettings()->isShowInCockpit(),
             self::F_IS_ONLINE => $obj->getSettings()->isOnline(),
             self::F_FILE_UPLOAD => $download_link
         ];
@@ -281,9 +269,6 @@ class ilWBDManagementSettingsGUI
         $form->addItem($sh);
 
         $ci = new ilCheckBoxInputGUI($this->txt("settings_online"), self::F_IS_ONLINE);
-        $form->addItem($ci);
-
-        $ci = new ilCheckBoxInputGUI($this->txt("show_in_cockpit"), self::F_SHOW_IN_COCKPIT);
         $form->addItem($ci);
 
         $sh = new ilFormSectionHeaderGUI();

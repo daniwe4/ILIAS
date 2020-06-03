@@ -12,7 +12,6 @@ class WBDManagementTest extends TestCase
 {
     const OBJ_ID = 333;
     const ONLINE = true;
-    const SHOW_IN_COCKPIT = true;
     const DOCUMENT_PATH = "/test/path/to/file.txt";
     const EMAIL = "test@test.de";
 
@@ -35,14 +34,12 @@ class WBDManagementTest extends TestCase
         $wbd_management = new WBDManagement(
             self::OBJ_ID,
             self::ONLINE,
-            self::SHOW_IN_COCKPIT,
             self::DOCUMENT_PATH,
             self::EMAIL
         );
 
         $this->assertEquals(self::OBJ_ID, $wbd_management->getObjId());
         $this->assertTrue($wbd_management->isOnline());
-        $this->assertTrue($wbd_management->isShowInCockpit());
         $this->assertEquals(self::DOCUMENT_PATH, $wbd_management->getDocumentPath());
         $this->assertEquals(self::EMAIL, $wbd_management->getEmail());
 
@@ -58,33 +55,11 @@ class WBDManagementTest extends TestCase
 
         $this->assertEquals(self::OBJ_ID, $wbd_management->getObjId());
         $this->assertFalse($wbd_management->isOnline());
-        $this->assertFalse($wbd_management->isShowInCockpit());
         $this->assertNull($wbd_management->getDocumentPath());
         $this->assertNull($wbd_management->getEmail());
 
         $this->assertEquals(self::OBJ_ID, $new_wbd_management->getObjId());
         $this->assertTrue($new_wbd_management->isOnline());
-        $this->assertFalse($new_wbd_management->isShowInCockpit());
-        $this->assertNull($new_wbd_management->getDocumentPath());
-        $this->assertNull($new_wbd_management->getEmail());
-    }
-
-    /**
-     * @depends test_create_empty
-     */
-    public function test_withShowInCockpit(WBDManagement $wbd_management)
-    {
-        $new_wbd_management = $wbd_management->withShowInCockpit(self::SHOW_IN_COCKPIT);
-
-        $this->assertEquals(self::OBJ_ID, $wbd_management->getObjId());
-        $this->assertFalse($wbd_management->isOnline());
-        $this->assertFalse($wbd_management->isShowInCockpit());
-        $this->assertNull($wbd_management->getDocumentPath());
-        $this->assertNull($wbd_management->getEmail());
-
-        $this->assertEquals(self::OBJ_ID, $new_wbd_management->getObjId());
-        $this->assertFalse($new_wbd_management->isOnline());
-        $this->assertTrue($new_wbd_management->isShowInCockpit());
         $this->assertNull($new_wbd_management->getDocumentPath());
         $this->assertNull($new_wbd_management->getEmail());
     }
@@ -98,13 +73,11 @@ class WBDManagementTest extends TestCase
 
         $this->assertEquals(self::OBJ_ID, $wbd_management->getObjId());
         $this->assertFalse($wbd_management->isOnline());
-        $this->assertFalse($wbd_management->isShowInCockpit());
         $this->assertNull($wbd_management->getDocumentPath());
         $this->assertNull($wbd_management->getEmail());
 
         $this->assertEquals(self::OBJ_ID, $new_wbd_management->getObjId());
         $this->assertFalse($new_wbd_management->isOnline());
-        $this->assertFalse($new_wbd_management->isShowInCockpit());
         $this->assertEquals(self::DOCUMENT_PATH, $new_wbd_management->getDocumentPath());
         $this->assertNull($new_wbd_management->getEmail());
     }
@@ -118,13 +91,11 @@ class WBDManagementTest extends TestCase
 
         $this->assertEquals(self::OBJ_ID, $wbd_management->getObjId());
         $this->assertFalse($wbd_management->isOnline());
-        $this->assertFalse($wbd_management->isShowInCockpit());
         $this->assertNull($wbd_management->getDocumentPath());
         $this->assertNull($wbd_management->getEmail());
 
         $this->assertEquals(self::OBJ_ID, $new_wbd_management->getObjId());
         $this->assertFalse($new_wbd_management->isOnline());
-        $this->assertFalse($new_wbd_management->isShowInCockpit());
         $this->assertNull($new_wbd_management->getDocumentPath());
         $this->assertEquals(self::EMAIL, $new_wbd_management->getEmail());
     }

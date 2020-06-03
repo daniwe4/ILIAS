@@ -43,7 +43,6 @@ class ilObjWBDManagement extends ilObjectPlugin //implements ObjWBDManagement
         $func = function (Settings\WBDManagement $s) use ($n_document_path) {
             return $s
                 ->withOnline($this->getSettings()->isOnline())
-                ->withShowInCockpit($this->getSettings()->isShowInCockpit())
                 ->withDocumentPath($n_document_path)
                 ->withEmail($this->getSettings()->getEmail())
             ;
@@ -51,10 +50,6 @@ class ilObjWBDManagement extends ilObjectPlugin //implements ObjWBDManagement
 
         $new_obj->updateSettings($func);
         $new_obj->update();
-
-        if ($this->getSettings()->isShowInCockpit()) {
-            $new_obj->createProvider();
-        }
     }
 
     public function doCreate()
@@ -65,7 +60,6 @@ class ilObjWBDManagement extends ilObjectPlugin //implements ObjWBDManagement
     public function doDelete()
     {
         $this->getSettingsDB()->deleteFor((int) $this->getId());
-        $this->deleteProvider();
     }
 
     public function doRead()
@@ -147,20 +141,6 @@ class ilObjWBDManagement extends ilObjectPlugin //implements ObjWBDManagement
     protected function getSettingsDB() : Settings\DB
     {
         return $this->getDI()["settings.db"];
-    }
-
-    public function createProvider()
-    {
-        $this->createUnboundProvider(
-            "root",
-            WBDManagement\UnboundProvider::class,
-            __DIR__ . "/UnboundProvider.php"
-        );
-    }
-
-    public function deleteProvider()
-    {
-        $this->deleteUnboundProviders();
     }
 
     public function getPluginDirectory() : string

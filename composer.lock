@@ -269,16 +269,16 @@
         },
         {
             "name": "conceptsandtraining/wbd",
-            "version": "5.1.2",
+            "version": "6.3.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:conceptsandtraining/lib-wbd.git",
-                "reference": "11a39b381748cce512d8031aa483314200f156cc"
+                "reference": "ec029cceb7665c6f6b7f7ed9ab1dbf04ef068782"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/conceptsandtraining/lib-wbd/zipball/11a39b381748cce512d8031aa483314200f156cc",
-                "reference": "11a39b381748cce512d8031aa483314200f156cc",
+                "url": "https://api.github.com/repos/conceptsandtraining/lib-wbd/zipball/ec029cceb7665c6f6b7f7ed9ab1dbf04ef068782",
+                "reference": "ec029cceb7665c6f6b7f7ed9ab1dbf04ef068782",
                 "shasum": ""
             },
             "require": {
@@ -309,10 +309,10 @@
             ],
             "description": "Handles couple of services to communicate with idd databases",
             "support": {
-                "source": "https://github.com/conceptsandtraining/lib-wbd/tree/5.1.2",
+                "source": "https://github.com/conceptsandtraining/lib-wbd/tree/6.3.3",
                 "issues": "https://github.com/conceptsandtraining/lib-wbd/issues"
             },
-            "time": "2020-01-15T07:28:12+00:00"
+            "time": "2020-04-22T11:06:01+00:00"
         },
         {
             "name": "container-interop/container-interop",

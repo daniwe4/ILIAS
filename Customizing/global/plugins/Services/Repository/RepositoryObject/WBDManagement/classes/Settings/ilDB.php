@@ -22,7 +22,6 @@ class ilDB implements DB
 
         $values = [
             "online" => ["integer", $settings->isOnline()],
-            "show_in_cockpit" => ["integer", $settings->isShowInCockpit()],
             "document_path" => ["text", $settings->getDocumentPath()],
             "email" => ["text", $settings->getEmail()]
 
@@ -38,7 +37,6 @@ class ilDB implements DB
         $values = [
             "obj_id" => ["integer", $settings->getObjId()],
             "online" => ["integer", $settings->isOnline()],
-            "show_in_cockpit" => ["integer", $settings->isShowInCockpit()],
             "document_path" => ["integer", $settings->getDocumentPath()],
             "email" => ["text", $settings->getEmail()]
         ];
@@ -53,7 +51,7 @@ class ilDB implements DB
         $where = "WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 
         $query =
-            "SELECT obj_id, online, show_in_cockpit, document_path, email" . PHP_EOL
+            "SELECT obj_id, online, document_path, email" . PHP_EOL
             . "FROM " . self::TABLE_NAME . PHP_EOL;
 
         $result = $this->getDB()->query($query . $where);
@@ -70,7 +68,6 @@ class ilDB implements DB
         return new WBDManagement(
             (int) $row["obj_id"],
             (bool) $row["online"],
-            (bool) $row["show_in_cockpit"],
             $row["document_path"] ?? "",
             $row["email"] ?? ""
         );
@@ -96,10 +93,6 @@ class ilDB implements DB
                 'online' => [
                     'type' => 'integer',
                     'length' => 1,
-                ],
-                'show_in_cockpit' => [
-                    'type' => 'integer',
-                    'length' => 1
                 ]
             ];
 
@@ -142,7 +135,6 @@ class ilDB implements DB
         }
     }
 
-
     public function update2()
     {
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "email")) {
@@ -153,6 +145,13 @@ class ilDB implements DB
                     "type" => "clob"
                 ]
             );
+        }
+    }
+
+    public function update3()
+    {
+        if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "show_in_cockpit")) {
+            $this->getDB()->dropTableColumn(self::TABLE_NAME, "show_in_cockpit");
         }
     }
 }
