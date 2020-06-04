@@ -1,5 +1,7 @@
 <?php
 
+use CaT\Plugins\EduBiography\Config\OverviewCertificate\Certificate\ilTMSCertificateTemplateExportAction;
+
 /**
  * @ilCtrl_Calls: ilOverviewCertificateGUI: ilPropertyFormGUI
  */
@@ -250,7 +252,7 @@ class ilOverviewCertificateGUI extends ilCertificateGUI
         $this->backgroundImageUpload = $upload;
 
         if (null === $exportAction) {
-            $exportAction = new ilCertificateTemplateExportAction(
+            $exportAction = new ilTMSCertificateTemplateExportAction(
                 $this->objectId,
                 $certificatePath,
                 $this->templateRepository,
