@@ -762,6 +762,11 @@ class ilRepositorySearchGUI
             $orgu->getExplorerGUI()->setAjax(false);
             $orgus->addSubItem($orgu);
             $kind->addOption($orgus);
+
+            // cat-tms-patch start #4720
+            $recurse = new ilCheckboxInputGUI($this->lng->txt('search_for_orgu_members_recursive'), 'rep_query[orgu][recurse]');
+            $orgus->addSubItem($recurse);
+            // cat-tms-patch end
         }
     }
     
@@ -1288,13 +1293,18 @@ class ilRepositorySearchGUI
                     $members = array_merge($members, ilUserFilter::getInstance()->filter($assigned));
                     break;
                 case 'orgu':
+                    //cat-tms-patch start #4720
+                    $tree = ilObjOrgUnitTree::_getInstance();
                     if ($ref_ids = ilObject::_getAllReferences($obj_id)) {
                         $members = array_merge(
                             $members,
-                            ilOrgUnitUserAssignmentQueries::getInstance()
-                               ->getUserIdsOfOrgUnit(array_shift($ref_ids))
+                            $tree->getAllAssignees(
+                                array_shift($ref_ids),
+                                (bool) $_SESSION['rep_query']['orgu']['recurse']
+                            )
                         );
                     }
+                    //cat-tms-patch end
                     break;
             }
         }
