@@ -8,6 +8,8 @@ use CaT\Plugins\EduBiography\Config\OverviewCertificate\Schedules;
 
 class ilTemplateRepository extends \ilCertificateTemplateRepository
 {
+    const OBJECT_TYPE = 'xebr';
+
     /**
      * @var \ilDB
      */
@@ -127,6 +129,7 @@ SELECT * FROM
 il_cert_template
 WHERE obj_id = ' . $this->database->quote($objId, 'integer') . '
 AND deleted = 0
+AND obj_type = ' . $this->database->quote(self::OBJECT_TYPE, 'text') . '
 ORDER BY version ASC';
 
         $query = $this->database->query($sql);
@@ -154,6 +157,7 @@ ORDER BY version ASC';
 SELECT * FROM il_cert_template
 WHERE obj_id = ' . $this->database->quote($objId, 'integer') . '
 AND deleted = 0
+AND obj_type = ' . $this->database->quote(self::OBJECT_TYPE, 'text') . '
 ORDER BY id DESC
 ';
 
@@ -169,7 +173,7 @@ ORDER BY id DESC
 
         return new \ilCertificateTemplate(
             $objId,
-            $this->objectDataCache->lookUpType($objId),
+            self::OBJECT_TYPE,
             '',
             '',
             '',
@@ -196,6 +200,7 @@ SELECT * FROM il_cert_template
 WHERE obj_id = ' . $this->database->quote($objId, 'integer') . '
 AND deleted = 0
 AND currently_active = 1
+AND obj_type = ' . $this->database->quote(self::OBJECT_TYPE, 'text') . '
 ';
 
         $query = $this->database->query($sql);
@@ -261,7 +266,8 @@ AND currently_active = 1
 UPDATE il_cert_template
 SET deleted = 1, currently_active = 0
 WHERE id = ' . $this->database->quote($templateId, 'integer') . '
-AND obj_id = ' . $this->database->quote($objectId, 'integer');
+AND obj_id = ' . $this->database->quote($objectId, 'integer') . '
+AND obj_type = ' . $this->database->quote(self::OBJECT_TYPE, 'text');
 
         $this->database->manipulate($sql);
 
@@ -335,6 +341,7 @@ AND currently_active = 1';
 
         $sql = 'SELECT * FROM il_cert_template
 WHERE obj_id = ' . $this->database->quote($objId, 'integer') . '
+AND obj_type = ' . $this->database->quote(self::OBJECT_TYPE, 'text') . '
 ORDER BY id ASC ';
 
         $query = $this->database->query($sql);
@@ -359,7 +366,8 @@ ORDER BY id ASC ';
         $sql = '
 UPDATE il_cert_template
 SET currently_active = 0
-WHERE obj_id = ' . $this->database->quote($objId, 'integer');
+WHERE obj_id = ' . $this->database->quote($objId, 'integer') . '
+AND obj_type = ' . $this->database->quote(self::OBJECT_TYPE, 'text');
 
         $this->database->manipulate($sql);
 
