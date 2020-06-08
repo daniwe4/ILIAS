@@ -41,7 +41,7 @@ class ilCJSConfigItemGUI extends ilSubEnabledFormPropertyGUI implements ilMultiV
      * @param 	string 	$title 		The title of the subform.
      * @param 	string 	$postvar 	The post var.
      */
-    public function __construct($a_title = "", $a_postvar = "")
+    public function __construct($title = "", $postvar = "")
     {
         parent::__construct($title, $postvar);
         
@@ -94,7 +94,7 @@ class ilCJSConfigItemGUI extends ilSubEnabledFormPropertyGUI implements ilMultiV
      * @param 	array 		$multi_values
      * @return 	void
      */
-    protected function setHiddenFields(ilGlobalTemplateInterface $tpl, array $job_settings)
+    protected function setHiddenFields(ilTemplate $tpl, array $job_settings)
     {
         $id = 0;
         foreach ($job_settings as $job_setting) {
