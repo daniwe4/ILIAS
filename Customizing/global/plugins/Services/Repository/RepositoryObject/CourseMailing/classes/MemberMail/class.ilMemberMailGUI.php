@@ -198,8 +198,8 @@ class ilMemberMailGUI extends TMSTableParentGUI
 
         $table->setData(
             $this->getMembersOfCourse(
-            $table->getOrderField(),
-            $table->getOrderDirection()
+                $table->getOrderField(),
+                $table->getOrderDirection()
         )
         );
 
@@ -370,7 +370,6 @@ class ilMemberMailGUI extends TMSTableParentGUI
             null,
             null,
             $_POST["m_type"],
-            null,
             ilUtil::securePlainString($_POST[self::P_FREETEXT_SUBJECT]),
             ilUtil::securePlainString($_POST[self::P_FREETEXT_BODY]),
             null,
