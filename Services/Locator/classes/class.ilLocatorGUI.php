@@ -300,7 +300,9 @@ class ilLocatorGUI
      */
     public function getItems()
     {
-        return $this->entries;
+        // cat-tms-patch start #4733
+        return $this->filterByTMSRoleSettings($this->entries);
+        // cat-tms-patch end
     }
 
     /**
@@ -423,6 +425,28 @@ class ilLocatorGUI
         $tms_role_settings_db = new ilTMSRolesDB($DIC->database());
 
         return $tms_role_settings_db->viewFullBreadcrumb($role_ids);
+    }
+
+    /**
+     * #4733
+     */
+    protected function filterByTMSRoleSettings($entries) : array
+    {
+        $first = true;
+        $ret = [];
+        if (is_array($entries)) {
+            foreach ($entries as $item) {
+                if (
+                    $first &&
+                    ilObject::_lookupType($item["ref_id"], true) != "crs" &&
+                    !$this->seeFullPath()) {
+                    continue;
+                }
+                $ret[] = $item;
+                $first = false;
+            }
+        }
+        return $ret;
     }
     // cat-tms-patch end
 } // END class.LocatorGUI
