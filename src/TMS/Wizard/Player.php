@@ -287,7 +287,7 @@ class Player
             $header = new \ilFormSectionHeaderGUI();
             $header->setTitle($step->getLabel());
             $form->addItem($header);
-            $data = $state->getStepData($i);
+            $data = $this->getStepData($state, $i, $step);
             $step->appendToOverviewForm($form, $data);
         }
 
