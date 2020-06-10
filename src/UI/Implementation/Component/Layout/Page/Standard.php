@@ -237,7 +237,7 @@ class Standard implements Page\Standard
      *
      * @return    Page
      */
-    public function withHeaders($use_headers) : Page
+    public function withHeaders($use_headers) : Page\Standard
     {
         $clone = clone $this;
         $clone->with_headers = $use_headers;

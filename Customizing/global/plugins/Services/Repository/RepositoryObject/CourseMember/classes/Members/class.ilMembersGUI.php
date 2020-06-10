@@ -284,6 +284,11 @@ class ilMembersGUI
                 $template_id = $default_template_id;
             }
 
+            if (is_null($template_id)) {
+                ilUtil::sendFailure($this->txt("no_list_template_configured"), true);
+                return;
+            }
+
             /** @var ilDocumentDeliveryPlugin $xcmb */
             $docdeliver = \ilPluginAdmin::getPluginObjectById('docdeliver');
             $link = $docdeliver->getLinkForSignatureList($crs_id, $template_id);

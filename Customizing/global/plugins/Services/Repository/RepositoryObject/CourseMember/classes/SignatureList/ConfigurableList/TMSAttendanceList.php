@@ -6,6 +6,8 @@ declare(strict_types = 1);
 
 namespace CaT\Plugins\CourseMember\SignatureList\ConfigurableList;
 
+use \ILIAS\UI\Component;
+
 /**
  * This is a modified copy of the ilias AttendanceList
  * see: Services/Membership/classes/class.ilAttendanceList.php
@@ -49,6 +51,21 @@ class TMSAttendanceList
      */
     protected $logo_path;
 
+    /**
+     * @var Component\Factory
+     */
+    protected $ui_factory;
+
+    /**
+     * @var RendererInterface
+     */
+    protected $ui_renderer;
+
+    /**
+     * @var ilGlobalTemplateInterface
+     */
+    protected $main_template;
+
     public function __construct(\ilObjCourse $a_parent_obj, string $plugin_path, \Closure $txt, string $logo_path = null)
     {
         global $DIC;
@@ -67,6 +84,9 @@ class TMSAttendanceList
         $this->participants = $a_parent_obj->getMembersObject();
         $this->waiting_list = new \ilCourseWaitingList($a_parent_obj->getId());
         $this->logo_path = $logo_path;
+        $this->ui_factory = $DIC['ui.factory'];
+        $this->ui_renderer = $DIC['ui.renderer'];
+        $this->main_template = $DIC->ui()->mainTemplate();
 
         // always available
         $this->presets['name'] = array($DIC->language()->txt('name'), true);
@@ -376,37 +396,70 @@ class TMSAttendanceList
 
     public function getFullscreenHTML(array $member_data)
     {
-        $tpl = new \ilTemplate('tpl.main.html', true, true);
-        $tpl->setBodyClass("ilBodyPrint");
+        $actions = $this->ui_factory->dropdown()->standard([
+            $this->getPrintButton()
+        ]);
 
-        // load style sheet depending on user's settings
-        $location_stylesheet = \ilUtil::getStyleSheetLocation();
-        $tpl->setVariable("LOCATION_STYLESHEET", $location_stylesheet);
+        $table_html = $this->getTableHTML($member_data);
+        $table_panel = $this->ui_factory->panel()->sub("", $this->ui_factory->legacy($table_html));
 
-        $tpl->setVariable("BODY_ATTRIBUTES", 'onload="window.print()"');
-        $tpl->setVariable("CONTENT", $this->getHTML($member_data));
+        $panel = $this->ui_factory->panel()->standard(
+            "",
+            [
+                $this->getHeaderSubPanel(),
+                $table_panel
+            ]
+        )->withActions($actions);
 
-        return $tpl->show();
+        $this->main_template->setContent($this->ui_renderer->render($panel));
+        $this->main_template->printToStdout();
     }
 
-    protected function getHTML(array $member_data)
+
+    protected function getPrintButton(): Component\Button\Shy
     {
-        $tpl = new \ilTemplate('tpl.attendance_list_print.html', true, true, $this->plugin_path);
+        $label = $this->txt("action_print");
+        $button = $this->ui_factory->button()
+            ->shy($label, '')
+            ->withOnLoadCode(function ($id) {
+                return "$('#{$id}').on('click', function(event) {
+                    window.print();
+                })";
+            });
+        return $button;
+    }
 
-        // title
-        \ilDatePresentation::setUseRelativeDates(false);
-        $time = \ilDatePresentation::formatDate(new \ilDateTime(time(), IL_CAL_UNIX));
 
-        $tpl->setVariable('TXT_TITLE', $this->title);
-        if ($this->description) {
-            $tpl->setVariable('TXT_DESCRIPTION', $this->description . " (" . $time . ")");
-        } else {
-            $tpl->setVariable('TXT_DESCRIPTION', $time);
+    protected function getHeaderSubPanel() : Component\Panel\Sub
+    {
+        $content = $this->getList();
+        $panel = $this->ui_factory->panel()->sub("", $content);
+
+        if($this->logo_path) {
+            $image = $this->ui_factory->image()->responsive($this->logo_path, "");
+            $card = $this->ui_factory->card()->standard("", $image);
+            $panel = $panel->withCard($card);
         }
 
+        return $panel;
+    }
+
+    protected function getList() {
+        \ilDatePresentation::setUseRelativeDates(false);
+        $time = \ilDatePresentation::formatDate(new \ilDateTime(time(), IL_CAL_UNIX));
+        if ($this->description) {
+            $des = $this->description . " (" . $time . ")";
+        } else {
+            $des = $time;
+        }
+
+        $items = [
+            $this->title => '',
+            $des => ''
+        ];
+
         if ($this->parent_obj instanceof \ilObjCourse) {
-            $tpl->setVariable("LBL_COURSE", $this->lng->txt("course"));
-            $tpl->setVariable("VAL_COURSE", $this->parent_obj->getTitle());
+            $items[$this->lng->txt("course")] = $this->parent_obj->getTitle();
 
             if (\ilPluginAdmin::isPluginActive('venues')) {
                 $venue = '-';
@@ -432,21 +485,17 @@ class TMSAttendanceList
                     }
                 }
 
-                $tpl->setVariable('LBL_VENUE', $this->txt('sig_venue'));
-                $tpl->setVariable('VAL_VENUE', $venue);
+                $items[$this->lng->txt("sig_venue")] = $venue;
             }
 
             $start_date = $this->parent_obj->getCourseStart();
             $end_date = $this->parent_obj->getCourseEnd();
             if (!is_null($start_date)) {
-                $tpl->setCurrentBlock('duration');
                 $duration = \ilDatePresentation::formatDate($start_date) .
                     " - " .
                     \ilDatePresentation::formatDate($end_date)
                 ;
-                $tpl->setVariable("LBL_DURATION", $this->lng->txt("date"));
-                $tpl->setVariable("VAL_DURATION", $duration);
-                $tpl->parseCurrentBlock();
+                $items[$this->lng->txt("date")] = $duration;
             }
             $tutors = $this->parent_obj->getMembersObject()->getTutors();
             $tutor_names = [];
@@ -455,16 +504,20 @@ class TMSAttendanceList
                 $tutor_names[] = $info["firstname"] . " " . $info["lastname"];
             }
             if (count($tutor_names) > 0) {
-                $tpl->setCurrentBlock('tutors');
-                $tpl->setVariable("LBL_TUTORS", $this->lng->txt("trainer"));
-                $tpl->setVariable("VAL_TUTORS", join(", ", $tutor_names));
-                $tpl->parseCurrentBlock();
+                $items[$this->lng->txt("trainer")] = join(", ", $tutor_names);
             }
-            $tpl->setVariable("SIG_TUTOR", $this->txt("sig_tutor"));
+            $items[$this->lng->txt("sig_tutor")] = "";
         }
 
+        return $this->ui_factory->listing()->characteristicValue()->text($items);
+    }
+
+    protected function getTableHTML(array $member_data)
+    {
+        $tpl = new \ilTemplate('tpl.attendance_list_print.html', true, true, $this->plugin_path);
+
         \ilLoggerFactory::getLogger('mmbr')->dump($this->presets, \ilLogLevel::DEBUG);
-        // header
+
         $tpl->setCurrentBlock('head_item');
         foreach ($this->presets as $id => $item) {
             if ($item[1]) {
@@ -563,15 +616,6 @@ class TMSAttendanceList
                 }
             }
             $tpl->touchBlock("member_row");
-        }
-
-        if (
-            !is_null($this->logo_path) &&
-            $this->logo_path != ""
-        ) {
-            $tpl->setCurrentBlock("header_icon");
-            $tpl->setVariable("HEADER_ICON", $this->logo_path);
-            $tpl->parseCurrentBlock();
         }
 
         return $tpl->get();

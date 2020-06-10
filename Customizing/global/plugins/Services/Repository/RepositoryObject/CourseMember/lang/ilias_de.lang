@@ -160,3 +160,5 @@ delete_confirmation#:#Möchten Sie diese Vorlage wirklich löschen?
 delete_multi_confirmation#:#Möchten Sie diese Vorlagen wirklich löschen?
 confirm#:#Bestätigen
 sig_venue#:#Veranstaltungsort
+no_list_template_configured#:#Keine Vorlage konfiguriert.
+action_print#:#Drucken
