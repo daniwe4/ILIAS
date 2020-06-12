@@ -416,7 +416,7 @@ class TMSAttendanceList
     }
 
 
-    protected function getPrintButton(): Component\Button\Shy
+    protected function getPrintButton() : Component\Button\Shy
     {
         $label = $this->txt("action_print");
         $button = $this->ui_factory->button()
@@ -435,7 +435,7 @@ class TMSAttendanceList
         $content = $this->getList();
         $panel = $this->ui_factory->panel()->sub("", $content);
 
-        if($this->logo_path) {
+        if ($this->logo_path) {
             $image = $this->ui_factory->image()->responsive($this->logo_path, "");
             $card = $this->ui_factory->card()->standard("", $image);
             $panel = $panel->withCard($card);
@@ -444,7 +444,8 @@ class TMSAttendanceList
         return $panel;
     }
 
-    protected function getList() {
+    protected function getList()
+    {
         \ilDatePresentation::setUseRelativeDates(false);
         $time = \ilDatePresentation::formatDate(new \ilDateTime(time(), IL_CAL_UNIX));
         if ($this->description) {
@@ -485,7 +486,7 @@ class TMSAttendanceList
                     }
                 }
 
-                $items[$this->lng->txt("sig_venue")] = $venue;
+                $items[$this->txt("sig_venue")] = $venue;
             }
 
             $start_date = $this->parent_obj->getCourseStart();
@@ -506,7 +507,7 @@ class TMSAttendanceList
             if (count($tutor_names) > 0) {
                 $items[$this->lng->txt("trainer")] = join(", ", $tutor_names);
             }
-            $items[$this->lng->txt("sig_tutor")] = "";
+            $items[$this->txt("sig_tutor")] = "";
         }
 
         return $this->ui_factory->listing()->characteristicValue()->text($items);
