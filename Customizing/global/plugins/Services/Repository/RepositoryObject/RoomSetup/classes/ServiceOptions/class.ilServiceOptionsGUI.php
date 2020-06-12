@@ -357,7 +357,7 @@ class ilServiceOptionsGUI
         }
 
         foreach ($this->getOptionsFromPost() as $key => $service_option) {
-            $ret[$key] = array("object" => $service_option, "errors" => array());
+            $ret[$key] = array("object" => $service_option, "errors" => array(), "message" => []);
             $ret[$key]["delete"] = array_key_exists($key, $del_array);
             $ret[$key]["old_title"] = $post["old_title"][$key];
         }

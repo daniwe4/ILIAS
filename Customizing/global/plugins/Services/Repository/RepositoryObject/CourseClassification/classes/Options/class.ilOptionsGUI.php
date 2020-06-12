@@ -288,7 +288,7 @@ class ilOptionsGUI
         }
 
         foreach ($this->getOptionsFromPost() as $key => $option) {
-            $ret[$key] = array("option" => $option, "errors" => array());
+            $ret[$key] = array("option" => $option, "errors" => array(), "message" => []);
             $ret[$key]["delete"] = in_array($key, $del_array);
         }
 

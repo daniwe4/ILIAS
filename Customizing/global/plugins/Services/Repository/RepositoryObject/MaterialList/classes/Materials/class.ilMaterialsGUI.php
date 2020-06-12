@@ -407,7 +407,7 @@ class ilMaterialsGUI
         }
 
         foreach ($this->getObjectsFromPost() as $key => $object) {
-            $ret[$key] = array("object" => $object, "errors" => array());
+            $ret[$key] = array("object" => $object, "errors" => array(), "message" => []);
             $ret[$key]["delete"] = in_array($key, $del_array);
             $ret[$key]["old_article_number"] = $old_article_numbers[$key];
         }
