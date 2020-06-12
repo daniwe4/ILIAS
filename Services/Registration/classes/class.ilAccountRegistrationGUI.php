@@ -267,7 +267,9 @@ class ilAccountRegistrationGUI
         // valid codes override email domain check
         if (!$valid_code) {
             // validate email against restricted domains
-            $email = $this->form->getInput("usr_email");
+            // cat-tms-patch start #4750
+            $email = trim($this->form->getInput("usr_email"));
+            // cat-tms-patch end
             if ($email) {
                 // #10366
                 $domains = array();
@@ -337,7 +339,7 @@ class ilAccountRegistrationGUI
             // assign by email
             else {
                 $registration_role_assignments = new ilRegistrationRoleAssignments();
-                $valid_role = (int) $registration_role_assignments->getRoleByEmail($this->form->getInput("usr_email"));
+                $valid_role = (int) $registration_role_assignments->getRoleByEmail(trim($this->form->getInput("usr_email")));
             }
         }
 
@@ -369,7 +371,7 @@ class ilAccountRegistrationGUI
         }
 
         // cat-tms-patch start #4331
-        $email = $this->form->getInput("usr_email");
+        $email = trim($this->form->getInput("usr_email"));
         if (count(ilObjUser::getUserLoginsByEmail($email)) > 0) {
             $this->lng->loadLanguageModule("tms");
             $email_obj = $this->form->getItemByPostVar('usr_email');
