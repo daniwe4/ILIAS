@@ -168,7 +168,8 @@ class ilTrainerOperationsSettingsGUI
         $ms->setOptions($options);
         $ms->setInfo($this->txt('settings_roles_byline'));
         $ms->setHeight(200);
-        $ms->setWidth(250);
+        $ms->setWidthUnit("%");
+        $ms->setWidth(100);
         $this->form->addItem($ms);
     }
 
