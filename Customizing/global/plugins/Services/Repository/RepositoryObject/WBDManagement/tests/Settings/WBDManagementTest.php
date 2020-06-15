@@ -22,7 +22,6 @@ class WBDManagementTest extends TestCase
 
         $this->assertEquals(self::OBJ_ID, $wbd_management->getObjId());
         $this->assertFalse($wbd_management->isOnline());
-        $this->assertFalse($wbd_management->isShowInCockpit());
         $this->assertNull($wbd_management->getDocumentPath());
         $this->assertNull($wbd_management->getEmail());
 

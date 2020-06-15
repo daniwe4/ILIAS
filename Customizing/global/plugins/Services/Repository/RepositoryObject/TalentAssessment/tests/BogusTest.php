@@ -20,12 +20,14 @@ class BogusTest extends TestCase {
 			$this->checkValue("Bernd");
 			$this->assertFalse("Should have raised.");
 		}
-		catch (Exception $e) {}
+		catch (\Exception $e) {
+		    $this->assertTrue(true);
+        }
 	}
 
 	protected function checkValue($value) {
 		if($value != "Peter") {
-			throw new Exception("Value is wrong");
+			throw new \Exception("Value is wrong");
 		}
 	}
 }
