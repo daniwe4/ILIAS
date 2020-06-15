@@ -108,8 +108,7 @@ class ilCertificateHandling
 
         $certificate_content = $this->certificate_value_replacement->replace(
             $placeholder_values,
-            $certificate_content,
-            CLIENT_WEB_DIR . $template->getBackgroundImagePath()
+            $certificate_content
         );
 
         $userCertificate = new \ilUserCertificate(

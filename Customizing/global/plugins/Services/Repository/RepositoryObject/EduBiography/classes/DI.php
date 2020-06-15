@@ -147,14 +147,13 @@ trait DI
         };
 
         $container["il_certificate.user.repository"] = function ($c) {
-            return new \ilUserCertificateRepository();
+            return new OverviewCertificate\ilTMSUserCertificateRepository();
         };
 
         $container["il_certificate.template_repository"] = function ($c) {
-            return new \ilCertificateTemplateRepository(
+            return new Config\OverviewCertificate\Certificate\ilTemplateRepository(
                 $c["ilDB"],
-                $c["ilLog"],
-                $c["ilObjDataCache"]
+                $c["config.schedules.db"]
             );
         };
 
