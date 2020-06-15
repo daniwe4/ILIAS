@@ -4,9 +4,9 @@
 
 declare(strict_types=1);
 
-namespace CaT\Plugins\StatusMails;
-
 use PHPUnit\Framework\TestSuite;
+use CaT\Plugins\StatusMails\Course;
+use CaT\Plugins\StatusMails\History;
 
 class ilCronHookStatusMailsSuite extends TestSuite
 {
