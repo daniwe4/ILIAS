@@ -4,8 +4,10 @@ matrix:
   - php: 7.2
   - php: 7.3
   - php: 7.4
+before_script:
+  - echo -e "Host github.com\n\tHostName github.com\n\tUser git\n\tIdentityFile ~/.ssh/id_tms6_repo_rsa\n" >> ~/.ssh/config
 script:
-- ./CI/PHPUnit/run_tests_with_reporting.sh;
+- ./CI/PHPUnit/run_tests.sh;
 - if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then travis_wait 60 ./CI/PHP-CS-Fixer/run_check.sh; fi
 - ./CI/Special-Char-Checker/special-char-checker.sh ./ php;
 addons:
