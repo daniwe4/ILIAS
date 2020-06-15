@@ -50,7 +50,7 @@ class SelectableReportTableGUI extends ilTable2GUI {
 	 * @param	int	$format_id
 	 * @param	string	$export_format_title
 	 * @param	string	$export_format_mine
-	 * @return 	void
+	 * @return	void
 	 */
 	public function addExporter(
 		ExcelWrapper\Writer $writer,

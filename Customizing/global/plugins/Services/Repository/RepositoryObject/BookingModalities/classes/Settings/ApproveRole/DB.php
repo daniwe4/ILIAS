@@ -23,7 +23,7 @@ interface DB
      * Creates a approve role object
      *
      * @param int 	$obj_id
-     * @param string 	$parent
+     * @param string $parent
      * @param int 	$position
      * @param string 	$role_name
      *

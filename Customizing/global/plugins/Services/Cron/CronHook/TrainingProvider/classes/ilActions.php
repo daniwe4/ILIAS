@@ -198,7 +198,7 @@ class ilActions
     /**
      * Update the edited provider
      *
-     * @param int 		$provider_id
+     * @param int $provider_id
      * @param string[]	$post
      */
     public function updateProvider($provider_id, $post)

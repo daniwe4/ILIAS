@@ -218,7 +218,7 @@ class Path implements \Iterator {
 		return self::getInstanceBySequence($seq);
 	}
 
-	/** 
+	/**
 	 * Does this path contain a node with some node_id
 	 *
 	 * @param	int|string	$node_id
@@ -231,7 +231,7 @@ class Path implements \Iterator {
 		return false;
 	}
 
-	/** 
+	/**
 	 * Get the sequence of this path.
 	 *
 	 * @return	AbstractNode[]
@@ -240,22 +240,22 @@ class Path implements \Iterator {
 		return array_values($this->sequence);
 	}
 
-	/** 
+	/**
 	 * Get the position of some node id.
 	 *
 	 * @param	int|string	$node_id
-	 * @return	int
+	 * @return	int
 	 */
 	public function positionOf($node_id) {
 		return isset($this->order[$node_id]) ? $this->order[$node_id] : 0;
 	}
 
-	/** 
+	/**
 	 * Insert a node after a node having some node id
 	 *
 	 * @param	int|string	$node_id
 	 * @param	AbstractNode	$node
-	 * @return	Path
+	 * @return	Path
 	 */
 	public function insertAfter($node_id, AbstractNode $node) {
 		if(!$this->contains($node_id)) {

@@ -131,7 +131,7 @@ class ilActions
 	/**
 	 * Get options of career goals for settings
 	 *
-	 * @return array<int, string>
+	 * @return	array <int, string>
 	 */
 	public function getCareerGoalsOptions()
 	{
