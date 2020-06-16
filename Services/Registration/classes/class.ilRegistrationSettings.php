@@ -194,7 +194,15 @@ class ilRegistrationSettings
     
     public function setAllowedDomains($a_value)
     {
-        $a_value = explode(";", trim($a_value));
+        // cat-tms-patch start #4750
+        $a_value = array_map(
+            function ($value) {
+                return trim($value);
+            },
+            explode(";", trim($a_value))
+        );
+        // cat-tms-patch end
+
         $this->allowed_domains = $a_value;
     }
     
