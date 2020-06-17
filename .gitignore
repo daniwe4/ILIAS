@@ -30,6 +30,7 @@
 /Services/WebServices/RPC/lib/ilServer.ini
 /apc.php
 /robots.txt
+/Services/PHPUnit/config/.phpunit.result.cache
 
 # Directories
 /data
