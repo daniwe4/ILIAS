@@ -114,16 +114,21 @@ class ilPIMappingsConfiguratorGUI
     {
         $form = $this->getUserMappingsConfigForm();
         $form->setValuesByPost();
-        $field = (int) $form
-                    ->getItemByPostVar(self::POST_FIELD_USER_MAPPING)
-                    ->getValue();
-        if ($field === Config::NONE || !$field) {
-            \ilUtil::sendFailure($this->txt('invalid_field_to_identify_user'));
+
+        $field = $form->getItemByPostVar(self::POST_FIELD_USER_MAPPING);
+        $field_value = (int) $field->getValue();
+        if (
+            $field_value === Config::NONE ||
+            !$field_value
+        ) {
+            $field->setAlert($this->txt('invalid_field_to_identify_user'));
             $this->tpl->setContent($form->getHTML());
-        } else {
-            $this->cs->storeConfigAsCurrent(new Config($field));
-            $this->show();
+            return;
         }
+
+        $this->cs->storeConfigAsCurrent(new Config($field_value));
+        ilUtil::sendSuccess($this->txt("field_to_identify_saved"), true);
+        $this->ctrl->redirect($this, self::CMD_SHOW);
     }
 
     protected function getUserMappingsConfigForm() : \ilPropertyFormGUI

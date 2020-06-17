@@ -76,3 +76,5 @@ crs_provider_defaul_info#:#Wird übernommen, wenn keine Spalte definiert oder ke
 crs_venue_default_info#:#Wird übernommen, wenn keine Spalte definiert oder kein Eintrag in Spalte.
 invalid_input_idd_default_booked#:#Ungültige eingabe bei den IDD-Zeiten Standardeinstellungen. Bitte nur Zahlen oder nichts eingeben.
 invalid_input_idd_default_achived#:#Ungültige eingabe bei den IDD-Zeiten Standardeinstellungen. Bitte nur Zahlen oder nichts eingeben.
+invalid_field_to_identify_user#:#Bitte wählen Sie ein Ilias-Benutzerfeld aus.
+field_to_identify_saved#:#Einstellung für das Ilias-Benutzerfeld erfolgreich gespeichert.
