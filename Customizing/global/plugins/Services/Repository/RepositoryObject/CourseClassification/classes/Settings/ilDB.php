@@ -201,9 +201,12 @@ class ilDB implements DB
         return $course_classification;
     }
 
-    protected function transformGroupConcatString(string $group_concat_string) : ?array
+    protected function transformGroupConcatString(?string $group_concat_string) : ?array
     {
-        if ($group_concat_string == "") {
+        if (
+            is_null($group_concat_string) ||
+            $group_concat_string == ""
+        ) {
             return null;
         }
 
