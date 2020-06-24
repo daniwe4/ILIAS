@@ -72,7 +72,7 @@ class MaterialListOccasion implements MailingOccasion
      */
     public function doesProvideMailForEvent($event)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
         if (in_array($event, self::$events)) {
             $list_entries = $this->owner->getActions()->getListEntiesForCurrentObj();
             if (count($list_entries) === 0) {
@@ -97,7 +97,7 @@ class MaterialListOccasion implements MailingOccasion
      */
     public function getMails($event, $parameter)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
         //mails for the correct list only.
         $owner_ref = $this->owner->getRefId();
         $param_ref = $parameter[$this->getOwnerParameterName()];
@@ -258,9 +258,8 @@ class MaterialListOccasion implements MailingOccasion
     /**
      * @inheritdoc
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 

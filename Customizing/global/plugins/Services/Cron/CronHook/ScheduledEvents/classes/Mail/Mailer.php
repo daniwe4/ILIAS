@@ -24,10 +24,8 @@ class Mailer
      * @param 	string 	$recipient_address
      * @param 	string 	$installation_id
      */
-    public function __construct($recipient_address, $installation_id)
+    public function __construct(string $recipient_address, string $installation_id)
     {
-        assert('is_string($recipient_address)');
-        assert('is_string($installation_id)');
         $this->recipient_address = $recipient_address;
         $this->installation_id = $installation_id;
     }

@@ -107,9 +107,8 @@ abstract class DuplicateCourseStep
      * @param	string	$id
      * @return	string	$text
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 
@@ -295,9 +294,8 @@ abstract class DuplicateCourseStep
      * @param int 	$usr_id
      * @return \ilObjCourse[]
      */
-    protected function getDuplicateBookedCoursesOfUser(\ilObjCourse $course, $usr_id)
+    protected function getDuplicateBookedCoursesOfUser(\ilObjCourse $course, int $usr_id)
     {
-        assert('is_int($usr_id)');
         $start_date = $course->getCourseStart();
         if ($start_date === null) {
             return array();

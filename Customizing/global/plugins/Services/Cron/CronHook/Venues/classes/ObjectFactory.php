@@ -14,12 +14,13 @@ trait ObjectFactory
      *
      * @return Venues\General\General
      */
-    public function getGeneralObject($id, $name, $homepage = "", array $tags = array(), array $search_tags = array())
-    {
-        assert('is_int($id)');
-        assert('is_string($name)');
-        assert('is_string($homepage)');
-
+    public function getGeneralObject(
+        int $id,
+        string $name,
+        string $homepage = "",
+        array $tags = array(),
+        array $search_tags = array()
+    ) {
         return new Venues\General\General(
             $id,
             $name,
@@ -34,12 +35,8 @@ trait ObjectFactory
      *
      * @return Venues\Rating\Rating
      */
-    public function getRatingObject($id, $rating = 0.0, $info = "")
+    public function getRatingObject(int $id, float $rating = 0.0, string $info = "")
     {
-        assert('is_int($id)');
-        assert('is_float($rating)');
-        assert('is_string($info)');
-
         return new Venues\Rating\Rating(
             $id,
             $rating,
@@ -52,18 +49,17 @@ trait ObjectFactory
      *
      * @return Venues\Address\Address
      */
-    public function getAddressObject($id, $address1 = "", $country = "", $address2 = "", $postcode = "", $city = "", $latitude = 0.0, $longitude = 0.0, $zoom = 10)
-    {
-        assert('is_int($id)');
-        assert('is_string($address1)');
-        assert('is_string($country)');
-        assert('is_string($address2)');
-        assert('is_string($postcode)');
-        assert('is_string($city)');
-        assert('is_float($latitude)');
-        assert('is_float($longitude)');
-        assert('is_int($zoom)');
-
+    public function getAddressObject(
+        int $id,
+        string $address1 = "",
+        string $country = "",
+        string $address2 = "",
+        string $postcode = "",
+        string $city = "",
+        float $latitude = 0.0,
+        float $longitude = 0.0,
+        int $zoom = 10
+    ) {
         return new Venues\Address\Address(
             $id,
             $address1,
@@ -82,15 +78,14 @@ trait ObjectFactory
      *
      * @return Venues\Contact\Contact
      */
-    public function getContactObject($id, $internal_contact = "", $contact = "", $phone = "", $fax = "", $email = "")
-    {
-        assert('is_int($id)');
-        assert('is_string($internal_contact)');
-        assert('is_string($contact)');
-        assert('is_string($phone)');
-        assert('is_string($fax)');
-        assert('is_string($email)');
-
+    public function getContactObject(
+        int $id,
+        string $internal_contact = "",
+        string $contact = "",
+        string $phone = "",
+        string $fax = "",
+        string $email = ""
+    ) {
         return new Venues\Contact\Contact(
             $id,
             $internal_contact,
@@ -106,13 +101,12 @@ trait ObjectFactory
      *
      * @return Venues\Conditions\Conditions
      */
-    public function getConditionsObject($id, $general_agreement = false, $terms = "", $valuta = "")
-    {
-        assert('is_int($id)');
-        assert('is_bool($general_agreement)');
-        assert('is_string($terms)');
-        assert('is_string($valuta)');
-
+    public function getConditionsObject(
+        int $id,
+        bool $general_agreement = false,
+        string $terms = "",
+        string $valuta = ""
+    ) {
         return new Venues\Conditions\Conditions(
             $id,
             $general_agreement,
@@ -127,22 +121,14 @@ trait ObjectFactory
      * @return Venues\Capacity\Capacity
      */
     public function getCapacityObject(
-        $id,
-        $number_rooms = null,
-        $min_person_any_room = null,
-        $max_person_any_room = null,
-        $min_room_size = null,
-        $max_room_size = null,
-        $room_count = null
+        int $id,
+        ?int $number_rooms = null,
+        ?int $min_person_any_room = null,
+        ?int $max_person_any_room = null,
+        ?int $min_room_size = null,
+        ?int $max_room_size = null,
+        ?int $room_count = null
     ) {
-        assert('is_int($id)');
-        assert('is_null($number_rooms) | is_int($number_rooms)');
-        assert('is_null($min_person_any_room) | is_int($min_person_any_room)');
-        assert('is_null($max_person_any_room) | is_int($max_person_any_room)');
-        assert('is_null($min_room_size) | is_int($min_room_size)');
-        assert('is_null($max_room_size) | is_int($max_room_size)');
-        assert('is_null($room_count) | is_int($room_count)');
-
         return new Venues\Capacity\Capacity(
             $id,
             $number_rooms,
@@ -171,29 +157,17 @@ trait ObjectFactory
      * @return Venues\Service\Service
      */
     public function getServiceObject(
-        $id,
-        $mail_service_list = "",
-        $mail_room_setup = "",
-        $days_send_service = null,
-        $days_send_room_setup = null,
-        $mail_material_list = "",
-        $days_send_material_list = null,
-        $mail_accomodation_list = "",
-        $days_send_accomodation_list = null,
-        $days_remind_accomodation_list = null
+        int $id,
+        string $mail_service_list = "",
+        string $mail_room_setup = "",
+        ?int $days_send_service = null,
+        ?int $days_send_room_setup = null,
+        string $mail_material_list = "",
+        ?int $days_send_material_list = null,
+        string $mail_accomodation_list = "",
+        ?int $days_send_accomodation_list = null,
+        ?int $days_remind_accomodation_list = null
     ) {
-        assert('is_int($id)');
-        assert('is_string($mail_service_list)');
-        assert('is_string($mail_room_setup)');
-        assert('is_int($days_send_service) || is_null($days_send_service)');
-        assert('is_int($days_send_room_setup) || is_null($days_send_room_setup)');
-        assert('is_string($mail_material_list)');
-        assert('is_int($days_send_material_list) || is_null($days_send_material_list)');
-        assert('is_string($mail_accomodation_list)');
-        assert('is_int($days_send_accomodation_list) || is_null($days_send_accomodation_list)');
-        assert('is_int($days_remind_accomodation_list) || is_null($days_remind_accomodation_list)');
-
-
         return new Venues\Service\Service(
             $id,
             $mail_service_list,
@@ -214,26 +188,16 @@ trait ObjectFactory
      * @return Venues\Costs\Costs
      */
     public function getCostsObject(
-        $id,
-        $fixed_rate_day = null,
-        $fixed_rate_all_inclusive = null,
-        $bed_and_breakfast = null,
-        $bed = null,
-        $fixed_rate_conference = null,
-        $room_usage = null,
-        $other = null,
-        $terms = ""
+        int $id,
+        ?float $fixed_rate_day = null,
+        ?float $fixed_rate_all_inclusive = null,
+        ?float $bed_and_breakfast = null,
+        ?float $bed = null,
+        ?float $fixed_rate_conference = null,
+        ?float $room_usage = null,
+        ?float $other = null,
+        string $terms = ""
     ) {
-        assert('is_int($id)');
-        assert('is_float($fixed_rate_day) || is_null($fixed_rate_day)');
-        assert('is_float($fixed_rate_all_inclusive) || is_null($fixed_rate_all_inclusive)');
-        assert('is_float($bed_and_breakfast) || is_null($bed_and_breakfast)');
-        assert('is_float($bed) || is_null($bed)');
-        assert('is_float($fixed_rate_conference) || is_null($fixed_rate_conference)');
-        assert('is_float($room_usage) || is_null($room_usage)');
-        assert('is_float($other) || is_null($other)');
-        assert('is_string($terms) || is_null($terms)');
-
         return new Venues\Costs\Costs(
             $id,
             $fixed_rate_day,

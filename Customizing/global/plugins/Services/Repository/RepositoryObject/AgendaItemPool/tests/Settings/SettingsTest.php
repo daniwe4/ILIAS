@@ -21,7 +21,7 @@ class SettingsTest extends TestCase
         $this->test_int = 33;
         $this->test_string = "testobject";
         $this->test_bool = false;
-        $this->test_date = "2020-04-22T09:08:48.055138+0200";
+        $this->test_date = new \DateTime("2020-04-22T09:08:48.055138+0200");
     }
 
     public function testCreate()

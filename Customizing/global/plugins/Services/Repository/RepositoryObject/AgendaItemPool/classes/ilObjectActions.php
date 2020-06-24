@@ -53,9 +53,8 @@ class ilObjectActions
      * @param 	int | null 	$limit
      * @return 	AgendaItem[]
      */
-    public function getAllAgendaItemsByPoolId($pool_id, $offset = null, $limit = null)
+    public function getAllAgendaItemsByPoolId(int $pool_id, $offset = null, $limit = null)
     {
-        assert('is_int($pool_id)');
         return $this->agenda_item_db->getAllAgendaItemsByPoolId($pool_id, $offset, $limit);
     }
 
@@ -65,9 +64,8 @@ class ilObjectActions
      * @param 	int 	$pool_id
      * @return 	AgendaItem[]
      */
-    public function getAllAgendaItemsCountByPoolId($pool_id)
+    public function getAllAgendaItemsCountByPoolId(int $pool_id)
     {
-        assert('is_int($pool_id)');
         return $this->agenda_item_db->getAllAgendaItemsCountByPoolId($pool_id);
     }
 
@@ -91,34 +89,22 @@ class ilObjectActions
      * @return 	AgendaItem
      */
     public function createAgendaItem(
-        $title,
+        string $title,
         \DateTime $last_change,
-        $change_usr_id,
-        $pool_id,
-        $description = null,
-        $is_active = true,
-        $idd_relevant = false,
-        $is_deleted = false,
-        $is_blank = false,
+        int $change_usr_id,
+        ?int $pool_id,
+        ?string $description = null,
+        bool $is_active = true,
+        bool $idd_relevant = false,
+        bool $is_deleted = false,
+        bool $is_blank = false,
         array $training_topics = null,
-        $goals = null,
-        $gdv_learning_content = null,
-        $idd_learning_content = null,
-        $agenda_item_content = null
+        ?string $goals = null,
+        ?string $gdv_learning_content = null,
+        ?string $idd_learning_content = null,
+        ?string $agenda_item_content = null
     ) {
-        assert('is_string($title)');
-        assert('is_string($description) || is_null($description)');
-        assert('is_bool($is_active)');
-        assert('is_bool($idd_relevant)');
-        assert('is_bool($is_deleted)');
-        assert('is_int($change_usr_id)');
-        assert('is_int($pool_id) || is_null($pool_id)');
-        assert('is_bool($is_blank)');
-        assert('$this->checkIntArray($training_topics)');
-        assert('is_string($goals) || is_null($goals)');
-        assert('is_string($gdv_learning_content) || is_null($gdv_learning_content)');
-        assert('is_string($idd_learning_content) || is_null($gdv_learning_content)');
-        assert('is_string($agenda_item_content) || is_null($agenda_item_content)');
+        assert($this->checkIntArray($training_topics));
 
         return $this->agenda_item_db->create(
             $title,
@@ -144,9 +130,8 @@ class ilObjectActions
      * @param 	int 	$obj_id
      * @return 	AgendaItem
      */
-    public function getAgendaItemById($obj_id)
+    public function getAgendaItemById(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->agenda_item_db->selectFor($obj_id);
     }
 
@@ -178,9 +163,8 @@ class ilObjectActions
      * @param 	int 	$pool_id
      * @return 	void
      */
-    public function deleteAgendaItemsByPoolId($pool_id)
+    public function deleteAgendaItemsByPoolId(int $pool_id)
     {
-        assert('is_int($pool_id)');
         $this->agenda_item_db->deleteByPoolId($pool_id);
     }
 
@@ -190,9 +174,8 @@ class ilObjectActions
      * @param 	int 	$obj_id
      * @return 	bool
      */
-    public function isValidObjId($obj_id)
+    public function isValidObjId(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->agenda_item_db->isValidObjId($obj_id);
     }
 
@@ -206,9 +189,8 @@ class ilObjectActions
      * @param 	int 	$obj_id
      * @return 	void
      */
-    public function createSettings($obj_id)
+    public function createSettings(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->settings_db->create($obj_id);
     }
 
@@ -228,9 +210,8 @@ class ilObjectActions
      * @param 	int 	$obj_id
      * @return 	Settings
      */
-    public function getSettingsById($obj_id)
+    public function getSettingsById(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->settings_db->selectFor($obj_id);
     }
 
@@ -251,9 +232,8 @@ class ilObjectActions
      * @param 	int 	$id
      * @return 	void
      */
-    public function deleteSettingById($id)
+    public function deleteSettingById(int $id)
     {
-        assert('is_int($id)');
         $this->settings_db->deleteFor($id);
     }
 
@@ -263,9 +243,8 @@ class ilObjectActions
      * @param 	int 	$id
      * @return 	void
      */
-    public function isAgendaItemPoolActive($id)
+    public function isAgendaItemPoolActive(int $id)
     {
-        assert('is_int($id)');
         $this->settings_db->isActive($id);
     }
 

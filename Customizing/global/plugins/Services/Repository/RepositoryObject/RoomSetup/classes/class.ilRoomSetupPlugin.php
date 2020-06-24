@@ -145,9 +145,8 @@ class ilRoomSetupPlugin extends ilRepositoryObjectPlugin
      *
      * @return null
      */
-    protected function createPluginPermissions($type_id, \ilDBInterface $db)
+    protected function createPluginPermissions(int $type_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
         include_once('./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php');
         $new_rbac_options = array(array("edit_equipment", "User can edit equipment", "object", 2700));
 
@@ -167,10 +166,8 @@ class ilRoomSetupPlugin extends ilRepositoryObjectPlugin
      *
      * @return bool
      */
-    protected function permissionExists($permission, \ilDBInterface $db)
+    protected function permissionExists(string $permission, \ilDBInterface $db)
     {
-        assert('is_string($permission)');
-
         $query = "SELECT count(ops_id) AS cnt FROM rbac_operations\n"
                 . " WHERE operation = " . $db->quote($permission, 'text');
 
@@ -262,11 +259,8 @@ class ilRoomSetupPlugin extends ilRepositoryObjectPlugin
         return true;
     }
 
-    public function handleEvent($a_component, $a_event, $a_parameter)
+    public function handleEvent(string $a_component, string $a_event, $a_parameter)
     {
-        assert('is_string($a_component)');
-        assert('is_string($a_event)');
-
         global $DIC;
         $logger = $DIC['ilLog'];
 

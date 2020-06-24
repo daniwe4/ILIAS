@@ -89,8 +89,7 @@ class ilDB implements DB {
 	/**
 	 * @inheritdoc
 	 */
-	public function delete($obj_id) {
-		assert('is_int($obj_id)');
+	public function delete(int $obj_id) {
 		if($this->cheCheckForObservations($obj_id)) {
 			$delete = "DELETE FROM ".self::TABLE_NAME."\n"
 				." WHERE obj_id = ".$this->getDB()->quote($obj_id, "integer");

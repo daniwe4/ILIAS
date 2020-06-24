@@ -20,7 +20,7 @@ class ilActions extends ilOptionActions
     /**
      * @inheritdoc
      */
-    public function getTableData()
+    public function getTableData() : array
     {
         return $this->db->select();
     }
@@ -28,9 +28,8 @@ class ilActions extends ilOptionActions
     /**
      * @inheritdoc
      */
-    public function create($agenda_item_id, $caption)
+    public function create(string $agenda_item_id, string $caption) : Option
     {
-        assert('is_string($caption)');
         return $this->db->create($caption);
     }
 
@@ -45,9 +44,8 @@ class ilActions extends ilOptionActions
     /**
      * @inheritdoc
      */
-    public function delete($topic_id, $caption_id)
+    public function delete(int $topic_id, int $caption_id) : void
     {
-        assert('is_int($topic_id)');
         $this->db->delete($topic_id);
     }
 }

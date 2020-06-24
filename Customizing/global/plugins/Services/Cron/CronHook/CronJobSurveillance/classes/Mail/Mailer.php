@@ -25,14 +25,13 @@ class Mailer
     /**
      * @param 	MailSetting[] 	$settings
      */
-    public function __construct(array $settings, $installation_id)
+    public function __construct(array $settings, string $installation_id)
     {
         foreach ($settings as $entry) {
             if (!$entry instanceof MailSetting) {
                 throw new \InvalidArgumentException("Parameter must be list of MailSetting", 1);
             }
         }
-        assert('is_string($installation_id)');
         $this->settings = $settings;
         $this->installation_id = $installation_id;
     }

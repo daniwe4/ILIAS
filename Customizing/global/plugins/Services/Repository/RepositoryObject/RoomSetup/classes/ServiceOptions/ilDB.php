@@ -160,8 +160,6 @@ class ilDB implements DB
      */
     public function deleteById(int $id)
     {
-        assert('is_int($id)');
-
         $this->deleteFromAllocations($id);
 
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
@@ -177,9 +175,8 @@ class ilDB implements DB
      *
      * @return null
      */
-    protected function deleteFromAllocations($id)
+    protected function deleteFromAllocations(int $id)
     {
-        assert('is_int($id)');
         $query = "DELETE FROM " . self::TABLE_EQUIPMENT_SO . "\n"
                 . " WHERE service_option_id = " . $this->getDB()->quote($id);
 

@@ -1,6 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace CaT\Plugins\Webinar\VC\CSN;
+
+use CaT\Plugins\Webinar\VC;
 
 /**
  * Interface to save settings and imported user for CSN VC
@@ -13,23 +16,29 @@ interface DB
      * Create a new CSN VC settings entry
      *
      * @param int 	$obj_id
-     * @param string 	$phone
-     * @param string 	$pin
-     * @param int 	$minutes_required
+     * @param string|null 	$phone
+     * @param string|null 	$pin
+     * @param int|null 	$minutes_required
      * @param bool 	$upload_required
      *
      * @return Settings
      */
-    public function create($obj_id, $phone, $pin, $minutes_required, $upload_required = false);
+    public function create(
+        int $obj_id,
+        ?string $phone,
+        ?string $pin,
+        ?int $minutes_required,
+        bool $upload_required = false
+    ) : Settings;
 
     /**
      * Update an existing CSN VC settings entry
      *
      * @param Settings 	$settings
      *
-     * @return null
+     * @return void
      */
-    public function update(Settings $settings);
+    public function update(Settings $settings) : void;
 
     /**
      * Get CSN VC Settings
@@ -38,16 +47,16 @@ interface DB
      *
      * @return Settings
      */
-    public function select($obj_id);
+    public function select(int $obj_id) : Settings;
 
     /**
      * Delete CSN VC settings entry
      *
      * @param int 	$obj_id
      *
-     * @return null
+     * @return void
      */
-    public function delete($obj_id);
+    public function delete(int $obj_id) : void;
 
     /**
      * Creates an user entry if user is not booked on vc
@@ -59,18 +68,25 @@ interface DB
      * @param string 	$company
      * @param int 	$minutes
      *
-     * @return Participant
+     * @return VC\Participant
      */
-    public function createUnkownParticipant($obj_id, $user_name, $email, $phone, $company, $minutes);
+    public function createUnknownParticipant(
+        int $obj_id,
+        string $user_name,
+        string $email,
+        string $phone,
+        string $company,
+        int $minutes
+    ) : VC\Participant;
 
     /**
      * Delete all unknown participants
      *
      * @param int 	$obj_id
      *
-     * @return null
+     * @return void
      */
-    public function deleteUnkownParticipants($obj_id);
+    public function deleteUnknownParticipants(int $obj_id) : void;
 
     /**
      * Get all unknown participants for obj id
@@ -79,5 +95,5 @@ interface DB
      *
      * @return Participant[]
      */
-    public function getUnkownParticipants($obj_id);
+    public function getUnknownParticipants(int $obj_id) : array;
 }

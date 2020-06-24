@@ -453,7 +453,6 @@ class TMSPositionHelper
      */
     public function getSubsequentOrgus(int $orgu_id) : array
     {
-        assert('is_int($orgu_id)');
         $children = \ilObjOrgUnitTree::_getInstance()->getAllChildren($orgu_id);
         if (($key = array_search($orgu_id, $children)) !== false) {
             unset($children[$key]);

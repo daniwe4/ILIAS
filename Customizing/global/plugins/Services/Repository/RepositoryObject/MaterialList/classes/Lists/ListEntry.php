@@ -37,15 +37,14 @@ class ListEntry
      */
     protected $title;
 
-    public function __construct($id, $obj_id, $number_per_participant, $number_per_course, $article_number, $title)
-    {
-        assert('is_int($id)');
-        assert('is_int($obj_id)');
-        assert('is_int($number_per_participant)');
-        assert('is_int($number_per_course)');
-        assert('is_string($article_number)');
-        assert('is_string($title)');
-
+    public function __construct(
+        int $id,
+        int $obj_id,
+        int $number_per_participant,
+        int $number_per_course,
+        string $article_number,
+        string $title
+    ) {
         $this->id = $id;
         $this->obj_id = $obj_id;
         $this->number_per_participant = $number_per_participant;
@@ -121,9 +120,8 @@ class ListEntry
      *
      * @return ListEntry
      */
-    public function withNumberPerParticipant($number_per_participant)
+    public function withNumberPerParticipant(int $number_per_participant)
     {
-        assert('is_int($number_per_participant)');
         $clone = clone $this;
         $clone->number_per_participant = $number_per_participant;
         return $clone;
@@ -136,9 +134,8 @@ class ListEntry
      *
      * @return ListEntry
      */
-    public function withNumberPerCourse($number_per_course)
+    public function withNumberPerCourse(int $number_per_course)
     {
-        assert('is_int($number_per_course)');
         $clone = clone $this;
         $clone->number_per_course = $number_per_course;
         return $clone;
@@ -151,9 +148,8 @@ class ListEntry
      *
      * @return ListEntry
      */
-    public function withArticleNumber($article_number)
+    public function withArticleNumber(string $article_number)
     {
-        assert('is_string($article_number)');
         $clone = clone $this;
         $clone->article_number = $article_number;
         return $clone;
@@ -166,9 +162,8 @@ class ListEntry
      *
      * @return ListEntry
      */
-    public function withTitle($title)
+    public function withTitle(string $title)
     {
-        assert('is_string($title)');
         $clone = clone $this;
         $clone->title = $title;
         return $clone;

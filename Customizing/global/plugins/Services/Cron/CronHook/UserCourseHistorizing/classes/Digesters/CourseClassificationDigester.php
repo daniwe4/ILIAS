@@ -11,9 +11,8 @@ class CourseClassificationDigester implements Digester
 {
     protected $event;
 
-    public function __construct($event)
+    public function __construct(string $event)
     {
-        assert('is_string($event)');
         $this->event = $event;
     }
 
@@ -47,9 +46,8 @@ class CourseClassificationDigester implements Digester
         return $this->getCCDataByRefId($payload['cc_ref_id']);
     }
 
-    public function getCCDataByRefId($ref_id)
+    public function getCCDataByRefId(int $ref_id)
     {
-        assert('is_int($ref_id)');
         $cc_obj = new \ilObjCourseClassification($ref_id);
         list($type_id, $type, $target_group_ids, $target_group, $goals, $topic_ids, $topics) = $cc_obj->getCourseClassificationValues();
         $return = [];

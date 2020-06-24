@@ -36,12 +36,9 @@ class ConfigurationEntry
      * @param string 	$type
      * @param string 	$source_for_value
      */
-    public function __construct($id, $type = self::TYPE_STANDARD, $source_for_value = "")
+    public function __construct(int $id, string $type = self::TYPE_STANDARD, string $source_for_value = "")
     {
-        assert('is_int($id)');
-        assert('is_string($type)');
-        assert('in_array($type, array(self::TYPE_STANDARD, self::TYPE_AMD, self::TYPE_FUNCTION))');
-        assert('is_string($source_for_value)');
+        assert(in_array($type, array(self::TYPE_STANDARD, self::TYPE_AMD, self::TYPE_FUNCTION)));
 
         $this->id = $id;
         $this->type = $type;
@@ -85,9 +82,8 @@ class ConfigurationEntry
      *
      * @return ConfigurationEntry
      */
-    public function withSourceForValue($source_for_value)
+    public function withSourceForValue(string $source_for_value)
     {
-        assert('is_string($source_for_value)');
         $clone = clone $this;
         $clone->source_for_value = $source_for_value;
         return $clone;

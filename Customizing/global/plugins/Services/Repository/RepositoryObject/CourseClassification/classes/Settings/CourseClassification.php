@@ -102,55 +102,37 @@ class CourseClassification
      * @param AdditionalLink[] $additional_links
      */
     public function __construct(
-        $obj_id,
-        $type = null,
-        $edu_program = null,
+        int $obj_id,
+        ?int $type = null,
+        ?int $edu_program = null,
         array $topics = null,
         array $categories = null,
-        $content = null,
-        $goals = null,
-        $preparation = null,
+        ?string $content = null,
+        ?string $goals = null,
+        ?string $preparation = null,
         array $method = null,
         array $media = null,
         array $target_group = null,
-        $target_group_description = null,
+        ?string $target_group_description = null,
         Contact $contact = null,
         array $additional_links = []
     ) {
-        assert('is_int($obj_id)');
         $this->obj_id = $obj_id;
-
-        assert('is_int($type) || is_null($target_group_description)');
         $this->type = $type;
-
-        assert('is_int($edu_program) || is_null($edu_program)');
         $this->edu_program = $edu_program;
-
-        assert('$this->checkIntArray($categories)');
+        assert($this->checkIntArray($categories));
         $this->categories = $categories;
-
-        assert('$this->checkIntArray($topics)');
+        assert($this->checkIntArray($topics));
         $this->topics = $topics;
-
-        assert('is_string($content) || is_null($content)');
         $this->content = $content;
-
-        assert('is_string($goals) || is_null($goals)');
         $this->goals = $goals;
-
-        assert('is_string($preparation) || is_null($preparation)');
         $this->preparation = $preparation;
-
-        assert('$this->checkIntArray($method)');
+        assert($this->checkIntArray($method));
         $this->method = $method;
-
-        assert('$this->checkIntArray($media)');
+        assert($this->checkIntArray($media));
         $this->media = $media;
-
-        assert('$this->checkIntArray($target_group)');
+        assert($this->checkIntArray($target_group));
         $this->target_group = $target_group;
-
-        assert('is_string($target_group_description) || is_null($target_group_description)');
         $this->target_group_description = $target_group_description;
 
         if (is_null($contact)) {
@@ -309,9 +291,8 @@ class CourseClassification
      *
      * @return CourseClassification
      */
-    public function withType($type = null)
+    public function withType(?int $type = null)
     {
-        assert('is_int($type) || is_null($type)');
         $clone = clone $this;
         $clone->type = $type;
         return $clone;
@@ -324,9 +305,8 @@ class CourseClassification
      *
      * @return CourseClassification
      */
-    public function withEduProgram($edu_program = null)
+    public function withEduProgram(?int $edu_program = null)
     {
-        assert('is_int($edu_program) || is_null($edu_program)');
         $clone = clone $this;
         $clone->edu_program = $edu_program;
         return $clone;
@@ -341,7 +321,7 @@ class CourseClassification
      */
     public function withTopics(array $topics = null)
     {
-        assert('$this->checkIntArray($topics)');
+        assert($this->checkIntArray($topics));
         $clone = clone $this;
         $clone->topics = $topics;
         return $clone;
@@ -356,7 +336,7 @@ class CourseClassification
      */
     public function withCategories(array $categories = null)
     {
-        assert('$this->checkIntArray($categories)');
+        assert($this->checkIntArray($categories));
         $clone = clone $this;
         $clone->categories = $categories;
         return $clone;
@@ -369,9 +349,8 @@ class CourseClassification
      *
      * @return CourseClassification
      */
-    public function withContent($content = null)
+    public function withContent(?string $content = null)
     {
-        assert('is_string($content) || is_null($content)');
         $clone = clone $this;
         $clone->content = $content;
         return $clone;
@@ -384,9 +363,8 @@ class CourseClassification
      *
      * @return CourseClassification
      */
-    public function withGoals($goals = null)
+    public function withGoals(?string $goals = null)
     {
-        assert('is_string($goals) || is_null($goals)');
         $clone = clone $this;
         $clone->goals = $goals;
         return $clone;
@@ -399,9 +377,8 @@ class CourseClassification
      *
      * @return CourseClassification
      */
-    public function withPreparation($preparation = null)
+    public function withPreparation(?string $preparation = null)
     {
-        assert('is_string($preparation) || is_null($preparation)');
         $clone = clone $this;
         $clone->preparation = $preparation;
         return $clone;
@@ -416,7 +393,7 @@ class CourseClassification
      */
     public function withMethod(array $method = null)
     {
-        assert('$this->checkIntArray($method)');
+        assert($this->checkIntArray($method));
         $clone = clone $this;
         $clone->method = $method;
         return $clone;
@@ -432,7 +409,7 @@ class CourseClassification
      */
     public function withMedia(array $media = null)
     {
-        assert('$this->checkIntArray($media)');
+        assert($this->checkIntArray($media));
         $clone = clone $this;
         $clone->media = $media;
         return $clone;
@@ -447,7 +424,7 @@ class CourseClassification
      */
     public function withTargetGroup(array $target_group = null)
     {
-        assert('$this->checkIntArray($target_group)');
+        assert($this->checkIntArray($target_group));
         $clone = clone $this;
         $clone->target_group = $target_group;
         return $clone;
@@ -460,9 +437,8 @@ class CourseClassification
      *
      * @return CourseClassification
      */
-    public function withTargetGroupDescription($target_group_description = null)
+    public function withTargetGroupDescription(?string $target_group_description = null)
     {
-        assert('is_string($target_group_description) || is_null($target_group_description)');
         $clone = clone $this;
         $clone->target_group_description = $target_group_description;
         return $clone;

@@ -60,11 +60,8 @@ class RequestBuilder implements CourseCreation\RequestBuilder
     /**
      * @inheritdoc
      */
-    public function setUserIdAndSessionId($user_id, $session_id)
+    public function setUserIdAndSessionId(int $user_id, string $session_id) : CourseCreation\RequestBuilder
     {
-        assert('is_int($user_id)');
-        assert('is_string($session_id)');
-
         $this->user_id = $user_id;
         $this->session_id = $session_id;
         return $this;
@@ -73,10 +70,8 @@ class RequestBuilder implements CourseCreation\RequestBuilder
     /**
      * @inheritdoc
      */
-    public function setCourseRefId($crs_ref_id)
+    public function setCourseRefId(int $crs_ref_id) : CourseCreation\RequestBuilder
     {
-        assert('is_int($crs_ref_id)');
-
         $this->crs_ref_id = $crs_ref_id;
         return $this;
     }
@@ -84,10 +79,8 @@ class RequestBuilder implements CourseCreation\RequestBuilder
     /**
      * @inheritdoc
      */
-    public function setNewParentRefId($new_parent_ref_id)
+    public function setNewParentRefId(int $new_parent_ref_id) : CourseCreation\RequestBuilder
     {
-        assert('is_int($new_parent_ref_id)');
-
         $this->new_parent_ref_id = $new_parent_ref_id;
         return $this;
     }
@@ -95,7 +88,7 @@ class RequestBuilder implements CourseCreation\RequestBuilder
     /**
      * @inheritdoc
      */
-    public function getRequest(\DateTime $requested_ts)
+    public function getRequest(\DateTime $requested_ts) : CourseCreation\Request
     {
         return $this->request_db->create(
             $this->user_id,
@@ -111,7 +104,7 @@ class RequestBuilder implements CourseCreation\RequestBuilder
     /**
      * @inheritdoc
      */
-    public function setCopyOptionFor($ref_id, $copy_option)
+    public function setCopyOptionFor(int $ref_id, $copy_option) : CourseCreation\RequestBuilder
     {
         $this->copy_options[$ref_id] = $copy_option;
         return $this;
@@ -120,9 +113,9 @@ class RequestBuilder implements CourseCreation\RequestBuilder
     /**
      * @inheritdoc
      */
-    public function addConfigurationFor(\ilObject $object, $data)
+    public function addConfigurationFor(\ilObject $object, $data) : CourseCreation\RequestBuilder
     {
-        assert('method_exists($object, "afterCourseCreation")');
+        assert(method_exists($object, "afterCourseCreation"));
         if (!isset($this->configuration[$object->getRefId()])) {
             $this->configuration[$object->getRefId()] = [];
         }

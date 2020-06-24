@@ -102,9 +102,8 @@ class ilObjCancellationFeeReport extends ilObjectPlugin
         $this->setType("xcfr");
     }
 
-    public function pluginTxt($code)
+    public function pluginTxt(string $code)
     {
-        assert('is_string($code)');
         return $this->getPlugin()->txt($code);
     }
 }

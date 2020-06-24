@@ -91,9 +91,8 @@ class ilGroupableSelectInputGUI extends ilSubEnabledFormPropertyGUI
 	 * @param 	int 	$length
 	 * @return 	void
 	 */
-	public function setTextLength($length)
+	public function setTextLength(int $length)
 	{
-		assert('is_int($length)');
 		$this->length = $length;
 	}
 
@@ -220,9 +219,8 @@ class ilGroupableSelectInputGUI extends ilSubEnabledFormPropertyGUI
 	 * @param 	string 	$title
 	 * @return 	string
 	 */
-	private function getAdjustTitle($title)
+	private function getAdjustTitle(string $title)
 	{
-		assert('is_string($title)');
 		if($this->getTextLength() > 0 && strlen($title) >= $this->getTextLength()) {
 			return substr($title, 0, $this->getTextLength())."...";
 		}

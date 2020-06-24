@@ -33,13 +33,12 @@ class Waitinglist
      * @param int | null	$max
      * @param string | null	$modus
      */
-    public function __construct($obj_id, $cancellation = null, $max = null, $modus = null)
-    {
-        assert('is_int($obj_id)');
-        assert('is_int($cancellation) || is_null($cancellation)');
-        assert('is_int($max) || is_null($max)');
-        assert('is_string($modus) || is_null($modus)');
-
+    public function __construct(
+        int $obj_id,
+        ?int $cancellation = null,
+        ?int $max = null,
+        ?string $modus = null
+    ) {
         $this->obj_id = $obj_id;
         $this->cancellation = $cancellation;
         $this->max = $max;
@@ -93,9 +92,8 @@ class Waitinglist
      *
      * @return Waitinglist
      */
-    public function withCancellation($cancellation)
+    public function withCancellation(?int $cancellation)
     {
-        assert('is_int($cancellation) || is_null($cancellation)');
         $clone = clone $this;
         $clone->cancellation = $cancellation;
         return $clone;
@@ -108,9 +106,8 @@ class Waitinglist
      *
      * @return Waitinglist
      */
-    public function withMax($max)
+    public function withMax(?int $max)
     {
-        assert('is_int($max) || is_null($max)');
         $clone = clone $this;
         $clone->max = $max;
         return $clone;
@@ -123,9 +120,8 @@ class Waitinglist
      *
      * @return Waitinglist
      */
-    public function withModus($modus)
+    public function withModus(?string $modus)
     {
-        assert('is_string($modus) || is_null($modus)');
         $clone = clone $this;
         $clone->modus = $modus;
         return $clone;

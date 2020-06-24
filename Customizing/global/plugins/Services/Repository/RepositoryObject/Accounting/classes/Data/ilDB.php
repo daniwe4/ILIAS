@@ -235,9 +235,8 @@ class ilDB implements DB
      *
      * @return float
      */
-    public function getNetSum($obj_id)
+    public function getNetSum(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT SUM(amount) AS net" . PHP_EOL
                 . " FROM " . self::XACC_DATA_TABLE . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id . "integer");
@@ -255,9 +254,8 @@ class ilDB implements DB
      *
      * @return float
      */
-    public function getGrossSum($obj_id)
+    public function getGrossSum(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT ROUND(SUM(data.amount * ((100 + vatrate.val_float) / 100)), 2) AS gross" . PHP_EOL
                 . " FROM " . self::XACC_DATA_TABLE . " AS data" . PHP_EOL
                 . " JOIN " . self::XACC_CONFIG_VATRATE . " as vatrate" . PHP_EOL

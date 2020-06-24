@@ -223,9 +223,8 @@ class MailingStep extends \CourseCreationStep
      * @param	string	$id
      * @return	string	$text
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 }

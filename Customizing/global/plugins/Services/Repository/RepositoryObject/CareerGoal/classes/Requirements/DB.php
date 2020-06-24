@@ -41,7 +41,7 @@ interface DB
 	 *
 	 * @return	bool
 	 */
-	public function delete($obj_id);
+	public function delete(int $obj_id);
 
 	/**
 	 * get next obj id

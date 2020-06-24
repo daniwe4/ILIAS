@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace CaT\Plugins\WBDCrsHistorizing\HistCases;
 
 use PHPUnit\Framework\TestCase;
-use CaT\Historization\Event\Event;
 
 class WBDCrsTestObject extends WBDCrs
 {
@@ -133,53 +132,6 @@ class WBDCrsTest extends TestCase
             }
             $this->assertTrue(true);
         }
-    }
-
-    public function test_isEventRelevant()
-    {
-        $events = $this->getRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertTrue($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getRelevantEvents() : array
-    {
-        $events = [
-            new Event('assignUser', 'Services/AccessControl', ['type' => 'crs', 'role_id' => 22]),
-            new Event('deassignUser', 'Services/AccessControl', ['type' => 'crs', 'role_id' => 22]),
-            new Event('assignUser', 'Services/AccessControl', ['type' => 'crs', 'role_id' => 22]),
-            new Event('updateCCObject', 'Plugin/CourseClassification', []),
-            new Event('updateWBD', 'Plugin/EduTracking', []),
-            new Event('importCourseWBD', 'Plugin/WBDInterface', [])
-        ];
-
-        return $events;
-    }
-
-    public function test_isEventNotRelevant()
-    {
-        $events = $this->getNotRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertFalse($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getNotRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $events = [
-            new Event('assignUser', 'Services/AccessControl', ['type' => 'crs', 'role_id' => 33]),
-            new Event('assignUser', 'Services/AccessControl', ['type' => 'xwbd', 'role_id' => 22]),
-            new Event('move', 'Plugin/CourseClassification', []),
-            new Event('move', 'Plugin/WBDInterface', []),
-            new Event('move', 'Plugin/EduTracking', [])
-        ];
-
-        return $events;
     }
 
     public function testIsBuffered() : void

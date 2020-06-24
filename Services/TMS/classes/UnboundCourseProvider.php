@@ -600,9 +600,8 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
      *
      * @return CourseInfoImpl[]
      */
-    protected function getCourseInfoForVenue($ret, Entity $entity, $crs_id)
+    protected function getCourseInfoForVenue($ret, Entity $entity, int $crs_id)
     {
-        assert('is_int($crs_id)');
         if (ilPluginAdmin::isPluginActive('venues')) {
             $vplug = ilPluginAdmin::getPluginObjectById('venues');
             $txt = $vplug->txtClosure();
@@ -789,7 +788,7 @@ class UnboundCourseProvider extends SeparatedUnboundProvider
      */
     protected function getCourseInfoForTrainingProvider($ret, Entity $entity, $crs_id)
     {
-        assert('is_int($crs_id)');
+        assert(is_int($crs_id));
         if (ilPluginAdmin::isPluginActive('trainingprovider')) {
             $vplug = ilPluginAdmin::getPluginObjectById('trainingprovider');
             $txt = $vplug->txtClosure();

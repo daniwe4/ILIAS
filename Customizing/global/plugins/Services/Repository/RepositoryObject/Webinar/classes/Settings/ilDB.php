@@ -55,22 +55,15 @@ class ilDB implements DB
      * @inhertidoc
      */
     public function create(
-        $obj_id,
-        $vc_type,
-        \ilDateTime $beginning = null,
-        \ilDateTime $ending = null,
-        $admission = null,
-        $url = null,
-        $online = false,
-        $lp_mode = 0
+        int $obj_id,
+        string $vc_type,
+        ?\ilDateTime $beginning = null,
+        ?\ilDateTime $ending = null,
+        ?string $admission = null,
+        ?string $url = null,
+        bool $online = false,
+        int $lp_mode = 0
     ) {
-        assert('is_int($obj_id)');
-        assert('is_string($vc_type)');
-        assert('is_string($admission) | is_null($url)');
-        assert('is_string($url) | is_null($url)');
-        assert('is_bool($online) | is_null($url)');
-        assert('is_int($lp_mode)');
-
         $webinar = new Webinar(
             $obj_id,
             $vc_type,

@@ -12,7 +12,7 @@ class ilDB implements DB
     const TABLE_SETTINGS = "xaip_settings";
 
     /**
-     * @var ilDBInterface
+     * @var \ilDBInterface
      */
     protected $db;
 
@@ -21,7 +21,7 @@ class ilDB implements DB
      *
      * @return 	void
      */
-    public function __construct(/*ilDBInterface*/ $db)
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
     }
@@ -29,9 +29,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id)
+    public function create(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $settings = new Settings($obj_id, false, null, null);
 
         $values = array(
@@ -67,10 +66,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT" . PHP_EOL
                 . "    obj_id," . PHP_EOL
                 . "    is_online," . PHP_EOL
@@ -92,10 +89,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . self::TABLE_SETTINGS . PHP_EOL
                 . "WHERE" . PHP_EOL
                 . "    obj_id = " . $this->getDB()->quote($obj_id, 'integer') . PHP_EOL
@@ -145,9 +140,8 @@ class ilDB implements DB
      * @param 	int 	$id
      * @return 	bool
      */
-    public function isActive($id)
+    public function isActive(int $id)
     {
-        assert('is_int($id)');
         $ai = $this->selectFor($id);
         return $ai->getIsOnline();
     }

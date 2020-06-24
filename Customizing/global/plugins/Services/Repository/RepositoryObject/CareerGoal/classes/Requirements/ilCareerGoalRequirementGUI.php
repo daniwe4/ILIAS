@@ -25,8 +25,7 @@ class ilCareerGoalRequirementGUI {
 	 * @param 	string	$code
 	 * @return	string
 	 */
-	public function txt($code) {
-		assert('is_string($code)');
+	public function txt(string $code) {
 
 		$txt = $this->txt;
 

@@ -9,9 +9,8 @@ class BookingStatusDigester implements Digester
 {
     private $event;
 
-    public function __construct($event)
+    public function __construct(string $event)
     {
-        assert('is_string($event)');
         $this->event = $event;
     }
 
@@ -71,9 +70,8 @@ class BookingStatusDigester implements Digester
         return $return;
     }
 
-    protected function cancellationAfterDeadline($crs_id)
+    protected function cancellationAfterDeadline(int $crs_id)
     {
-        assert('is_int($crs_id)');
         $crs_start = \ilObjectFactory::getInstanceByObjId($crs_id)->getCourseStart();
         if (!$crs_start) {
             return false;

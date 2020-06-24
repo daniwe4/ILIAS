@@ -74,9 +74,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteId($id)
+    public function deleteId(int $id)
     {
-        assert('is_int($id)');
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE id = " . $this->getDB()->quote($id, "integer");
 
@@ -86,9 +85,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteForObjId($obj_id)
+    public function deleteForObjId(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 
@@ -98,9 +96,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectForObjId($obj_id)
+    public function selectForObjId(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT id, obj_id, number_per_participant, number_per_course, article_number, title\n"
                 . " FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -129,9 +126,8 @@ class ilDB implements DB
      *
      * @return string
      */
-    public function getArtTitleById($id)
+    public function getArtTitleById(int $id)
     {
-        assert('is_int($id)');
         $query = "SELECT article_number, title\n"
                 . " FROM " . self::TABLE_NAME . "\n"
                 . " WHERE id = " . $this->getDB()->quote($id, "integer");

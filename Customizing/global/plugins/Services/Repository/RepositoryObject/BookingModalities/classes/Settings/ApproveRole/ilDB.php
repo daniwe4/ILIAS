@@ -25,7 +25,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteApproveRoles($obj_id, $parent)
+    public function deleteApproveRoles(int $obj_id, string $parent) : void
     {
         $query = "DELETE FROM " . self::TABLE_APPROVERS . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer") . "\n"
@@ -37,19 +37,15 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function createApproveRole($obj_id, $parent, $position, $role_id)
+    public function createApproveRole(int $obj_id, string $parent, int $position, int $role_id) : ApproveRole
     {
-        assert('is_int($obj_id)');
-        assert('is_string($parent)');
-        assert('is_int($position)');
-        assert('is_int($role_id)');
         return new ApproveRole($obj_id, $parent, $position, $role_id);
     }
 
     /**
      * @inheritdoc
      */
-    public function createApproveRoles(array $approve_roles = null)
+    public function createApproveRoles(array $approve_roles = null) : void
     {
         if ($approve_roles === null) {
             return;

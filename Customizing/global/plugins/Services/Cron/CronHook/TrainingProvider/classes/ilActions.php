@@ -176,9 +176,8 @@ class ilActions
      *
      * @return \CaT\Plugins\TrainingProvider\Provider\Provider
      */
-    public function getProvider($provider_id)
+    public function getProvider(int $provider_id)
     {
-        assert('is_int($provider_id)');
         return $this->provider_db->select($provider_id);
     }
 
@@ -279,9 +278,8 @@ class ilActions
      *
      * @return bool
      */
-    public function providerNameExist($new_provider_name)
+    public function providerNameExist(string $new_provider_name)
     {
-        assert('is_string($new_provider_name)');
         return $this->provider_db->providerNameExist($new_provider_name);
     }
 
@@ -292,9 +290,8 @@ class ilActions
      *
      * @return string 	$current_name
      */
-    public function getCurrentProviderName($id)
+    public function getCurrentProviderName(int $id)
     {
-        assert('is_int($id)');
         return $this->provider_db->getCurrentProviderName($id);
     }
 
@@ -436,9 +433,8 @@ class ilActions
      *
      * @param int 		$id
      */
-    public function removeTrainer($id)
+    public function removeTrainer(int $id)
     {
-        assert('is_int($id)');
         $this->trainer_db->delete($id);
     }
 

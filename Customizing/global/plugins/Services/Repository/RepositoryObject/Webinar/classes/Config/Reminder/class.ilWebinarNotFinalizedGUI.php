@@ -58,7 +58,7 @@ class ilWebinarNotFinalizedGUI
                 $this->saveConfig();
                 break;
             default:
-                throw new Exception("Unkown command " . $cmd);
+                throw new Exception("Unknown command " . $cmd);
         }
     }
 

@@ -22,12 +22,8 @@ class Material
      */
     protected $title;
 
-    public function __construct($id, $article_number = "", $title = "")
+    public function __construct(int $id, string $article_number = "", string $title = "")
     {
-        assert('is_int($id)');
-        assert('is_string($article_number)');
-        assert('is_string($title)');
-
         $this->id = $id;
         $this->article_number = $article_number;
         $this->title = $title;
@@ -70,9 +66,8 @@ class Material
      *
      * @return Material
      */
-    public function withArticleNumber($article_number)
+    public function withArticleNumber(string $article_number)
     {
-        assert('is_string($article_number)');
         $clone = clone $this;
         $clone->article_number = $article_number;
         return $clone;
@@ -85,9 +80,8 @@ class Material
      *
      * @return Material
      */
-    public function withTitle($title)
+    public function withTitle(string $title)
     {
-        assert('is_string($title)');
         $clone = clone $this;
         $clone->title = $title;
         return $clone;

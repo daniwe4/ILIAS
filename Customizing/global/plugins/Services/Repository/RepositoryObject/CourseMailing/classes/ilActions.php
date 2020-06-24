@@ -142,9 +142,8 @@ class ilActions
      *
      * @return RoleMapping\RoleMapping
      */
-    public function getSingleRoleMapping($id)
+    public function getSingleRoleMapping(int $id)
     {
-        assert('is_int($id)');
         return $this->mappings_db->selectFor($id);
     }
 
@@ -199,11 +198,8 @@ class ilActions
      * @param 	string 		$description
      * @return 	void
      */
-    public function updateObject($title, $description)
+    public function updateObject(string $title, string $description)
     {
-        assert('is_string($title)');
-        assert('is_string($title)');
-
         $object = $this->getObject();
         $object->setTitle($title);
         $object->setDescription($description);
@@ -284,9 +280,8 @@ class ilActions
      * @param string[]|false 	$attachments
      * @return void
      */
-    public function sendManualMailsForUsers($template_ident, array $usr_ids, $attachments = false)
+    public function sendManualMailsForUsers(string $template_ident, array $usr_ids, $attachments = false)
     {
-        assert('is_string($template_ident)');
         $occasions = $this->getMailingOccasionsAtCourse();
         $occasion = null;
         foreach ($occasions as $mail_occasion) {
@@ -317,11 +312,8 @@ class ilActions
      * @param int 		$obj_ref_id
      * @return void
      */
-    public function sendManualMailsForObject($template_ident, $obj_ref_id)
+    public function sendManualMailsForObject(string $template_ident, int $obj_ref_id)
     {
-        assert('is_string($template_ident)');
-        assert('is_int($obj_ref_id)');
-
         $occasions = $this->getMailingOccasionsAtCourse();
         $occasion = null;
         foreach ($occasions as $mail_occasion) {
@@ -372,9 +364,8 @@ class ilActions
      * @param int 	$role_id
      * @return int[]
      */
-    public function getCourseMemberIdsWithRole($role_id)
+    public function getCourseMemberIdsWithRole(int $role_id)
     {
-        assert('is_int($role_id)');
         return $this->surroundings->getCourseMemberIdsWithRole($role_id);
     }
 

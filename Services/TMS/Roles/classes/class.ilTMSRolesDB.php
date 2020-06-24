@@ -29,7 +29,7 @@ class ilTMSRolesDB
      */
     public function create($role_id)
     {
-        assert('is_int($role_id)');
+        assert(is_int($role_id));
         $settings = new ilTMSRoleSettings($role_id, false, false);
 
         $columns = array(
@@ -71,7 +71,7 @@ class ilTMSRolesDB
      */
     public function selectFor($role_id)
     {
-        assert('is_int($role_id)');
+        assert(is_int($role_id));
         $query = "SELECT hide_breadcrumb, hide_menu_tree" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE role_id = " . $this->getDB()->quote($role_id, "integer");
@@ -131,7 +131,7 @@ class ilTMSRolesDB
      */
     public function deleteFor($role_id)
     {
-        assert('is_int($role_id)');
+        assert(is_int($role_id));
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE role_id = " . $this->getDB()->quote($role_id, "integer");
 

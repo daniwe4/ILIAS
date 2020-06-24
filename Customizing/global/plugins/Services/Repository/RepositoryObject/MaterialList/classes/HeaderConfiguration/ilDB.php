@@ -44,10 +44,9 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($type, $source_for_value)
+    public function create(string $type, $source_for_value)
     {
-        assert('is_string($type)');
-        assert('is_string($source_for_value) || is_int($source_for_value)');
+        assert(is_string($source_for_value) || is_int($source_for_value));
 
         $next_id = $this->getNextId();
         $configuration_entry = new ConfigurationEntry($next_id, $type, $source_for_value);
@@ -82,7 +81,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($id)
+    public function delete(int $id)
     {
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE id = " . $this->getDB()->quote($id, "integer");

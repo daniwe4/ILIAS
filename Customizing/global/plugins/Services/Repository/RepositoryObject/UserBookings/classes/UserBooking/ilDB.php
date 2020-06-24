@@ -78,9 +78,8 @@ class ilDB implements DB
      *
      * @return UserBooking[]
      */
-    public function getBookedTrainingsFor($user_id)
+    public function getBookedTrainingsFor(int $user_id)
     {
-        assert('is_int($user_id)');
         $ret = array();
 
         if (\ilPluginAdmin::isPluginActive('xbkm') && \ilPluginAdmin::isPluginActive('xccl')) {
@@ -122,10 +121,8 @@ class ilDB implements DB
      *
      * @return int[]
      */
-    protected function getCoursesWhereUserIsOnList($user_id)
+    protected function getCoursesWhereUserIsOnList(int $user_id)
     {
-        assert('is_int($user_id)');
-
         $query = "SELECT obj_id" . PHP_EOL
                 . " FROM crs_waiting_list" . PHP_EOL
                 . " WHERE usr_id = " . $this->db->quote($user_id, "integer");

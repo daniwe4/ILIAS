@@ -33,12 +33,15 @@ class ilRequestDB implements RequestDB
      * @param   \DateTime $requested_ts
      * @return  Request
      */
-    public function create($user_id, $session_id, $crs_ref_id, $new_parent_ref_id, array $copy_options, array $configuration, \DateTime $requested_ts)
-    {
-        assert('is_int($user_id)');
-        assert('is_string($session_id)');
-        assert('is_int($crs_ref_id)');
-        assert('is_int($new_parent_ref_id)');
+    public function create(
+        int $user_id,
+        string $session_id,
+        int $crs_ref_id,
+        int $new_parent_ref_id,
+        array $copy_options,
+        array $configuration,
+        \DateTime $requested_ts
+    ) {
         $id = (int) $this->db->nextId(self::TABLE_NAME);
         $this->db->insert(
             self::TABLE_NAME,
@@ -110,9 +113,8 @@ class ilRequestDB implements RequestDB
      * @param	int	$user_id
      * @return	Request[]
      */
-    public function getDueRequestsOf($user_id)
+    public function getDueRequestsOf(int $user_id)
     {
-        assert('is_int($user_id)');
         $query =
             "SELECT * FROM " . self::TABLE_NAME .
             " WHERE user_id = " . $this->db->quote($user_id, "integer") .
@@ -326,9 +328,8 @@ class ilRequestDB implements RequestDB
      *
      * @return void
      */
-    public function setRequestFinished($request_id, \DateTime $finished_ts)
+    public function setRequestFinished(int $request_id, \DateTime $finished_ts)
     {
-        assert('is_int($request_id)');
         $this->db->update(
             self::TABLE_NAME,
             [ "finished_ts" => ["string", $finished_ts->format(\DateTime::ISO8601)] ],

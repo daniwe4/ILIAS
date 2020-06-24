@@ -14,11 +14,11 @@ interface DB
      * Create a new entry for any option and returns the new object
      *
      * @param int 		$agenda_item_id
-     * @param int 		$caption_id
+     * @param string 		$caption_id
      *
      * @return Option
      */
-    public function create($agenda_item_id, $caption_id);
+    public function create(int $agenda_item_id, string $caption_id) : Option;
 
     /**
      * Select any defined options
@@ -27,7 +27,7 @@ interface DB
      *
      * @return Option[]
      */
-    public function select($agenda_item_id);
+    public function select(int $agenda_item_id) : array;
 
     /**
      * Delete a option by id
@@ -35,7 +35,7 @@ interface DB
      * @param int 	$agenda_item_id
      * @param int 	$caption_id
      *
-     * @return null
+     * @return void
      */
-    public function delete($agenda_item_id, $caption_id);
+    public function delete(int $agenda_item_id, int $caption_id) : void;
 }

@@ -8,10 +8,9 @@ class DeletedDigester implements Digester
 {
     protected $deleted;
 
-    public function __construct($deleted)
+    public function __construct(bool $deleted)
     {
         $this->deleted = $deleted;
-        assert('is_bool($deleted)');
     }
 
     public function digest(array $payload)

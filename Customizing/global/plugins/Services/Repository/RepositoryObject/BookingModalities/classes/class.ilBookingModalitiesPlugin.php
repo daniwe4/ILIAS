@@ -118,10 +118,8 @@ class ilBookingModalitiesPlugin extends ilRepositoryObjectPlugin implements Hist
      *
      * @return int
      */
-    protected function createTypeId($type, \ilDBInterface $db)
+    protected function createTypeId(string $type, \ilDBInterface $db)
     {
-        assert('is_string($type)');
-
         $type_id = $db->nextId("object_data");
         $db->manipulate("INSERT INTO object_data\n" .
             "(obj_id, type, title, description, owner, create_date, last_update) VALUES (\n" .
@@ -145,9 +143,8 @@ class ilBookingModalitiesPlugin extends ilRepositoryObjectPlugin implements Hist
      *
      * @return int
      */
-    protected function assignCopyPermissionToPlugin($type_id, \ilDBInterface $db)
+    protected function assignCopyPermissionToPlugin(int $type_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
         $ops = array(self::COPY_OPERATION_ID);
 
         foreach ($ops as $op) {
@@ -171,9 +168,8 @@ class ilBookingModalitiesPlugin extends ilRepositoryObjectPlugin implements Hist
      *
      * @return null
      */
-    protected function createPluginPermissions($type_id, \ilDBInterface $db)
+    protected function createPluginPermissions(int $type_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
         include_once('./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php');
         $new_rbac_options = array(array("book_by_this", "Use this for bookings", "object", 2700));
 
@@ -193,10 +189,8 @@ class ilBookingModalitiesPlugin extends ilRepositoryObjectPlugin implements Hist
      *
      * @return bool
      */
-    protected function permissionExists($permission, \ilDBInterface $db)
+    protected function permissionExists(string $permission, \ilDBInterface $db)
     {
-        assert('is_string($permission)');
-
         $query = "SELECT count(ops_id) AS cnt FROM rbac_operations\n"
                 . " WHERE operation = " . $db->quote($permission, 'text');
 
@@ -215,10 +209,8 @@ class ilBookingModalitiesPlugin extends ilRepositoryObjectPlugin implements Hist
      *
      * @return bool
      */
-    protected function permissionIsAssigned($type_id, $op_id, \ilDBInterface $db)
+    protected function permissionIsAssigned(int $type_id, int $op_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
-        assert('is_int($op_id)');
         $set = $db->query("SELECT count(typ_id) as cnt FROM rbac_ta " .
                 " WHERE typ_id = " . $db->quote($type_id, "integer") .
                 " AND ops_id = " . $db->quote($op_id, "integer"));
@@ -721,7 +713,7 @@ SQL;
 
     public function extractPayloadByPluginObject(\ilObjectPlugin $obj) : array
     {
-        assert('$obj instanceof ilObjBookingModalities');
+        assert($obj instanceof ilObjBookingModalities);
         $start_date = $this->getCourseStart($obj->getParentCourse());
         $booking_dl = (int) $obj->getBooking()->getDeadline();
         $storno_dl = (int) $obj->getStorno()->getDeadline();
@@ -753,10 +745,8 @@ SQL;
         }
         return '0001-01-01';
     }
-    protected function dateMinusDays($start_date, $days)
+    protected function dateMinusDays(string $start_date, int $days)
     {
-        assert('is_string($start_date)');
-        assert('is_int($days)');
         if ($start_date === '0001-01-01') {
             return $start_date;
         }

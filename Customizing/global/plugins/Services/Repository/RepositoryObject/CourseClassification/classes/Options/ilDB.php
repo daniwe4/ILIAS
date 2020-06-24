@@ -81,7 +81,6 @@ abstract class ilDB implements DB
      */
     public function delete(int $id)
     {
-        assert('is_int($id)');
         $query = "DELETE FROM " . static::TABLE_NAME . "\n"
                 . " WHERE id = " . $this->getDB()->quote($id, "integer");
 

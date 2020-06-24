@@ -40,11 +40,11 @@ class ilActions {
 	 * @return  null
 	 */
 	public function update(array &$values) {
-		assert('array_key_exists(self::F_TITLE, $values)');
-		assert('is_string($values[self::F_TITLE])');
+		assert(array_key_exists(self::F_TITLE, $values));
+		assert(is_string($values[self::F_TITLE]));
 		$this->object->setTitle($values[self::F_TITLE]);
 		if (array_key_exists(self::F_DESCRIPTION, $values)) {
-			assert('is_string($values[self::F_DESCRIPTION])');
+			assert(is_string($values[self::F_DESCRIPTION]));
 			$this->object->setDescription($values[self::F_DESCRIPTION]);
 		}
 		else {

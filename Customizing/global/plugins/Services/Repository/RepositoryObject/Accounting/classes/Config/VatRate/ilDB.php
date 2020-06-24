@@ -12,12 +12,12 @@ class ilDB implements DB
     const XACC_DATA_TABLE = "xacc_data";
 
     /**
-     * @var \ilDB
+     * @var \ilDBInterface
      */
     private $db;
 
     /**
-     * @var \ilUser
+     * @var \ilObjUser
      */
     private $user;
 
@@ -130,9 +130,8 @@ class ilDB implements DB
      * @param integer 	$id 	id of a costtype object
      * @return boolean
      */
-    public function hasRelationships($id)
+    public function hasRelationships(int $id)
     {
-        assert('is_int($id)');
         $query = "SELECT vatrate\n"
                  . "FROM " . self::XACC_DATA_TABLE . "\n"
                  . "WHERE vatrate = " . $this->db->quote($id, "string");
@@ -148,9 +147,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getVatRateValueById($id)
+    public function getVatRateValueById(int $id) : float
     {
-        assert('is_int($id)');
         $query = "SELECT val_float\n"
                  . "FROM " . self::XACC_CONFIG_TABLE . "\n"
                  . "WHERE id = " . $this->db->quote($id, "integer");
@@ -170,9 +168,8 @@ class ilDB implements DB
      * @param 	integer 		$id
      * @return 	string
      */
-    public function getVRLabel($id)
+    public function getVRLabel(int $id)
     {
-        assert('is_int($id)');
         $query = "SELECT label\n"
                 . "FROM " . self::XACC_CONFIG_TABLE . "\n"
                 . "WHERE id = " . $this->db->quote($id, "integer");

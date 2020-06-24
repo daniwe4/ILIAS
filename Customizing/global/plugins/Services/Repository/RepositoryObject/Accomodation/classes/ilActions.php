@@ -189,9 +189,8 @@ class ilActions
      *
      * @return 	UserReservation[]
      */
-    public function getAllUserReservationsAtObj($include_waiting = false)
+    public function getAllUserReservationsAtObj(bool $include_waiting = false)
     {
-        assert('is_bool($include_waiting)');
         $ret = array();
         $usr_ids = $this->getParentCourseMembers();
         if ($include_waiting) {
@@ -218,9 +217,8 @@ class ilActions
      * @param int 	$usr_id
      * @return void
      */
-    public function deleteAllUserReservations($usr_id)
+    public function deleteAllUserReservations(int $usr_id)
     {
-        assert('is_int($usr_id)');
         $obj_id = (int) $this->object->getId();
         $this->reservations_db->deleteAllUserReservations($obj_id, $usr_id);
     }
@@ -304,9 +302,8 @@ class ilActions
      * @param \Closure 	$update_function
      * @return void
      */
-    public function updateUserReservations(\Closure $update_function, $usr_id)
+    public function updateUserReservations(\Closure $update_function, int $usr_id)
     {
-        assert('is_int($usr_id)');
         $obj_id = (int) $this->object->getId();
 
         $user_reservation_actions = $update_function(
@@ -533,9 +530,8 @@ class ilActions
      * @param 	int 	$usr_id
      * @return 	string[]
      */
-    public function getCourseRolesOfUser($usr_id)
+    public function getCourseRolesOfUser(int $usr_id)
     {
-        assert('is_int($usr_id)');
         return $this->object->getRolesForUser($usr_id);
     }
 
@@ -564,9 +560,8 @@ class ilActions
     /**
      * @param string $dat
      */
-    public function getNextDayLabel($dat)
+    public function getNextDayLabel(string $dat)
     {
-        assert('is_string($dat)');
         $ildat = new \ilDateTime($dat, IL_CAL_DATE);
         $ildat_next = clone $ildat;
         $ildat_next->increment(\ilDateTime::DAY, 1);

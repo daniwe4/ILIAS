@@ -30,9 +30,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getAssignedTrainingsFor($user_id, array $filter)
+    public function getAssignedTrainingsFor(int $user_id, array $filter)
     {
-        assert('is_int($user_id)');
         $ret = array();
         $crs_ids = $this->getCourseIdsWhereUserIsTutor($user_id);
 

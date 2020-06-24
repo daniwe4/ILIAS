@@ -26,10 +26,9 @@ class Venue
      * @param Venue|null 	$venue
      * @param string|null 	$venue_text
      */
-    public function __construct($venue, $venue_text)
+    public function __construct($venue, ?string $venue_text)
     {
         //2do: make sure either one is set.
-        assert('is_string($venue_text) || is_null($venue_text)');
         $this->venue = $venue;
         $this->venue_text = $venue_text;
     }
@@ -62,9 +61,8 @@ class Venue
      * get the (HTML) presentation of the venue
      * @return string
      */
-    public function getHTML($separator = '<br />')
+    public function getHTML(string $separator = '<br />')
     {
-        assert('is_string($separator)');
         if (is_null($this->venue)) {
             return $this->venue_text;
         }

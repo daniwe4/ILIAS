@@ -470,9 +470,8 @@ class ilObjCourseMailing extends \ilObjectPlugin implements CourseMailing\ObjCou
      * @param int 	$crs_ref_id
      * @return DateTime[]|null
      */
-    public function getInvitationDates($crs_ref_id)
+    public function getInvitationDates(int $crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
         $parent_course = \ilObjectFactory::getInstanceByRefId($crs_ref_id);
 
         $course_start = $parent_course->getCourseStart();
@@ -691,10 +690,8 @@ class ilObjCourseMailing extends \ilObjectPlugin implements CourseMailing\ObjCou
      * @param int 	$ref
      * @return null | int
      */
-    protected function getCopyHistoryOfRef($ref)
+    protected function getCopyHistoryOfRef(int $ref)
     {
-        assert('is_int($ref)');
-
         global $DIC;
         $db = $DIC["ilDB"];
 

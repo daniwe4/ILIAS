@@ -112,7 +112,6 @@ class ilDB implements DB
      */
     public function delete(int $id)
     {
-        assert('is_int($id)');
         $this->deallocation($id);
 
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"

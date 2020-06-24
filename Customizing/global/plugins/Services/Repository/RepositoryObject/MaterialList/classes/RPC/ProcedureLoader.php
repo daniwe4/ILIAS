@@ -18,9 +18,8 @@ class ProcedureLoader
     protected $txt;
 
 
-    public function __construct($base_path, \Closure $txt)
+    public function __construct(string $base_path, \Closure $txt)
     {
-        assert('is_string($base_path)');
         $this->base_path = $base_path;
         $this->txt = $txt;
     }

@@ -14,7 +14,7 @@ interface DB
      * @param  int $crs_id Object id.
      * @return Overview[]
      */
-    public function getBookings($crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns);
+    public function getBookings(int $crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns);
 
     /**
      * Get the amount of all bookings per course id.
@@ -22,7 +22,7 @@ interface DB
      * @param  int $crs_id
      * @return int
      */
-    public function getMaxBookings($crs_id);
+    public function getMaxBookings(int $crs_id);
 
     /**
      * Get all cancelled bookings.
@@ -32,7 +32,7 @@ interface DB
      * @param  int $crs_id Object id.
      * @return Overview[]
      */
-    public function getCancellations($crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns);
+    public function getCancellations(int $crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns);
 
     /**
      * Get the amount of all cancellations per course id.
@@ -40,5 +40,5 @@ interface DB
      * @param  int $crs_id
      * @return int
      */
-    public function getMaxCancellations($crs_id);
+    public function getMaxCancellations(int $crs_id);
 }

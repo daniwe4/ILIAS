@@ -50,9 +50,8 @@ class SharedUnboundProvider extends Base
      *
      * @return bool
      */
-    protected function checkPermissionsOn($owner_ref_id)
+    protected function checkPermissionsOn(int $owner_ref_id)
     {
-        assert('is_int($owner_ref_id)');
         if (\ilContext::getType() === \ilContext::CONTEXT_CRON) {
             return true;
         }

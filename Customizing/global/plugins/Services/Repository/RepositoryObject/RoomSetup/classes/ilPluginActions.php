@@ -79,8 +79,6 @@ class ilPluginActions
      */
     public function createServiceOption(string $service_option_name, bool $service_option_active)
     {
-        assert('is_string($service_option_name)');
-        assert('is_bool($service_option_active)');
         return $this->service_option_db->create($service_option_name, $service_option_active);
     }
 

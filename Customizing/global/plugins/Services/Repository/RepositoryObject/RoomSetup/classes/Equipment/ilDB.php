@@ -33,13 +33,13 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id, array $service_options, $special_wishes, $room_information, $seat_order)
-    {
-        assert('is_int($obj_id)');
-        assert('is_string($special_wishes)');
-        assert('is_string($room_information)');
-        assert('is_string($seat_order)');
-
+    public function create(
+        int $obj_id,
+        array $service_options,
+        string $special_wishes,
+        string $room_information,
+        string $seat_order
+    ) {
         $equipment = new Equipment($obj_id, $service_options, $special_wishes, $room_information, $seat_order);
 
         $values = array(
@@ -85,10 +85,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT base.obj_id, GROUP_CONCAT(allocated.service_option_id SEPARATOR ',') as service_options, base.special_wishes, base.room_information, base.seat_order\n"
                 . " FROM " . self::TABLE_NAME . " AS base\n"
                 . " LEFT JOIN " . self::TABLE_EQUIPMENT_SO . " AS allocated\n"
@@ -114,10 +112,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . SELF::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 
@@ -129,7 +125,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function allocateServiceOption($obj_id, $service_option)
+    public function allocateServiceOption(int $obj_id, int $service_option)
     {
         $values = array("obj_id" => array("integer", $obj_id)
                       , "service_option_id" => array("integer", $service_option)
@@ -141,7 +137,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deallocateServiceOption($obj_id, $service_option)
+    public function deallocateServiceOption(int $obj_id, int $service_option)
     {
         $query = "DELETE FROM " . self::TABLE_EQUIPMENT_SO . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer") . "\n"
@@ -153,7 +149,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deallocateAllServiceOptions($obj_id)
+    public function deallocateAllServiceOptions(int $obj_id)
     {
         $query = "DELETE FROM " . self::TABLE_EQUIPMENT_SO . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");

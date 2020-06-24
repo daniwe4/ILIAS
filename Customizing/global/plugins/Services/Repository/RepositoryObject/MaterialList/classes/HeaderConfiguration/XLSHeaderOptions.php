@@ -77,9 +77,8 @@ class XLSHeaderOptions
      *
      * @return bool
      */
-    public function isPluginActive($name)
+    public function isPluginActive(string $name)
     {
-        assert('is_string($name)');
 
         require_once("./Services/Component/classes/class.ilPluginAdmin.php");
         return \ilPluginAdmin::isPluginActive($name);

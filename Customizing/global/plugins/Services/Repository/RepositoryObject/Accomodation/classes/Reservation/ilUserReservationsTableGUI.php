@@ -48,10 +48,9 @@ class ilUserReservationsTableGUI extends \ilTable2GUI
         \ilUserReservationsGUI $parent_gui,
         \Closure $txt,
         Accomodation\ilActions $actions,
-        $edit_user_link,
+        string $edit_user_link,
         $parent_default_cmd
         ) {
-        assert('is_string($edit_user_link)');
         global $DIC;
         $this->g_ctrl = $DIC->ctrl();
         $this->parent_gui = $parent_gui;
@@ -113,9 +112,8 @@ class ilUserReservationsTableGUI extends \ilTable2GUI
      * @param 	string	$code
      * @return	string
      */
-    public function txt($code)
+    public function txt(string $code)
     {
-        assert('is_string($code)');
         $txt = $this->txt;
         return $txt($code);
     }

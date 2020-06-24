@@ -565,9 +565,8 @@ class ilAssignedTrainingsGUI
      * @param 	string	$code
      * @return	string
      */
-    public function txt($code)
+    public function txt(string $code)
     {
-        assert('is_string($code)');
         return $this->actions->getObject()->pluginTxt($code);
     }
 

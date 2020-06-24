@@ -221,9 +221,8 @@ abstract class Report
         return $this->default_year === null ? (int) date('Y') : $this->default_year;
     }
 
-    public function setDefaultYear($year)
+    public function setDefaultYear(int $year)
     {
-        assert('is_int($year)');
         $this->default_year = (int) $year;
     }
 
@@ -280,9 +279,8 @@ abstract class Report
      *
      * @return string
      */
-    protected function minutesToTimeString($minutes)
+    protected function minutesToTimeString(int $minutes)
     {
-        assert('is_int($minutes)');
         $hours = floor($minutes / 60);
         $minutes = $minutes - $hours * 60;
 

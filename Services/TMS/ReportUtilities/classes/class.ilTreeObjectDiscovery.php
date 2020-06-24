@@ -20,7 +20,7 @@ class ilTreeObjectDiscovery implements TreeObjectDiscovery
 	 */
 	public function getParentOfObjectOfType(\ilObject $object, $parent_type)
 	{
-		assert('is_string($parent_type)');
+		assert(is_string($parent_type));
 		$ref_id = $object->getRefId();
 		$data = $this->g_tree->getParentNodeData($ref_id);
 
@@ -40,7 +40,7 @@ class ilTreeObjectDiscovery implements TreeObjectDiscovery
 	 */
 	public function getAllChildrenIdsByTypeOfObject(\ilObject $object, $child_type)
 	{
-		assert('is_string($child_type)');
+		assert(is_string($child_type));
 		$ref_id = (int)$object->getRefId();
 		$subtree_nodes_data = $this->g_tree->getSubTree(
 			$this->g_tree->getNodeData($ref_id),
@@ -56,7 +56,7 @@ class ilTreeObjectDiscovery implements TreeObjectDiscovery
 
 	public function getAllChildrenNodeIdsByTypeOfObject(int $parent_ref_id, $child_type)
 	{
-		assert('is_string($child_type)');
+		assert(is_string($child_type));
 		$subtree_nodes_data = $this->g_tree->getSubTree(
 			$this->g_tree->getNodeData($parent_ref_id),
 			true,

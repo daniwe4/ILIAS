@@ -14,9 +14,8 @@ class MailSetting
     protected $mail_address;
 
 
-    public function __construct($mail_address)
+    public function __construct(string $mail_address)
     {
-        assert('is_string($mail_address)');
         $this->mail_address = $mail_address;
     }
 

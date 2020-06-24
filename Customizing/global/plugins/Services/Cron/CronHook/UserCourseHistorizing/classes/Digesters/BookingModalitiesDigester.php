@@ -18,9 +18,8 @@ class BookingModalitiesDigester implements Digester
      */
     protected $obj_def;
 
-    public function __construct($type, \ilTree $tree, \ilObjectDefinition $obj_def)
+    public function __construct(string $type, \ilTree $tree, \ilObjectDefinition $obj_def)
     {
-        assert('is_string($type)');
         $this->type = $type;
         $this->tree = $tree;
         $this->obj_def = $obj_def;
@@ -59,9 +58,8 @@ class BookingModalitiesDigester implements Digester
      * actually is a booking modalities instance. Otherwise the method-calls (getStorno etc.)
      * will fail and this will not go undetected.
      */
-    protected function digestByTypeAndObjects($type, \ilObject $bm_s, \ilObjCourse $crs)
+    protected function digestByTypeAndObjects(string $type, \ilObject $bm_s, \ilObjCourse $crs)
     {
-        assert('is_string($type)');
         $return = [];
         $start_date = $this->getCourseStart($crs);
         switch ($type) {
@@ -106,10 +104,8 @@ class BookingModalitiesDigester implements Digester
         }
     }
 
-    protected function dateMinusDays($start_date, $days)
+    protected function dateMinusDays(string $start_date, int $days)
     {
-        assert('is_string($start_date)');
-        assert('is_int($days)');
         if ($start_date === '0001-01-01') {
             return $start_date;
         }

@@ -32,13 +32,14 @@ class RoomSetup
      */
     protected $send_days_before;
 
-    public function __construct($obj_id, $setting_type, $recipient_mode = null, $recipient = null, $send_days_before = null)
+    public function __construct(
+        int $obj_id,
+        int $setting_type,
+        ?string $recipient_mode = null,
+        ?string $recipient = null,
+        ?int $send_days_before = null)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($setting_type) && in_array($setting_type, self::getPossibleSettingTypes())');
-        assert('is_null($recipient_mode) || is_string($recipient_mode)');
-        assert('is_null($recipient) || is_string($recipient)');
-        assert('is_null($send_days_before) || is_int($send_days_before)');
+        assert(in_array($setting_type, self::getPossibleSettingTypes()));
 
         $this->obj_id = $obj_id;
         $this->setting_type = $setting_type;
@@ -115,11 +116,10 @@ class RoomSetup
      *
      * @param string 	$recipient_mode
      *
-     * @return MaterialList
+     * @return RoomSetup
      */
-    public function withRecipientMode($recipient_mode)
+    public function withRecipientMode(string $recipient_mode)
     {
-        assert('is_string($recipient_mode)');
         $clone = clone $this;
         $clone->recipient_mode = $recipient_mode;
         return $clone;
@@ -130,11 +130,10 @@ class RoomSetup
      *
      * @param string | null 	$recipient
      *
-     * @return MaterialList
+     * @return RoomSetup
      */
-    public function withRecipient($recipient)
+    public function withRecipient(?string $recipient)
     {
-        assert('is_null($recipient) || is_string($recipient)');
         $clone = clone $this;
         $clone->recipient = $recipient;
         return $clone;
@@ -145,11 +144,10 @@ class RoomSetup
      *
      * @param int | null 	$send_days_before
      *
-     * @return MaterialList
+     * @return RoomSetup
      */
-    public function withSendDaysBefore($send_days_before)
+    public function withSendDaysBefore(?int $send_days_before)
     {
-        assert('is_null($send_days_before) || is_int($send_days_before)');
         $clone = clone $this;
         $clone->send_days_before = $send_days_before;
         return $clone;

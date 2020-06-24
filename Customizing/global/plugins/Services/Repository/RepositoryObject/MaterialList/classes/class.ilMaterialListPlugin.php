@@ -381,8 +381,8 @@ class ilMaterialListPlugin extends ilRepositoryObjectPlugin
      */
     public function handleEvent($a_component, $a_event, array $a_parameter)
     {
-        assert('is_string($a_component)');
-        assert('is_string($a_event)');
+        assert(is_string($a_component));
+        assert(is_string($a_event));
 
         global $DIC;
         $logger = $DIC['ilLog'];
@@ -415,11 +415,8 @@ class ilMaterialListPlugin extends ilRepositoryObjectPlugin
      *
      * @return 	Object 	of search type
      */
-    protected function getAllChildrenOfByType($ref_id, $search_type)
+    protected function getAllChildrenOfByType(int $ref_id, string $search_type)
     {
-        assert('is_int($ref_id)');
-        assert('is_string($search_type)');
-
         global $DIC;
         $g_tree = $DIC->repositoryTree();
         $g_objDefinition = $DIC["objDefinition"];

@@ -25,9 +25,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id)
+    public function create(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $booking = new Booking($obj_id);
         $values = array("obj_id" => array("int", $booking->getObjId()));
         $this->getDB()->insert(self::TABLE_BOOKING, $values);
@@ -55,9 +54,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT" . PHP_EOL
                 . "A.beginning," . PHP_EOL
                 . "A.deadline," . PHP_EOL

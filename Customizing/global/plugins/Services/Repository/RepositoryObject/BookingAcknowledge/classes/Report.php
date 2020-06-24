@@ -890,9 +890,8 @@ class Report
      *
      * @return string
      */
-    protected function minutesToTimeString($minutes)
+    protected function minutesToTimeString(int $minutes)
     {
-        assert('is_int($minutes)');
         $hours = (string) floor($minutes / 60);
         $minutes = (string) ($minutes - $hours * 60);
 

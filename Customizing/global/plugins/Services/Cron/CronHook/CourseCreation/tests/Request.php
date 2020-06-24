@@ -61,34 +61,29 @@ class Request
       * @var int		$crs_ref_id
      */
     public function __construct(
-        $id,
-        $user_id,
-        $session_id,
-        $crs_ref_id,
+        int $id,
+        int $user_id,
+        string $session_id,
+        int $crs_ref_id,
         array $copy_options,
         array $configuration,
         \DateTime $requested_ts,
-        $target_ref_id = null,
+        ?int $target_ref_id = null,
         \DateTime $finished_ts = null
     ) {
-        assert('is_int($id)');
-        assert('is_int($user_id)');
-        assert('is_string($session_id)');
-        assert('is_int($crs_ref_id)');
-        assert('is_int($target_ref_id) || is_null($target_ref_id)');
         $this->id = $id;
         $this->user_id = $user_id;
         $this->session_id = $session_id;
         $this->crs_ref_id = $crs_ref_id;
         $this->copy_options = $copy_options;
         foreach ($this->copy_options as $k => $v) {
-            assert('is_int($k)');
-            assert('$v === 1 || $v === 2 || $v === 3');
+            assert(is_int($k));
+            assert($v === 1 || $v === 2 || $v === 3);
         }
         $this->configuration = $configuration;
         foreach ($this->configuration as $k => $v) {
-            assert('is_int($k)');
-            assert('is_string(json_encode($v))');
+            assert(is_int($k));
+            assert(is_string(json_encode($v)));
         }
         $this->requested_ts = $requested_ts;
         $this->target_ref_id = $target_ref_id;
@@ -156,9 +151,8 @@ class Request
      * @param	\DateTime	$finished_ts
      * @return self
      */
-    public function withTargetRefIdAndFinishedTS($target_ref_id, \DateTime $finished_ts)
+    public function withTargetRefIdAndFinishedTS(int $target_ref_id, \DateTime $finished_ts)
     {
-        assert('is_int($target_ref_id)');
         $clone = clone $this;
         $clone->target_ref_id = $target_ref_id;
         $clone->finished_ts = $finished_ts;

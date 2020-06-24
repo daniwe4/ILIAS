@@ -33,7 +33,7 @@ interface DB
      *
      * @return \CaT\Plugins\CourseMailing\Settings\Setting | null
      */
-    public function selectForObject($obj_id);
+    public function selectForObject(int $obj_id);
 
     /**
      * delete Setting for $obj_id
@@ -42,5 +42,5 @@ interface DB
      *
      * @return void
      */
-    public function deleteForObject($obj_id);
+    public function deleteForObject(int $obj_id);
 }

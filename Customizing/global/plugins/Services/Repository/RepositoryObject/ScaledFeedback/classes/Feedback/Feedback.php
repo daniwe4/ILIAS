@@ -86,7 +86,6 @@ class Feedback
 
     public function withObjId(int $value) : Feedback
     {
-        assert('is_int($value)');
         $clone = clone $this;
         $clone->obj_id = $value;
         return $clone;

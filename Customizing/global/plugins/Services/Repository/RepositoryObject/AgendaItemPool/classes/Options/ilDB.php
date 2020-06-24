@@ -4,7 +4,7 @@ namespace CaT\Plugins\AgendaItemPool\Options;
 
 /**
  * Abstract class ilDB.
- * Provides an ilDB tempplate class for option dbs.
+ * Provides an ilDB template class for option dbs.
  *
  * @author Stefan Hecken <stefan.hecken@concepts-and-training.de>
  * @author Daniel Weise <daniel.weise@concepts-and-training.de>
@@ -17,7 +17,7 @@ abstract class ilDB implements DB
      */
     protected $db;
 
-    public function __construct(/*\ilDBInterface*/ $db)
+    public function __construct(\ilDBInterface $db)
     {
         $this->db = $db;
     }
@@ -45,11 +45,8 @@ abstract class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($agenda_item_id, $caption_id)
+    public function create(int $agenda_item_id, string $caption_id) : Option
     {
-        assert('is_int($agenda_item_id)');
-        assert('is_string($caption_id)');
-
         $option = new Option($agenda_item_id, $caption_id);
 
         $values = array(
@@ -65,7 +62,7 @@ abstract class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($agenda_item_id)
+    public function select(int $agenda_item_id) : array
     {
         $query = "SELECT agenda_item_id, caption_id\n"
                 . " FROM " . static::TABLE_NAME . "\n"
@@ -84,16 +81,13 @@ abstract class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($agenda_item_id, $caption_id)
+    public function delete(int $agenda_item_id, int $caption_id) : void
     {
-        assert('is_int($agenda_item_id)');
-        assert('is_int($caption_id)');
-
         $query = "DELETE FROM " . static::TABLE_NAME . PHP_EOL
                 . "WHERE" . PHP_EOL
                 . "    agenda_item_id = " . $this->getDB()->quote($agenda_item_id, "integer") . PHP_EOL
                 . "AND" . PHP_EOL
-                . "    caption_id = " . $this->getDB()->quote($caption, "integer") . PHP_EOL
+                . "    caption_id = " . $this->getDB()->quote($caption_id, "integer") . PHP_EOL
                 ;
 
         $this->getDB()->manipulate($query);

@@ -24,8 +24,12 @@ class ilDB implements DB
     /**
      * @inhertidoc
      */
-    public function book($obj_id, $user_id, $user_name, $minutes = null)
-    {
+    public function book(
+        int $obj_id,
+        int $user_id,
+        string $user_name,
+        ?int $minutes = null
+    ) : void {
         $values = array("obj_id" => array("integer", $obj_id),
             "user_id" => array("integer", $user_id),
             "user_name" => array("text", $user_name),
@@ -39,7 +43,7 @@ class ilDB implements DB
     /**
      * @inhertidoc
      */
-    public function cancel($obj_id, $user_id)
+    public function cancel(int $obj_id, int $user_id) : void
     {
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer") . "\n"
@@ -56,11 +60,8 @@ class ilDB implements DB
      *
      * @return bool
      */
-    public function isBookedUser($obj_id, $user_id)
+    public function isBookedUser(int $obj_id, int $user_id)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($user_id)');
-
         $query = "SELECT COUNT(user_id) as cnt\n"
                 . " FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer") . "\n"
@@ -79,10 +80,8 @@ class ilDB implements DB
      *
      * @return int[]
      */
-    public function getAllBookedUserIds($obj_id)
+    public function getAllBookedUserIds(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT user_id" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");

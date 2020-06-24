@@ -149,10 +149,8 @@ class Report
     }
 
 
-    protected function actionMenuFor($ref_id)
+    protected function actionMenuFor(int $ref_id)
     {
-        assert('is_int($ref_id)');
-
         $l = new \ilAdvancedSelectionListGUI();
         $l->setListTitle($this->plugin->txt("please_choose"));
 
@@ -1274,9 +1272,8 @@ class Report
      *
      * @return string
      */
-    protected function minutesToTimeString($minutes)
+    protected function minutesToTimeString(int $minutes)
     {
-        assert('is_int($minutes)');
         $hours = (string) floor($minutes / 60);
         $minutes = (string) ($minutes - $hours * 60);
 

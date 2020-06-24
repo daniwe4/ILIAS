@@ -19,7 +19,7 @@ class LPFinalizedAttended extends LPStatusOccasion
      */
     public function doesProvideMailForEvent($event)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
         return in_array($event, self::$events);
     }
 }

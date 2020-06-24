@@ -97,7 +97,6 @@ class ilServiceOptionsTableGUI extends \ilTable2GUI
 
     protected function txt(string $code) : string
     {
-        assert('is_string($code)');
         $txt = $this->txt;
         return $txt($code);
     }

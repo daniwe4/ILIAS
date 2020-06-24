@@ -55,7 +55,7 @@ class Member
     protected $credits;
 
     /**
-     * @var ilDateTime
+     * @var \ilDateTime
      */
     protected $last_edited;
 
@@ -75,30 +75,20 @@ class Member
      * @param string | null	$lp_value
      * @param int | null	$ilias_lp
      * @param int | null	$credits
-     * @param ilDateTime | null 	$last_edited
+     * @param \ilDateTime | null 	$last_edited
      * @param int | null 	$last_edit_by
      */
     public function __construct(
-        $user_id,
-        $crs_id,
-        $lp_id = null,
-        $lp_value = null,
-        $ilias_lp = null,
-        $credits = null,
-        $idd_learning_time = null,
-        \ilDateTime $last_edited = null,
-        $last_edit_by = null
+        int $user_id,
+        int $crs_id,
+        ?int $lp_id = null,
+        ?string $lp_value = null,
+        ?int $ilias_lp = null,
+        ?float $credits = null,
+        ?int $idd_learning_time = null,
+        ?\ilDateTime $last_edited = null,
+        ?int $last_edit_by = null
     ) {
-        assert('is_int($user_id)');
-        assert('is_int($crs_id)');
-        assert('is_int($lp_id) || is_null($lp_id)');
-        assert('is_string($lp_value) || is_null($lp_value)');
-        assert('is_int($ilias_lp) || is_null($ilias_lp)');
-        assert('is_float($credits) || is_null($credits)');
-        assert('$last_edited instanceof ilDateTime || is_null($last_edited)');
-        assert('is_int($last_edit_by) || is_null($last_edit_by)');
-        assert('is_int($idd_learning_time) || is_null($idd_learning_time)');
-
         $this->user_id = $user_id;
         $this->crs_id = $crs_id;
         $this->lp_id = $lp_id;
@@ -169,7 +159,7 @@ class Member
     }
 
     /**
-     * @return ilDateTime
+     * @return \ilDateTime
      */
     public function getLastEdited()
     {
@@ -221,11 +211,10 @@ class Member
      *
      * @param int | null	$credits
      *
-     * @return this
+     * @return Member
      */
-    public function withCredits($credits)
+    public function withCredits(?int $credits)
     {
-        assert('is_int($credits) || is_null($credits)');
         $clone = clone $this;
         $clone->credits = $credits;
         return $clone;
@@ -234,9 +223,9 @@ class Member
     /**
      * Get clone with last edited
      *
-     * @param ilDateTime	$last_edited
+     * @param \ilDateTime	$last_edited
      *
-     * @return this
+     * @return Member
      */
     public function withLastEdited(\ilDateTime $last_edited)
     {
@@ -250,11 +239,10 @@ class Member
      *
      * @param int 	$edit_user_id
      *
-     * @return this
+     * @return Member
      */
-    public function withLastEditBy($edit_user_id)
+    public function withLastEditBy(int $edit_user_id)
     {
-        assert('is_int($edit_user_id)');
         $clone = clone $this;
         $clone->last_edit_by = $edit_user_id;
         return $clone;
@@ -265,11 +253,10 @@ class Member
      *
      * @param int 	$edit_user_id
      *
-     * @return this
+     * @return Member
      */
-    public function withIDDLearningTime($idd_learning_time)
+    public function withIDDLearningTime(?int $idd_learning_time)
     {
-        assert('is_int($idd_learning_time) || is_null($idd_learning_time)');
         $clone = clone $this;
         $clone->idd_learning_time = $idd_learning_time;
         return $clone;
@@ -277,7 +264,7 @@ class Member
 
     /**
      * @param string 	$firstname
-     * @return this
+     * @return Member
      */
     public function withFirstname($firstname)
     {
@@ -288,7 +275,7 @@ class Member
 
     /**
      * @param string 	$lastname
-     * @return this
+     * @return Member
      */
     public function withLastname($lastname)
     {
@@ -299,7 +286,7 @@ class Member
 
     /**
      * @param string 	$login
-     * @return this
+     * @return Member
      */
     public function withLogin($login)
     {

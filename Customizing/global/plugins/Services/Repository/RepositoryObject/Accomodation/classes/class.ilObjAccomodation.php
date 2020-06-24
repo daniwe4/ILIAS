@@ -810,9 +810,8 @@ class ilObjAccomodation extends ilObjectPlugin implements Accomodation\ObjAccomo
      * @param 	int 	$usr_id
      * @return 	string[]
      */
-    public function getRolesForUser($usr_id)
+    public function getRolesForUser(int $usr_id)
     {
-        assert('is_int($usr_id)');
         global $rbacreview;
 
         $crs_ref_id = $this->getParentCourseRefId();

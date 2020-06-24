@@ -19,11 +19,8 @@ class ConfigIDD
      */
     protected $available;
 
-    public function __construct($id, $available)
+    public function __construct(int $id, bool $available)
     {
-        assert('is_int($id)');
-        assert('is_bool($available)');
-
         $this->id = $id;
         $this->available = $available;
     }

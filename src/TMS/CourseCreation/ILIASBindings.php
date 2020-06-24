@@ -48,8 +48,8 @@ class ILIASBindings implements Wizard\ILIASBindings
 
     final public function __construct(\ilCtrl $ctrl, $gui, array $parent_guis, $parent_cmd, $parent_ref_id, TranslationDecorator $translations)
     {
-        assert('is_object($gui)');
-        assert('is_string($parent_cmd)');
+        assert(is_object($gui));
+        assert(is_string($parent_cmd));
         $this->ctrl = $ctrl;
         $this->gui = $gui;
         $this->parent_guis = $parent_guis;

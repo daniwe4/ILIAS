@@ -76,8 +76,6 @@ class ilDB implements DB
      */
     public function selectFor(int $obj_id) : CourseMemberSettings
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT obj_id, credits, closed, lp_mode, list_required, list_with_orgu, list_with_text" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -106,8 +104,6 @@ class ilDB implements DB
      */
     public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 

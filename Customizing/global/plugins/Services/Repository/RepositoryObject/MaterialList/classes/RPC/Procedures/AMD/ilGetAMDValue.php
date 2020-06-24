@@ -20,9 +20,8 @@ class ilGetAMDValue extends RPC\ilFunctionBase
      *
      * @param int 	$field_id
      */
-    public function setFieldId($field_id)
+    public function setFieldId(int $field_id)
     {
-        assert('is_int($field_id)');
         $this->field_id = $field_id;
     }
 

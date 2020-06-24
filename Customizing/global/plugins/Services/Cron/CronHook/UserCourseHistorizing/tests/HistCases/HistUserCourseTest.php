@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace CaT\Plugins\UserCourseHistorizing\HistCases;
 
 use PHPUnit\Framework\TestCase;
-use CaT\Historization\Event\Event;
 
 class HistUserCourseTestObject extends HistUserCourse
 {
@@ -156,80 +155,5 @@ class HistUserCourseTest extends TestCase
             }
             $this->assertTrue(true);
         }
-    }
-
-    public function test_isEventRelevant()
-    {
-        $events = $this->getRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertTrue($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $crs
-            ->expects($this->once())
-            ->method('getType')
-            ->willReturn('crs')
-        ;
-
-        $events = [
-            new Event('addToWaitingList', 'Modules/Course', []),
-            new Event('removeFromWaitingList', 'Modules/Course', []),
-            new Event('user_canceled_self_from_waiting', 'Modules/Course', []),
-            new Event('superior_canceled_user_from_waiting', 'Modules/Course', []),
-            new Event('historizeLocalRoles', 'Modules/Course', []),
-            new Event('assignUser', 'Services/AccessControl', ['type' => 'crs']),
-            new Event('deassignUser', 'Services/AccessControl', ['type' => 'crs']),
-            new Event('updateStatus', 'Services/Tracking', ['obj_id' => 22]),
-            new Event('updateReservations', 'Plugin/Accomodation', []),
-            new Event('closeList', 'Plugin/CourseMember', []),
-            new Event('request_created', 'Plugin/BookingApprovals', []),
-            new Event('request_declined', 'Plugin/BookingApprovals', []),
-            new Event('request_approved', 'Plugin/BookingApprovals', []),
-            new Event('request_revoked', 'Plugin/BookingApprovals', []),
-            new Event('addWBDBookingId', 'Plugin/WBDInterface', []),
-            new Event('importParticipationWBD', 'Plugin/WBDInterface', []),
-            new Event('removeWBDBookingId', 'Plugin/WBDInterface', []),
-            new Event('userCancellationFee', 'Plugin/Accounting', []),
-            new Event('beforeDeletion', 'Services/Object', ['object' => $crs]),
-        ];
-
-        return $events;
-    }
-
-    public function test_isEventNotRelevant()
-    {
-        $events = $this->getNotRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertFalse($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getNotRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $events = [
-            new Event('move', 'Modules/Course', []),
-            new Event('move', 'Plugin/Accomodation', []),
-            new Event('move', 'Plugin/CourseClassification', []),
-            new Event('', 'Plugin/BookingModalities', []),
-            new Event('move', 'Plugin/Venue', []),
-            new Event('move', 'Plugin/TrainingProvider', []),
-            new Event('move', 'Plugin/EduTracking', []),
-            new Event('move', 'Plugin/EduTracking', []),
-            new Event('move', 'Plugin/CopySettings', ['parent' => $crs]),
-            new Event('deleteCopySettings', 'Plugin/CopySettings', []),
-            new Event('move', 'Plugin/WBDInterface', []),
-            new Event('move', 'Plugin/Webinar', [])
-        ];
-
-        return $events;
     }
 }

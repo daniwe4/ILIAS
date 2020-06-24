@@ -59,9 +59,8 @@ class ilObjActions
      *
      * @return UserBooking[]
      */
-    public function getBookedTrainingOf($user_id)
+    public function getBookedTrainingOf(int $user_id)
     {
-        assert('is_int($user_id)');
         return $this->bookings_db->getBookedTrainingsFor($user_id);
     }
 

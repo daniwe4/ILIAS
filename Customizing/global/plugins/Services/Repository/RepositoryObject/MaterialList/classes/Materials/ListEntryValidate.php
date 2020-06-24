@@ -25,10 +25,8 @@ class ListEntryValidate
      *
      * @return null
      */
-    public function validateEntry(MaterialList\Lists\CheckObject $check_object, array &$ret, $position)
+    public function validateEntry(MaterialList\Lists\CheckObject $check_object, array &$ret, int $position)
     {
-        assert('is_int($position)');
-
         if ($check_object->getId() == -1
                 && $this->noInput(
                     $check_object->getNumberPerParticipant(),

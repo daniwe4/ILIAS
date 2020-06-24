@@ -97,9 +97,8 @@ trait ScheduledEvents
      * @throws 	\LogicException 	if a wrong setting-type is provided
      * @return 	string | null
      */
-    public function getEffectiveMailRecipient($setting_type)
+    public function getEffectiveMailRecipient(int $setting_type)
     {
-        assert('is_int($setting_type)');
         $settings = $this->getSettings();
         $setting = null;
         foreach ($settings as $obj_setting) {
@@ -257,9 +256,8 @@ trait ScheduledEvents
      * @param 	int 	$setting_type
      * @return 	string|null
     */
-    public function getEventForSettingType($setting_type)
+    public function getEventForSettingType(int $setting_type)
     {
-        assert('is_int($setting_type)');
         switch ($setting_type) {
             case RoomSetup\Settings\RoomSetup::TYPE_SERVICE:
                 return BaseOccasion::EVENT_SEND_SERVICE;
@@ -293,9 +291,8 @@ trait ScheduledEvents
      * @param 	int 	$course_id
      * @return 	Venue | null
      */
-    public function getRealVenueByCourseId($course_id)
+    public function getRealVenueByCourseId(int $course_id)
     {
-        assert('is_int($course_id)');
         $vplug = $this->getVenuePlug();
         $vactions = $vplug->getActions();
         $vassignment = $vactions->getAssignment($course_id);

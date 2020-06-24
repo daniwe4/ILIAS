@@ -617,9 +617,8 @@ class UnboundProvider extends SeparatedUnboundProvider
      *
      * @return bool
      */
-    protected function checkPermissionsOn($owner_ref_id)
+    protected function checkPermissionsOn(int $owner_ref_id)
     {
-        assert('is_int($owner_ref_id)');
         global $DIC;
         $g_access = $DIC->access();
 

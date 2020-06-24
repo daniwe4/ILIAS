@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace CaT\Plugins\Webinar\VC\CSN;
 
@@ -44,18 +45,12 @@ class Settings implements VCSettings
      * @param bool 	$upload_required
      */
     public function __construct(
-        $obj_id,
-        $phone,
-        $pin,
-        $minutes_required,
-        $upload_required = false
+        int $obj_id,
+        ?string $phone,
+        ?string $pin,
+        ?int $minutes_required,
+        bool $upload_required = false
     ) {
-        assert('is_int($obj_id)');
-        assert('is_string($phone) || is_null($phone)');
-        assert('is_string($pin) || is_null($pin)');
-        assert('is_int($minutes_required) || is_null($minutes_required)');
-        assert('is_bool($upload_required)');
-
         $this->obj_id = $obj_id;
         $this->phone = $phone;
         $this->pin = $pin;
@@ -66,7 +61,7 @@ class Settings implements VCSettings
     /**
      * @inheritdoc
      */
-    public function getObjId()
+    public function getObjId() : int
     {
         return $this->obj_id;
     }
@@ -74,7 +69,7 @@ class Settings implements VCSettings
     /**
      * @inheritdoc
      */
-    public function withValuesOf(VCSettings $settings)
+    public function withValuesOf(VCSettings $settings) : VCSettings
     {
         if (!is_a($settings, get_class($this))) {
             throw new \Exception("You can only apply settings of the same type.", 1);
@@ -132,11 +127,10 @@ class Settings implements VCSettings
      *
      * @param string 	$phone
      *
-     * @return this
+     * @return Settings
      */
-    public function withPhone($phone)
+    public function withPhone(?string $phone)
     {
-        assert('is_string($phone) || is_null($phone)');
         $clone = clone $this;
         $clone->phone = $phone;
         return $clone;
@@ -147,11 +141,10 @@ class Settings implements VCSettings
      *
      * @param string 	$pin
      *
-     * @return this
+     * @return Settings
      */
-    public function withPin($pin)
+    public function withPin(?string $pin)
     {
-        assert('is_string($pin) || is_null($pin)');
         $clone = clone $this;
         $clone->pin = $pin;
         return $clone;
@@ -162,26 +155,24 @@ class Settings implements VCSettings
      *
      * @param int 	$minutes_required
      *
-     * @return this
+     * @return Settings
      */
-    public function withMinutesRequired($minutes_required)
+    public function withMinutesRequired(?int $minutes_required)
     {
-        assert('is_int($minutes_required) || is_null($minutes_required)');
         $clone = clone $this;
         $clone->minutes_required = $minutes_required;
         return $clone;
     }
 
     /**
-     * Get clone with upoad required
+     * Get clone with upload required
      *
      * @param bool 	$upload_required
      *
-     * @return Webinar
+     * @return Settings
      */
-    public function withIsUploadRequired($upload_required)
+    public function withIsUploadRequired(bool $upload_required)
     {
-        assert('is_bool($upload_required)');
         $clone = clone $this;
         $clone->upload_required = $upload_required;
         return $clone;

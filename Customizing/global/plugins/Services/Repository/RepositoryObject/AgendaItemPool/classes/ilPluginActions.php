@@ -47,9 +47,8 @@ class ilPluginActions
      *
      * @return AgendaItem
      */
-    public function getAgendaItemById($obj_id)
+    public function getAgendaItemById(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->agenda_item_db->selectFor($obj_id);
     }
 }

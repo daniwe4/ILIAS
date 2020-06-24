@@ -24,10 +24,8 @@ class Relevance
      * @param int 	$role_id
      * @param string|null 	$filename
      */
-    public function __construct($role_id, $filename = null)
+    public function __construct(int $role_id, ?string $filename = null)
     {
-        assert('is_int($role_id)');
-        assert('is_string($filename) || is_null($filename)');
         $this->role_id = $role_id;
         $this->filename = $filename;
     }
@@ -58,9 +56,8 @@ class Relevance
      *
      * @return Relevance
      */
-    public function withFileName($filename)
+    public function withFileName(string $filename)
     {
-        assert('is_string($filename)');
         $clone = clone $this;
         $clone->filename = $filename;
         return $clone;

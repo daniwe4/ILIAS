@@ -28,7 +28,13 @@ class Schedule implements ScheduledEvents\DB {
 	/**
 	 * @inheritdoc
 	 */
-	public function create($issuer_ref, \DateTime $due, $component, $event, $params = array()) {
+	public function create(
+	    int $issuer_ref,
+        \DateTime $due,
+        string $component,
+        string $event,
+        array $params = array()
+    ) {
 		$id = $this->getNextId();
 		$event = new ScheduledEvents\Event($id, $issuer_ref, $due, $component, $event, $params);
 
@@ -80,11 +86,11 @@ class Schedule implements ScheduledEvents\DB {
 	/**
 	 * @inheritdoc
 	 */
-	public function getAllFromIssuer($ref_id, $component=null, $event=null) {
-		assert('is_int($ref_id)');
-		assert('is_string($component) || is_null($component)');
-		assert('is_string($event) || is_null($event)');
-
+	public function getAllFromIssuer(
+	    int $ref_id,
+        ?string $component=null,
+        ?string $event=null
+    ) {
 		$query = "SELECT id, issuer_ref_id, due, component, event".PHP_EOL
 				." FROM ".static::TABLE_NAME .PHP_EOL
 				." WHERE issuer_ref_id = " .$this->getDB()->quote($ref_id, "integer")
@@ -103,16 +109,14 @@ class Schedule implements ScheduledEvents\DB {
 	/**
 	 * @inheritdoc
 	 */
-	public function setAccountedFor($events) {
-		assert('is_array($events)');
+	public function setAccountedFor(array $events) {
 		$this->delete($events);
 	}
 
 	/**
 	 * @inheritdoc
 	 */
-	public function delete($events) {
-		assert('is_array($events)');
+	public function delete(array $events) {
 		if(count($events) > 0 ) {
 			$del_ids = array();
 			foreach ($events as $event) {

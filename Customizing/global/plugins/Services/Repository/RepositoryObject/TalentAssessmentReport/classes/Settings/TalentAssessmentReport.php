@@ -29,12 +29,8 @@ class TalentAssessmentReport
 	 * @param bool 	$is_admin
 	 * @param bool 	$is_online
 	 */
-	public function __construct($obj_id, $is_admin, $is_online)
+	public function __construct(int $obj_id, bool $is_admin, bool $is_online)
 	{
-		assert('is_int($obj_id)');
-		assert('is_bool($is_admin)');
-		assert('is_bool($is_online)');
-
 		$this->obj_id = $obj_id;
 		$this->is_admin = $is_admin;
 		$this->is_online = $is_online;
@@ -77,9 +73,8 @@ class TalentAssessmentReport
 	 *
 	 * @return null
 	 */
-	public function withIsAdmin($is_admin)
+	public function withIsAdmin(bool $is_admin)
 	{
-		assert('is_bool($is_admin)');
 		$clone = clone $this;
 		$clone->is_admin = $is_admin;
 		return $clone;
@@ -92,9 +87,8 @@ class TalentAssessmentReport
 	 *
 	 * @return null
 	 */
-	public function withIsOnline($is_online)
+	public function withIsOnline(bool $is_online)
 	{
-		assert('is_bool($is_online)');
 		$clone = clone $this;
 		$clone->is_online = $is_online;
 		return $clone;

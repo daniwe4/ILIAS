@@ -30,11 +30,13 @@ class WBD
      * @param	string | null 	$education_type
      * @param	string | null 	$education_content
      */
-    public function __construct(DB $db, \ilAppEventHandler $evt_handler, \ilObjEduTracking $obj, $education_type = null, $education_content = null)
-    {
-        assert('is_null($education_type) || is_string($education_content)');
-        assert('is_null($education_content) || is_string($education_content)');
-
+    public function __construct(
+        DB $db,
+        \ilAppEventHandler $evt_handler,
+        \ilObjEduTracking $obj,
+        ?string $education_type = null,
+        ?string $education_content = null
+    ) {
         $this->obj = $obj;
         $this->db = $db;
         $this->evt_handler = $evt_handler;
@@ -82,9 +84,8 @@ class WBD
      *
      * @return this
      */
-    public function withEducationType($education_type)
+    public function withEducationType(?string $education_type)
     {
-        assert('is_null($education_type) || is_string($education_type)');
         $clone = clone $this;
         $clone->education_type = $education_type;
         return $clone;
@@ -97,9 +98,8 @@ class WBD
      *
      * @return this
      */
-    public function withEducationContent($education_content)
+    public function withEducationContent(?string $education_content)
     {
-        assert('is_null($education_content) || is_string($education_content)');
         $clone = clone $this;
         $clone->education_content = $education_content;
         return $clone;
@@ -149,15 +149,12 @@ class WBD
      * @return void
      */
     protected function throwEvent(
-        $reason,
-        $obj_id,
+        string $reason,
+        int $obj_id,
         $internal_id,
         $wbd_learning_type,
         $wbd_learning_content
     ) {
-        assert('is_string($reason)');
-        assert('is_int($obj_id)');
-
         $payload = [
             "xetr_obj_id" => $obj_id,
             'internal_id' => $internal_id,

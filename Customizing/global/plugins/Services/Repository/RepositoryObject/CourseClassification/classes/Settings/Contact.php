@@ -33,13 +33,8 @@ class Contact
      * @param string 	$phone
      * @param string 	$mail
      */
-    public function __construct($name = "", $responsibility = "", $phone = "", $mail = "")
+    public function __construct(string $name = "", string $responsibility = "", string  $phone = "", string $mail = "")
     {
-        assert('is_string($name)');
-        assert('is_string($responsibility)');
-        assert('is_string($phone)');
-        assert('is_string($mail)');
-
         $this->name = $name;
         $this->responsibility = $responsibility;
         $this->phone = $phone;
@@ -93,9 +88,8 @@ class Contact
      *
      * @return Contact
      */
-    public function withName($name)
+    public function withName(string $name)
     {
-        assert('is_string($name)');
         $clone = clone $this;
         $clone->name = $name;
         return $clone;
@@ -108,9 +102,8 @@ class Contact
      *
      * @return Contact
      */
-    public function withResponsibility($responsibility)
+    public function withResponsibility(string $responsibility)
     {
-        assert('is_string($responsibility)');
         $clone = clone $this;
         $clone->responsibility = $responsibility;
         return $clone;
@@ -123,9 +116,8 @@ class Contact
      *
      * @return Contact
      */
-    public function withPhone($phone)
+    public function withPhone(string $phone)
     {
-        assert('is_string($phone)');
         $clone = clone $this;
         $clone->phone = $phone;
         return $clone;
@@ -138,9 +130,8 @@ class Contact
      *
      * @return Contact
      */
-    public function withMail($mail)
+    public function withMail(string $mail)
     {
-        assert('is_string($mail)');
         $clone = clone $this;
         $clone->mail = $mail;
         return $clone;

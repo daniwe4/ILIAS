@@ -98,10 +98,8 @@ class ilUserCourseHistorizingPlugin extends ilCronHookPlugin
         return $component === 'Plugin/WBDInterface' && $event === 'stornoParticipationWBD';
     }
 
-    private function splitEventByElements($component, $event, array $parameter)
+    private function splitEventByElements(string $component, string $event, array $parameter)
     {
-        assert('is_string($event)');
-        assert('is_string($component)');
         return $this->getRelevantCases($component, $event, $parameter);
     }
 
@@ -127,10 +125,8 @@ class ilUserCourseHistorizingPlugin extends ilCronHookPlugin
         return $return;
     }
 
-    private function getRelevantCases($component, $event, array $parameter)
+    private function getRelevantCases(string $component, string $event, array $parameter)
     {
-        assert('is_string($event)');
-        assert('is_string($component)');
         $return = [];
         global $DIC;
         $tree = $DIC['tree'];

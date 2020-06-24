@@ -32,11 +32,9 @@ class ilTrainingDemandRetardedReportGUI
     public function __construct(
         $a_parent_gui,
         $plugin,
-        $obj_ref_id,
+        int $obj_ref_id,
         TrainingDemandRetarded\Report $report
     ) {
-        assert('is_int($obj_ref_id)');
-
         $this->obj_ref_id = $obj_ref_id;
         $this->report = $report;
 

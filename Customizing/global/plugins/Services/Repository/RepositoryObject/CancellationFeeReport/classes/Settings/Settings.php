@@ -43,7 +43,6 @@ class Settings
 
     public function withOnline(bool $online) : Settings
     {
-        assert('is_bool($online)');
         $other = clone $this;
         $other->online = $online;
         return $other;
@@ -51,7 +50,6 @@ class Settings
 
     public function withGlobal(bool $global) : Settings
     {
-        assert('is_bool($global)');
         $other = clone $this;
         $other->global = $global;
         return $other;

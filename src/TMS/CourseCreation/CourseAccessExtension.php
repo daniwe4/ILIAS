@@ -27,8 +27,8 @@ trait CourseAccessExtension
      */
     public static function _mayUserCreateCourseFromTemplate($user_id, $ref_id)
     {
-        assert('is_int($ref_id)');
-        assert('is_int($user_id)');
+        assert(is_int($ref_id));
+        assert(is_int($user_id));
         if (!\ilPluginAdmin::isPluginActive("xccr") || !\ilPluginAdmin::isPluginActive("xcps")) {
             return false;
         }
@@ -51,7 +51,7 @@ trait CourseAccessExtension
 
     public static function _isTemplateCourse($ref_id)
     {
-        assert('is_int($ref_id)');
+        assert(is_int($ref_id));
         global $DIC;
         $tree = $DIC->repositoryTree();
         $node = $tree->getNodeData($ref_id);
@@ -60,8 +60,8 @@ trait CourseAccessExtension
 
     public static function _userCanInsertCourseInParentCategory($user_id, $ref_id)
     {
-        assert('is_int($user_id)');
-        assert('is_int($ref_id)');
+        assert(is_int($user_id));
+        assert(is_int($ref_id));
         global $DIC;
         $tree = $DIC->repositoryTree();
         $node = $tree->getNodeData($ref_id);
@@ -71,8 +71,8 @@ trait CourseAccessExtension
 
     public static function _userCanSeeCopySettingsObject($user_id, $ref_id)
     {
-        assert('is_int($ref_id)');
-        assert('is_int($user_id)');
+        assert(is_int($ref_id));
+        assert(is_int($user_id));
         global $DIC;
         $tree = $DIC->repositoryTree();
         $access = $DIC->access();

@@ -83,9 +83,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectForObject($obj_id)
+    public function selectForObject(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT obj_id, days_invitation, days_invitation_reminder, prevent_mailing" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->db->quote($obj_id, "integer");
@@ -109,9 +108,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteForObject($obj_id)
+    public function deleteForObject(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
             . " WHERE obj_id = " . $this->db->quote($obj_id, "integer");
         $this->db->manipulate($query);
@@ -124,9 +122,8 @@ class ilDB implements DB
      *
      * @return LogEntry[]
      */
-    public function getLogEntriesFor($obj_id)
+    public function getLogEntriesFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT days_invitation, days_invitation_reminder," . PHP_EOL
                 . " prevent_mailing, last_changed_by, last_changed" . PHP_EOL
                 . " FROM " . self::TABLE_NAME_HIST . PHP_EOL

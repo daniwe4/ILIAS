@@ -47,10 +47,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($obj_id)
+    public function select(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT fee_value" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -74,10 +72,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($obj_id)
+    public function delete(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 

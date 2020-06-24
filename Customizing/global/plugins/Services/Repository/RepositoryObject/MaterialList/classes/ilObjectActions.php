@@ -272,13 +272,13 @@ class ilObjectActions
      *
      * @return null
      */
-    public function createListEntry($obj_id, $number_per_participant, $number_per_course, $article_number, $title)
-    {
-        assert('is_int($obj_id)');
-        assert('is_int($number_per_participant)');
-        assert('is_int($number_per_course)');
-        assert('is_string($article_number)');
-        assert('is_string($title)');
+    public function createListEntry(
+        int $obj_id,
+        int $number_per_participant,
+        int $number_per_course,
+        string $article_number,
+        string $title
+    ) {
         $this->lists_db->create($obj_id, $number_per_participant, $number_per_course, $article_number, $title);
     }
 
@@ -319,9 +319,8 @@ class ilObjectActions
      *
      * @return null
      */
-    public function deleteListEntry($id)
+    public function deleteListEntry(int $id)
     {
-        assert('is_int($id)');
         $this->lists_db->deleteId($id);
     }
 
@@ -393,9 +392,8 @@ class ilObjectActions
      *
      * @return string
      */
-    public function getArtTitleById($id)
+    public function getArtTitleById(int $id)
     {
-        assert('is_int($id)');
         return $this->lists_db->getArtTitleById($id);
     }
 

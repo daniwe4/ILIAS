@@ -61,10 +61,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($crs_id)
+    public function select(int $crs_id)
     {
-        assert('is_int($crs_id)');
-
         $query = "SELECT mem.user_id, mem.crs_id, mem.lp_id, mem.lp_value, mem.ilias_lp," . PHP_EOL
                 . " mem.credits, mem.last_edited, mem.last_edit_by, mem.idd_learning_time," . PHP_EOL
                 . " usr.firstname, usr.lastname, usr.login" . PHP_EOL
@@ -128,23 +126,22 @@ class ilDB implements DB
      * @param int | null 	$ilias_lp
      * @param float | null 	$credits
      * @param int | null 	$idd_learning_time
-     * @param ilDateTime | null 	$last_edited
+     * @param \ilDateTime | null 	$last_edited
      * @param int | null	$last_edit_by
      *
      * @return Member
      */
-    public function getMember($user_id, $crs_id, $lp_id, $lp_value, $ilias_lp, $credits, $idd_learning_time = null, \ilDateTime $last_edited = null, $last_edit_by = null)
-    {
-        assert('is_int($user_id)');
-        assert('is_int($crs_id)');
-        assert('is_int($lp_id) || is_null($lp_id)');
-        assert('is_string($lp_value) || is_null($lp_value)');
-        assert('is_int($ilias_lp) || is_null($ilias_lp)');
-        assert('is_float($credits) || is_null($credits)');
-        assert('$last_edited instanceof ilDateTime || is_null($last_edited)');
-        assert('is_int($last_edit_by) || is_null($last_edit_by)');
-        assert('is_int($idd_learning_time) || is_null($idd_learning_time)');
-
+    public function getMember(
+        int $user_id,
+        int $crs_id,
+        ?int $lp_id,
+        ?string $lp_value,
+        ?int $ilias_lp,
+        ?float $credits,
+        ?int $idd_learning_time = null,
+        ?\ilDateTime $last_edited = null,
+        ?int $last_edit_by = null
+    ) {
         return new Member(
             $user_id,
             $crs_id,
@@ -161,11 +158,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteForUserAndCourse($user_id, $crs_id)
+    public function deleteForUserAndCourse(int $user_id, int $crs_id)
     {
-        assert('is_int($user_id)');
-        assert('is_int($crs_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE user_id = " . $this->getDB()->quote($user_id, "integer") . PHP_EOL
                 . "     AND crs_id = " . $this->getDB()->quote($crs_id, "integer");
@@ -176,10 +170,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteForCourse($crs_id)
+    public function deleteForCourse(int $crs_id)
     {
-        assert('is_int($crs_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE crs_id = " . $this->getDB()->quote($crs_id, "integer");
 
@@ -194,11 +186,8 @@ class ilDB implements DB
      *
      * @return int[]
      */
-    public function getUserIdsWithLPStatus($obj_id, $lp_status)
+    public function getUserIdsWithLPStatus(int $obj_id, int $lp_status)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($lp_status)');
-
         $query = "SELECT user_id " . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE crs_id = " . $this->getDB()->quote($obj_id, "integer") . PHP_EOL
@@ -247,11 +236,8 @@ class ilDB implements DB
      *
      * @return int
      */
-    public function getMinutesFor($obj_id, $user_id)
+    public function getMinutesFor(int $obj_id, int $user_id)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($user_id)');
-
         $query = "SELECT idd_learning_time" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE crs_id = " . $this->getDB()->quote($obj_id, "integer") . PHP_EOL

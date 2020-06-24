@@ -64,24 +64,16 @@ class Webinar
      * @param bool 	$finished
      */
     public function __construct(
-        $obj_id,
-        $vc_type,
-        \ilDateTime $beginning = null,
-        \ilDateTime $ending = null,
-        $admission = null,
-        $url = null,
-        $online = false,
-        $lp_mode = 0,
-        $finished = false
+        int $obj_id,
+        string $vc_type,
+        ?\ilDateTime $beginning = null,
+        ?\ilDateTime $ending = null,
+        ?string $admission = null,
+        ?string $url = null,
+        bool $online = false,
+        int $lp_mode = 0,
+        bool $finished = false
     ) {
-        assert('is_int($obj_id)');
-        assert('is_string($vc_type)');
-        assert('is_string($admission) | is_null($url)');
-        assert('is_string($url) | is_null($url)');
-        assert('is_bool($online) | is_null($url)');
-        assert('is_int($lp_mode)');
-        assert('is_bool($finished)');
-
         $this->obj_id = $obj_id;
         $this->vc_type = $vc_type;
         $this->beginning = $beginning;
@@ -232,9 +224,8 @@ class Webinar
      *
      * @return Webinar
      */
-    public function withAdmission($admission)
+    public function withAdmission(?string $admission)
     {
-        assert('is_string($admission) | is_null($admission)');
         $clone = clone $this;
         $clone->admission = $admission;
         return $clone;
@@ -247,9 +238,8 @@ class Webinar
      *
      * @return Webinar
      */
-    public function withUrl($url)
+    public function withUrl(?string $url)
     {
-        assert('is_string($url) | is_null($url)');
         $clone = clone $this;
         $clone->url = $url;
         return $clone;
@@ -262,9 +252,8 @@ class Webinar
      *
      * @return Webinar
      */
-    public function withOnline($online)
+    public function withOnline(bool $online)
     {
-        assert('is_bool($online)');
         $clone = clone $this;
         $clone->online = $online;
         return $clone;
@@ -277,9 +266,8 @@ class Webinar
      *
      * @return Webinar
      */
-    public function withLPMode($lp_mode)
+    public function withLPMode(int $lp_mode)
     {
-        assert('is_int($lp_mode)');
         $clone = clone $this;
         $clone->lp_mode = $lp_mode;
         return $clone;
@@ -292,9 +280,8 @@ class Webinar
      *
      * @return Webinar
      */
-    public function withFinished($finished)
+    public function withFinished(bool $finished)
     {
-        assert('is_bool($finished)');
         $clone = clone $this;
         $clone->finished = $finished;
         return $clone;

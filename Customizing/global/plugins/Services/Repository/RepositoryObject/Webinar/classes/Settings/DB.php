@@ -30,13 +30,14 @@ interface DB
      * @return \CaT\Plugins\Webinar\Settings\Webinar
      */
     public function create(
-        $obj_id,
-        $vc_type,
-        \ilDateTime $beginning = null,
-        \ilDateTime $ending = null,
-        $admission = null,
-        $url = null,
-        $online = false
+        int $obj_id,
+        string $vc_type,
+        ?\ilDateTime $beginning = null,
+        ?\ilDateTime $ending = null,
+        ?string $admission = null,
+        ?string $url = null,
+        bool $online = false,
+        int $lp_mode = 0
     );
 
     /**

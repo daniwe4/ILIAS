@@ -51,9 +51,8 @@ class UserOrguLocator
      * @param	\ilObjUser	$usr
      * @return	bool
      */
-    public function isUserIdVisibleToUser($usr_id, \ilObjUser $usr)
+    public function isUserIdVisibleToUser(int $usr_id, \ilObjUser $usr)
     {
-        assert('is_int($usr_id)');
         if ($usr_id === (int) $usr->getId()) {
             return true;
         }
@@ -124,12 +123,10 @@ class UserOrguLocator
      * @return	int[]
      */
     public function getUserIdUnderAuthorityOfUserByOrgus(
-        $usr_id,
+        int $usr_id,
         array $orgu_ids,
-        $recursive = false
+        bool $recursive = false
     ) {
-        assert('is_int($usr_id)');
-        assert('is_bool($recursive)');
         return array_map(
             function ($id) {
                 return (int) $id;

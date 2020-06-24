@@ -24,7 +24,7 @@ class ilCJSConfigHeaderGUI extends ilSubEnabledFormPropertyGUI
      * @param 	string	$title 		The title of the subform.
      * @param 	string	$postvar 	The post var.
      */
-    public function __construct($a_title = "", $a_postvar = "")
+    public function __construct($title = "", $postvar = "")
     {
         parent::__construct($title, $postvar);
     }
@@ -76,11 +76,10 @@ class ilCJSConfigHeaderGUI extends ilSubEnabledFormPropertyGUI
      * Set header_name with $value
      *
      * @param 	string		$value
-     * @return 	this
+     * @return 	$this
      */
-    public function withHeaderName($value)
+    public function withHeaderName(string $value)
     {
-        assert('is_string($value)');
         $clone = clone $this;
         $clone->header_name = $value;
         return $clone;
@@ -100,11 +99,10 @@ class ilCJSConfigHeaderGUI extends ilSubEnabledFormPropertyGUI
      * Set header_number with $value
      *
      * @param 	string		$value
-     * @return 	this
+     * @return 	$this
      */
-    public function withHeaderNumber($value)
+    public function withHeaderNumber(string $value)
     {
-        assert('is_string($value)');
         $clone = clone $this;
         $clone->header_number = $value;
         return $clone;

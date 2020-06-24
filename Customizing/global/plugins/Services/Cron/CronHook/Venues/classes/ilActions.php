@@ -268,28 +268,17 @@ class ilActions
      * @param int | null 	$days_remind_accomodation_list
      */
     public function createServiceObject(
-        $id,
-        $mail_service_list = "",
-        $mail_room_setup = "",
-        $days_send_service = null,
-        $days_send_room_setup = null,
-        $mail_material_list = "",
-        $days_send_material_list = null,
-        $mail_accomodation_list = "",
-        $days_send_accomodation_list = null,
-        $days_remind_accomodation_list = null
+        int $id,
+        string $mail_service_list = "",
+        string $mail_room_setup = "",
+        ?int $days_send_service = null,
+        ?int $days_send_room_setup = null,
+        string $mail_material_list = "",
+        ?int $days_send_material_list = null,
+        string $mail_accomodation_list = "",
+        ?int $days_send_accomodation_list = null,
+        ?int $days_remind_accomodation_list = null
     ) {
-        assert('is_int($id)');
-        assert('is_string($mail_service_list)');
-        assert('is_string($mail_room_setup)');
-        assert('is_int($days_send_service) || is_null($days_send_service)');
-        assert('is_int($days_send_room_setup) || is_null($days_send_room_setup)');
-        assert('is_string($mail_material_list)');
-        assert('is_int($days_send_material_list) || is_null($days_send_material_list)');
-        assert('is_string($mail_accomodation_list)');
-        assert('is_int($days_send_accomodation_list) || is_null($days_send_accomodation_list)');
-        assert('is_int($days_remind_accomodation_list) || is_null($days_remind_accomodation_list)');
-
         $this->service_db->create(
             $id,
             $mail_service_list,
@@ -310,26 +299,16 @@ class ilActions
      * @return Venues\Costs\Costs
      */
     public function createCostsObject(
-        $id,
-        $fixed_rate_day = null,
-        $fixed_rate_all_inclusive = null,
-        $bed_and_breakfast = null,
-        $bed = null,
-        $fixed_rate_conference = null,
-        $room_usage = null,
-        $other = null,
-        $terms = ""
+        int $id,
+        ?float $fixed_rate_day = null,
+        ?float $fixed_rate_all_inclusive = null,
+        ?float $bed_and_breakfast = null,
+        ?float $bed = null,
+        ?float $fixed_rate_conference = null,
+        ?float $room_usage = null,
+        ?float $other = null,
+        ?string $terms = ""
     ) {
-        assert('is_int($id)');
-        assert('is_float($fixed_rate_day) || is_null($fixed_rate_day)');
-        assert('is_float($fixed_rate_all_inclusive) || is_null($fixed_rate_all_inclusive)');
-        assert('is_float($bed_and_breakfast) || is_null($bed_and_breakfast)');
-        assert('is_float($bed) || is_null($bed)');
-        assert('is_float($fixed_rate_conference) || is_null($fixed_rate_conference)');
-        assert('is_float($room_usage) || is_null($room_usage)');
-        assert('is_float($other) || is_null($other)');
-        assert('is_string($terms) || is_null($terms)');
-
         $this->costs_db->create(
             $id,
             $fixed_rate_day,
@@ -437,22 +416,14 @@ class ilActions
      * @param int | null	$room_count
      */
     public function getCapacityObject(
-        $id,
-        $number_rooms = null,
-        $min_person_any_room = null,
-        $max_person_any_room = null,
-        $min_room_size = null,
-        $max_room_size = null,
-        $room_count = null
+        int $id,
+        ?int $number_rooms = null,
+        ?int $min_person_any_room = null,
+        ?int $max_person_any_room = null,
+        ?int $min_room_size = null,
+        ?int $max_room_size = null,
+        ?int $room_count = null
     ) {
-        assert('is_int($id)');
-        assert('is_null($number_rooms) | is_int($number_rooms)');
-        assert('is_null($min_person_any_room) | is_int($min_person_any_room)');
-        assert('is_null($max_person_any_room) | is_int($max_person_any_room)');
-        assert('is_null($min_room_size) | is_int($min_room_size)');
-        assert('is_null($max_room_size) | is_int($max_room_size)');
-        assert('is_null($room_count) | is_int($room_count)');
-
         return $this->capacity_db->getCapacityObject($id, $number_rooms, $min_person_any_room, $max_person_any_room, $min_room_size, $max_room_size, $room_count);
     }
 
@@ -470,28 +441,17 @@ class ilActions
      * @param int | null 	$days_send_accomodation_list
      */
     public function getServiceObject(
-        $id,
-        $mail_service_list = "",
-        $mail_room_setup = "",
-        $days_send_service = null,
-        $days_send_room_setup = null,
-        $mail_material_list = "",
-        $days_send_material_list = null,
-        $mail_accomodation_list = "",
-        $days_send_accomodation_list = null,
-        $days_remind_accomodation_list = null
+        int $id,
+        string $mail_service_list = "",
+        string $mail_room_setup = "",
+        ?int $days_send_service = null,
+        ?int $days_send_room_setup = null,
+        string $mail_material_list = "",
+        ?int $days_send_material_list = null,
+        string $mail_accomodation_list = "",
+        ?int $days_send_accomodation_list = null,
+        ?int $days_remind_accomodation_list = null
     ) {
-        assert('is_int($id)');
-        assert('is_string($mail_service_list)');
-        assert('is_string($mail_room_setup)');
-        assert('is_int($days_send_service) || is_null($days_send_service)');
-        assert('is_int($days_send_room_setup) || is_null($days_send_room_setup)');
-        assert('is_string($mail_material_list)');
-        assert('is_int($days_send_material_list) || is_null($days_send_material_list)');
-        assert('is_string($mail_accomodation_list)');
-        assert('is_int($days_send_accomodation_list) || is_null($days_send_accomodation_list)');
-        assert('is_int($days_remind_accomodation_list) || is_null($days_remind_accomodation_list)');
-
         return $this->service_db->getServiceObject(
             $id,
             $mail_service_list,
@@ -512,26 +472,16 @@ class ilActions
      * @return Venues\Costs\Costs
      */
     public function getCostsObject(
-        $id,
-        $fixed_rate_day = null,
-        $fixed_rate_all_inclusive = null,
-        $bed_and_breakfast = null,
-        $bed = null,
-        $fixed_rate_conference = null,
-        $room_usage = null,
-        $other = null,
-        $terms = ""
+        int $id,
+        ?float $fixed_rate_day = null,
+        ?float $fixed_rate_all_inclusive = null,
+        ?float $bed_and_breakfast = null,
+        ?float $bed = null,
+        ?float $fixed_rate_conference = null,
+        ?float $room_usage = null,
+        ?float $other = null,
+        ?string $terms = ""
     ) {
-        assert('is_int($id)');
-        assert('is_float($fixed_rate_day) || is_null($fixed_rate_day)');
-        assert('is_float($fixed_rate_all_inclusive) || is_null($fixed_rate_all_inclusive)');
-        assert('is_float($bed_and_breakfast) || is_null($bed_and_breakfast)');
-        assert('is_float($bed) || is_null($bed)');
-        assert('is_float($fixed_rate_conference) || is_null($fixed_rate_conference)');
-        assert('is_float($room_usage) || is_null($room_usage)');
-        assert('is_float($other) || is_null($other)');
-        assert('is_string($terms) || is_null($terms)');
-
         return $this->costs_db->getCostsObject(
             $id,
             $fixed_rate_day,
@@ -616,9 +566,8 @@ class ilActions
      *
      * @return bool
      */
-    public function venueNameExist($new_provider_name)
+    public function venueNameExist(string $new_provider_name)
     {
-        assert('is_string($new_provider_name)');
         return $this->venue_db->nameExists($new_provider_name);
     }
 

@@ -194,7 +194,6 @@ class AgendaItem
      */
     public function withIsActive(bool $value) : AgendaItem
     {
-        assert('is_bool($value)');
         $clone = clone $this;
         $clone->is_active = $value;
         return $clone;
@@ -310,7 +309,7 @@ class AgendaItem
      */
     public function withTrainingTopics(array $training_topics = null) : AgendaItem
     {
-        assert('$this->checkIntArray($training_topics)');
+        assert($this->checkIntArray($training_topics));
         $clone = clone $this;
         $clone->training_topics = $training_topics;
         return $clone;

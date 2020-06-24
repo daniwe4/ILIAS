@@ -89,9 +89,8 @@ class CostType
      *
      * @param int 	$value
      */
-    protected function setId($value)
+    protected function setId(int $value)
     {
-        assert('is_int($value)');
         $this->id = $value;
     }
 
@@ -100,9 +99,8 @@ class CostType
      *
      * @param string 	$value
      */
-    protected function setValue($value)
+    protected function setValue(string $value)
     {
-        assert('is_string($value)');
         $this->value = $value;
     }
 
@@ -111,9 +109,8 @@ class CostType
      *
      * @param string 	$value
      */
-    protected function setLabel($value)
+    protected function setLabel(string $value)
     {
-        assert('is_string($value)');
         $this->label = $value;
     }
 
@@ -122,9 +119,8 @@ class CostType
      *
      * @param bool 		$value
      */
-    protected function setActive($value)
+    protected function setActive(bool $value)
     {
-        assert('is_bool($value)');
         $this->active = $value;
     }
 

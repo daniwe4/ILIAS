@@ -34,14 +34,14 @@ class MaterialList
      */
     protected $send_days_before;
 
-    public function __construct($obj_id, \ilDateTime $last_edit_datetime, $last_edit_by, $recipient_mode, $recipient = null, $send_days_before = null)
-    {
-        assert('is_int($obj_id)');
-        assert('is_int($last_edit_by)');
-        assert('is_string($recipient_mode)');
-        assert('is_null($recipient) || is_string($recipient)');
-        assert('is_null($send_days_before) || is_int($send_days_before)');
-
+    public function __construct(
+        int $obj_id,
+        \ilDateTime $last_edit_datetime,
+        int $last_edit_by,
+        string $recipient_mode,
+        ?string $recipient = null,
+        ?int $send_days_before = null
+    ) {
         $this->obj_id = $obj_id;
         $this->last_edit_datetime = $last_edit_datetime;
         $this->last_edit_by = $last_edit_by;
@@ -131,9 +131,8 @@ class MaterialList
      *
      * @return MaterialList
      */
-    public function withLastEditBy($last_edit_by)
+    public function withLastEditBy(int $last_edit_by)
     {
-        assert('is_int($last_edit_by)');
         $clone = clone $this;
         $clone->last_edit_by = $last_edit_by;
         return $clone;
@@ -146,9 +145,8 @@ class MaterialList
      *
      * @return MaterialList
      */
-    public function withRecipientMode($recipient_mode)
+    public function withRecipientMode(string $recipient_mode)
     {
-        assert('is_string($recipient_mode)');
         $clone = clone $this;
         $clone->recipient_mode = $recipient_mode;
         return $clone;
@@ -161,9 +159,8 @@ class MaterialList
      *
      * @return MaterialList
      */
-    public function withRecipient($recipient)
+    public function withRecipient(?string $recipient)
     {
-        assert('is_null($recipient) || is_string($recipient)');
         $clone = clone $this;
         $clone->recipient = $recipient;
         return $clone;
@@ -176,9 +173,8 @@ class MaterialList
      *
      * @return MaterialList
      */
-    public function withSendDaysBefore($send_days_before)
+    public function withSendDaysBefore(?int $send_days_before)
     {
-        assert('is_null($send_days_before) || is_int($send_days_before)');
         $clone = clone $this;
         $clone->send_days_before = $send_days_before;
         return $clone;

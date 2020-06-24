@@ -25,9 +25,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id)
+    public function create(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $storno = new Storno($obj_id);
         $values = array("obj_id" => array("integer", $storno->getObjId()));
         $this->getDB()->insert(self::TABLE_STORNO, $values);
@@ -54,9 +53,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT storno.deadline, storno.hard_deadline, storno.modus, storno.reason_type, storno.reason_optional," . PHP_EOL
             . " GROUP_CONCAT(DISTINCT CONCAT_WS('&&', roles.parent, roles.position, roles.role) SEPARATOR '||') AS roles" . PHP_EOL
             . " FROM " . self::TABLE_STORNO . " storno" . PHP_EOL
@@ -95,9 +93,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_STORNO . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
         $this->getDB()->manipulate($query);

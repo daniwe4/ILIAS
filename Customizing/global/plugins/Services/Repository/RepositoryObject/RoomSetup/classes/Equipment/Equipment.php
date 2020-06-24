@@ -44,17 +44,12 @@ class Equipment
      * @param string 	$seat_order
      */
     public function __construct(
-        $obj_id,
+        int $obj_id,
         array $service_options = array(),
-        $special_wishes = "",
-        $room_information = "",
-        $seat_order = ""
-        ) {
-        assert('is_int($obj_id)');
-        assert('is_string($special_wishes)');
-        assert('is_string($room_information)');
-        assert('is_string($seat_order)');
-
+        string $special_wishes = "",
+        string $room_information = "",
+        string $seat_order = ""
+    ) {
         $this->obj_id = $obj_id;
         $this->service_options = $service_options;
         $this->special_wishes = $special_wishes;
@@ -146,9 +141,8 @@ class Equipment
      *
      * @return Equipment
      */
-    public function withRoomInformation($room_information)
+    public function withRoomInformation(string $room_information)
     {
-        assert('is_string($room_information)');
         $clone = clone $this;
         $clone->room_information = $room_information;
         return $clone;
@@ -161,9 +155,8 @@ class Equipment
      *
      * @return Equipment
      */
-    public function withSeatOrder($seat_order)
+    public function withSeatOrder(string $seat_order)
     {
-        assert('is_string($seat_order)');
         $clone = clone $this;
         $clone->seat_order = $seat_order;
         return $clone;

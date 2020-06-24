@@ -51,7 +51,7 @@ class ilCourseCreationPlugin extends ilCronHookPlugin
      */
     public function getCronJobInstance($a_job_id)
     {
-        assert('is_string($a_job_id)');
+        assert(is_string($a_job_id));
         global $DIC;
         if ($a_job_id != ilCourseCreationJob::ID) {
             throw new \InvalidArgumentException("Unknown id for ilCourseCreationPlugin: '$a_job_id'");

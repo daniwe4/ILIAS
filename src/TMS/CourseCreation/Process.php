@@ -127,7 +127,7 @@ class Process
     protected function configureCopiedObjects(Request $request)
     {
         $target_ref_id = $request->getTargetRefId();
-        assert('!is_null($target_ref_id)');
+        assert(!is_null($target_ref_id));
 
         $sub_nodes = array_merge(
             [$target_ref_id],
@@ -146,7 +146,7 @@ class Process
                 continue;
             }
             $object = $this->getObjectByRefId((int) $sub);
-            assert('method_exists($object, "afterCourseCreation")');
+            assert(method_exists($object, "afterCourseCreation"));
 
             if (in_array($object->getType(), self::$RUN_AT_LAST)) {
                 $last[$object->getType()][] = array("object" => $object, "configs" => $configs);
@@ -203,8 +203,8 @@ class Process
      */
     protected function setOwnerToSubObjects($trgt_id, $src_id)
     {
-        assert('is_int($trgt_id)');
-        assert('is_int($src_id)');
+        assert(is_int($trgt_id));
+        assert(is_int($src_id));
         $target = $this->getObjectByRefId($trgt_id);
         $source = $this->getObjectByRefId($src_id);
 
@@ -298,9 +298,9 @@ class Process
      */
     protected function getObjectByRefId($ref_id)
     {
-        assert('is_int($ref_id)');
+        assert(is_int($ref_id));
         $object = \ilObjectFactory::getInstanceByRefId($ref_id);
-        assert('$object instanceof \ilObject');
+        assert($object instanceof \ilObject);
         return $object;
     }
 
@@ -396,7 +396,7 @@ class Process
      */
     protected function waitForCloneFinished($copy_id)
     {
-        assert('is_int($copy_id)');
+        assert(is_int($copy_id));
         $time = time();
 
         while (!\ilCopyWizardOptions::_isFinished($copy_id)) {

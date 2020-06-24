@@ -14,5 +14,5 @@ interface DB
      *
      * @return UserBooking[]
      */
-    public function getBookedTrainingsFor($user_id);
+    public function getBookedTrainingsFor(int $user_id);
 }

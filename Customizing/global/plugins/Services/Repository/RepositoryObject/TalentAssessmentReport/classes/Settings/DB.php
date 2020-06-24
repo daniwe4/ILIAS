@@ -25,7 +25,7 @@ interface DB
 	 *
 	 * @return TalentAssessmentReport
 	 */
-	public function create($obj_id, $is_admin, $is_online);
+	public function create(int $obj_id, bool $is_admin, bool $is_online);
 
 	/**
 	 * Update existing settings
@@ -45,7 +45,7 @@ interface DB
 	 *
 	 * @return TalentAssessmentReport
 	 */
-	public function selectFor($obj_id);
+	public function selectFor(int $obj_id);
 
 	/**
 	 * Delete settings for id
@@ -54,5 +54,5 @@ interface DB
 	 *
 	 * @return null
 	 */
-	public function deleteFor($obj_id);
+	public function deleteFor(int $obj_id);
 }

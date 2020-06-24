@@ -57,12 +57,12 @@ class ilObjectActions
      *
      * @return Equipment\Equipment
      */
-    public function createNewEquipment(array $service_options, $special_wishes, $room_information, $seat_order)
-    {
-        assert('is_string($special_wishes)');
-        assert('is_string($room_information)');
-        assert('is_string($seat_order)');
-
+    public function createNewEquipment(
+        array $service_options,
+        string $special_wishes,
+        string $room_information,
+        string $seat_order
+    ) {
         $this->equipment_db->create((int) $this->getObject()->getID(), $service_options, $special_wishes, $room_information, $seat_order);
     }
 

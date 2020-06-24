@@ -38,7 +38,6 @@ class MailContextScaledFeedback extends \ilTMSMailContextEnte
      */
     public function valueFor(string $placeholder_id, array $contexts = array()) : ?string
     {
-        assert('is_string($placeholder_id)');
         if (!in_array($placeholder_id, $this->placeholderIds())) {
             return null;
         }

@@ -41,9 +41,7 @@ class ilDB implements DB {
 		$this->addObservationRequirement((int)$obj_id, $requirements);
 	}
 
-	protected function addObservationRequirement($obj_id, array $requirements) {
-		assert('is_int($obj_id)');
-
+	protected function addObservationRequirement(int $obj_id, array $requirements) {
 		foreach ($requirements as $req) {
 			$values = array
 					( "obs_id" => array("integer", $obj_id)
@@ -81,8 +79,7 @@ class ilDB implements DB {
 		$this->addObservationRequirement((int)$obj_id, $requirements);
 	}
 
-	protected function deleteObservationRequirement($obj_id) {
-		assert('is_int($obj_id)');
+	protected function deleteObservationRequirement(int $obj_id) {
 		$delete = "DELETE FROM ".self::TABLE_OBS_REQ."\n"
 				 ." WHERE obs_id = ".$this->getDB()->quote($obj_id, "integer");
 

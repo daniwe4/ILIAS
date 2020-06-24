@@ -151,11 +151,8 @@ class ilObjCopySettings extends ilObjectPlugin
      *
      * @return void
      */
-    public function workLocalRolesForUsers($user_id, $target_crs_ref_id)
+    public function workLocalRolesForUsers(int $user_id, int $target_crs_ref_id)
     {
-        assert('is_int($user_id)');
-        assert('is_int($target_crs_ref_id)');
-
         $target_crs = \ilObjectFactory::getInstanceByRefId($target_crs_ref_id);
         $defined_roles = $this->getExtendedSettings()->getRoleIds();
         $members_object = $target_crs->getMembersObject();
@@ -363,9 +360,8 @@ class ilObjCopySettings extends ilObjectPlugin
      *
      * @param	string	type
      */
-    public function raiseEvent($type)
+    public function raiseEvent(string $type)
     {
-        assert('is_string($type)');
         $payload =
             [
                 'parent' => $this->getParentContainer(),

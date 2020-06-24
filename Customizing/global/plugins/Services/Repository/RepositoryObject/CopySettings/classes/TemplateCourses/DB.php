@@ -13,7 +13,7 @@ interface DB
      *
      * @return void
      */
-    public function create($obj_id, $crs_id, $crs_ref_id);
+    public function create(int $obj_id, int $crs_id, int $crs_ref_id);
 
     /**
      * Delete template vals for object
@@ -22,7 +22,7 @@ interface DB
      *
      * @return void
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id);
 
     /**
      * Checks the given obj id is an template course
@@ -31,7 +31,7 @@ interface DB
      *
      * @return bool
      */
-    public function isTemplateByObjId($crs_id);
+    public function isTemplateByObjId(int $crs_id);
 
     /**
      * Checks the given obj id is an template course
@@ -40,5 +40,5 @@ interface DB
      *
      * @return bool
      */
-    public function isTemplateByRefId($crs_ref_id);
+    public function isTemplateByRefId(int $crs_ref_id);
 }

@@ -13,7 +13,7 @@ class TalentAssessment
 	protected $obj_id;
 
 	/**
-	 * @var string
+	 * @var int
 	 */
 	protected $state;
 
@@ -43,12 +43,12 @@ class TalentAssessment
 	protected $email;
 
 	/**
-	 * @var ilDateTime
+	 * @var \ilDateTime
 	 */
 	protected $start_date;
 
 	/**
-	 * @var ilDateTime
+	 * @var \ilDateTime
 	 */
 	protected $end_date;
 
@@ -102,45 +102,48 @@ class TalentAssessment
 	 */
 	protected $default_text_success;
 
-	public function __construct($obj_id, $state, $career_goal_id, $username, $firstname, $lastname, $email, $start_date, $end_date, $venue, $org_unit, $started, $lowmark, $should_specifiaction, $potential, $result_comment, $default_text_failed, $default_text_partial, $default_text_success)
-	{
-		assert('is_int($obj_id)');
-		$this->obj_id = $obj_id;
-		assert('is_int($career_goal_id)');
-		$this->career_goal_id = $career_goal_id;
-		assert('is_string($username)');
-		$this->username = $username;
-		assert('is_string($firstname)');
-		$this->firstname = $firstname;
-		assert('is_string($lastname)');
-		$this->lastname = $lastname;
-		assert('is_string($email)');
-		$this->email = $email;
-		$this->start_date = $start_date;
-		$this->end_date = $end_date;
-		assert('is_string($venue)');
-		$this->venue = $venue;
-		assert('is_string($org_unit) || is_null($org_unit)');
-		$this->org_unit = $org_unit;
-		assert('is_bool($started)');
-		$this->started = $started;
-		assert('is_float($lowmark)');
-		$this->lowmark = $lowmark;
-		assert('is_float($should_specifiaction)');
-		$this->should_specifiaction = $should_specifiaction;
-		assert('is_float($potential)');
-		$this->potential = $potential;
-		assert('is_string($result_comment)');
-		$this->result_comment = $result_comment;
-		assert('is_string($default_text_failed)');
-		$this->default_text_failed = $default_text_failed;
-		assert('is_string($default_text_partial)');
-		$this->default_text_partial = $default_text_partial;
-		assert('is_string($result_comment)');
-		$this->default_text_success = $default_text_success;
+	public function __construct(
+	    int $obj_id,
+        int $state,
+        int $career_goal_id,
+        string $username,
+        string $firstname,
+        string $lastname,
+        string $email,
+        \ilDateTime $start_date,
+        \ilDateTime $end_date,
+        string $venue,
+        ?string $org_unit,
+        bool $started,
+        float $lowmark,
+        float $should_specifiaction,
+        float $potential,
+        string $result_comment,
+        string $default_text_failed,
+        string $default_text_partial,
+        string $default_text_success
+    ) {
+        $this->obj_id = $obj_id;
+        $this->state = $state;
+        $this->career_goal_id = $career_goal_id;
+        $this->username = $username;
+        $this->firstname = $firstname;
+        $this->lastname = $lastname;
+        $this->email = $email;
+        $this->start_date = $start_date;
+        $this->end_date = $end_date;
+        $this->venue = $venue;
+        $this->org_unit = $org_unit;
+        $this->started = $started;
+        $this->lowmark = $lowmark;
+        $this->should_specifiaction = $should_specifiaction;
+        $this->potential = $potential;
+        $this->result_comment = $result_comment;
+        $this->default_text_failed = $default_text_failed;
+        $this->default_text_partial = $default_text_partial;
+        $this->default_text_success = $default_text_success;
 
-		$this->state = $state;
-	}
+    }
 
 	public function withState($state)
 	{
@@ -150,22 +153,16 @@ class TalentAssessment
 		return $clone;
 	}
 
-	public function withCareerGoalID($career_goal_id)
+	public function withCareerGoalID(int $career_goal_id)
 	{
-		assert('is_int($career_goal_id)');
-
 		$clone = clone $this;
 		$clone->career_goal_id = $career_goal_id;
 
 		return $clone;
 	}
 
-	public function withUserdata($username, $firstname, $lastname, $email)
+	public function withUserdata(string $username, string $firstname, string  $lastname, string  $email)
 	{
-		assert('is_string($username)');
-		assert('is_string($firstname)');
-		assert('is_string($lastname)');
-		assert('is_string($email)');
 		$clone = clone $this;
 		$clone->username = $username;
 		$clone->firstname = $firstname;
@@ -175,9 +172,8 @@ class TalentAssessment
 		return $clone;
 	}
 
-	public function withUsername($username)
+	public function withUsername(string $username)
 	{
-		assert('is_string($username)');
 		$clone = clone $this;
 		$clone->username = $username;
 
@@ -200,90 +196,80 @@ class TalentAssessment
 		return $clone;
 	}
 
-	public function withVenue($venue)
+	public function withVenue(string $venue)
 	{
-		assert('is_string($venue)');
 		$clone = clone $this;
 		$clone->venue = $venue;
 
 		return $clone;
 	}
 
-	public function withOrgUnit($org_unit)
+	public function withOrgUnit(?string $org_unit)
 	{
-		assert('is_string($org_unit) || is_null($org_unit)');
 		$clone = clone $this;
 		$clone->org_unit = $org_unit;
 
 		return $clone;
 	}
 
-	public function withStarted($started)
+	public function withStarted(bool $started)
 	{
-		assert('is_bool($started)');
 		$clone = clone $this;
 		$clone->started = $started;
 
 		return $clone;
 	}
 
-	public function withLowmark($lowmark)
+	public function withLowmark(float $lowmark)
 	{
-		assert('is_float($lowmark)');
 		$clone = clone $this;
 		$clone->lowmark = $lowmark;
 
 		return $clone;
 	}
 
-	public function withShouldSpecifiaction($should_specifiaction)
+	public function withShouldSpecifiaction(float $should_specifiaction)
 	{
-		assert('is_float($should_specifiaction)');
 		$clone = clone $this;
 		$clone->should_specifiaction = $should_specifiaction;
 
 		return $clone;
 	}
 
-	public function withPotential($potential)
+	public function withPotential(float $potential)
 	{
-		assert('is_float($potential)');
 		$clone = clone $this;
 		$clone->potential = $potential;
 
 		return $clone;
 	}
 
-	public function withResultComment($result_comment)
+	public function withResultComment(string $result_comment)
 	{
-		assert('is_string($result_comment)');
 		$clone = clone $this;
 		$clone->result_comment = $result_comment;
 
 		return $clone;
 	}
 
-	public function withDefaultTextFailed($default_text_failed)
+	public function withDefaultTextFailed(string $default_text_failed)
 	{
-		assert('is_string($default_text_failed)');
 		$clone = clone $this;
 		$clone->default_text_failed = $default_text_failed;
 
 		return $clone;
 	}
 
-	public function withDefaultTextPartial($default_text_partial)
+	public function withDefaultTextPartial(string $default_text_partial)
 	{
-		assert('is_string($default_text_partial)');
 		$clone = clone $this;
 		$clone->default_text_partial = $default_text_partial;
 
 		return $clone;
 	}
 
-	public function withDefaultTextSuccess($default_text_success)
+	public function withDefaultTextSuccess(string $default_text_success)
 	{
-		assert('is_string($default_text_success)');
 		$clone = clone $this;
 		$clone->default_text_success = $default_text_success;
 

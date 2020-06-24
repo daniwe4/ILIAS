@@ -15,9 +15,9 @@ interface DB
      * @param int   $obj_id
      * @param string 	$parent
      *
-     * @return null
+     * @return void
      */
-    public function deleteApproveRoles($obj_id, $parent);
+    public function deleteApproveRoles(int $obj_id, string $parent) : void;
 
     /**
      * Creates a approve role object
@@ -25,18 +25,18 @@ interface DB
      * @param int 	$obj_id
      * @param string $parent
      * @param int 	$position
-     * @param string 	$role_name
+     * @param int 	$role_id
      *
-     * @return Settings\Booking\ApproveRole
+     * @return ApproveRole
      */
-    public function createApproveRole($obj_id, $parent, $position, $role_name);
+    public function createApproveRole(int $obj_id, string $parent, int $position, int $role_name) : ApproveRole;
 
     /**
      * Create new approve role assignment
      *
      * @param ApproveRole[] | null	$approve_roles
      *
-     * @return null
+     * @return void
      */
-    public function createApproveRoles(array $approve_roles = null);
+    public function createApproveRoles(array $approve_roles = null) : void;
 }

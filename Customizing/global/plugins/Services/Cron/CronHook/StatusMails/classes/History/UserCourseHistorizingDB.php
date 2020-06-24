@@ -290,9 +290,8 @@ class UserCourseHistorizingDB implements DB
         return new \DateTime($date);
     }
 
-    protected function formatIDDTime($minutes)
+    protected function formatIDDTime(int $minutes)
     {
-        assert('is_int($minutes)');
         $reminder_minutes = $minutes % 60;
         $hours = ($minutes - $reminder_minutes) / 60;
         return str_pad((int) $hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad(

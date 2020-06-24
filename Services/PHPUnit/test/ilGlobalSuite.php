@@ -78,42 +78,44 @@ class ilGlobalSuite extends TestSuite
 
         foreach ($basedirs as $basedir) {
             $test = "tests";
+            $dir = null;
             switch ($basedir) {
                 case "CronHook":
                     $path = "Customizing/global/plugins/Services/Cron/" . $basedir;
-                    $dir = opendir($path);
+                    $dir = self::getDir($path);
                     break;
                 case "EventHook":
                     $path = "Customizing/global/plugins/Services/EventHandling/" . $basedir;
-                    $dir = opendir($path);
+                    $dir = self::getDir($path);
                     break;
                 case "OrgUnitTypeHook":
                     $path = "Customizing/global/plugins/Services/OrgUnit/" . $basedir;
-                    $dir = opendir($path);
+                    $dir = self::getDir($path);
                     break;
                 case "RepositoryObject":
                     $path = "Customizing/global/plugins/Services/Repository/" . $basedir;
-                    $dir = opendir($path);
+                    $dir = self::getDir($path);
                     break;
                 default:
                     $path = $basedir;
                     // read current directory
-                    $dir = opendir($basedir);
+                    $dir = self::getDir($basedir);
                     $test = "test";
             }
 
-            while ($file = readdir($dir)) {
-                if ($file != "." && $file != ".." && is_dir($path . "/" . $file)) {
-                    $suite_path =
-                        $path . "/" . $file . "/" . $test . "/il" . $basedir . $file . "Suite.php";
-                    if (is_file($suite_path)) {
-                        include_once($suite_path);
+            if (!is_null($dir)) {
+                while ($file = readdir($dir)) {
+                    if ($file != "." && $file != ".." && is_dir($path . "/" . $file)) {
+                        $suite_path =
+                            $path . "/" . $file . "/" . $test . "/il" . $basedir . $file . "Suite.php";
+                        if (is_file($suite_path)) {
+                            include_once($suite_path);
 
-                        $name = "il" . $basedir . $file . "Suite";
-                        $s = $name::suite();
-                        echo "Adding Suite: " . $name . "\n";
-                        $suite->addTest($s);
-                        //$suite->addTestSuite("ilSettingTest");
+                            $name = "il" . $basedir . $file . "Suite";
+                            $s = $name::suite();
+                            echo "Adding Suite: " . $name . "\n";
+                            $suite->addTest($s);
+                        }
                     }
                 }
             }
@@ -176,4 +178,15 @@ class ilGlobalSuite extends TestSuite
         }
         return $suite;
     }
+
+    // cat tms-patch start
+    protected static function getDir(string $path)
+    {
+        if (!is_dir($path)) {
+            return null;
+        }
+
+        return opendir($path);
+    }
+    // cat tms-patch end
 }

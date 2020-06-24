@@ -176,9 +176,8 @@ class ilTrainingAdminOverviewSettingsGUI
      * @param 	string	$code
      * @return	string
      */
-    protected function txt($code)
+    protected function txt(string $code)
     {
-        assert('is_string($code)');
         return $this->actions->getObject()->pluginTxt($code);
     }
 }

@@ -33,7 +33,7 @@ class SharedUnboundProvider extends Base
      */
     public function buildComponentsOf($component_type, Entity $entity)
     {
-        assert('is_string($component_type)');
+        assert(is_string($component_type));
         if ($component_type === MailingOccasion::class) {
             return $this->getMailingOccasions($entity);
         }

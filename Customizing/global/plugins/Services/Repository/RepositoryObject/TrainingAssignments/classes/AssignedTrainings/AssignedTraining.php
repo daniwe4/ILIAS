@@ -78,11 +78,8 @@ class AssignedTraining
      * @param string 	$title
      * @param \ilDateTime | null	$crs_start_date
      */
-    public function __construct($crs_ref_id, $title, \ilDateTime $crs_start_date = null)
+    public function __construct(int $crs_ref_id, string $title, \ilDateTime $crs_start_date = null)
     {
-        assert('is_int($crs_ref_id)');
-        assert('is_string($title)');
-
         $this->crs_ref_id = $crs_ref_id;
         $this->title = $title;
         $this->crs_start_date = $crs_start_date;

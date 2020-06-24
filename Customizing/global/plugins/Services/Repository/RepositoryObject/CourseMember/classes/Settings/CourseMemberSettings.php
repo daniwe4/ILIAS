@@ -126,7 +126,6 @@ class CourseMemberSettings
 
     public function withListRequired(bool $list_required) : CourseMemberSettings
     {
-        assert('is_bool($list_required)');
         $clone = clone $this;
         $clone->list_required = $list_required;
         return $clone;

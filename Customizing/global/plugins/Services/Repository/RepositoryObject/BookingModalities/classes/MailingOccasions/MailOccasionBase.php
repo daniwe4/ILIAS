@@ -49,7 +49,7 @@ abstract class MailOccasionBase implements MailingOccasion
      */
     public function doesProvideMailForEvent($event)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
         return in_array($event, static::$events);
     }
 
@@ -67,7 +67,7 @@ abstract class MailOccasionBase implements MailingOccasion
      */
     public function getMails($event, $parameter)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
 
         $usr_id = (int) $parameter['usr_id'];
         $template_ident = $this->templateIdent();
@@ -187,9 +187,8 @@ abstract class MailOccasionBase implements MailingOccasion
     /**
      * @inheritdoc
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 

@@ -786,11 +786,11 @@ class Report
     }
 
 
-    protected function maybeEnrichByPStatusTitle($title_column_participated, $title_column_absent, $title_column_in_progress)
-    {
-        assert('is_string($title_column_participated)');
-        assert('is_string($title_column_absent)');
-        assert('is_string($title_column_in_progress)');
+    protected function maybeEnrichByPStatusTitle(
+        string $title_column_participated,
+        string $title_column_absent,
+        string $title_column_in_progress
+    ) {
         if (\ilPluginAdmin::isPluginActive('xcmb')) {
             $map = ['participated' => [],'absent' => [],'in_progress' => []];
             foreach (\ilPlugin::getPluginObject('Services', 'Repository', 'robj', 'CourseMember')

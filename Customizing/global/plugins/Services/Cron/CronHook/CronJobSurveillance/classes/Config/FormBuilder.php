@@ -21,7 +21,7 @@ interface FormBuilder
      * 									_top
      * @return 	FormWrapper
      */
-    public function getForm($name, $action, $target = "_self");
+    public function getForm(string $name, string $action, string $target = "_self") : FormWrapper;
 
     /**
      * Add a ilCJSConfigHeaderGUI.
@@ -30,7 +30,7 @@ interface FormBuilder
      * @param 	string 	$header_number 		Header for the number column.
      * @return 	void
      */
-    public function addCJSConfigHeaderGUI($header_name, $header_number);
+    public function addCJSConfigHeaderGUI(string $header_name, string $header_number) : void;
 
     /**
      * Add a ilCJSConfigItemGUI.
@@ -42,7 +42,7 @@ interface FormBuilder
     public function addCJSConfigItemGUI(
         array $options_select_box,
         ConfigurationForm $configuration_form
-    );
+    ) : void;
 
     /**
      * Add a button to the form.
@@ -52,5 +52,5 @@ interface FormBuilder
      * @param 	string 	$action 	Specifies the action of the button.
      * @return 	void
      */
-    public function addButton($name, $text, $action);
+    public function addButton(string $name, string $text, string $action) : void;
 }

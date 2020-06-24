@@ -409,9 +409,8 @@ class ilObjWebinar extends ilObjectPlugin implements ilLPStatusPluginInterface
      *
      * @return Closure
      */
-    public function pluginTxt($code)
+    public function pluginTxt(string $code)
     {
-        assert('is_string($code)');
         return $this->getPlugin()->txt($code);
     }
 

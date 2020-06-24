@@ -6,7 +6,7 @@ class FunctionResult
 {
     public function __construct($title, $value)
     {
-        assert('is_string($title)');
+        assert(is_string($title));
 
         $this->title = $title;
         $this->value = $value;

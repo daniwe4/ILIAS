@@ -1216,10 +1216,8 @@ class ilObjRole extends ilObject
         $this->tms_settings = $this->tms_settings_db->selectFor((int) $this->getId());
     }
 
-    public function setTMSSettings($hide_breadcrumb, $hide_menu_tree)
+    public function setTMSSettings(bool $hide_breadcrumb, bool $hide_menu_tree)
     {
-        assert('is_bool($hide_breadcrumb)');
-        assert('is_bool($hide_menu_tree)');
         $this->tms_settings = $this->tms_settings->withHideBreadcrumb($hide_breadcrumb)
            ->withHideMenuTree($hide_menu_tree);
     }

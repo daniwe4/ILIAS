@@ -49,15 +49,15 @@ class Storno
      * @param string | null	$reason_type
      * @param string | null	$modus
      */
-    public function __construct($obj_id, $deadline = null, $hard_deadline = null, $modus = null, $reason_type = null, array $approve_roles = [], $reason_optional = false)
+    public function __construct(
+        int $obj_id,
+        ?int $deadline = null,
+        ?int $hard_deadline = null,
+        ?string $modus = null,
+        ?string $reason_type = null,
+        array $approve_roles = [],
+        bool $reason_optional = false)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($deadline) || is_null($min)');
-        assert('is_int($hard_deadline) || is_null($min)');
-        assert('is_string($modus) || is_null($modus)');
-        assert('is_string($reason_type) || is_null($reason_type)');
-        assert('is_bool($reason_optional)');
-
         $this->obj_id = $obj_id;
         $this->deadline = $deadline;
         $this->hard_deadline = $hard_deadline;
@@ -142,9 +142,8 @@ class Storno
      *
      * @return Storno
      */
-    public function withDeadline($deadline)
+    public function withDeadline(?int $deadline)
     {
-        assert('is_int($deadline) || is_null($deadline)');
         $clone = clone $this;
         $clone->deadline = $deadline;
         return $clone;
@@ -157,9 +156,8 @@ class Storno
      *
      * @return Storno
      */
-    public function withHardDeadline($hard_deadline)
+    public function withHardDeadline(?int $hard_deadline)
     {
-        assert('is_int($hard_deadline) || is_null($hard_deadline)');
         $clone = clone $this;
         $clone->hard_deadline = $hard_deadline;
         return $clone;
@@ -172,9 +170,8 @@ class Storno
      *
      * @return Storno
      */
-    public function withModus($modus)
+    public function withModus(?string $modus)
     {
-        assert('is_string($modus) || is_null($modus)');
         $clone = clone $this;
         $clone->modus = $modus;
         return $clone;
@@ -215,9 +212,8 @@ class Storno
      *
      * @return Storno
      */
-    public function withReasonOptional($reason_optional)
+    public function withReasonOptional(bool $reason_optional)
     {
-        assert('is_bool($reason_optional)');
         $clone = clone $this;
         $clone->reason_optional = $reason_optional;
         return $clone;

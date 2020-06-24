@@ -54,16 +54,11 @@ class SelectableReportTableGUI extends ilTable2GUI {
 	 */
 	public function addExporter(
 		ExcelWrapper\Writer $writer,
-		$format_id,
-		$export_format_title,
-		$export_format_mine,
-		$export_format
-		)
-	{
-		assert('is_int($format_id)');
-		assert('is_string($export_format_title)');
-		assert('is_string($export_format_mine)');
-		assert('is_string($export_format)');
+		int $format_id,
+		string $export_format_title,
+		string $export_format_mine,
+		string $export_format
+    ) {
 		$this->export_formats[$format_id] = $export_format_title;
 		$this->export_writer[$format_id] = $writer;
 		$this->export_mime[$format_id] = $export_format_mine;
@@ -75,7 +70,7 @@ class SelectableReportTableGUI extends ilTable2GUI {
 	 */
 	public function exportData($format_id, $send = false)
 	{
-		assert('is_int($format_id)');
+		assert(is_int($format_id));
 		if($this->dataExists()) {
 			if(!array_key_exists($format_id, $this->export_writer)) {
 				throw new \InvalidArgumentException('unknown format');
@@ -94,7 +89,7 @@ class SelectableReportTableGUI extends ilTable2GUI {
 	{
 		$si = new SI();
 		$writer = $this->export_writer[$format_id];
-		assert('is_int($format_id)');
+		assert(is_int($format_id));
 		$path = rtrim(sys_get_temp_dir(),DIRECTORY_SEPARATOR).DIRECTORY_SEPARATOR;
 
 		$writer->setPath($path);
@@ -384,7 +379,7 @@ class SelectableReportTableGUI extends ilTable2GUI {
 	 */
 	public function setDefaultOrderColumn($column_id, $direction)
 	{
-		assert('is_string($column_id)');
+		assert(is_string($column_id));
 		if(!array_key_exists($column_id, $this->selectable) && !array_key_exists($column_id, $this->persistent)) {
 			throw new \InvalidArgumentException($column_id.' is not a valid column');
 		}

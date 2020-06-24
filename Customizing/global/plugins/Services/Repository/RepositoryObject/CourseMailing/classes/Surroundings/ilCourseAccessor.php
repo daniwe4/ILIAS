@@ -13,9 +13,8 @@ class ilCourseAccessor
      */
     protected $obj_ref_id;
 
-    public function __construct($obj_ref_id)
+    public function __construct(int $obj_ref_id)
     {
-        assert('is_int($obj_ref_id)');
         $this->obj_ref_id = $obj_ref_id;
     }
 
@@ -65,11 +64,8 @@ class ilCourseAccessor
      * @param string 	$crs_ref_id
      * @return string
      */
-    private function getUnifiedRoleTitle($role_id, $crs_ref_id)
+    private function getUnifiedRoleTitle(string $role_id, string $crs_ref_id)
     {
-        assert('is_string($role_id)');
-        assert('is_string($crs_ref_id)');
-
         $role_title = \ilObject::_lookupTitle($role_id);
 
         $crs_ref_id = '_' . $crs_ref_id;

@@ -103,8 +103,8 @@ abstract class ilBookingWithApproveGUI
 
     public function executeCommand()
     {
-        assert('is_numeric($_GET["crs_ref_id"])');
-        assert('is_numeric($_GET["usr_id"]) || !in_array("usr_id", $_GET)');
+        assert(is_numeric($_GET["crs_ref_id"]));
+        assert(is_numeric($_GET["usr_id"]) || !in_array("usr_id", $_GET));
 
         $crs_ref_id = (int) $_GET["crs_ref_id"];
         if (array_key_exists("usr_id", $_GET)) {
@@ -196,7 +196,7 @@ abstract class ilBookingWithApproveGUI
         }
 
 
-        assert('is_string($content)');
+        assert(is_string($content));
         $this->g_tpl->setContent($content);
     }
 
@@ -241,9 +241,8 @@ abstract class ilBookingWithApproveGUI
      * @param int 	$crs_ref_id
      * @return int
      */
-    protected function lookupObjId($crs_ref_id)
+    protected function lookupObjId(int $crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
         $crs_obj_id = (int) \ilObject::_lookupObjId($crs_ref_id);
         return $crs_obj_id;
     }
@@ -295,9 +294,8 @@ abstract class ilBookingWithApproveGUI
      * @param int 	$usr_id
      * @return \ilObjCourse[]
      */
-    protected function getUnfinishedDuplicateBookedCoursesOfUser(\ilObjCourse $course, $usr_id)
+    protected function getUnfinishedDuplicateBookedCoursesOfUser(\ilObjCourse $course, int $usr_id)
     {
-        assert('is_int($usr_id)');
         $start_date = $course->getCourseStart();
         if ($start_date === null) {
             return array();
@@ -314,9 +312,8 @@ abstract class ilBookingWithApproveGUI
      * @param int 	$usr_id
      * @return \ilObjCourse[]
      */
-    protected function getUnfinishedWaitingListCoursesOfUser(\ilObjCourse $course, $usr_id)
+    protected function getUnfinishedWaitingListCoursesOfUser(\ilObjCourse $course, int $usr_id)
     {
-        assert('is_int($usr_id)');
         $start_date = $course->getCourseStart();
         if ($start_date === null) {
             return array();
@@ -475,12 +472,8 @@ abstract class ilBookingWithApproveGUI
      * @param int 	$crs_ref_id
      * @return void
      */
-    protected function fireBookingEvent($event, $usr_id, $crs_ref_id)
+    protected function fireBookingEvent(string $event, int $usr_id, int $crs_ref_id)
     {
-        assert('is_string($event)');
-        assert('is_int($usr_id)');
-        assert('is_int($crs_ref_id)');
-
         $crs_obj_id = $this->lookupObjId($crs_ref_id);
         $this->g_event_handler->raise(
             'Modules/Course',

@@ -12,5 +12,5 @@ interface DB
      *
      * @return AssignedTrainings[]
      */
-    public function getAssignedTrainingsFor($user_id, array $filter);
+    public function getAssignedTrainingsFor(int $user_id, array $filter);
 }

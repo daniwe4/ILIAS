@@ -16,11 +16,17 @@ interface DB
      * @param int 	$target_ref_id
      * @param int 	$target_obj_id
      * @param bool 	$is_referenced
-     * @param sring 	$process_type
+     * @param string 	$process_type
      *
      * @return Child
      */
-    public function create($obj_id, $target_ref_id, $target_obj_id, $is_referenced, $process_type);
+    public function create(
+        int $obj_id,
+        int $target_ref_id,
+        int $target_obj_id,
+        bool $is_referenced,
+        string $process_type
+    ) : Child;
 
     /**
      * Get all copy settings of obj id
@@ -29,7 +35,7 @@ interface DB
      *
      * @return Child[]
      */
-    public function select($obj_id);
+    public function select(int $obj_id) : array;
 
     /**
      * Delete all copy settings of obj id
@@ -38,5 +44,5 @@ interface DB
      *
      * @return void
      */
-    public function delete($obj_id);
+    public function delete(int $obj_id) : void;
 }

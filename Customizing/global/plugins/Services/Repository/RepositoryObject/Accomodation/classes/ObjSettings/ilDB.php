@@ -131,9 +131,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id) : ObjSettings
     {
-        assert('is_int($obj_id)');
         $query = "SELECT obj_id, dates_from_course, start_date, end_date," . PHP_EOL
                 . " location_obj_id, location_from_course, allow_prior_day, allow_following_day, booking_end," . PHP_EOL
                 . " mailsettings_from_venue, mail_recipient, mail_senddaysbefore, mail_reminddaysbefore, edit_notes" . PHP_EOL
@@ -179,7 +178,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
         $query = "DELETE FROM " . static::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");

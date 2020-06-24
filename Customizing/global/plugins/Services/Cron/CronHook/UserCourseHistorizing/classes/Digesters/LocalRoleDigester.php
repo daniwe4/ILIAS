@@ -9,9 +9,8 @@ class LocalRoleDigester implements Digester
 {
     private $event;
 
-    public function __construct($event)
+    public function __construct(string $event)
     {
-        assert('is_string($event)');
         $this->event = $event;
     }
 

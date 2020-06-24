@@ -104,8 +104,6 @@ class ilDB implements DB
      */
     public function select(int $obj_id) : Settings
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT obj_id, edit_title, edit_target_groups, edit_target_group_desc, edit_content," . PHP_EOL
             . " edit_benefits, edit_idd_learningtime, role_ids," . PHP_EOL
             . " time_mode, min_days_in_future, edit_venue, edit_provider, additional_infos," . PHP_EOL
@@ -152,7 +150,6 @@ class ilDB implements DB
      */
     public function delete(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
             . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 

@@ -28,37 +28,29 @@ class Requirement {
 	 */
 	protected $position;
 
-	public function __construct($obj_id, $career_goal_id, $title, $description, $position) {
-		assert('is_int($obj_id)');
+	public function __construct(int $obj_id, int $career_goal_id, string $title, string $description, int $position) {
 		$this->obj_id = $obj_id;
-		assert('is_int($career_goal_id)');
 		$this->career_goal_id = $career_goal_id;
-		assert('is_string($title)');
 		$this->title = $title;
-		assert('is_string($description)');
 		$this->description = $description;
-		assert('is_int($position)');
 		$this->position = $position;
 	}
 
-	public function withTitle($title) {
-		assert('is_string($title)');
+	public function withTitle(string $title) {
 		$clone = clone $this;
 		$clone->title = $title;
 
 		return $clone;
 	}
 
-	public function withDescription($description) {
-		assert('is_string($description)');
+	public function withDescription(string $description) {
 		$clone = clone $this;
 		$clone->description = $description;
 
 		return $clone;
 	}
 
-	public function withPosition($position) {
-		assert('is_int($position)');
+	public function withPosition(int $position) {
 		$clone = clone $this;
 		$clone->position = $position;
 

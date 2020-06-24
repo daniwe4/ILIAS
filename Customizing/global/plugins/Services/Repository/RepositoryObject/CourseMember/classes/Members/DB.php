@@ -25,7 +25,7 @@ interface DB
      *
      * @return Member[]
      */
-    public function select($crs_id);
+    public function select(int $crs_id);
 
     /**
      * Delete entry for user and course
@@ -35,7 +35,7 @@ interface DB
      *
      * @return void
      */
-    public function deleteForUserAndCourse($user_id, $crs_id);
+    public function deleteForUserAndCourse(int $user_id, int $crs_id);
 
     /**
      * Delete entries for course
@@ -44,5 +44,5 @@ interface DB
      *
      * @return void
      */
-    public function deleteForCourse($crs_id);
+    public function deleteForCourse(int $crs_id);
 }

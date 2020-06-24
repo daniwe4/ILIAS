@@ -14,5 +14,5 @@ interface CronJobFactory
      * @param 	string 	$id
      * @return 	CronJob | null
      */
-    public function getCronJob($id);
+    public function getCronJob(string $id);
 }

@@ -75,11 +75,8 @@ class AdministratedTraining
      * @param int 	$crs_ref_id
      * @param string 	$title
      */
-    public function __construct($crs_ref_id, $title, \ilDateTime $crs_start = null)
+    public function __construct(int $crs_ref_id, string $title, \ilDateTime $crs_start = null)
     {
-        assert('is_int($crs_ref_id)');
-        assert('is_string($title)');
-
         $this->crs_ref_id = $crs_ref_id;
         $this->title = $title;
         $this->crs_start = $crs_start;

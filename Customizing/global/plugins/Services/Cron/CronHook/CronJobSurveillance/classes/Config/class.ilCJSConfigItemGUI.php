@@ -165,10 +165,8 @@ class ilCJSConfigItemGUI extends ilSubEnabledFormPropertyGUI implements ilMultiV
      *
      * @param 	string 	$name
      */
-    public function getElementByPostVar($name)
+    public function getElementByPostVar(string $name)
     {
-        assert('is_string($name)');
-
         $post = $_POST;
         return $post[$name];
     }

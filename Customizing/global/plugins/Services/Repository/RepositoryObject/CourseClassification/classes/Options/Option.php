@@ -25,11 +25,8 @@ class Option
      * @param int 		$id
      * @param string 	$caption
      */
-    public function __construct($id, $caption)
+    public function __construct(int $id, string $caption)
     {
-        assert('is_int($id)');
-        assert('is_string($caption)');
-
         $this->id = $id;
         $this->caption = $caption;
     }
@@ -61,9 +58,8 @@ class Option
      *
      * @return Option
      */
-    public function withCaption($caption)
+    public function withCaption(string $caption)
     {
-        assert('is_string($caption)');
         $clone = clone $this;
         $clone->caption = $caption;
         return $clone;

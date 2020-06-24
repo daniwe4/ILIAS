@@ -18,7 +18,7 @@ interface VCActions
      *
      * @return Participant | null
      */
-    public function getParticipantByUserName($user_name);
+    public function getParticipantByUserName(string $user_name) : ?Participant;
 
     /**
      * Creates an imported user entry as Participant
@@ -32,30 +32,37 @@ interface VCActions
      *
      * @return Participant
      */
-    public function createUnkownParticipant($user_name, $email, $phone, $company, $minutes, $user_id = null);
+    public function createUnknownParticipant(
+        string $user_name,
+        string $email,
+        string $phone,
+        string $company,
+        int $minutes,
+        ?int $user_id = null
+    ) : Participant;
 
     /**
      * Get a single unknown participant by user name
      *
      * @param string 	$user_name
      *
-     * @return UnknownParticipant | null
+     * @return Participant | null
      */
-    public function getUnknownParticipantByLogin($user_name);
+    public function getUnknownParticipantByLogin(string $user_name) : ?Participant;
 
     /**
      * Get the minutes required
      *
      * @return int
      */
-    public function getMinutesRequired();
+    public function getMinutesRequired() : int;
 
     /**
      * Update a booked participant with vc file data
      *
      * @param Participant 	$participant
      *
-     * @return null
+     * @return void
      */
-    public function updateParticipant(Participant $participant);
+    public function updateParticipant(Participant $participant) : void;
 }

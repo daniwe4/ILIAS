@@ -28,9 +28,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id)
+    public function create(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $waitinglist = new Waitinglist($obj_id, $cancellation, $max, $modus);
         $values = array("obj_id" => array("int", $waitinglist->getObjId()));
         $this->getDB()->insert(self::TABLE_WAITINGLIST, $values);
@@ -55,9 +54,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "SELECT cancellation, max, modus\n"
                 . " FROM " . self::TABLE_WAITINGLIST . " \n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -84,9 +82,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_WAITINGLIST . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
         $this->getDB()->manipulate($query);

@@ -25,13 +25,13 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id, \ilDateTime $last_edit_datetime, $last_edit_by, $recipient_mode, $send_days_before = null)
-    {
-        assert('is_int($obj_id)');
-        assert('is_int($last_edit_by)');
-        assert('is_string($recipient_mode)');
-        assert('is_int($send_days_before) || is_null($send_days_before)');
-
+    public function create(
+        int $obj_id,
+        \ilDateTime $last_edit_datetime,
+        int $last_edit_by,
+        string $recipient_mode,
+        ?int $send_days_before = null
+    ) {
         $material_list = new MaterialList($obj_id, $last_edit_datetime, $last_edit_by, $recipient_mode, $send_days_before);
 
         $values = array( "obj_id" => array("integer", $material_list->getObjId())
@@ -64,10 +64,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT last_edit_datetime, last_edit_by, recipient_mode, recipient, send_days_before\n"
                 . " FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -92,10 +90,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 

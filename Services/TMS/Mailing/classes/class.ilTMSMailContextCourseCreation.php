@@ -138,7 +138,7 @@ class ilTMSMailContextCourseCreation implements Mailing\MailContext
     protected function getObjectByRefId(int $ref_id) : \ilObject
     {
         $object = \ilObjectFactory::getInstanceByRefId($ref_id);
-        assert('$object instanceof \ilObject');
+        assert($object instanceof \ilObject);
         return $object;
     }
 

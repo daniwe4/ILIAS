@@ -32,7 +32,7 @@ class ilDB implements DB
      * with id=>title
      * @return  array<int,string>
      */
-    public function getVenueListFromPlugin()
+    public function getVenueListFromPlugin() : array
     {
         $plug = $this->getVenuePlug(false);
         if (!$plug) {
@@ -97,9 +97,8 @@ class ilDB implements DB
      * @param 	int 	$course_id
      * @return 	Venue | null
      */
-    public function getRealVenueByCourseId($course_id)
+    public function getRealVenueByCourseId(int $course_id)
     {
-        assert('is_int($course_id)');
         $vplug = $this->getVenuePlug();
         $vactions = $vplug->getActions();
         $vassignment = $vactions->getAssignment($course_id);
@@ -125,9 +124,8 @@ class ilDB implements DB
      * @param 	int 	$venue_id
      * @return 	Venue
      */
-    public function getRealVenueByVenueId($venue_id)
+    public function getRealVenueByVenueId(int $venue_id)
     {
-        assert('is_int($venue_id)');
         $vplug = $this->getVenuePlug();
         $vactions = $vplug->getActions();
         return $vactions->getVenue($venue_id);

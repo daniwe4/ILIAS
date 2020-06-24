@@ -16,7 +16,7 @@ trait CourseInfoHelper {
 	 * @param	string		$component_type
 	 * @return	Component[]
 	 */
-	abstract public function getComponentsOfType($component_type);
+	abstract protected function getComponentsOfType($component_type);
 
 	/**
 	 * Get information for a certain context ordered by priority.

@@ -16,7 +16,7 @@ interface DB
      *
      * @return null
      */
-    public function delete($id);
+    public function delete(int $id);
 
     /**
      * Creates a reason object
@@ -26,7 +26,7 @@ interface DB
      *
      * @return SelectableReason
      */
-    public function create($reason, $active);
+    public function create(string $reason, bool $active);
 
     /**
      * Update existing selectable reason
@@ -51,5 +51,5 @@ interface DB
      *
      * @return string[]
      */
-    public function getReasonOptions($parent);
+    public function getReasonOptions(string $parent);
 }

@@ -87,7 +87,7 @@ class MailOccasionInvite implements MailingOccasion
      */
     public function doesProvideMailForEvent($event)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
         return in_array($event, self::$events);
     }
 
@@ -112,7 +112,7 @@ class MailOccasionInvite implements MailingOccasion
      */
     public function getMails($event, $parameter)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
         $template_ident = $this->templateIdent();
         $contexts = array_merge(
             array($this->getIliasContext(),	$this->getCourseContext()),

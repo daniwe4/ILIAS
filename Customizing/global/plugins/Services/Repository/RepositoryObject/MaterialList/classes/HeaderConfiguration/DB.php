@@ -24,12 +24,12 @@ interface DB
     /**
      * Create a new settings object for ConfigurationEntry object.
      *
-     * @param	int		$type
-     * @param	int		$source_for_value
+     * @param	string		$type
+     * @param	string|int		$source_for_value
      *
      * @return \CaT\Plugins\MaterialList\HeaderConfiguration\ConfigurationEntry
      */
-    public function create($type, $source_for_value);
+    public function create(string $type, $source_for_value);
 
     /**
      * Return all defined configuration entries
@@ -43,5 +43,5 @@ interface DB
      *
      * @param 	int 	$id
      */
-    public function delete($id);
+    public function delete(int $id);
 }

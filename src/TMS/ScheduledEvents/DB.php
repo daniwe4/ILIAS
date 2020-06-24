@@ -25,14 +25,14 @@ interface DB {
 	 * Create a new scheduled event.
 	 *
 	 * @param int 	$issuer_ref
-	 * @param DateTime 	$due
+	 * @param \DateTime 	$due
 	 * @param string 	$component 	e.g. "Modules/Course"
 	 * @param string 	$event 		e.g. "reached_end_of_booking_period"
 	 * @param array<string,string> 	e.g. ['crs_ref_id' => '123', 'discard_waiting' => 'true']
 	 *
 	 * @return \ILIAS\TMS\ScheduledEvents\Event
 	 */
-	public function create($issuer_ref, \DateTime $due, $component, $event, $params = array());
+	public function create(int $issuer_ref, \DateTime $due, string $component, string $event, array $params = array());
 
 	/**
 	 * Get all events.
@@ -57,7 +57,7 @@ interface DB {
 	 * @param string|null 	$event
 	 * @return \ILIAS\TMS\ScheduledEvents\Event[]
 	 */
-	public function getAllFromIssuer($ref_id, $component=null, $event=null);
+	public function getAllFromIssuer(int $ref_id, ?string $component=null, ?string $event=null);
 
 	/**
 	 * Declare these events as accounted for (i.e.:they were raised)
@@ -66,7 +66,7 @@ interface DB {
 	 * @param \ILIAS\TMS\ScheduledEvents\Event[] $events
 	 * @return void
 	 */
-	public function setAccountedFor($events);
+	public function setAccountedFor(array $events);
 
 	/**
 	 * Delete those events.
@@ -74,6 +74,6 @@ interface DB {
 	 * @param \ILIAS\TMS\ScheduledEvents\Event[] $events
 	 * @return void
 	 */
-	public function delete($events);
+	public function delete(array $events);
 
 }

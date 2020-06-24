@@ -1,9 +1,10 @@
 <?php
+declare(strict_types=1);
+
 namespace CaT\Plugins\Webinar\VC\CSN;
 
 use CaT\Plugins\Webinar\VC;
 use CaT\Plugins\Webinar\Config\Config;
-use CaT\Libs\ExcelWrapper\Spout;
 
 /**
  * Actions for CSN VC
@@ -55,12 +56,8 @@ class ilActions implements VC\VCActions
      *
      * @return Settings
      */
-    public function create($phone = null, $pin = null, $minutes_required = null)
+    public function create(?string $phone = null, ?string $pin = null, ?int $minutes_required = null) : Settings
     {
-        assert('is_string($phone) || is_null($phone)');
-        assert('is_string($pin) || is_null($pin)');
-        assert('is_int($minutes_required) || is_null($minutes_required)');
-
         return $this->csn_db->create($this->getObjectId(), $phone, $pin, $minutes_required);
     }
 
@@ -69,9 +66,9 @@ class ilActions implements VC\VCActions
      *
      * @param Settings 	$settings
      *
-     * @return null
+     * @return void
      */
-    public function update(Settings $settings)
+    public function update(Settings $settings) : void
     {
         $this->csn_db->update($settings);
     }
@@ -81,7 +78,7 @@ class ilActions implements VC\VCActions
      *
      * @return Settings
      */
-    public function select()
+    public function select() : Settings
     {
         return $this->csn_db->select($this->getObjectId());
     }
@@ -89,9 +86,9 @@ class ilActions implements VC\VCActions
     /**
      * Delete CSN VC settings entry
      *
-     * @return null
+     * @return void
      */
-    public function delete()
+    public function delete() : void
     {
         $this->csn_db->delete($this->getObjectId());
     }
@@ -99,7 +96,7 @@ class ilActions implements VC\VCActions
     /**
      * @inheritdoc
      */
-    public function getMinutesRequired()
+    public function getMinutesRequired() : int
     {
         return $this->select()->getMinutesRequired();
     }
@@ -107,26 +104,25 @@ class ilActions implements VC\VCActions
     /**
      * @inheritdoc
      */
-    public function createUnkownParticipant($user_name, $email, $phone, $company, $minutes, $user_id = null)
-    {
-        assert('is_string($user_name)');
-        assert('is_string($email)');
-        assert('is_string($phone)');
-        assert('is_string($company)');
-        assert('is_int($minutes)');
-        assert('is_null($user_id) || is_int($user_id)');
-
-        $this->csn_db->createUnkownParticipant($this->getObjectId(), $user_name, $email, $phone, $company, $minutes, $user_id);
+    public function createUnknownParticipant(
+        string $user_name,
+        string $email,
+        string $phone,
+        string $company,
+        int $minutes,
+        ?int $user_id = null
+    ) : VC\Participant {
+        $this->csn_db->createUnknownParticipant($this->getObjectId(), $user_name, $email, $phone, $company, $minutes, $user_id);
     }
 
     /**
      * Delete unknown participants
      *
-     * @return null
+     * @return void
      */
-    public function deleteUnkownParticipants()
+    public function deleteUnknownParticipants() : void
     {
-        $this->csn_db->deleteUnkownParticipants($this->getObjectId());
+        $this->csn_db->deleteUnknownParticipants($this->getObjectId());
     }
 
     /**
@@ -134,12 +130,11 @@ class ilActions implements VC\VCActions
      *
      * @param int 	$id
      *
-     * @return null
+     * @return void
      */
-    public function deleteUnknownParticipant($id)
+    public function deleteUnknownParticipant(int $id) : void
     {
-        assert('is_int($id)');
-        $this->csn_db->deleteUnkownParticipant($id);
+        $this->csn_db->deleteUnknownParticipant($id);
     }
 
     /**
@@ -147,7 +142,7 @@ class ilActions implements VC\VCActions
      *
      * @return void
      */
-    public function resetMinutesOfBookedUsers()
+    public function resetMinutesOfBookedUsers() : void
     {
         $this->csn_db->resetMinutesOfBookedUsers($this->getObjectId());
     }
@@ -157,25 +152,24 @@ class ilActions implements VC\VCActions
      *
      * @return Participant[]
      */
-    public function getUnkownParticipants()
+    public function getUnknownParticipants() : array
     {
-        return $this->csn_db->getUnkownParticipants($this->getObjectId());
+        return $this->csn_db->getUnknownParticipants($this->getObjectId());
     }
 
     /**
      * @inheritdoc
      */
-    public function updateParticipant(VC\Participant $participant)
+    public function updateParticipant(VC\Participant $participant) : void
     {
-        return $this->csn_db->updateParticipant($participant);
+        $this->csn_db->updateParticipant($participant);
     }
 
     /**
      * @inheritdoc
      */
-    public function getParticipantByUserName($user_name)
+    public function getParticipantByUserName(string $user_name) : ?VC\Participant
     {
-        assert('is_string($user_name)');
         return $this->csn_db->getParticipantByUserName($this->getObjectId(), $user_name, $this->config->getPhoneType());
     }
 
@@ -184,7 +178,7 @@ class ilActions implements VC\VCActions
      *
      * @return \ilObjWebinar
      */
-    public function getObject()
+    public function getObject() : \ilObjWebinar
     {
         if ($this->object === null) {
             throw new \Exception(__METHOD__ . " no object is set.");
@@ -198,10 +192,10 @@ class ilActions implements VC\VCActions
      *
      * @return Participant[]
      */
-    public function getAllParticipants()
+    public function getAllParticipants() : array
     {
         $booked = $this->getBookedParticipants();
-        $unknown = $this->csn_db->getUnkownParticipants($this->getObjectId());
+        $unknown = $this->csn_db->getUnknownParticipants($this->getObjectId());
 
         return array_merge($booked, $unknown);
     }
@@ -211,7 +205,7 @@ class ilActions implements VC\VCActions
      *
      * @return Participant[]
      */
-    public function getBookedParticipants()
+    public function getBookedParticipants() : array
     {
         return $this->csn_db->getBookedParticipants($this->getObjectId(), $this->config->getPhoneType());
     }
@@ -233,9 +227,8 @@ class ilActions implements VC\VCActions
     /**
      * @inheritdoc
      */
-    public function getUnknownParticipantByLogin($user_name)
+    public function getUnknownParticipantByLogin(string $user_name) : ?VC\Participant
     {
-        assert('is_string($user_name)');
         return $this->csn_db->getUnknownParticipantByLogin($this->getObjectId(), $user_name);
     }
 }

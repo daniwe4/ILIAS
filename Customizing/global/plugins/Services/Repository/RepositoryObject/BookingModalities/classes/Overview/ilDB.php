@@ -45,10 +45,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getBookings($crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns)
+    public function getBookings(int $crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns)
     {
-        assert('is_int($crs_id)');
-
         $need_org_units = false;
 
         $additional_select = "";
@@ -122,9 +120,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getMaxBookings($crs_id)
+    public function getMaxBookings(int $crs_id)
     {
-        assert('is_int($crs_id)');
 
         $query =
              "SELECT" . PHP_EOL
@@ -147,10 +144,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getCancellations($crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns)
+    public function getCancellations(int $crs_id, $order_field, $order_direction, $limit, $offset, $selected_columns)
     {
-        assert('is_int($crs_id)');
-
         $need_org_units = false;
 
         $additional_select = "";
@@ -217,10 +212,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getMaxCancellations($crs_id)
+    public function getMaxCancellations(int $crs_id)
     {
-        assert('is_int($crs_id)');
-
         $query =
              "SELECT" . PHP_EOL
             . "    uc.usr_id" . PHP_EOL

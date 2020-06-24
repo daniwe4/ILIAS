@@ -61,9 +61,7 @@ class ilDB implements DB {
 	/**
 	 * @inheritdoc
 	 */
-	public function delete($obj_id) {
-		assert('is_int($obj_id)');
-
+	public function delete(int $obj_id) {
 		$delete = "DELETE FROM ".self::PLUGIN_TABLE." WHERE obj_id = ".$this->getDB()->quote($obj_id, "integer");
 		$this->getDB()->manipulate($delete);
 	}
@@ -71,9 +69,7 @@ class ilDB implements DB {
 	/**
 	 * @inheritdoc
 	 */
-	public function select($obj_id) {
-		assert('is_int($obj_id)');
-
+	public function select(int $obj_id) {
 		$select = "SELECT lowmark, should_specification, default_text_failed, default_text_partial, default_text_success\n"
 				." FROM ".self::PLUGIN_TABLE."\n"
 				." WHERE obj_id = ".$this->getDB()->quote($obj_id, "integer");

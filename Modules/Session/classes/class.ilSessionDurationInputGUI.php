@@ -15,9 +15,8 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
     /**
     * @param       bool    $readonly
     */
-    public function setReadOnly($read_only)
+    public function setReadOnly(bool $read_only)
     {
-        assert('is_bool($read_only)');
         $this->read_only = $read_only;
     }
     // cat-tms-patch end
@@ -190,10 +189,8 @@ class ilSessionDurationInputGUI extends ilDurationInputGUI
      * @param 	int 	$num
      * @return 	string
      */
-    public function addLeadingZero($num)
+    public function addLeadingZero(int $num)
     {
-        assert('is_int($num)');
-
         return str_pad($num, 2, "0", STR_PAD_LEFT);
     }
 }

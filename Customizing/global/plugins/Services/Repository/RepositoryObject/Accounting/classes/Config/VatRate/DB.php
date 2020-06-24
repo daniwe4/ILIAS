@@ -59,5 +59,5 @@ interface DB
      *
      * @return float
      */
-    public function getVatRateValueById($id);
+    public function getVatRateValueById(int $id) : float;
 }

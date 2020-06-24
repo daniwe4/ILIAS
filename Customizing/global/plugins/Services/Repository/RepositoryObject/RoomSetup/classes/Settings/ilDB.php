@@ -17,10 +17,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id, $recipient_mode = null, $recipient = null, $send_days_before = null)
+    public function create(int $obj_id, $recipient_mode = null, $recipient = null, $send_days_before = null)
     {
-        assert('is_int($obj_id)');
-
         $ret = array();
         foreach (RoomSetup::getPossibleSettingTypes() as $setting_type) {
             $room_setup = new RoomSetup($obj_id, $setting_type, $recipient_mode, $recipient, $send_days_before);
@@ -57,10 +55,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT setting_type, recipient_mode, recipient, send_days_before\n"
                 . " FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -95,10 +91,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 

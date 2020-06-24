@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace CaT\Plugins\Webinar\VC;
 
 /**
@@ -9,4 +11,5 @@ namespace CaT\Plugins\Webinar\VC;
  */
 interface Participant
 {
+    public function isKnownUser() : bool;
 }

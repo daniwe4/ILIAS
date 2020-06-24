@@ -44,7 +44,7 @@ class DetailReport extends Report
     public function __construct(
         \ilEduBiographyPlugin $plugin,
         \ilDBInterface $ilDB,
-        $user_id,
+        int $user_id,
         \ilCtrl $ctrl,
         UserOrguLocator $uol,
         \ilObjUser $g_user,
@@ -53,7 +53,6 @@ class DetailReport extends Report
         Settings $settings,
         FileStorage\ilCertificateStorage $file_storage
     ) {
-        assert('is_int($user_id)');
         parent::__construct($plugin, $ilDB);
         $this->user_id = $user_id;
         $this->uol = $uol;

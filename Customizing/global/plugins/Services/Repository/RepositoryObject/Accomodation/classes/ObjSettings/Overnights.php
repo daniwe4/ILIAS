@@ -28,12 +28,9 @@ class Overnights
 
     public function __construct(
         ObjSettings $settings,
-        $course_start = null,
-        $course_end = null
+        ?\DateTime $course_start = null,
+        ?\DateTime $course_end = null
     ) {
-        assert('$course_start instanceof \DateTime || is_null($course_start)');
-        assert('$course_end instanceof \DateTime || is_null($course_end)');
-
         $this->settings = $settings;
         $this->course_start = $course_start;
         $this->course_end = $course_end;

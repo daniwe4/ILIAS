@@ -25,11 +25,8 @@ class Option
      * @param int 		$agenda_item_id
      * @param string 	$caption
      */
-    public function __construct($agenda_item_id, $caption_id)
+    public function __construct(int $agenda_item_id, int $caption_id)
     {
-        assert('is_int($agenda_item_id)');
-        assert('is_int($caption_id)');
-
         $this->agenda_item_id = $agenda_item_id;
         $this->caption_id = $caption_id;
     }

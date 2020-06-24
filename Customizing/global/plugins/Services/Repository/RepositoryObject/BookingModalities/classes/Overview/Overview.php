@@ -79,10 +79,8 @@ class Overview
      * @param 	int 	$value
      * @return 	$this
      */
-    public function withUsrId($value)
+    public function withUsrId(int $value)
     {
-        assert('is_int($value)');
-
         $clone = clone $this;
         $clone->usr_id = $value;
         return $clone;
@@ -104,10 +102,8 @@ class Overview
      * @param 	string 	$value
      * @return 	$this
      */
-    public function withLastname($value)
+    public function withLastname(string $value)
     {
-        assert('is_string($value)');
-
         $clone = clone $this;
         $clone->lastname = $value;
         return $clone;
@@ -129,10 +125,8 @@ class Overview
      * @param 	string 	$value
      * @return 	$this
      */
-    public function withFirstname($value)
+    public function withFirstname(string $value)
     {
-        assert('is_string($value)');
-
         $clone = clone $this;
         $clone->firstname = $value;
         return $clone;
@@ -154,10 +148,8 @@ class Overview
      * @param  string $value
      * @return $this
      */
-    public function withLogin($value)
+    public function withLogin(string $value)
     {
-        assert('is_string($value)');
-
         $clone = clone $this;
         $clone->login = $value;
         return $clone;
@@ -179,10 +171,8 @@ class Overview
      * @param 	string 	$value
      * @return 	$this
      */
-    public function withStatus($value)
+    public function withStatus(string $value)
     {
-        assert('is_string($value)');
-
         $clone = clone $this;
         $clone->status = $value;
         return $clone;
@@ -296,10 +286,8 @@ class Overview
      * @param 	string 	$value
      * @return 	$this
      */
-    public function withBooker($value)
+    public function withBooker(string $value)
     {
-        assert('is_string($value)');
-
         $clone = clone $this;
         $clone->booker = $value;
         return $clone;

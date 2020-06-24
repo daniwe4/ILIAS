@@ -447,15 +447,22 @@ class ilBookingModalitiesGUI
      *
      * @return null
      */
-    protected function saveStorno($deadline, $hard_deadline, $modus, array $approve_roles, $reasons_type, $reason_optional)
-    {
-        $storno = function (BookingModalities\Settings\Storno\Storno $storno) use ($deadline, $hard_deadline, $modus, $approve_roles, $reasons_type, $reason_optional) {
-            assert('is_int($deadline) || is_null($deadline)');
-            assert('is_int($hard_deadline) || is_null($hard_deadline)');
-            assert('is_string($modus) || is_null($modus)');
-            assert('is_string($reasons_type) || is_null($reasons_type)');
-            assert('is_bool($reason_optional)');
-
+    protected function saveStorno(
+        ?int $deadline,
+        ?int $hard_deadline,
+        ?string $modus,
+        array $approve_roles,
+        ?string $reasons_type,
+        bool $reason_optional
+    ) {
+        $storno = function (BookingModalities\Settings\Storno\Storno $storno) use (
+            $deadline,
+            $hard_deadline,
+            $modus,
+            $approve_roles,
+            $reasons_type,
+            $reason_optional
+        ) {
             return $storno->withDeadline($deadline)
                     ->withHardDeadline($hard_deadline)
                     ->withModus($modus)
@@ -463,6 +470,7 @@ class ilBookingModalitiesGUI
                     ->withReasonType($reasons_type)
                     ->withReasonOptional($reason_optional);
         };
+
         $this->actions->updateStornoWith($storno);
     }
 
@@ -474,12 +482,9 @@ class ilBookingModalitiesGUI
      *
      * @return null
      */
-    protected function saveMember($min, $max)
+    protected function saveMember(?int $min, ?int $max)
     {
         $member = function (BookingModalities\Settings\Member\Member $member) use ($min, $max) {
-            assert('is_int($min) || is_null($min)');
-            assert('is_int($max) || is_null($max)');
-
             return $member->withMin($min)
                     ->withMax($max);
         };
@@ -495,13 +500,9 @@ class ilBookingModalitiesGUI
      *
      * @return null
      */
-    protected function saveWaitinglist($cancellation, $max, $modus)
+    protected function saveWaitinglist(?int $cancellation, ?int $max, ?string $modus)
     {
         $waitinglist = function (BookingModalities\Settings\Waitinglist\Waitinglist $waitinglist) use ($cancellation, $max, $modus) {
-            assert('is_int($cancellation) || is_null($cancellation)');
-            assert('is_int($max) || is_null($max)');
-            assert('is_string($modus) || is_null($modus)');
-
             return $waitinglist->withCancellation($cancellation)
                     ->withMax($max)
                     ->withModus($modus);
@@ -775,9 +776,8 @@ class ilBookingModalitiesGUI
      * @param 	string	$code
      * @return	string
      */
-    public function txt($code)
+    public function txt(string $code)
     {
-        assert('is_string($code)');
         $txt = $this->txt;
         return $txt($code);
     }

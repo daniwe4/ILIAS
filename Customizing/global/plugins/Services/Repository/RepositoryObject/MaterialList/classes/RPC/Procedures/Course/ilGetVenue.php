@@ -79,9 +79,8 @@ class ilGetVenue extends RPC\ilFunctionBase
      *
      * @return bool
      */
-    public function isPluginActive($name)
+    public function isPluginActive(string $name)
     {
-        assert('is_string($name)');
         return \ilPluginAdmin::isPluginActive($name);
     }
 

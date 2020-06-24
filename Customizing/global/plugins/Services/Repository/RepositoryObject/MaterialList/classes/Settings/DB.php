@@ -25,7 +25,13 @@ interface DB
      *
      * @return MaterialList
      */
-    public function create($obj_id, \ilDateTime $last_edit_datetime, $last_edit_by, $recipient_mode, $send_days_before = null);
+    public function create(
+        int $obj_id,
+        \ilDateTime $last_edit_datetime,
+        int $last_edit_by,
+        string $recipient_mode,
+        ?int $send_days_before = null
+    );
 
     /**
      * Update an existing settings entry
@@ -45,7 +51,7 @@ interface DB
      *
      * @return MaterialList
      */
-    public function selectFor($obj_id);
+    public function selectFor(int $obj_id);
 
     /**
      * Delete settings for obj
@@ -54,5 +60,5 @@ interface DB
      *
      * @return null
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id);
 }

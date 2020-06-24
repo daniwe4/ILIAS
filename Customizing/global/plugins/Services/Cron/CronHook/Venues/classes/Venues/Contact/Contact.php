@@ -59,13 +59,6 @@ class Contact
         string $fax = "",
         string $email = ""
     ) {
-        assert('is_int($id)');
-        assert('is_string($internal_contact)');
-        assert('is_string($contact)');
-        assert('is_string($phone)');
-        assert('is_string($fax)');
-        assert('is_string($email)');
-
         $this->id = $id;
         $this->internal_contact = $internal_contact;
         $this->contact = $contact;

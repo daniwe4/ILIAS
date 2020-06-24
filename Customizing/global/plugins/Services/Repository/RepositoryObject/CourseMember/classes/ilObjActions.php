@@ -152,16 +152,15 @@ class ilObjActions
      * @param int | null 	$idd_learning_time
      * @return Member[]
      */
-    public function getMemberWith($user_id, $crs_id, $lp_id, $lp_value, $ilias_lp, $credits, $idd_learning_time)
-    {
-        assert('is_int($user_id)');
-        assert('is_int($crs_id)');
-        assert('is_int($lp_id) || is_null($lp_id)');
-        assert('is_string($lp_value) || is_null($lp_value)');
-        assert('is_int($ilias_lp) || is_null($ilias_lp)');
-        assert('is_float($credits) || is_null($credits)');
-        assert('is_int($idd_learning_time) || is_null($idd_learning_time)');
-
+    public function getMemberWith(
+        int $user_id,
+        int $crs_id,
+        ?int $lp_id,
+        ?string $lp_value,
+        ?int $ilias_lp,
+        ?float $credits,
+        ?int $idd_learning_time
+    ) {
         return $this->members_db->getMember($user_id, $crs_id, $lp_id, $lp_value, $ilias_lp, $credits, $idd_learning_time);
     }
 
@@ -184,12 +183,12 @@ class ilObjActions
      *
      * @return void
      */
-    public function throwEvent($crs_id, $user_id, $minutes, $lp_value)
-    {
-        assert('is_int($crs_id)');
-        assert('is_int($user_id)');
-        assert('is_int($minutes)');
-        assert('is_string($lp_value) || is_null($lp_value)');
+    public function throwEvent(
+        int $crs_id,
+        int $user_id,
+        int $minutes,
+        ?string $lp_value
+    ) {
         $payload = [
             "crs_id" => $crs_id,
             "usr_id" => $user_id,
@@ -236,10 +235,8 @@ class ilObjActions
      *
      * @return int
      */
-    public function getMinutesFor($user_id)
+    public function getMinutesFor(int $user_id)
     {
-        assert('is_int($user_id)');
-
         return $this->members_db->getMinutesFor((int) $this->getObject()->getParentCourse()->getId(), $user_id);
     }
 }

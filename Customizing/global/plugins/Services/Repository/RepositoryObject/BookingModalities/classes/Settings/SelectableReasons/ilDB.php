@@ -24,9 +24,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($id)
+    public function delete(int $id)
     {
-        assert('is_int($id)');
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE id = " . $this->getDB()->quote($id, "integer");
 
@@ -67,22 +66,16 @@ class ilDB implements DB
      * @param string 	$reason
      * @param bool 	$active
      */
-    public function getSelectableReasonWith($id, $reason, $active)
+    public function getSelectableReasonWith(int $id, string $reason, bool $active)
     {
-        assert('is_int($id)');
-        assert('is_string($reason)');
-        assert('is_bool($active)');
-
         return new SelectableReason($id, $reason, $active);
     }
 
     /**
      * @inheritdoc
      */
-    public function create($reason, $active)
+    public function create(string $reason, bool $active)
     {
-        assert('is_string($reason)');
-        assert('is_bool($active)');
         $id = $this->getNextId();
         $reason = new SelectableReason($id, $reason, $active);
 

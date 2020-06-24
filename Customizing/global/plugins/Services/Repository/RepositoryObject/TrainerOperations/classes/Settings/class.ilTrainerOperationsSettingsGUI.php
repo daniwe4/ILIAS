@@ -186,7 +186,6 @@ class ilTrainerOperationsSettingsGUI
 
     public function txt(string $code) : string
     {
-        assert('is_string($code)');
         $txt = $this->txt;
         return $txt($code);
     }

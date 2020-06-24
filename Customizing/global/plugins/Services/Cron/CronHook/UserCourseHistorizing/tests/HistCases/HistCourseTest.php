@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace CaT\Plugins\UserCourseHistorizing\HistCases;
 
 use PHPUnit\Framework\TestCase;
-use CaT\Historization\Event\Event;
 
 class HistCourseTest extends TestCase
 {
@@ -172,74 +171,5 @@ class HistCourseTest extends TestCase
             }
             $this->assertTrue(true);
         }
-    }
-
-    public function test_isEventRelevant()
-    {
-        $events = $this->getRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertTrue($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $events = [
-            new Event('update', 'Modules/Course', []),
-            new Event('create', 'Modules/Course', []),
-            new Event('delete', 'Modules/Course', []),
-            new Event('memberlist_finalized', 'Modules/Course', ['crs_obj_id' => 1]),
-            new Event('updateAccomodation', 'Plugin/Accomodation', []),
-            new Event('deleteAccomodation', 'Plugin/Accomodation', []),
-            new Event('updateCCObject', 'Plugin/CourseClassification', []),
-            new Event('updateCCStatic', 'Plugin/CourseClassification', []),
-            new Event('', 'Plugin/BookingModalities', ['parent_course' => 1]),
-            new Event('updateVenueStatic', 'Plugin/Venue', []),
-            new Event('updateTrainingProviderStatic', 'Plugin/TrainingProvider', []),
-            new Event('updateIDD', 'Plugin/EduTracking', []),
-            new Event('updateGTI', 'Plugin/EduTracking', []),
-            new Event('createCopySettings', 'Plugin/CopySettings', ['parent' => $crs]),
-            new Event('deleteCopySettings', 'Plugin/CopySettings', ['parent' => $crs]),
-            new Event('updateCopySettings', 'Plugin/CopySettings', ['parent' => $crs]),
-            new Event('importCourseWBD', 'Plugin/WBDInterface', []),
-            new Event('webinar_finalized', 'Plugin/Webinar', [])
-
-        ];
-
-        return $events;
-    }
-
-    public function test_isEventNotRelevant()
-    {
-        $events = $this->getNotRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertFalse($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getNotRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $events = [
-            new Event('move', 'Modules/Course', []),
-            new Event('move', 'Plugin/Accomodation', []),
-            new Event('move', 'Plugin/CourseClassification', []),
-            new Event('', 'Plugin/BookingModalities', []),
-            new Event('move', 'Plugin/Venue', []),
-            new Event('move', 'Plugin/TrainingProvider', []),
-            new Event('move', 'Plugin/EduTracking', []),
-            new Event('move', 'Plugin/EduTracking', []),
-            new Event('move', 'Plugin/CopySettings', ['parent' => $crs]),
-            new Event('deleteCopySettings', 'Plugin/CopySettings', []),
-            new Event('move', 'Plugin/WBDInterface', []),
-            new Event('move', 'Plugin/Webinar', [])
-        ];
-
-        return $events;
     }
 }

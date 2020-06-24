@@ -29,9 +29,9 @@ class ilTMSRoleSettings
      */
     public function __construct($role_id, $hide_breadcrumb, $hide_menu_tree)
     {
-        assert('is_int($role_id)');
-        assert('is_bool($hide_breadcrumb)');
-        assert('is_bool($hide_menu_tree)');
+        assert(is_int($role_id));
+        assert(is_bool($hide_breadcrumb));
+        assert(is_bool($hide_menu_tree));
 
         $this->role_id = $role_id;
         $this->hide_breadcrumb = $hide_breadcrumb;
@@ -77,7 +77,7 @@ class ilTMSRoleSettings
      */
     public function withHideBreadcrumb($hide_breadcrumb)
     {
-        assert('is_bool($hide_breadcrumb)');
+        assert(is_bool($hide_breadcrumb));
         $clone = clone $this;
         $clone->hide_breadcrumb = $hide_breadcrumb;
         return $clone;
@@ -92,7 +92,7 @@ class ilTMSRoleSettings
      */
     public function withHideMenuTree($hide_menu_tree)
     {
-        assert('is_bool($hide_menu_tree)');
+        assert(is_bool($hide_menu_tree));
         $clone = clone $this;
         $clone->hide_menu_tree = $hide_menu_tree;
         return $clone;

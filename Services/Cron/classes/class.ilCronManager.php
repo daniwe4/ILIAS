@@ -796,7 +796,7 @@ class ilCronManager implements \ilCronManagerInterface
             " WHERE job_id = " . $ilDB->quote($a_job_id, "text"));
     }
 
-    // cat-tms-patch end
+    // cat-tms-patch start
 
     /**
     * Get the cron thread id of current thread
@@ -814,12 +814,11 @@ class ilCronManager implements \ilCronManagerInterface
     /**
     * Returns the cron thread uuid of the thread that currently claims the execution.
     *
-    * @param sring $a_job_id
+    * @param string $a_job_id
     * @return string|null
     */
-    protected static function getExecutingCronThreadId($a_job_id)
+    protected static function getExecutingCronThreadId(string $a_job_id)
     {
-        assert('is_string($a_job_id)');
         global $ilDB;
         $rec = $ilDB->fetchAssoc(
             $ilDB->query(
@@ -836,7 +835,7 @@ class ilCronManager implements \ilCronManagerInterface
     }
 
     /**
-    * Returns a microtime based uuid.
+    * Returns a micro time based uuid.
     */
     protected static function generateId() : string
     {

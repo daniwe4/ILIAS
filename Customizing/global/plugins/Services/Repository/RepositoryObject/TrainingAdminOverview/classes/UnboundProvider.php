@@ -31,7 +31,7 @@ class UnboundProvider extends SeparatedUnboundProvider
     */
     public function buildComponentsOf($component_type, Entity $entity)
     {
-        assert('is_string($component_type)');
+        assert(is_string($component_type));
         if ($component_type === CockpitItem::class) {
             $returns = [];
             foreach ($this->owner()->getProvidedValues() as $s) {

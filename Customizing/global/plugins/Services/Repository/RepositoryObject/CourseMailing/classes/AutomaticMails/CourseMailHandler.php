@@ -15,9 +15,8 @@ class CourseMailHandler
 {
     use ilHandlerObjectHelper;
 
-    public function __construct($crs_ref_id)
+    public function __construct(int $crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
         $this->crs_ref_id = $crs_ref_id;
 
         global $DIC;

@@ -17,7 +17,7 @@ abstract class ilTypeForm
     protected $form;
 
     /**
-     * @var Closure
+     * @var \Closure
      */
     protected $txt;
 
@@ -85,10 +85,8 @@ abstract class ilTypeForm
      *
      * @return string
      */
-    protected function txt($code)
+    protected function txt(string $code)
     {
-        assert('is_string($code)');
-
         $txt = $this->txt;
 
         return $txt($code);

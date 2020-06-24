@@ -27,7 +27,7 @@ interface DB
      *
      * @return Fee
      */
-    public function select($obj_id);
+    public function select(int $obj_id);
 
     /**
      * Deletes a fee entry
@@ -36,5 +36,5 @@ interface DB
      *
      * @return void
      */
-    public function delete($obj_id);
+    public function delete(int $obj_id);
 }

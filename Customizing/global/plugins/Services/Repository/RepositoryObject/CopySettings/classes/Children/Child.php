@@ -45,13 +45,14 @@ class Child
      * @param bool 	$is_referenced
      * @param string 	$process_type
      */
-    public function __construct($obj_id, $target_ref_id, $target_obj_id, $is_referenced, $process_type)
-    {
-        assert('is_int($obj_id)');
-        assert('is_int($target_ref_id)');
-        assert('is_int($target_obj_id)');
-        assert('is_bool($is_referenced)');
-        assert('is_string($process_type) && $this->validProcess($process_type)');
+    public function __construct(
+        int $obj_id,
+        int $target_ref_id,
+        int $target_obj_id,
+        bool $is_referenced,
+        string $process_type
+    ) {
+        assert($this->validProcess($process_type));
 
         $this->obj_id = $obj_id;
         $this->target_ref_id = $target_ref_id;
@@ -117,9 +118,8 @@ class Child
      *
      * @return $this
      */
-    public function withTargetRefId($target_ref_id)
+    public function withTargetRefId(int $target_ref_id)
     {
-        assert('is_int($target_ref_id)');
         $clone = clone $this;
         $clone->target_ref_id = $target_ref_id;
         return $clone;
@@ -132,9 +132,8 @@ class Child
      *
      * @return $this
      */
-    public function withTargetObjId($target_obj_id)
+    public function withTargetObjId(int $target_obj_id)
     {
-        assert('is_int($target_obj_id)');
         $clone = clone $this;
         $clone->target_obj_id = $target_obj_id;
         return $clone;
@@ -147,9 +146,8 @@ class Child
      *
      * @return $this
      */
-    public function withIsReferenced($is_referenced)
+    public function withIsReferenced(bool $is_referenced)
     {
-        assert('is_bool($is_referenced)');
         $clone = clone $this;
         $clone->is_referenced = $is_referenced;
         return $clone;
@@ -162,9 +160,9 @@ class Child
      *
      * @return $this
      */
-    public function withProcessType($process_type)
+    public function withProcessType(string $process_type)
     {
-        assert('is_string($process_type) && $this->validProcess($process_type)');
+        assert($this->validProcess($process_type));
         $clone = clone $this;
         $clone->process_type = $process_type;
         return $clone;

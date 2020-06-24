@@ -99,11 +99,8 @@ class ilObjectActions
      *
      * @return Settings\ApproveRole\ApproveRole
      */
-    public function createApproveRole($parent, $position, $role_id)
+    public function createApproveRole(string $parent, int $position, int $role_id)
     {
-        assert('is_string($parent)');
-        assert('is_int($position)');
-        assert('is_int($role_id)');
         return $this->approve_role_db->createApproveRole($this->getObjectId(), $parent, $position, $role_id);
     }
 
@@ -374,9 +371,8 @@ class ilObjectActions
      * @param int $usr_id
      * @return string | null
      */
-    public function getModalitiesDocForUser($usr_id)
+    public function getModalitiesDocForUser(int $usr_id)
     {
-        assert('is_int($usr_id)');
         return $this->getObject()->getModalitiesDoc($usr_id);
     }
 

@@ -86,7 +86,7 @@ class State
     {
         $clone = clone $this;
         $encoded = json_encode($data);
-        assert('is_string($encoded)');
+        assert(is_string($encoded));
         $clone->step_data[$step_number] = $encoded;
         return $clone;
     }

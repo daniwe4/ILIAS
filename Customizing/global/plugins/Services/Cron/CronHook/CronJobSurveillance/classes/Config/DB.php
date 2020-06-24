@@ -11,7 +11,7 @@ interface DB
      *
      * @return 	JobSetting[]
      */
-    public function select();
+    public function select() : array;
 
     /**
      * Create a new Setting
@@ -19,9 +19,9 @@ interface DB
      * @param 	JobSetting 	$job_setting
      * @param 	int 		$counter
      *
-     * @return JobSetting
+     * @return void
      */
-    public function create(JobSetting $job_setting, $counter);
+    public function create(JobSetting $job_setting, int $counter) : void;
 
     /**
      * Select setting by job_id.
@@ -29,7 +29,7 @@ interface DB
      * @param string $job_id
      * @return void
      */
-    public function selectForJob($job_id);
+    public function selectForJob(string $job_id) : array;
 
     /**
      * Delete setting for $job_id
@@ -38,12 +38,12 @@ interface DB
      *
      * @return void
      */
-    public function deleteForJob($job_id);
+    public function deleteForJob(string $job_id) : void;
 
     /**
      * Delete all db entries.
      *
      * @return void
      */
-    public function deleteAll();
+    public function deleteAll() : void;
 }

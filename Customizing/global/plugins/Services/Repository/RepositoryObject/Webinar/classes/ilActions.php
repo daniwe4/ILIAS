@@ -71,18 +71,13 @@ class ilActions
      * @return Settings\Webinar
      */
     public function create(
-        $vc_type,
-        \ilDateTime $beginning = null,
-        \ilDateTime $ending = null,
-        $admission = null,
-        $url = null,
-        $online = false
+        string $vc_type,
+        ?\ilDateTime $beginning = null,
+        ?\ilDateTime $ending = null,
+        ?string $admission = null,
+        ?string $url = null,
+        bool $online = false
     ) {
-        assert('is_string($vc_type)');
-        assert('is_string($admission) | is_null($url)');
-        assert('is_string($url) | is_null($url)');
-        assert('is_bool($online) | is_null($url)');
-
         return $this->settings_db->create(
             (int) $this->getObject()->getId(),
             $vc_type,
@@ -113,10 +108,8 @@ class ilActions
      *
      * @return null
      */
-    public function bookParticipant($user_id, $user_name)
+    public function bookParticipant(int $user_id, string $user_name)
     {
-        assert('is_int($user_id)');
-        assert('is_string($user_name)');
         $this->participants_db->book(
             $this->getObject()->getId(),
             $user_id,
@@ -124,9 +117,8 @@ class ilActions
         );
     }
 
-    public function portUserToBookParticipant($user_id, $unknown_user)
+    public function portUserToBookParticipant(int $user_id, $unknown_user)
     {
-        assert('is_int($user_id)');
         $this->participants_db->book(
             $this->getObject()->getId(),
             $user_id,
@@ -142,9 +134,8 @@ class ilActions
      *
      * @return null
      */
-    public function cancelParticipitation($user_id)
+    public function cancelParticipitation(int $user_id)
     {
-        assert('is_int($user_id)');
         $this->participants_db->cancel(
             $this->getObject()->getId(),
             $user_id
@@ -181,10 +172,8 @@ class ilActions
      *
      * @return bool
      */
-    public function isBookedUser($user_id)
+    public function isBookedUser(int $user_id)
     {
-        assert('is_int($user_id)');
-
         return $this->participants_db->isBookedUser((int) $this->getObject()->getId(), $user_id);
     }
 
@@ -205,10 +194,8 @@ class ilActions
      *
      * @return bool
      */
-    public function isTutor($user_id)
+    public function isTutor(int $user_id)
     {
-        assert('is_int($user_id)');
-
         $parent_crs = $this->object->getParentCourse();
 
         if (!$parent_crs) {

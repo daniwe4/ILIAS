@@ -36,10 +36,10 @@ class CourseTemplateInfo
      */
     public function __construct($title, $ref_id, $category_title, $type_title)
     {
-        assert('is_string($title)');
-        assert('is_int($ref_id)');
-        assert('is_string($category_title) || is_null($category_title)');
-        assert('is_string($type_title) || is_null($type_title)');
+        assert(is_string($title));
+        assert(is_int($ref_id));
+        assert(is_string($category_title) || is_null($category_title));
+        assert(is_string($type_title) || is_null($type_title));
         $this->title = $title;
         $this->ref_id = $ref_id;
         $this->category_title = $category_title;

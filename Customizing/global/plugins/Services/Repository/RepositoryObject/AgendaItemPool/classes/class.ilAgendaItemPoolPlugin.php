@@ -58,10 +58,8 @@ class ilAgendaItemPoolPlugin extends ilRepositoryObjectPlugin
      *
      * @return bool
      */
-    protected function permissionExists($permission, \ilDBInterface $db)
+    protected function permissionExists(string $permission, \ilDBInterface $db)
     {
-        assert('is_string($permission)');
-
         $query = "SELECT count(ops_id) AS cnt FROM rbac_operations\n"
                 . " WHERE operation = " . $db->quote($permission, 'text');
 
@@ -163,9 +161,8 @@ class ilAgendaItemPoolPlugin extends ilRepositoryObjectPlugin
      *
      * @return null
      */
-    protected function createPluginPermissions($type_id, \ilDBInterface $db)
+    protected function createPluginPermissions(int $type_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
         include_once('./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php');
         $new_rbac_options = array(array("use_agenda_item", "Use agenda item", "object", 2700),
                                   array("edit_agenda_item", "Edit agenda item", "object", 2800));

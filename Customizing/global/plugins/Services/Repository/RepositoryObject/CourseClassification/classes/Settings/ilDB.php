@@ -46,7 +46,7 @@ class ilDB implements DB
     /**
      * @inhertidoc
      */
-    public function update(CourseClassification $course_classification)
+    public function update(CourseClassification $course_classification) : void
     {
         $obj_id = $course_classification->getObjId();
         $where = array("obj_id" => array("integer", $obj_id));
@@ -76,39 +76,28 @@ class ilDB implements DB
      * @inhertidoc
      */
     public function create(
-        $obj_id,
-        $type = null,
-        $edu_program = null,
+        int $obj_id,
+        ?int $type = null,
+        ?int $edu_program = null,
         array $topics = null,
         array $categories = null,
-        $content = null,
-        $goals = null,
-        $preparation = null,
+        ?int $content = null,
+        ?string $goals = null,
+        ?string $preparation = null,
         array $method = null,
         array $media = null,
         array $target_group = null,
-        $target_group_description = null,
-        $contact_name = "",
-        $contact_responsibility = "",
-        $contact_phone = "",
-        $contact_mail = ""
-    ) {
-        assert('is_int($obj_id)');
-        assert('is_int($type) || is_null($type)');
-        assert('is_int($edu_program) || is_null($edu_program)');
-        assert('$this->checkIntArray($topics)');
-        assert('$this->checkIntArray($categories)');
-        assert('is_string($content) || is_null($content)');
-        assert('is_string($goals) || is_null($goals)');
-        assert('is_string($preparation) || is_null($preparation)');
-        assert('$this->checkIntArray($method)');
-        assert('$this->checkIntArray($media)');
-        assert('$this->checkIntArray($target_group)');
-        assert('is_string($target_group_description) || is_null($target_group_description)');
-        assert('is_string($contact_name)');
-        assert('is_string($contact_responsibility)');
-        assert('is_string($contact_phone)');
-        assert('is_string($contact_mail)');
+        ?int $target_group_description = null,
+        string $contact_name = "",
+        string $contact_responsibility = "",
+        string $contact_phone = "",
+        string $contact_mail = ""
+    ) : CourseClassification {
+        assert($this->checkIntArray($topics));
+        assert($this->checkIntArray($categories));
+        assert($this->checkIntArray($method));
+        assert($this->checkIntArray($media));
+        assert($this->checkIntArray($target_group));
 
         $contact = new Contact($contact_name, $contact_name, $contact_phone, $contact_mail);
 
@@ -154,7 +143,7 @@ class ilDB implements DB
     /**
      * @inhertidoc
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id) : CourseClassification
     {
         $query = "SELECT A.obj_id, A.type, A.edu_program, A.content, A.goals, A.preparation, A.target_group_description,\n"
                 . " A.contact_name, A.contact_responsibility, A.contact_phone, A.contact_mail,"
@@ -212,7 +201,7 @@ class ilDB implements DB
         return $course_classification;
     }
 
-    protected function transformGroupConcatString($group_concat_string)
+    protected function transformGroupConcatString(string $group_concat_string) : ?array
     {
         if ($group_concat_string == "") {
             return null;
@@ -226,9 +215,8 @@ class ilDB implements DB
     /**
      * @inhertidoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id) : void
     {
-        assert('is_int($obj_id)');
         $this->assignTopics($obj_id, array());
         $this->assignMethods($obj_id, array());
         $this->assignMedia($obj_id, array());
@@ -242,15 +230,14 @@ class ilDB implements DB
     }
 
     /**
-     * Get form optons by table name
+     * Get form options by table name
      *
      * @param string 	$table_name
      *
      * @return string[]
      */
-    public function getFormOptionsByTableName($table_name)
+    public function getFormOptionsByTableName(string $table_name) : array
     {
-        assert('is_string($table_name)');
         //Can't quote the table name. SQL Statement will be broken because of '.
         $query = "SELECT id, caption\n"
                 . " FROM " . $table_name . "\n";
@@ -264,9 +251,8 @@ class ilDB implements DB
         return $ret;
     }
 
-    public function getOptionsNameByTableName($table_name, array $option_ids)
+    public function getOptionsNameByTableName(string $table_name, array $option_ids) : array
     {
-        assert('is_string($table_name)');
         //Can't quote the table name. SQL Statement will be broken because of '.
         $query = "SELECT id, caption\n"
                 . " FROM " . $table_name . "\n"
@@ -291,7 +277,7 @@ class ilDB implements DB
      *
      * @return string[]
      */
-    public function getTopicGroupOptions()
+    public function getTopicGroupOptions() : array
     {
         $query = "SELECT A.id, A.caption\n"
                 . " FROM " . self::TABLE_TOPIC . " A\n";
@@ -311,9 +297,9 @@ class ilDB implements DB
      * @param int 	$obj_id
      * @param int[] | null 	$topics
      *
-     * @return null
+     * @return void
      */
-    protected function assignTopics($obj_id, array $topics = null)
+    protected function assignTopics(int $obj_id, array $topics = null) : void
     {
         $this->deassign(self::TABLE_MULTI_TOPICS, $obj_id);
         if ($topics !== null) {
@@ -322,14 +308,14 @@ class ilDB implements DB
     }
 
     /**
-     * Save assignes methods
+     * Save assignees methods
      *
      * @param int 	$obj_id
      * @param int[] | null 	$methods
      *
-     * @return null
+     * @return void
      */
-    protected function assignMethods($obj_id, array $methods = null)
+    protected function assignMethods(int $obj_id, array $methods = null) : void
     {
         $this->deassign(self::TABLE_MULTI_METHODS, $obj_id);
         if ($methods !== null) {
@@ -343,9 +329,9 @@ class ilDB implements DB
      * @param int 	$obj_id
      * @param int[] | null 	$media
      *
-     * @return null
+     * @return void
      */
-    protected function assignMedia($obj_id, array $media = null)
+    protected function assignMedia(int $obj_id, array $media = null) : void
     {
         $this->deassign(self::TABLE_MULTI_MEDIA, $obj_id);
         if ($media !== null) {
@@ -359,9 +345,9 @@ class ilDB implements DB
      * @param int 	$obj_id
      * @param int[] | null 	$target_groups
      *
-     * @return null
+     * @return void
      */
-    protected function assignTargetGroups($obj_id, array $target_groups = null)
+    protected function assignTargetGroups(int $obj_id, array $target_groups = null) : void
     {
         $this->deassign(self::TABLE_MULTI_TARGET_GROUPS, $obj_id);
         if ($target_groups !== null) {
@@ -376,9 +362,9 @@ class ilDB implements DB
      * @param int 		$obj_id
      * @param int[] 	$options
      *
-     * @return null
+     * @return void
      */
-    protected function assign($table_name, $obj_id, array $options)
+    protected function assign(string $table_name, int $obj_id, array $options) : void
     {
         foreach ($options as $key => $option) {
             $values = array("obj_id" => array("integer", $obj_id),
@@ -397,7 +383,7 @@ class ilDB implements DB
      *
      * @return null
      */
-    protected function deassign($table_name, $obj_id)
+    protected function deassign(string $table_name, int $obj_id) : void
     {
         $query = "DELETE FROM " . $table_name . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -412,7 +398,7 @@ class ilDB implements DB
      *
      * @return int[] | null
      */
-    public function getCategoriesByTopicIds(array $topic_ids = null)
+    public function getCategoriesByTopicIds(array $topic_ids = null) : ?array
     {
         $query = "SELECT DISTINCT category_id\n"
                 . " FROM " . self::TABLE_TOPIC_ASSIGN . "\n"
@@ -431,11 +417,11 @@ class ilDB implements DB
         return $ret;
     }
 
-    public function assignAdditionalLinks(int $obj_id, array $links)
+    public function assignAdditionalLinks(int $obj_id, array $links) : void
     {
         $this->links_db->storeFor($obj_id, $links);
     }
-    public function readAdditionalLinks(int $obj_id)
+    public function readAdditionalLinks(int $obj_id) : void
     {
         $this->links_db->storeFor($obj_id, $links);
     }
@@ -444,9 +430,9 @@ class ilDB implements DB
     /**
      * Create tables
      *
-     * @return null
+     * @return void
      */
-    public function createTables()
+    public function createTables() : void
     {
         if (!$this->getDB()->tableExists(self::TABLE_NAME)) {
             $fields =
@@ -514,7 +500,7 @@ class ilDB implements DB
      *
      * @return null
      */
-    public function createPrimaryKeys()
+    public function createPrimaryKeys() : void
     {
         $this->getDB()->addPrimaryKey(self::TABLE_NAME, array("obj_id"));
         $this->getDB()->addPrimaryKey(self::TABLE_MULTI_TOPICS, array("obj_id", "option_id"));
@@ -526,9 +512,9 @@ class ilDB implements DB
     /**
      * DB Update step 1
      *
-     * @return null
+     * @return void
      */
-    public function update1()
+    public function update1() : void
     {
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "contact_name")) {
             $fields = array(
@@ -582,7 +568,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function update2()
+    public function update2() : void
     {
         if ($this->getDB()->tableColumnExists(self::TABLE_NAME, "category")) {
             $this->getDB()->dropTableColumn(self::TABLE_NAME, "category");
@@ -594,7 +580,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function update3()
+    public function update3() : void
     {
         if ($this->getDB()->tableColumnExists(self::TABLE_NAME, "contact_consultation")) {
             $this->getDB()->dropTableColumn(self::TABLE_NAME, "contact_consultation");
@@ -606,7 +592,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function update4()
+    public function update4() : void
     {
         if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "preparation")) {
             $fields = array(
@@ -622,7 +608,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function update5()
+    public function update5() : void
     {
         if ($this->getDB()->tableColumnExists(self::TABLE_NAME, "learning_time")) {
             $this->getDB()->dropTableColumn(self::TABLE_NAME, "learning_time");
@@ -636,7 +622,7 @@ class ilDB implements DB
      *
      * @return \ilDBInterface
      */
-    protected function getDB()
+    protected function getDB() : \ilDBInterface
     {
         if (!$this->db) {
             throw new \Exception("no Database");

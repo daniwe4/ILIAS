@@ -27,12 +27,8 @@ class Member
      * @param int | null	$min
      * @param int | null	$max
      */
-    public function __construct($obj_id, $min = null, $max = null)
+    public function __construct(int $obj_id, ?int $min = null, ?int $max = null)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($min) || is_null($min)');
-        assert('is_int($max) || is_null($max)');
-
         $this->obj_id = $obj_id;
         $this->min = $min;
         $this->max = $max;
@@ -75,9 +71,8 @@ class Member
      *
      * @return Member
      */
-    public function withMin($min)
+    public function withMin(?int $min)
     {
-        assert('is_int($min) || is_null($min)');
         $clone = clone $this;
         $clone->min = $min;
         return $clone;
@@ -90,9 +85,8 @@ class Member
      *
      * @return Member
      */
-    public function withMax($max)
+    public function withMax(?int $max)
     {
-        assert('is_int($max) || is_null($max)');
         $clone = clone $this;
         $clone->max = $max;
         return $clone;

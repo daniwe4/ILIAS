@@ -103,9 +103,8 @@ abstract class ParallelCourseStep
      * @param	string	$id
      * @return	string	$text
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 
@@ -288,10 +287,8 @@ abstract class ParallelCourseStep
      * @param	int		$usr_id
      * @return	\ilObjCourse[]
      */
-    protected function getParallelCoursesOfUser($crs, $usr_id)
+    protected function getParallelCoursesOfUser($crs, int $usr_id)
     {
-        assert('is_int($usr_id)');
-
         $booked_courses = $this->getUserBookedCourses($usr_id);
         $parallel_courses = $this->getParallelCourses($crs, $booked_courses);
 
@@ -305,10 +302,8 @@ abstract class ParallelCourseStep
      * @param	int		$usr_id
      * @return	\ilObjCourse[]
      */
-    protected function getParallelWaitingListCoursesOfUser($crs, $usr_id)
+    protected function getParallelWaitingListCoursesOfUser($crs, int $usr_id)
     {
-        assert('is_int($usr_id)');
-
         $waitinglist_courses = $this->getUserWaitinglistCourses($usr_id);
         $parallel_waiting = $this->getParallelCourses($crs, $waitinglist_courses);
 

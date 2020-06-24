@@ -22,11 +22,8 @@ class JobSetting
      * @param 	int 	$tolerance
      * @return 	JobSetting
      */
-    public function __construct($id, $tolerance = 0)
+    public function __construct(string $id, int $tolerance = 0)
     {
-        assert('is_string($id)');
-        assert('is_int($tolerance)');
-
         $this->job_id = $id;
         $this->tolerance = $tolerance;
     }

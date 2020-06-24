@@ -54,23 +54,15 @@ class Booking
      * @param string | null	$modus
      */
     public function __construct(
-        $obj_id,
-        $beginning = null,
-        $deadline = null,
-        $modus = null,
+        int $obj_id,
+        ?int $beginning = null,
+        ?int $deadline = null,
+        ?string $modus = null,
         array $approve_roles = [],
-        $to_be_acknowledged = false,
-        $skip_duplicate_check = false,
-        $hide_superior_approve = false
+        bool $to_be_acknowledged = false,
+        bool $skip_duplicate_check = false,
+        bool $hide_superior_approve = false
     ) {
-        assert('is_int($obj_id)');
-        assert('is_int($beginning) || is_null($beginning)');
-        assert('is_int($deadline) || is_null($deadline)');
-        assert('is_string($modus) || is_null($modus)');
-        assert('is_bool($to_be_acknowledged)');
-        assert('is_bool($skip_duplicate_check)');
-        assert('is_bool($hide_superior_approve)');
-
         $this->obj_id = $obj_id;
         $this->beginning = $beginning;
         $this->deadline = $deadline;
@@ -170,9 +162,8 @@ class Booking
      *
      * @return Booking
      */
-    public function withBeginning($beginning)
+    public function withBeginning(?int $beginning)
     {
-        assert('is_int($beginning) || is_null($beginning)');
         $clone = clone $this;
         $clone->beginning = $beginning;
         return $clone;
@@ -185,9 +176,8 @@ class Booking
      *
      * @return Booking
      */
-    public function withDeadline($deadline)
+    public function withDeadline(?int $deadline)
     {
-        assert('is_int($deadline) || is_null($deadline)');
         $clone = clone $this;
         $clone->deadline = $deadline;
         return $clone;
@@ -200,9 +190,8 @@ class Booking
      *
      * @return Booking
      */
-    public function withModus($modus)
+    public function withModus(?string $modus)
     {
-        assert('is_string($modus) || is_null($modus)');
         $clone = clone $this;
         $clone->modus = $modus;
         return $clone;
@@ -242,11 +231,10 @@ class Booking
      *
      * @param bool 	$skip_duplicate_check
      *
-     * @return this
+     * @return Booking
      */
-    public function withSkipDuplicateCheck($skip_duplicate_check)
+    public function withSkipDuplicateCheck(bool $skip_duplicate_check)
     {
-        assert('is_bool($skip_duplicate_check)');
         $clone = clone $this;
         $clone->skip_duplicate_check = $skip_duplicate_check;
         return $clone;
@@ -257,11 +245,10 @@ class Booking
      *
      * @param bool 	$hide_superior_approve
      *
-     * @return this
+     * @return Booking
      */
-    public function withHideSuperiorApprove($hide_superior_approve)
+    public function withHideSuperiorApprove(bool $hide_superior_approve)
     {
-        assert('is_bool($hide_superior_approve)');
         $clone = clone $this;
         $clone->hide_superior_approve = $hide_superior_approve;
         return $clone;

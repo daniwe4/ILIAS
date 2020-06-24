@@ -11,13 +11,8 @@ class ilActions
 		$this->report_db = $report_db;
 	}
 
-	public function update($title, $description, $is_admin, $is_online)
+	public function update(string $title, string $description, bool $is_admin, bool $is_online)
 	{
-		assert('is_string($title)');
-		assert('is_string($description)');
-		assert('is_bool($is_admin)');
-		assert('is_bool($is_online)');
-
 		$this->object->setTitle($title);
 		$this->object->setDescription($description);
 

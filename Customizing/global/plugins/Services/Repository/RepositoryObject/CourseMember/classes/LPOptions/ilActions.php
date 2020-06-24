@@ -48,14 +48,8 @@ class ilActions
      *
      * @return LPOption
      */
-    public function create($title, $ilias_lp, $active, $standard)
+    public function create(string $title, ?int $ilias_lp, bool $active, bool $standard)
     {
-        assert('is_string($title)');
-        assert('is_int($ilias_lp) || is_null($ilias_lp)');
-        assert('is_bool($active)');
-        assert('is_bool($standard)');
-
-
         return $this->lp_options_db->create($title, $ilias_lp, $active, $standard);
     }
 
@@ -78,9 +72,8 @@ class ilActions
      *
      * @return void
      */
-    public function delete($id)
+    public function delete(int $id)
     {
-        assert('is_int($id)');
         $this->lp_options_db->delete($id);
     }
 
@@ -129,9 +122,8 @@ class ilActions
      *
      * @return string | null
      */
-    public function getLPOptionTitleBy($id)
+    public function getLPOptionTitleBy(int $id)
     {
-        assert('is_int($id)');
         return $this->lp_options_db->getLPOptionTitleBy($id);
     }
 
@@ -142,9 +134,8 @@ class ilActions
      *
      * @return string | null
      */
-    public function getILIASLPBy($id)
+    public function getILIASLPBy(int $id)
     {
-        assert('is_int($id)');
         return $this->lp_options_db->getILIASLPBy($id);
     }
 }

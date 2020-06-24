@@ -24,14 +24,13 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id, $target_ref_id, $target_obj_id, $is_referenced, $process_type)
-    {
-        assert('is_int($obj_id)');
-        assert('is_int($target_ref_id)');
-        assert('is_int($target_obj_id)');
-        assert('is_bool($is_referenced)');
-        assert('is_string($process_type)');
-
+    public function create(
+        int $obj_id,
+        int $target_ref_id,
+        int $target_obj_id,
+        bool $is_referenced,
+        string $process_type
+    ) : Child {
         $copy_settings = new Child($obj_id, $target_ref_id, $target_obj_id, $is_referenced, $process_type);
 
         $values = array("obj_id" => array("integer", $copy_settings->getObjId()),
@@ -49,10 +48,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($obj_id)
+    public function select(int $obj_id) : array
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT obj_id, target_ref_id, target_obj_id, is_referenced, process_type\n"
                 . " FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -76,10 +73,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($obj_id)
+    public function delete(int $obj_id) : void
     {
-        assert('is_int($obj_id)');
-
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 
@@ -158,9 +153,8 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function deleteCopySettingsByTargetObjId($target_obj_id)
+    public function deleteCopySettingsByTargetObjId(int $target_obj_id)
     {
-        assert('is_int($target_obj_id)');
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE target_obj_id = " . $this->getDB()->quote("integer", $target_obj_id);
 
@@ -174,9 +168,8 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function deleteCopySettingsTargetByRefId($target_ref_id)
+    public function deleteCopySettingsTargetByRefId(int $target_ref_id)
     {
-        assert('is_int($target_ref_id)');
         $query = "DELETE FROM " . self::TABLE_NAME . "\n"
                 . " WHERE target_ref_id = " . $this->getDB()->quote("integer", $target_ref_id);
 

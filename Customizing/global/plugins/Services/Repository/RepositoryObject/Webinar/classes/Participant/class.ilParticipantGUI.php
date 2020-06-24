@@ -558,7 +558,7 @@ class ilParticipantGUI
         foreach ($content as $line) {
             $participant = $this->vc_actions->getParticipantByUserName($line["user_name"]);
             if ($participant === null) {
-                $this->vc_actions->createUnkownParticipant(
+                $this->vc_actions->createUnknownParticipant(
                     $line["user_name"],
                     $line["email"],
                     $line["phone"],
@@ -584,9 +584,8 @@ class ilParticipantGUI
      * @param string $message
      * @return void
      */
-    protected function cleanupAfterError($message)
+    protected function cleanupAfterError(string $message)
     {
-        assert('is_string($message)');
         $this->g_log->write('Webinar, error reading file: ' . $message);
         $file_storage = $this->actions->getObject()->getFileStorage();
         $file_storage->deleteCurrentFile();
@@ -619,7 +618,7 @@ class ilParticipantGUI
     {
         $file_storage = $this->actions->getObject()->getFileStorage();
         $file_storage->deleteCurrentFile();
-        $this->vc_actions->deleteUnkownParticipants();
+        $this->vc_actions->deleteUnknownParticipants();
         $this->vc_actions->resetMinutesOfBookedUsers();
 
         foreach ($this->actions->getAllBookedUserIds() as $user_id) {
@@ -719,7 +718,7 @@ class ilParticipantGUI
             $this->bookOrPortUser((int) $user_id);
         }
 
-        $this->deleteUnkownParticipants();
+        $this->deleteUnknownParticipants();
         $this->deleteNotCourseMember($course_members);
 
         if (count($course_members) > 0) {
@@ -753,9 +752,9 @@ class ilParticipantGUI
      *
      * @return void
      */
-    protected function deleteUnkownParticipants()
+    protected function deleteUnknownParticipants()
     {
-        $this->vc_actions->deleteUnkownParticipants();
+        $this->vc_actions->deleteUnknownParticipants();
     }
 
 

@@ -81,9 +81,8 @@ class RoleMapping
      * @param int 	$id
      * @return RoleMapping
      */
-    public function withRoleId($id)
+    public function withRoleId(int $id)
     {
-        assert('is_int($id)');
         $clone = clone $this;
         $clone->role_id = $id;
         return $clone;
@@ -101,9 +100,8 @@ class RoleMapping
      * @param string 	$title
      * @return RoleMapping
      */
-    public function withRoleTitle($title)
+    public function withRoleTitle(string $title)
     {
-        assert('is_string($title)');
         $clone = clone $this;
         $clone->role_title = $title;
         return $clone;
@@ -121,9 +119,8 @@ class RoleMapping
      * @param	int|null	$id
      * @return	RoleMapping
      */
-    public function withTemplateId($id)
+    public function withTemplateId(?int $id)
     {
-        assert('is_int($id) || is_null($id)');
         $clone = clone $this;
         $clone->mail_template_id = $id;
         return $clone;

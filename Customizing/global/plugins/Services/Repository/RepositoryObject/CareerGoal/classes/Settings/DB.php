@@ -27,12 +27,12 @@ interface DB
 	 *
 	 * @param 	int 			$obj_id
 	 */
-	public function delete($obj_id);
+	public function delete(int $obj_id);
 
 	/**
 	 * select settings values
 	 *
 	 * @param 	int 			$obj_id
 	 */
-	public function select($obj_id);
+	public function select(int $obj_id);
 }

@@ -34,9 +34,8 @@ class ilCronJobFactory implements CronJobFactory
     /**
      * @inheritdoc
      */
-    public function getCronJob($id)
+    public function getCronJob(string $id)
     {
-        assert('is_string($id)');
         //jobdata is assoc-array from db-row (can be empty)
         $jobdata = $this->cron_man->getCronJobData($id);
 
@@ -76,10 +75,8 @@ class ilCronJobFactory implements CronJobFactory
      * @param 	int 	$schedule_value
      * @return 	DateInterval
      */
-    private function buildInterval($schedule_type, $schedule_value)
+    private function buildInterval(int $schedule_type, int $schedule_value)
     {
-        assert('is_int($schedule_type)');
-        assert('is_int($schedule_value)');
         $format = $this->schedule_types[$schedule_type];
         $interval = new \DateInterval(sprintf($format, $schedule_value));
         return $interval;

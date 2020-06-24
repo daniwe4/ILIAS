@@ -28,9 +28,8 @@ class CronManager
      * @param 	string 	$id
      * @return 	array<string, mixed>
      */
-    public function getCronJobData($id)
+    public function getCronJobData(string $id)
     {
-        assert('is_string($id)');
         return $this->cron_manager->getCronJobData($id);
     }
 
@@ -41,11 +40,8 @@ class CronManager
      * @param 	string 	$component
      * @return 	int[]|null[]
      */
-    public function getFixScheduleForJob($id, $component)
+    public function getFixScheduleForJob(string $id, string $component)
     {
-        assert('is_string($id)');
-        assert('is_string($component)');
-
         $job = $this->cron_manager->getJobInstanceById($id);
 
         if (!$job) { //try to get from plugin

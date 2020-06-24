@@ -27,7 +27,7 @@ class ilTMSMailAttachment implements Mailing\Attachment
      */
     public function withAttachmentPath($path)
     {
-        assert('is_string($path)');
+        assert(is_string($path));
         $clone = clone $this;
         $clone->attachment_path = $path;
         return $clone;

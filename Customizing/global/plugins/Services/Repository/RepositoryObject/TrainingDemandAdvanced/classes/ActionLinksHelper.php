@@ -67,9 +67,8 @@ class ActionLinksHelper
     }
 
 
-    public function withRefId($crs_ref_id)
+    public function withRefId(int $crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
         $other = clone $this;
         $other->crs_ref_id = $crs_ref_id;
         return $other;

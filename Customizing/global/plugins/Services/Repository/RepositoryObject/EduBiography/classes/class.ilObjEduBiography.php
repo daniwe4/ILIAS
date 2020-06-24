@@ -38,10 +38,9 @@ class ilObjEduBiography extends ilObjectPlugin
     }
 
     public function detailReport(
-        $usr_id,
+        int $usr_id,
         EduBiography\FileStorage\ilCertificateStorage $file_storage
     ) {
-        assert('is_int($usr_id)');
         return new EduBiography\DetailReport(
             $this->plugin,
             $this->g_db,

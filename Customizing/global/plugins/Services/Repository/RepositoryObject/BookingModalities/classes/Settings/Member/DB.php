@@ -14,7 +14,7 @@ interface DB
      *
      * @return Member
      */
-    public function create($obj_id);
+    public function create(int $obj_id);
 
     /**
      * Update member settings.
@@ -30,12 +30,12 @@ interface DB
      *
      * @return Member
      */
-    public function selectFor($obj_id);
+    public function selectFor(int $obj_id);
 
     /**
      * Delete all settings of the given obj id
      *
      * @param int 	$obj_id
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id);
 }

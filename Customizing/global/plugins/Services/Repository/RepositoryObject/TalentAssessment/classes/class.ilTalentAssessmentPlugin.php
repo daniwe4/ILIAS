@@ -137,9 +137,8 @@ class ilTalentAssessmentPlugin extends ilRepositoryObjectPlugin
 	 *
 	 * @return null
 	 */
-	protected function createPluginPermissions($type_id, \ilDBInterface $db)
+	protected function createPluginPermissions(int $type_id, \ilDBInterface $db)
 	{
-		assert('is_int($type_id)');
 		include_once('./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php');
 		$new_rbac_options = array(
 			array("view_observations", "View observations", "object", 2700),
@@ -164,10 +163,8 @@ class ilTalentAssessmentPlugin extends ilRepositoryObjectPlugin
 	 *
 	 * @return bool
 	 */
-	protected function permissionExists($permission, \ilDBInterface $db)
+	protected function permissionExists(string $permission, \ilDBInterface $db)
 	{
-		assert('is_string($permission)');
-
 		$query = "SELECT count(ops_id) AS cnt FROM rbac_operations\n"
 				." WHERE operation = ".$db->quote($permission, 'text');
 

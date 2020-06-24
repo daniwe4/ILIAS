@@ -12,7 +12,7 @@ interface DB
      *
      * @param	CourseClassification		$course_classification
      */
-    public function update(CourseClassification $course_classification);
+    public function update(CourseClassification $course_classification) : void;
 
     /**
      * Create new CourseClassification for obj_id.
@@ -34,26 +34,26 @@ interface DB
      * @param string 		$contact_phone
      * @param string 		$contact_mail
      *
-     * @return \CaT\Plugins\CourseClassification\Settings\CourseClassification
+     * @return CourseClassification
      */
     public function create(
-        $obj_id,
-        $type = null,
-        $edu_program = null,
+        int $obj_id,
+        ?int $type = null,
+        ?int $edu_program = null,
         array $topics = null,
         array $categories = null,
-        $content = null,
-        $goals = null,
-        $preparation = null,
+        ?int $content = null,
+        ?string $goals = null,
+        ?string $preparation = null,
         array $method = null,
         array $media = null,
         array $target_group = null,
-        $target_group_description = null,
-        $contact_name = "",
-        $contact_responsibility = "",
-        $contact_phone = "",
-        $contact_mail = ""
-    );
+        ?int $target_group_description = null,
+        string $contact_name = "",
+        string $contact_responsibility = "",
+        string $contact_phone = "",
+        string $contact_mail = ""
+    ) : CourseClassification;
 
     /**
      * return CourseClassification for $obj_id
@@ -62,14 +62,14 @@ interface DB
      *
      * @throws \LogicException 	if no setting entries is found
      *
-     * @return \CaT\Plugins\CourseClassification\Settings\CourseClassification
+     * @return CourseClassification
      */
-    public function selectFor($obj_id);
+    public function selectFor(int $obj_id) : CourseClassification;
 
     /**
      * Delete all information of the given obj id
      *
      * @param 	int 	$obj_id
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id) : void;
 }

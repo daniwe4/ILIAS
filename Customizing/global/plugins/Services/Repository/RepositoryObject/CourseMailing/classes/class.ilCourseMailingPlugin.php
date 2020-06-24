@@ -234,11 +234,8 @@ class ilCourseMailingPlugin extends ilRepositoryObjectPlugin
      *
      * @return void
      */
-    public function handleEvent($a_component, $a_event, $a_parameter)
+    public function handleEvent(string $a_component, string $a_event, $a_parameter)
     {
-        assert('is_string($a_component)');
-        assert('is_string($a_event)');
-
         global $DIC;
         $logger = $DIC['ilLog'];
 

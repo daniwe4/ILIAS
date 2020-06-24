@@ -30,7 +30,7 @@ class UnboundProvider extends SeparatedUnboundProvider
      */
     public function buildComponentsOf($component_type, Entity $entity)
     {
-        assert('is_string($component_type)');
+        assert(is_string($component_type));
 
         global $DIC;
         $g_user = $DIC["ilUser"];

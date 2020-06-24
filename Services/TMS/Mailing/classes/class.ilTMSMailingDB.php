@@ -25,7 +25,7 @@ class ilTMSMailingDB implements Mailing\MailingDB
      */
     public function getTemplateIdByTitle($title)
     {
-        assert('is_string($title)');
+        assert(is_string($title));
         $query = "SELECT tpl_id" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE title LIKE " . $this->getDB()->quote($title . "%", "text");
@@ -45,7 +45,7 @@ class ilTMSMailingDB implements Mailing\MailingDB
      */
     public function getTemplateDataByTitle($title)
     {
-        assert('is_string($title)');
+        assert(is_string($title));
 
         $query = "SELECT tpl_id, title, context, lang, m_subject, m_message" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL

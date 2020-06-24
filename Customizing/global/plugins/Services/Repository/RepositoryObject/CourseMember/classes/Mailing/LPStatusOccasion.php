@@ -84,7 +84,7 @@ class LPStatusOccasion implements MailingOccasion
      */
     public function getMails($event, $parameter)
     {
-        assert('is_string($event)');
+        assert(is_string($event));
 
         $attachments = $this->getAttachments();
         $template_ident = $this->templateIdent();
@@ -142,7 +142,7 @@ class LPStatusOccasion implements MailingOccasion
      */
     protected function getUsersWithLPStatus($status)
     {
-        assert('is_int($status)');
+        assert(is_int($status));
 
         switch ($status) {
             case \ilLPStatus::LP_STATUS_COMPLETED_NUM:
@@ -250,9 +250,8 @@ class LPStatusOccasion implements MailingOccasion
     /**
      * @inheritdoc
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 

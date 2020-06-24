@@ -35,17 +35,12 @@ class LogEntry
     protected $value_supress;
 
     public function __construct(
-        $user_id,
+        int $user_id,
         \DateTime $change_date,
-        $value_invite,
-        $value_invitereminder,
-        $value_supress
+        int $value_invite,
+        int $value_invitereminder,
+        bool $value_supress
     ) {
-        assert('is_int($user_id)');
-        assert('is_int($value_invite)');
-        assert('is_int($value_invitereminder)');
-        assert('is_bool($value_supress)');
-
         $this->user_id = $user_id;
         $this->change_date = $change_date;
         $this->value_invite = $value_invite;

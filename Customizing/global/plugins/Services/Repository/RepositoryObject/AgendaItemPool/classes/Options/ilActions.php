@@ -17,9 +17,9 @@ abstract class ilActions
     /**
      * Return the data for table oberview
      *
-     * @return Options[]
+     * @return Option[]
      */
-    abstract public function getTableData();
+    abstract public function getTableData() : array;
 
     /**
      * Create a new option
@@ -29,7 +29,7 @@ abstract class ilActions
      *
      * @return Option
      */
-    abstract public function create($agenda_item_id, $caption_id);
+    abstract public function create(string $agenda_item_id, string $caption_id) : Option;
 
     /**
      * Delete options
@@ -37,7 +37,7 @@ abstract class ilActions
      * @param int 	$option_id
      * @param int 	$caption_id
      *
-     * @return null
+     * @return void
      */
-    abstract public function delete($option_id, $caption_id);
+    abstract public function delete(int $option_id, int $caption_id) : void;
 }

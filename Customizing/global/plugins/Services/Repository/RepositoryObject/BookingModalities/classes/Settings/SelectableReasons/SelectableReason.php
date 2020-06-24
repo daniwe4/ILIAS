@@ -29,12 +29,8 @@ class SelectableReason
      * @param string 	$reason
      * @param bool 	$active
      */
-    public function __construct($id = -1, $reason = "", $active = false)
+    public function __construct(int $id = -1, string $reason = "", bool $active = false)
     {
-        assert('is_int($id)');
-        assert('is_string($reason)');
-        assert('is_bool($active)');
-
         $this->id = $id;
         $this->reason = $reason;
         $this->active = $active;
@@ -75,11 +71,10 @@ class SelectableReason
      *
      * @param string 	$reason
      *
-     * @return this
+     * @return SelectableReason
      */
-    public function withReason($reason)
+    public function withReason(string $reason)
     {
-        assert('is_string($reason)');
         $clone = clone $this;
         $clone->reason = $reason;
         return $clone;
@@ -90,11 +85,10 @@ class SelectableReason
      *
      * @param bool 	$active
      *
-     * @return this
+     * @return SelectableReason
      */
-    public function withActive($active)
+    public function withActive(bool $active)
     {
-        assert('is_bool($active)');
         $clone = clone $this;
         $clone->active = $active;
         return $clone;

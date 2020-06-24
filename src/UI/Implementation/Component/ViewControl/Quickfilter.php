@@ -153,7 +153,7 @@ class Quickfilter implements Component\ViewControl\Quickfilter
      */
     public function withDefaultValue($default_value)
     {
-        assert('is_string($default_value) || is_numeric($default_value)');
+        assert(is_string($default_value) || is_numeric($default_value));
         $clone = clone $this;
         $clone->default_value = $default_value;
         return $clone;

@@ -456,10 +456,8 @@ class PDFExport extends \FPDF
      * @param 	\ilCourseParticipants
      * @return 	string
      */
-    protected function getCourseRoleForId($usr_id, \ilCourseParticipants $participants)
+    protected function getCourseRoleForId(int $usr_id, \ilCourseParticipants $participants)
     {
-        assert('is_int($usr_id)');
-
         global $lng;
         $lng->loadLanguageModule('crs');
 

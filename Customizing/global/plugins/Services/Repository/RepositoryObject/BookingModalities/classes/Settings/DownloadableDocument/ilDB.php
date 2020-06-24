@@ -25,9 +25,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function createRoleSetting($role_id)
+    public function createRoleSetting(int $role_id)
     {
-        assert('is_int($role_id)');
         $setting = new Relevance($role_id, '');
         $values = array("role_id" => array("int", $setting->getRoleId()));
         $this->getDB()->insert(self::TABLE_DOCS, $values);
@@ -37,9 +36,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectRoleSetting($role_id)
+    public function selectRoleSetting(int $role_id)
     {
-        assert('is_int($role_id)');
         $query = "SELECT filename\n"
             . " FROM " . self::TABLE_DOCS . " \n"
             . " WHERE role_id = " . $this->getDB()->quote($role_id, "integer");
@@ -84,9 +82,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($role_id)
+    public function deleteFor(int $role_id)
     {
-        assert('is_int($role_id)');
         $query = "DELETE FROM " . self::TABLE_DOCS . "\n"
             . " WHERE role_id = " . $this->getDB()->quote($role_id, "integer");
         $this->getDB()->manipulate($query);

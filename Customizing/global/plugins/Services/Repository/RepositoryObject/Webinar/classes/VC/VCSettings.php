@@ -14,7 +14,7 @@ interface VCSettings
      *
      * @return int
      */
-    public function getObjId();
+    public function getObjId() : int;
 
     /**
      * Apply all values from (source) $settings to a copy of this instance.
@@ -22,5 +22,5 @@ interface VCSettings
      * @param VCSettings
      * @return VCSettings
      */
-    public function withValuesOf(VCSettings $settings);
+    public function withValuesOf(VCSettings $settings) : VCSettings;
 }

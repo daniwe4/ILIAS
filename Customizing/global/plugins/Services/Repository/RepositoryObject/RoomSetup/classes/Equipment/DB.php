@@ -25,7 +25,13 @@ interface DB
      *
      * @return Equipment
      */
-    public function create($obj_id, array $service_options, $special_wishes, $room_information, $seat_order);
+    public function create(
+        int $obj_id,
+        array $service_options,
+        string $special_wishes,
+        string $room_information,
+        string $seat_order
+    );
 
     /**
      * Update an existing equipment object
@@ -45,7 +51,7 @@ interface DB
      *
      * @return Equipment
      */
-    public function selectFor($obj_id);
+    public function selectFor(int $obj_id);
 
     /**
      * Delete equipment for obj_id
@@ -54,7 +60,7 @@ interface DB
      *
      * @return null
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id);
 
     /**
      * Allocate service option to room setup
@@ -64,7 +70,7 @@ interface DB
      *
      * @return null
      */
-    public function allocateServiceOption($obj_id, $service_option);
+    public function allocateServiceOption(int $obj_id, int $service_option);
 
     /**
      * Deallocate service option to room setup
@@ -74,7 +80,7 @@ interface DB
      *
      * @return null
      */
-    public function deallocateServiceOption($obj_id, $service_option);
+    public function deallocateServiceOption(int $obj_id, int $service_option);
 
     /**
      * Deallocate all service options
@@ -83,5 +89,5 @@ interface DB
      *
      * @return null
      */
-    public function deallocateAllServiceOptions($obj_id);
+    public function deallocateAllServiceOptions(int $obj_id);
 }

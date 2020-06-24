@@ -59,12 +59,10 @@ class ilAgendaItemTableGUI extends \ilTable2GUI
      */
     public function __construct(
         \ilAgendaItemsGUI 	$parent_gui,
-        $parent_command,
+        string $parent_command,
         ilObjectActions 	$object_actions,
         \Closure			$txt
     ) {
-        assert('is_string($parent_command)');
-
         global $DIC;
 
         $this->g_ctrl = $DIC->ctrl();
@@ -195,7 +193,6 @@ class ilAgendaItemTableGUI extends \ilTable2GUI
      */
     protected function boolToString(bool $bool) : string
     {
-        assert('is_bool($bool)');
         if ($bool) {
             return $this->txt("yes");
         }

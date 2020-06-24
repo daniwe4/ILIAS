@@ -115,10 +115,8 @@ class ilEduBiographyPlugin extends ilRepositoryObjectPlugin
      *
      * @return int
      */
-    protected function createTypeId($type, \ilDBInterface $db)
+    protected function createTypeId(string $type, \ilDBInterface $db)
     {
-        assert('is_string($type)');
-
         $type_id = $db->nextId("object_data");
         $db->manipulate("INSERT INTO object_data\n" .
             "(obj_id, type, title, description, owner, create_date, last_update) VALUES (\n" .
@@ -142,9 +140,8 @@ class ilEduBiographyPlugin extends ilRepositoryObjectPlugin
      *
      * @return int
      */
-    protected function assignCopyPermissionToPlugin($type_id, \ilDBInterface $db)
+    protected function assignCopyPermissionToPlugin(string $type_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
         $ops = array(self::COPY_OPERATION_ID);
 
         foreach ($ops as $op) {
@@ -168,10 +165,8 @@ class ilEduBiographyPlugin extends ilRepositoryObjectPlugin
      *
      * @return bool
      */
-    protected function permissionExists($permission, \ilDBInterface $db)
+    protected function permissionExists(string $permission, \ilDBInterface $db)
     {
-        assert('is_string($permission)');
-
         $query = "SELECT count(ops_id) AS cnt FROM rbac_operations\n"
                 . " WHERE operation = " . $db->quote($permission, 'text');
 
@@ -190,10 +185,8 @@ class ilEduBiographyPlugin extends ilRepositoryObjectPlugin
      *
      * @return bool
      */
-    protected function permissionIsAssigned($type_id, $op_id, \ilDBInterface $db)
+    protected function permissionIsAssigned(int $type_id, int $op_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
-        assert('is_int($op_id)');
         $set = $db->query("SELECT count(typ_id) as cnt FROM rbac_ta " .
                 " WHERE typ_id = " . $db->quote($type_id, "integer") .
                 " AND ops_id = " . $db->quote($op_id, "integer"));

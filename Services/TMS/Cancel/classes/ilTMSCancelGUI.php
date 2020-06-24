@@ -134,7 +134,7 @@ abstract class ilTMSCancelGUI extends Wizard\Player
 
         $cmd = $this->g_ctrl->getCmd("start");
         $content = $player->run($cmd, $_POST);
-        assert('is_string($content)');
+        assert(is_string($content));
         $this->g_tpl->setContent($content);
         if ($this->execute_show) {
             $this->g_tpl->show();
@@ -229,7 +229,7 @@ abstract class ilTMSCancelGUI extends Wizard\Player
      */
     protected function lookupObjId($crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
+        assert(is_int($crs_ref_id));
         $crs_obj_id = (int) \ilObject::_lookupObjId($crs_ref_id);
         return $crs_obj_id;
     }
@@ -281,9 +281,9 @@ abstract class ilTMSCancelGUI extends Wizard\Player
      */
     protected function fireBookingEvent($event, $usr_id, $crs_ref_id)
     {
-        assert('is_string($event)');
-        assert('is_int($usr_id)');
-        assert('is_int($crs_ref_id)');
+        assert(is_string($event));
+        assert(is_int($usr_id));
+        assert(is_int($crs_ref_id));
 
         $crs_obj_id = $this->lookupObjId($crs_ref_id);
         $this->g_event_handler->raise(

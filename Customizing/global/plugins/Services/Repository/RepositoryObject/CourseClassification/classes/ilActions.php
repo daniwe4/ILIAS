@@ -38,9 +38,8 @@ class ilActions
      *
      * @return Settings\CourseClassification
      */
-    public function selectFor($obj_id)
+    public function selectFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->settings_db->selectFor($obj_id);
     }
 
@@ -51,9 +50,8 @@ class ilActions
      *
      * @return null
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         return $this->settings_db->deleteFor($obj_id);
     }
 
@@ -184,9 +182,8 @@ class ilActions
      *
      * @return string[]
      */
-    public function getTypeName($type_id)
+    public function getTypeName(int $type_id)
     {
-        assert('is_int($type_id)');
         return $this->settings_db->getOptionsNameByTableName(Settings\ilDB::TABLE_TYPE, array($type_id));
     }
 
@@ -197,9 +194,8 @@ class ilActions
      *
      * @return string[]
      */
-    public function getEduProgramName($edu_program_id)
+    public function getEduProgramName(int $edu_program_id)
     {
-        assert('is_int($edu_program_id)');
         return $this->settings_db->getOptionsNameByTableName(Settings\ilDB::TABLE_EDU_PROGRAM, array($edu_program_id));
     }
 

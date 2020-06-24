@@ -80,28 +80,18 @@ class UserBooking
     protected $action_builders = null;
 
     public function __construct(
-        $ref_id,
-        $title,
-        $type,
+        int $ref_id,
+        string $title,
+        string $type,
         \ilDateTime $begin_date = null,
         array $target_group,
-        $goals,
+        string $goals,
         array $topics,
         \ilDateTime $end_date = null,
-        $location,
-        $address,
-        $fee
+        string $location,
+        string $address,
+        string $fee
     ) {
-        assert('is_int($ref_id)');
-        assert('is_string($title)');
-        assert('is_string($type)');
-        assert('is_array($target_group)');
-        assert('is_string($goals)');
-        assert('is_array($topics)');
-        assert('is_string($location)');
-        assert('is_string($address)');
-        assert('is_string($fee)');
-
         $this->ref_id = $ref_id;
         $this->title = $title;
         $this->type = $type;

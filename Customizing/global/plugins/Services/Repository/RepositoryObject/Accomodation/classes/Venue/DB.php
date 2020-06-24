@@ -14,5 +14,5 @@ interface DB
      * with id=>title
      * @return  array<int,string>
      */
-    public function getVenueListFromPlugin();
+    public function getVenueListFromPlugin() : array;
 }

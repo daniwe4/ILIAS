@@ -53,9 +53,9 @@ trait LinkHelper
      */
     protected function getCreateCourseCommandLink($parent_guis, $parent_cmd, $parent_ref_id, $template_ref_id, $async = false)
     {
-        assert('is_string($parent_cmd)');
-        assert('is_int($parent_ref_id)');
-        assert('is_int($template_ref_id) || is_string($template_ref_id)');
+        assert(is_string($parent_cmd));
+        assert(is_int($parent_ref_id));
+        assert(is_int($template_ref_id) || is_string($template_ref_id));
         $ctrl = $this->getCtrl();
         $ctrl->setParameterByClass("ilCourseCreationGUI", "parent_guis", implode(".", $parent_guis));
         $ctrl->setParameterByClass("ilCourseCreationGUI", "parent_cmd", $parent_cmd);
@@ -91,8 +91,8 @@ trait LinkHelper
      */
     protected function getRadioGroupInputGUIForCourseTemplates(array $info, $select_name, $group_name)
     {
-        assert('is_string($select_name)');
-        assert('is_string($group_name)');
+        assert(is_string($select_name));
+        assert(is_string($group_name));
 
         require_once("Services/Form/classes/class.ilSubEnabledFormPropertyGUI.php");
         require_once("Services/Form/classes/class.ilPropertyFormGUI.php");
@@ -124,7 +124,7 @@ trait LinkHelper
      */
     protected function getGroupableSelectInputGUIForCourseTemplates(array $info, $select_name, $type)
     {
-        assert('is_string($select_name)');
+        assert(is_string($select_name));
 
         uksort($info, 'strcasecmp');
         foreach ($info as $k => $is) {
@@ -154,8 +154,8 @@ trait LinkHelper
      */
     protected function getCourseTemplateSelectionModal(\ILIAS\UI\Factory $ui_factory, array $info, array $parent_guis, $parent_cmd, $parent_ref_id)
     {
-        assert('is_string($parent_cmd)');
-        assert('is_int($parent_ref_id)');
+        assert(is_string($parent_cmd));
+        assert(is_int($parent_ref_id));
         $placeholder = "_REF_ID_";
         $link = $this->getCreateCourseCommandLink($parent_guis, $parent_cmd, $parent_ref_id, $placeholder, true);
         $select_name = "course_template_select";
@@ -211,8 +211,8 @@ trait LinkHelper
      */
     protected function addCourseTemplateSelectionModalToToolbar(\ILIAS\UI\Factory $ui_factory, \ILIAS\UI\Renderer $ui_renderer, \ilToolbarGUI $toolbar, array $info, array $parent_guis, $parent_cmd, $parent_ref_id)
     {
-        assert('is_int($parent_ref_id)');
-        assert('is_string($parent_cmd)');
+        assert(is_int($parent_ref_id));
+        assert(is_string($parent_cmd));
 
         $modal = $this->getCourseTemplateSelectionModal($ui_factory, $info, $parent_guis, $parent_cmd, $parent_ref_id);
         $button = $ui_factory->button()

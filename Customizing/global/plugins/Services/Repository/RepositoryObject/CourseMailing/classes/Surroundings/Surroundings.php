@@ -133,9 +133,8 @@ class Surroundings
      * @param int 	$role_id
      * @return int[]
      */
-    public function getCourseMemberIdsWithRole($role_id)
+    public function getCourseMemberIdsWithRole(int $role_id)
     {
-        assert('is_int($role_id)');
         return $this->course_accessor->getMembersWithRole($role_id);
     }
 

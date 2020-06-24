@@ -416,10 +416,8 @@ class CourseOrganisationStep extends \CourseCreationStep
      *
      * @return string
      */
-    protected function getVenueTextForOverview($venue_id, Venues\ilActions $vactions)
+    protected function getVenueTextForOverview(int $venue_id, Venues\ilActions $vactions)
     {
-        assert('is_int($venue_id)');
-
         $venue = $vactions->getVenue($venue_id);
         $city = $venue->getAddress()->getCity();
         $address = $venue->getAddress()->getAddress1();
@@ -530,10 +528,8 @@ class CourseOrganisationStep extends \CourseCreationStep
      *
      * @return string
      */
-    protected function getProviderTextForOverview($provider_id, TrainingProvider\ilActions $pactions)
+    protected function getProviderTextForOverview(int $provider_id, TrainingProvider\ilActions $pactions)
     {
-        assert('is_int($provider_id)');
-
         $provider = $pactions->getProvider($provider_id);
         $city = $provider->getCity();
         $address = $provider->getAddress1();
@@ -648,9 +644,8 @@ class CourseOrganisationStep extends \CourseCreationStep
      * @param	string	$id
      * @return	string	$text
      */
-    protected function txt($id)
+    protected function txt(string $id)
     {
-        assert('is_string($id)');
         return call_user_func($this->txt, $id);
     }
 }

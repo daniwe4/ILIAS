@@ -44,12 +44,12 @@ interface DB
      *
      * @return ObjSettings
      */
-    public function selectFor($obj_id);
+    public function selectFor(int $obj_id) : ObjSettings;
 
     /**
      * Delete all information of the given obj id
      *
      * @param 	int 	$obj_id
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id);
 }

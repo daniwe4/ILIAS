@@ -68,7 +68,6 @@ trait ilUDFWrapper {
 		TableRelations\Tables\Table $usr_table,
 		string $usr_id_field_name
 	) {
-		assert('is_string($usr_id_field_name)');
 		$udf_table = $this->buildBasicUDFTable($tf, $pf);
 		$eq_field = $usr_table->field($usr_id_field_name);
 		$space = $space

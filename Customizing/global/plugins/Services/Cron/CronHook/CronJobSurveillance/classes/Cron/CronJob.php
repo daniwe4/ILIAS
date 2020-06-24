@@ -14,13 +14,8 @@ class CronJob
     private $finished;
     private $last_start;
 
-    public function __construct($id, $interval, $finished, $last_start)
+    public function __construct(string $id, \DateInterval $interval, bool $finished, ?\DateTime $last_start)
     {
-        assert('is_string($id)');
-        assert('$interval instanceof \DateInterval');
-        assert('is_bool($finished)');
-        assert('$last_start instanceof \DateTime || is_null($last_start)');
-
         $this->id = $id;
         $this->interval = $interval;
         $this->finished = $finished;
@@ -36,7 +31,7 @@ class CronJob
     }
 
     /**
-     * @return 	DateInterval
+     * @return 	\DateInterval
      */
     public function getInterval()
     {
@@ -52,7 +47,7 @@ class CronJob
     }
 
     /**
-     * @return 	DateTime | null
+     * @return 	\DateTime | null
      */
     public function getLastRunStart()
     {

@@ -34,16 +34,11 @@ class Setting
      * @param bool 	$prevent_mailing
      */
     public function __construct(
-        $obj_id,
-        $days_invitation,
-        $days_invitation_reminder,
-        $prevent_mailing
+        int $obj_id,
+        int $days_invitation,
+        int $days_invitation_reminder,
+        bool $prevent_mailing
     ) {
-        assert('is_int($obj_id)');
-        assert('is_int($days_invitation)');
-        assert('is_int($days_invitation_reminder)');
-        assert('is_bool($prevent_mailing)');
-
         $this->obj_id = $obj_id;
         $this->days_invitation = $days_invitation;
         $this->days_invitation_reminder = $days_invitation_reminder;
@@ -86,9 +81,8 @@ class Setting
      * @param int 	$days
      * @return Setting
      */
-    public function withDaysInvitation($days)
+    public function withDaysInvitation(int $days)
     {
-        assert('is_int($days)');
         $clone = clone $this;
         $clone->days_invitation = $days;
         return $clone;
@@ -98,9 +92,8 @@ class Setting
      * @param int 	$days
      * @return Setting
      */
-    public function withDaysRemindInvitation($days)
+    public function withDaysRemindInvitation(int $days)
     {
-        assert('is_int($days)');
         $clone = clone $this;
         $clone->days_invitation_reminder = $days;
         return $clone;
@@ -110,9 +103,8 @@ class Setting
      * @param 	bool 	$value
      * @return 	Setting
      */
-    public function withPreventMailing($value)
+    public function withPreventMailing(bool $value)
     {
-        assert('is_bool($value)');
         $clone = clone $this;
         $clone->prevent_mailing = $value;
         return $clone;

@@ -2,6 +2,8 @@
 
 namespace CaT\Plugins\Webinar\VC\Generic;
 
+use CaT\Plugins\Webinar\VC;
+
 /**
  * Implementation to save settings and imported user for Generic_db VC
  *
@@ -27,14 +29,13 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id, $password, $tutor_login, $tutor_password, $minutes_required)
-    {
-        assert('is_int($obj_id)');
-        assert('is_string($password) || is_null($password)');
-        assert('is_int($tutor_login) || is_null($tutor_login)');
-        assert('is_int($tutor_password) || is_null($tutor_password)');
-        assert('is_int($minutes_required) || is_null($minutes_required)');
-
+    public function create(
+        int $obj_id,
+        ?string $password,
+        ?string $tutor_login,
+        ?string $tutor_password,
+        ?int $minutes_required
+    ) : Settings {
         $settings = new Settings($obj_id, $password, $tutor_login, $tutor_password, $minutes_required);
 
         $values = array("obj_id" => array("integer", $settings->getObjId()),
@@ -52,7 +53,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function update(Settings $settings)
+    public function update(Settings $settings) : void
     {
         $where = array("obj_id" => array("integer", $settings->getObjId()));
 
@@ -68,9 +69,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select($obj_id)
+    public function select(int $obj_id) : Settings
     {
-        assert('is_int($obj_id)');
         $query = "SELECT obj_id, password, tutor_login, tutor_password, minutes_required\n"
                 . " FROM " . self::TABLE_SETTNGS . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -89,10 +89,9 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function delete($obj_id)
+    public function delete(int $obj_id) : void
     {
-        assert('is_int($obj_id)');
-        $this->deleteUnkownParticipants($obj_id);
+        $this->deleteUnknownParticipants($obj_id);
 
         $query = "DELETE FROM " . self::TABLE_SETTNGS . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
@@ -103,14 +102,14 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function createUnkownParticipant($obj_id, $user_name, $email, $phone, $company, $minutes)
-    {
-        assert('is_int($obj_id)');
-        assert('is_string($user_name)');
-        assert('is_string($email)');
-        assert('is_string($company)');
-        assert('is_int($minutes)');
-
+    public function createUnknownParticipant(
+        int $obj_id,
+        string $user_name,
+        string $email,
+        string $phone,
+        string $company,
+        int $minutes
+    ) : VC\Participant {
         $id = $this->getNextId(self::TABLE_UNKNOWN_PARTICIPANTS);
         $participant = new UnknownParticipant($id, $obj_id, "", $email, $phone, $company, $minutes, $user_name, null);
 
@@ -131,9 +130,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteUnkownParticipants($obj_id)
+    public function deleteUnknownParticipants(int $obj_id) : void
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_UNKNOWN_PARTICIPANTS . "\n"
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
 
@@ -147,9 +145,8 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function deleteUnkownParticipant($id)
+    public function deleteUnknownParticipant(int $id) : void
     {
-        assert('is_int($id)');
         $query = "DELETE FROM " . self::TABLE_UNKNOWN_PARTICIPANTS . PHP_EOL
                 . " WHERE id = " . $this->getDB()->quote($id, "integer");
 
@@ -161,11 +158,10 @@ class ilDB implements DB
      *
      * @param int 	$obj_id
      *
-     * @return null
+     * @return void
      */
-    public function resetMinutesOfBookedUsers($obj_id)
+    public function resetMinutesOfBookedUsers(int $obj_id) : void
     {
-        assert('is_int($obj_id)');
         $where = array("obj_id" => array("integer", $obj_id));
 
         $values = array("minutes" => array("integer", null));
@@ -176,9 +172,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getUnkownParticipants($obj_id)
+    public function getUnknownParticipants(int $obj_id) : array
     {
-        assert('is_int($obj_id)');
         $query = "SELECT A.id, A.obj_id, A.user_name, A.email, A.phone, A.company, A.minutes,\n"
                 . " B.usr_id, B.firstname, B.lastname\n"
                 . " FROM " . self::TABLE_UNKNOWN_PARTICIPANTS . " A\n"
@@ -218,10 +213,8 @@ class ilDB implements DB
      *
      * @return Participant[]
      */
-    public function getBookedParticipants($obj_id, $phone_type)
+    public function getBookedParticipants(int $obj_id, string $phone_type) : array
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT A.obj_id, A.user_id, A.user_name, A.minutes,\n"
                 . " B.firstname, B.lastname, B.institution, B." . $phone_type . ", B.email"
                 . " FROM " . self::TABLE_PARTICIPANTS . " A\n"
@@ -258,11 +251,8 @@ class ilDB implements DB
      *
      * @return Participant | null
      */
-    public function getParticipantByUserName($obj_id, $user_name, $phone_type)
+    public function getParticipantByUserName(int $obj_id, string $user_name, string $phone_type) : ?Participant
     {
-        assert('is_int($obj_id)');
-        assert('is_string($user_name)');
-
         $query = "SELECT A.obj_id, A.user_id, A.user_name, A.minutes,\n"
                 . " B.firstname, B.lastname, B.institution, B." . $phone_type . ", B.email"
                 . " FROM " . self::TABLE_PARTICIPANTS . " A\n"
@@ -295,9 +285,9 @@ class ilDB implements DB
      *
      * @param Participant 	$participant
      *
-     * @return null
+     * @return void
      */
-    public function updateParticipant(Participant $participant)
+    public function updateParticipant(Participant $participant) : void
     {
         $where = array("obj_id" => array("integer", $participant->getObjId()),
             "user_id" => array("integer", $participant->getUserId()),
@@ -315,12 +305,10 @@ class ilDB implements DB
      * @param int 	$obj_id
      * @param string 	$user_name
      *
-     * @return UnknownParticipant | null
+     * @return VC\Participant | null
      */
-    public function getUnknownParticipantByLogin($obj_id, $user_name)
+    public function getUnknownParticipantByLogin(int $obj_id, string $user_name) : ?VC\Participant
     {
-        assert('is_int($obj_id)');
-        assert('is_string($user_name)');
         $query = "SELECT A.id, A.obj_id, A.user_name, A.email, A.phone, A.company, A.minutes," . PHP_EOL
                 . " B.usr_id, B.firstname, B.lastname" . PHP_EOL
                 . " FROM " . self::TABLE_UNKNOWN_PARTICIPANTS . " A" . PHP_EOL
@@ -366,9 +354,9 @@ class ilDB implements DB
     /**
      * Create tables for Generic VC
      *
-     * @return null
+     * @return void
      */
-    public function createTable()
+    public function createTable() : void
     {
         if (!$this->getDB()->tableExists(self::TABLE_SETTNGS)) {
             $fields = array(
@@ -448,9 +436,9 @@ class ilDB implements DB
     /**
      * Create primary key for settings table
      *
-     * @return null
+     * @return void
      */
-    public function createPrimaryKeySettings()
+    public function createPrimaryKeySettings() : void
     {
         $this->getDB()->addPrimaryKey(static::TABLE_SETTNGS, array("obj_id"));
     }
@@ -458,9 +446,9 @@ class ilDB implements DB
     /**
      * Create primary key for participants table
      *
-     * @return null
+     * @return void
      */
-    public function createPrimaryKeyParticipants()
+    public function createPrimaryKeyParticipants() : void
     {
         $this->getDB()->addPrimaryKey(static::TABLE_UNKNOWN_PARTICIPANTS, array("id"));
     }
@@ -468,21 +456,21 @@ class ilDB implements DB
     /**
      * Create primary key for participants table
      *
-     * @return null
+     * @return void
      */
-    public function createSequenceParticipants()
+    public function createSequenceParticipants() : void
     {
         $this->getDB()->createSequence(static::TABLE_UNKNOWN_PARTICIPANTS);
     }
 
     /**
-     * Get intance of db
+     * Get instance of db
      *
      * @throws \Exception
      *
      * @return \ilDBInterface
      */
-    protected function getDB()
+    protected function getDB() : \ilDBInterface
     {
         if (!$this->db) {
             throw new \Exception("no Database");
@@ -497,7 +485,7 @@ class ilDB implements DB
      *
      * @return int
      */
-    protected function getNextId($table)
+    protected function getNextId(string $table) : int
     {
         return (int) $this->getDB()->nextId($table);
     }

@@ -26,7 +26,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function select()
+    public function select() : array
     {
         $ret = array();
 
@@ -48,10 +48,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create(JobSetting $job_setting, $counter)
+    public function create(JobSetting $job_setting, int $counter) : void
     {
-        assert('is_int($counter)');
-
         $values = array(
             'job_id' => array('text', $job_setting->getJobId()),
             'tolerance' => array('integer', $job_setting->getTolerance()),
@@ -69,7 +67,7 @@ class ilDB implements DB
      * @param 	JobSetting 	$job_setting
      * @return 	void
      */
-    protected function createHist(JobSetting $job_setting)
+    protected function createHist(JobSetting $job_setting) : void
     {
         $next_id = (int) $this->db->nextId(self::TABLENAME_HIST);
 
@@ -87,10 +85,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function selectForJob($job_id)
+    public function selectForJob(string $job_id) : array
     {
-        assert('is_string($job_id)');
-
         $query =
              "SELECT job_id, tolerance" . PHP_EOL
             . "FROM " . self::TABLENAME . PHP_EOL
@@ -105,16 +101,14 @@ class ilDB implements DB
 
         $row = $this->db->fetchAssoc($result);
 
-        return $this->generateJobSettingObjects($ret);
+        return $this->generateJobSettingObjects($row);
     }
 
     /**
      * @inheritdoc
      */
-    public function deleteForJob($job_id)
+    public function deleteForJob(string $job_id) : void
     {
-        assert('is_string($job_id)');
-
         $query =
              "DELETE FROM " . self::TABLENAME . PHP_EOL
             . "WHERE job_id = " . $this->db->quote($job_id, "text") . PHP_EOL
@@ -126,7 +120,7 @@ class ilDB implements DB
     /**
      * Delete all entries.
      */
-    public function deleteAll()
+    public function deleteAll() : void
     {
         $query = "DELETE FROM " . self::TABLENAME;
         $this->db->manipulate($query);
@@ -137,7 +131,7 @@ class ilDB implements DB
      *
      * @return array
      */
-    protected function generateJobSettingObjects(array $rows)
+    protected function generateJobSettingObjects(array $rows) : array
     {
         $job_setting_objects = array_map(function ($row) {
             return new JobSetting($row[ConfigurationForm::F_JOB_ID], (int) $row[ConfigurationForm::F_TOLERANCE]);
@@ -151,7 +145,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function createTable()
+    public function createTable() : void
     {
         if (!$this->db->tableExists(self::TABLENAME)) {
             $fields = array(
@@ -176,7 +170,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function createPrimaryKey()
+    public function createPrimaryKey() : void
     {
         $this->db->addPrimaryKey(self::TABLENAME, array("job_id"));
     }
@@ -186,7 +180,7 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function createHistTable()
+    public function createHistTable() : void
     {
         if (!$this->db->tableExists(self::TABLENAME_HIST)) {
             $fields = array(
@@ -226,17 +220,17 @@ class ilDB implements DB
      *
      * @return void
      */
-    public function createHistPrimaryKey()
+    public function createHistPrimaryKey() : void
     {
         $this->db->addPrimaryKey(self::TABLENAME_HIST, array("hist_id"));
     }
 
-    public function createHistSequence()
+    public function createHistSequence() : void
     {
         $this->db->createSequence(self::TABLENAME_HIST);
     }
 
-    public function update1()
+    public function update1() : void
     {
         if (!$this->db->tableColumnExists(self::TABLENAME, "id")) {
             $field = array(

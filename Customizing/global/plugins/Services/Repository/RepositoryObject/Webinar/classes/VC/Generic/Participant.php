@@ -71,18 +71,17 @@ class Participant implements VCP
      * @param int | null	$user_id
      * @param string 	$user_name
      */
-    public function __construct($id, $obj_id, $name, $email, $phone, $company, $minutes, $user_name, $user_id = null)
-    {
-        assert('is_int($id)');
-        assert('is_int($obj_id)');
-        assert('is_string($name)');
-        assert('is_string($email)');
-        assert('is_string($phone)');
-        assert('is_string($company)');
-        assert('is_int($minutes)');
-        assert('is_null($user_id) || is_int($user_id)');
-        assert('is_string($user_name)');
-
+    public function __construct(
+        int $id,
+        int $obj_id,
+        string $name,
+        string $email,
+        string $phone,
+        string $company,
+        int $minutes,
+        string $user_name,
+        ?int $user_id = null
+    ) {
         $this->id = $id;
         $this->obj_id = $obj_id;
         $this->name = $name;
@@ -189,7 +188,7 @@ class Participant implements VCP
      *
      * @return bool
      */
-    public function isKnownUser()
+    public function isKnownUser() : bool
     {
         return true;
     }
@@ -201,9 +200,8 @@ class Participant implements VCP
      *
      * @return Participant
      */
-    public function withMinutes($minutes)
+    public function withMinutes(int $minutes)
     {
-        assert('is_int($minutes)');
         $clone = clone $this;
         $clone->minutes = $minutes;
         return $clone;

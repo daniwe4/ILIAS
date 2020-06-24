@@ -43,7 +43,7 @@ interface DB
      *
      * @return null
      */
-    public function deleteId($id);
+    public function deleteId(int $id);
 
     /**
      * Delete list entries for obj
@@ -52,7 +52,7 @@ interface DB
      *
      * @return 	null
      */
-    public function deleteForObjId($obj_id);
+    public function deleteForObjId(int $obj_id);
 
     /**
      * Get list entries for obj
@@ -61,5 +61,5 @@ interface DB
      *
      * @return ListEntry[] | []
      */
-    public function selectForObjId($obj_id);
+    public function selectForObjId(int $obj_id);
 }

@@ -19,11 +19,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function create($obj_id, $crs_id, $crs_ref_id)
+    public function create(int $obj_id, int $crs_id, int $crs_ref_id)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($crs_id)');
-        assert('is_int($crs_ref_id)');
         $values = array(
             "obj_id" => array("integer", $obj_id),
             "crs_id" => array("integer", $crs_id),
@@ -36,9 +33,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function deleteFor($obj_id)
+    public function deleteFor(int $obj_id)
     {
-        assert('is_int($obj_id)');
         $query = "DELETE FROM " . self::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->getDB()->quote($obj_id, "integer");
         $this->getDB()->manipulate($query);
@@ -47,7 +43,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function isTemplateByObjId($crs_id)
+    public function isTemplateByObjId(int $crs_id)
     {
         $query = "SELECT COUNT(obj_id) AS cnt" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL
@@ -62,7 +58,7 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function isTemplateByRefId($crs_ref_id)
+    public function isTemplateByRefId(int $crs_ref_id)
     {
         $query = "SELECT COUNT(obj_id) AS cnt" . PHP_EOL
                 . " FROM " . self::TABLE_NAME . PHP_EOL

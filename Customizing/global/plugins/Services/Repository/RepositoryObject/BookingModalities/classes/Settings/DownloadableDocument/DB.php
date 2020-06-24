@@ -14,7 +14,7 @@ interface DB
      *
      * @return Relevance
      */
-    public function createRoleSetting($role_id);
+    public function createRoleSetting(int $role_id);
 
     /**
      * Get setting for a role.
@@ -23,7 +23,7 @@ interface DB
      *
      * @return Relevance | null
      */
-    public function selectRoleSetting($role_id);
+    public function selectRoleSetting(int $role_id);
 
     /**
      * Update setting.
@@ -45,5 +45,5 @@ interface DB
      *
      * @param int 	$role_id
      */
-    public function deleteFor($role_id);
+    public function deleteFor(int $role_id);
 }

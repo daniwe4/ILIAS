@@ -82,8 +82,7 @@ class ilTimeInputGUI extends ilSubEnabledFormPropertyGUI
 	 *
 	 * @return void
 	 */
-	public function setMaxHours($max_hours) {
-		assert('is_int($max_hours)');
+	public function setMaxHours(int $max_hours) {
 		$this->max_hours = $max_hours;
 	}
 

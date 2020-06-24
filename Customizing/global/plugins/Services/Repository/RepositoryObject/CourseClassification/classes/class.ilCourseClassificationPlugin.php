@@ -263,7 +263,7 @@ class ilCourseClassificationPlugin extends ilRepositoryObjectPlugin implements H
     }
     public function extractPayloadByPluginObject(\ilObjectPlugin $obj) : array
     {
-        assert('$obj instanceof ilObjCourseClassification');
+        assert($obj instanceof ilObjCourseClassification);
         list($type_id, $type, $target_group_ids, $target_group, $goals, $topic_ids, $topics) = $obj->getCourseClassificationValues();
         $return = [];
         $return['topics'] = is_null($topics) ? [] : $topics ;

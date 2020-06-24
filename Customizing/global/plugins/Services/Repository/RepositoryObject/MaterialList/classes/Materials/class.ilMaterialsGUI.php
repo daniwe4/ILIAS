@@ -377,10 +377,8 @@ class ilMaterialsGUI
      *
      * @return string
      */
-    protected function txt($code)
+    protected function txt(string $code)
     {
-        assert('is_string($code)');
-
         $txt = $this->txt;
 
         return $txt($code);

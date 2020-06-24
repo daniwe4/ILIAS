@@ -311,9 +311,8 @@ class ilUserReservationsGUI
      * @param int 	$usr_id
      * @return void
      */
-    protected function renderUserReservationsForm(array $reservations, $usr_id)
+    protected function renderUserReservationsForm(array $reservations, int $usr_id)
     {
-        assert('is_int($usr_id)');
         require_once("Services/Form/classes/class.ilPropertyFormGUI.php");
         require_once("Services/Form/classes/class.ilMultiSelectInputGUI.php");
 
@@ -662,9 +661,8 @@ class ilUserReservationsGUI
      * @param 	string	$code
      * @return	string
      */
-    public function txt($code)
+    public function txt(string $code)
     {
-        assert('is_string($code)');
         $txt = $this->txt;
         return $txt($code);
     }

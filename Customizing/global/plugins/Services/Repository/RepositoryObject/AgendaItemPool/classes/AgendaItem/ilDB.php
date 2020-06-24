@@ -310,7 +310,6 @@ class ilDB implements DB
      */
     public function isValidObjId(int $id) : bool
     {
-        assert('is_int($id)');
         $query = "SELECT obj_id" . PHP_EOL
                 . "FROM " . self::TABLE_AGENDA_ITEMS . PHP_EOL
                 . "WHERE obj_id = " . $this->getDB()->quote($id, "integer");

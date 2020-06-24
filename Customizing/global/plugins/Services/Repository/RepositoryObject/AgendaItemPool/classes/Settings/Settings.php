@@ -20,7 +20,7 @@ class Settings
     protected $is_online;
 
     /**
-     * @var DateTime
+     * @var \DateTime
      */
     protected $last_changed;
 
@@ -34,21 +34,15 @@ class Settings
      *
      * @param 	int				$obj_id
      * @param 	bool			$is_online
-     * @param 	\DateTime\null	$last_changed
+     * @param 	\DateTime|null	$last_changed
      * @param 	int|null		$last_changed_usr_id
-     * @return 	void
      */
     public function __construct(
-        $obj_id,
-        $is_online,
-        $last_changed,
-        $last_changed_usr_id
+        int $obj_id,
+        bool $is_online,
+        ?\DateTime $last_changed,
+        ?int $last_changed_usr_id
     ) {
-        assert('is_int($obj_id)');
-        assert('is_bool($is_online)');
-        assert('is_object($last_changed) || is_null($last_changed)');
-        assert('is_int($last_changed_usr_id) || is_null($last_changed_usr_id)');
-
         $this->obj_id = $obj_id;
         $this->is_online = $is_online;
         $this->last_changed = $last_changed;
@@ -81,9 +75,8 @@ class Settings
      * @param 	bool	$value
      * @return 	self
      */
-    public function withIsOnline($value)
+    public function withIsOnline(bool $value)
     {
-        assert('is_bool($value)');
         $clone = clone $this;
         $clone->is_online = $value;
         return $clone;
@@ -105,9 +98,8 @@ class Settings
      * @param 	\DateTime|null	$value
      * @return 	self
      */
-    public function withLastChanged($value)
+    public function withLastChanged(?\DateTime $value)
     {
-        assert('is_object($value) || is_null($value)');
         $clone = clone $this;
         $clone->last_changed = $value;
         return $clone;
@@ -129,9 +121,8 @@ class Settings
      * @param 	int|null	$value
      * @return 	self
      */
-    public function withLastChangedUsrId($value)
+    public function withLastChangedUsrId(?int $value)
     {
-        assert('is_int($value) || is_null($value)');
         $clone = clone $this;
         $clone->last_changed_usr_id = $value;
         return $clone;

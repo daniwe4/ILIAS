@@ -35,9 +35,8 @@ class ilDB implements DB
     /**
      * @inheritdoc
      */
-    public function getAdministratedTrainingsFor($user_id, array $filter)
+    public function getAdministratedTrainingsFor(int $user_id, array $filter)
     {
-        assert('is_int($user_id)');
         $ret = array();
         $crs_ids = $this->getCourseIdsWhereUserIsAdmin($user_id);
 

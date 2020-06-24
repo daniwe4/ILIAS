@@ -14,7 +14,7 @@ interface DB
      *
      * @return RoomSetup[]
      */
-    public function create($obj_id);
+    public function create(int $obj_id);
 
     /**
      * Update an existing settings entry
@@ -34,7 +34,7 @@ interface DB
      *
      * @return RoomSetup[]
      */
-    public function selectFor($obj_id);
+    public function selectFor(int $obj_id);
 
     /**
      * Delete settings for obj
@@ -43,5 +43,5 @@ interface DB
      *
      * @return void
      */
-    public function deleteFor($obj_id);
+    public function deleteFor(int $obj_id);
 }

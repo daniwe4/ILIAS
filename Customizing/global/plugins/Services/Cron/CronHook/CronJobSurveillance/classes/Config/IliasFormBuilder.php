@@ -13,12 +13,12 @@ require_once(__DIR__ . "/class.ilCJSConfigHeaderGUI.php");
 class IliasFormBuilder implements FormBuilder
 {
     /**
-     * @var ilCJSConfigHeaderGUI
+     * @var \ilCJSConfigHeaderGUI
      */
     protected $header;
 
     /**
-     * @var ilCJSConfigItemGUI
+     * @var \ilCJSConfigItemGUI
      */
     protected $item;
 
@@ -37,12 +37,8 @@ class IliasFormBuilder implements FormBuilder
     /**
      * @inheritdoc
      */
-    public function getForm($name, $action, $target = "_self")
+    public function getForm(string $name, string $action, string $target = "_self") : FormWrapper
     {
-        assert('is_string($name)');
-        assert('is_string($action)');
-        assert('is_string($target)');
-
         $form = new \ilPropertyFormGUI();
 
         $form->setTitle($name);
@@ -61,12 +57,9 @@ class IliasFormBuilder implements FormBuilder
      * @inheritdoc
      */
     public function addCJSConfigHeaderGUI(
-        $header_name,
-        $header_number
-    ) {
-        assert('is_string($header_name)');
-        assert('is_string($header_number)');
-
+        string $header_name,
+        string $header_number
+    ) : void {
         $header = new \ilCJSConfigHeaderGUI("", "");
 
         $header = $header
@@ -83,7 +76,7 @@ class IliasFormBuilder implements FormBuilder
     public function addCJSConfigItemGUI(
         array $options_select_box,
         ConfigurationForm $configuration_form
-    ) {
+    ) : void {
         $item = new \ilCJSConfigItemGUI("", "");
 
         $item = $item
@@ -97,12 +90,8 @@ class IliasFormBuilder implements FormBuilder
     /**
      * @inheritdoc
      */
-    public function addButton($name, $text, $action)
+    public function addButton(string $name, string $text, string $action)  :void
     {
-        assert('is_string($name)');
-        assert('is_string($text)');
-        assert('is_string($action)');
-
         $this->buttons[] = array(
             'name' => $name,
             'text' => $text,

@@ -63,9 +63,8 @@ class ilEduTrackingPlugin extends ilRepositoryObjectPlugin implements Historized
      *
      * @return null
      */
-    protected function createPluginPermissions($type_id, \ilDBInterface $db)
+    protected function createPluginPermissions(int $type_id, \ilDBInterface $db)
     {
-        assert('is_int($type_id)');
         include_once('./Services/Migration/DBUpdate_3560/classes/class.ilDBUpdateNewObjectType.php');
         $new_rbac_options = array(array("edit_purposes", "Edit settings of purposes", "object", 7000));
 
@@ -85,10 +84,8 @@ class ilEduTrackingPlugin extends ilRepositoryObjectPlugin implements Historized
      *
      * @return bool
      */
-    protected function permissionExists($permission, \ilDBInterface $db)
+    protected function permissionExists(string $permission, \ilDBInterface $db)
     {
-        assert('is_string($permission)');
-
         $query = "SELECT count(ops_id) AS cnt FROM rbac_operations\n"
             . " WHERE operation = " . $db->quote($permission, 'text');
 
@@ -303,7 +300,7 @@ class ilEduTrackingPlugin extends ilRepositoryObjectPlugin implements Historized
     }
     public function extractPayloadByPluginObject(\ilObjectPlugin $obj) : array
     {
-        assert('$obj instanceof ilObjEduTracking');
+        assert($obj instanceof ilObjEduTracking);
         $idd_minutes = (int) $obj->getDBFor('IDD')->selectFor($obj)->getMinutes();
         $gti_data = $obj->getDBFor('GTI')->selectFor($obj);
         $gti_minutes = (int) $gti_data->getMinutes();

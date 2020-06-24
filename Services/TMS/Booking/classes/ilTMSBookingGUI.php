@@ -217,7 +217,7 @@ abstract class ilTMSBookingGUI
         }
 
 
-        assert('is_string($content)');
+        assert(is_string($content));
         $this->g_tpl->setContent($content);
         if ($this->execute_show) {
             $this->g_tpl->printToStdout();
@@ -335,7 +335,7 @@ abstract class ilTMSBookingGUI
      */
     protected function lookupObjId($crs_ref_id)
     {
-        assert('is_int($crs_ref_id)');
+        assert(is_int($crs_ref_id));
         $crs_obj_id = (int) \ilObject::_lookupObjId($crs_ref_id);
         return $crs_obj_id;
     }
@@ -387,7 +387,7 @@ abstract class ilTMSBookingGUI
      */
     protected function getUnfinishedDuplicateBookedCoursesOfUser(\ilObjCourse $course, $usr_id)
     {
-        assert('is_int($usr_id)');
+        assert(is_int($usr_id));
         $start_date = $course->getCourseStart();
         if ($start_date === null) {
             return array();
@@ -406,7 +406,7 @@ abstract class ilTMSBookingGUI
      */
     protected function getUnfinishedWaitingListCoursesOfUser(\ilObjCourse $course, $usr_id)
     {
-        assert('is_int($usr_id)');
+        assert(is_int($usr_id));
         $start_date = $course->getCourseStart();
         if ($start_date === null) {
             return array();
@@ -567,9 +567,9 @@ abstract class ilTMSBookingGUI
      */
     protected function fireBookingEvent($event, $usr_id, $crs_ref_id)
     {
-        assert('is_string($event)');
-        assert('is_int($usr_id)');
-        assert('is_int($crs_ref_id)');
+        assert(is_string($event));
+        assert(is_int($usr_id));
+        assert(is_int($crs_ref_id));
 
         $crs_obj_id = $this->lookupObjId($crs_ref_id);
         $this->g_event_handler->raise(

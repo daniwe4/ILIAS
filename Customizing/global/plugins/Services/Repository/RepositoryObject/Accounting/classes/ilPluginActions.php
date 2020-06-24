@@ -130,9 +130,8 @@ class ilPluginActions
      *
      * @param int 		$id
      */
-    public function deleteCostType($id)
+    public function deleteCostType(int $id)
     {
-        assert('is_int($id)');
         $this->costtype_db->deleteFor($id);
     }
 
@@ -146,13 +145,8 @@ class ilPluginActions
      *
      * @return CostType
      */
-    public function getCostType($id, $value, $label, $active)
+    public function getCostType(int $id, string $value, string $label, bool $active)
     {
-        assert('is_int($id)');
-        assert('is_string($value)');
-        assert('is_string($label)');
-        assert('is_bool($active)');
-
         return new CostType($id, $value, $label, $active);
     }
 
@@ -172,9 +166,8 @@ class ilPluginActions
      * @param integer 	$id 	id of a costtype object
      * @return boolean
      */
-    public function hasCosttypeRelationships($id)
+    public function hasCosttypeRelationships(int $id)
     {
-        assert('is_int($id)');
         return $this->costtype_db->hasRelationships($id);
     }
 
@@ -258,9 +251,8 @@ class ilPluginActions
      *
      * @param int 		$id
      */
-    public function deleteVatRate($id)
+    public function deleteVatRate(int $id)
     {
-        assert('is_int($id)');
         $this->vat_rate_db->deleteFor($id);
     }
 
@@ -271,9 +263,8 @@ class ilPluginActions
      *
      * @return float
      */
-    public function getVatRateValueById($id)
+    public function getVatRateValueById(int $id)
     {
-        assert('is_int($id)');
         return $this->vat_rate_db->getVatRateValueById($id);
     }
 
@@ -287,13 +278,8 @@ class ilPluginActions
      *
      * @return VatRate
      */
-    public function getVatRate($id, $value, $label, $active)
+    public function getVatRate(int $id, string $value, string $label, bool $active)
     {
-        assert('is_int($id)');
-        assert('is_string($value)');
-        assert('is_string($label)');
-        assert('is_bool($active)');
-
         return new VatRate($id, $value, $label, $active);
     }
 
@@ -303,9 +289,8 @@ class ilPluginActions
      * @param integer 	$id 	id of a costtype object
      * @return boolean
      */
-    public function hasVatrateRelationships($id)
+    public function hasVatrateRelationships(int $id)
     {
-        assert('is_int($id)');
         return $this->vat_rate_db->hasRelationships($id);
     }
 

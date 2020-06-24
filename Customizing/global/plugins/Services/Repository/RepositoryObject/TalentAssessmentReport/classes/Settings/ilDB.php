@@ -31,12 +31,8 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function create($obj_id, $is_admin, $is_online)
+	public function create(int $obj_id, bool $is_admin, bool $is_online)
 	{
-		assert('is_int($obj_id)');
-		assert('is_bool($is_admin)');
-		assert('is_bool($is_online)');
-
 		$settings = new TalentAssessmentReport($obj_id, $is_admin, $is_online);
 
 		$values = array("obj_id" => array("integer", $settings->getObjId()),
@@ -66,10 +62,8 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function selectFor($obj_id)
+	public function selectFor(int $obj_id)
 	{
-		assert('is_int($obj_id)');
-
 		$query = "SELECT obj_id, is_admin, is_online\n"
 				." FROM ".self::TABLE_NAME."\n"
 				." WHERE obj_id = ".$this->getDB()->quote($obj_id, "integer");
@@ -90,10 +84,8 @@ class ilDB implements DB
 	/**
 	 * @inheritdoc
 	 */
-	public function deleteFor($obj_id)
+	public function deleteFor(int $obj_id)
 	{
-		assert('is_int($obj_id)');
-
 		$query = "DELETE FROM ".self::TABLE_NAME."\n"
 				." WHERE obj_id = ".$this->getDB()->quote($obj_id, "integer");
 

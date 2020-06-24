@@ -31,9 +31,8 @@ class ilObjectActions
      *
      * @return Settings
      */
-    public function getCopySettingsByRefId($ref_id)
+    public function getCopySettingsByRefId(int $ref_id)
     {
-        assert('is_int($ref_id)');
         return array_shift(array_filter($this->getObject()->getSettings(), function ($setting) use ($ref_id) {
             if ($ref_id == $setting->getTargetRefId()) {
                 return $setting;
@@ -48,9 +47,8 @@ class ilObjectActions
      *
      * @return void
      */
-    public function markParentAsTemplate($prefix)
+    public function markParentAsTemplate(string $prefix)
     {
-        assert('is_string($prefix)');
         $parent = $this->object->getParentContainer();
         $parent->setTitle($prefix . " " . $parent->getTitle());
         $parent->update();
@@ -63,9 +61,8 @@ class ilObjectActions
      *
      * @return void
      */
-    public function unmarkParentAsTemplate($prefix)
+    public function unmarkParentAsTemplate(string $prefix)
     {
-        assert('is_string($prefix)');
         $parent = $this->getObject()->getParentContainer();
         $parent->setTitle(trim(str_replace($prefix, "", $parent->getTitle())));
         $parent->update();
@@ -135,13 +132,8 @@ class ilObjectActions
      *
      * @return void
      */
-    public function createCopySettings($ref_id, $obj_id, $is_referenced, $process_type)
+    public function createCopySettings(int $ref_id, int $obj_id, bool $is_referenced, string $process_type)
     {
-        assert('is_int($obj_id)');
-        assert('is_int($ref_id)');
-        assert('is_bool($is_referenced)');
-        assert('is_string($process_type)');
-
         $this->children_db->create($this->getId(), $ref_id, $obj_id, $is_referenced, $process_type);
     }
 }

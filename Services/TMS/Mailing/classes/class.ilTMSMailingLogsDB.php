@@ -93,7 +93,7 @@ class ilTMSMailingLogsDB implements LoggingDB
      */
     public function selectForCourse($ref_id, $sort = null, $limit = null)
     {
-        assert('is_int($ref_id)');
+        assert(is_int($ref_id));
         $query = "SELECT" . PHP_EOL
                 . " id, datetime, event, crs_ref_id, template_ident,"
                 . " usr_id, usr_login, usr_mail, usr_name,"

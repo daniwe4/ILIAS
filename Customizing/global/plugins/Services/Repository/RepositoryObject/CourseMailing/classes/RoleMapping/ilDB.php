@@ -150,8 +150,6 @@ class ilDB implements DB
      */
     public function deleteForObject(int $obj_id)
     {
-        assert('is_int($obj_id)');
-
         $query = "SELECT id" . PHP_EOL
                 . " FROM " . static::TABLE_NAME . PHP_EOL
                 . " WHERE obj_id = " . $this->db->quote($obj_id, "integer");
@@ -172,7 +170,6 @@ class ilDB implements DB
      */
     public function selectFor(int $id) : RoleMapping
     {
-        assert('is_int($id)');
         $query = "SELECT id, obj_id, role_id, mail_template_id" . PHP_EOL
                 . " FROM " . static::TABLE_NAME . PHP_EOL
                 . " WHERE id = " . $this->db->quote($id, "integer");
@@ -216,8 +213,6 @@ class ilDB implements DB
      */
     public function deleteFor(int $id)
     {
-        assert('is_int($id)');
-
         $this->deleteAttachmentsFor($id);
 
         $query = "DELETE FROM " . static::TABLE_NAME . PHP_EOL

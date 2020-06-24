@@ -21,7 +21,15 @@ interface RequestDB
      * @param   \DateTime $requested_ts
      * @return  Request
      */
-    public function create($user_id, $session_id, $crs_ref_id, $new_parent_ref_id, array $copy_options, array $configuration, \DateTime $requested_ts);
+    public function create(
+        int $user_id,
+        string $session_id,
+        int $crs_ref_id,
+        int $new_parent_ref_id,
+        array $copy_options,
+        array $configuration,
+        \DateTime $requested_ts
+    );
 
     /**
      * @param   Request $request
@@ -38,5 +46,5 @@ interface RequestDB
      * @param	int	$user_id
      * @return	Request[]
      */
-    public function getDueRequestsOf($user_id);
+    public function getDueRequestsOf(int $user_id);
 }

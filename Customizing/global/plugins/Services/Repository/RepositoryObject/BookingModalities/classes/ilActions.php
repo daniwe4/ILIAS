@@ -128,12 +128,8 @@ class ilActions
      *
      * @return SelectableReason
      */
-    public function getSelectableReason($id, $reason, $active)
+    public function getSelectableReason(int $id, string $reason, bool $active)
     {
-        assert('is_int($id)');
-        assert('is_string($reason)');
-        assert('is_bool($active)');
-
         return $this->selectable_reasons_db->getSelectableReasonWith($id, $reason, $active);
     }
 
@@ -145,11 +141,8 @@ class ilActions
      *
      * @return SelectableReason
      */
-    public function createSelectableReason($reason, $active)
+    public function createSelectableReason(string $reason, bool $active)
     {
-        assert('is_string($reason)');
-        assert('is_bool($active)');
-
         return $this->selectable_reasons_db->create($reason, $active);
     }
 
@@ -160,9 +153,8 @@ class ilActions
      *
      * @return void
      */
-    public function deleteSelectableReason($id)
+    public function deleteSelectableReason(int $id)
     {
-        assert('is_int($id)');
         $this->selectable_reasons_db->delete($id);
     }
 
@@ -225,9 +217,8 @@ class ilActions
      * @param int $usr_id
      * @return string | null
      */
-    public function getModalitiesDocForUser($usr_id)
+    public function getModalitiesDocForUser(int $usr_id)
     {
-        assert('is_int($usr_id)');
         $user_role_ids = $this->document_db->getGlobalRoleIdsForUser($usr_id);
         //take first role
         $role_id = array_shift($user_role_ids);

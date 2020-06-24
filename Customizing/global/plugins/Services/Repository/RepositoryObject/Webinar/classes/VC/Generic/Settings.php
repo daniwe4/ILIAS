@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace CaT\Plugins\Webinar\VC\Generic;
 
@@ -43,14 +44,13 @@ class Settings implements VCSettings
      * @param string | null	$tutor_password
      * @param int | null	$minutes_required
      */
-    public function __construct($obj_id, $password = null, $tutor_login = null, $tutor_password = null, $minutes_required = null)
-    {
-        assert('is_int($obj_id)');
-        assert('is_string($password) || is_null($password)');
-        assert('is_string($tutor_login) || is_null($tutor_login)');
-        assert('is_string($tutor_password) || is_null($tutor_password)');
-        assert('is_int($minutes_required) || is_null($minutes_required)');
-
+    public function __construct(
+        int $obj_id,
+        ?string $password = null,
+        ?string $tutor_login = null,
+        ?string $tutor_password = null,
+        ?int $minutes_required = null
+    ) {
         $this->obj_id = $obj_id;
         $this->password = $password;
         $this->tutor_login = $tutor_login;
@@ -61,7 +61,7 @@ class Settings implements VCSettings
     /**
      * @inheritdoc
      */
-    public function getObjId()
+    public function getObjId() : int
     {
         return $this->obj_id;
     }
@@ -69,7 +69,7 @@ class Settings implements VCSettings
     /**
      * @inheritdoc
      */
-    public function withValuesOf(VCSettings $settings)
+    public function withValuesOf(VCSettings $settings) : VCSettings
     {
         if (!is_a($settings, get_class($this))) {
             throw new \Exception("You can only apply settings of the same type.", 1);
@@ -127,11 +127,10 @@ class Settings implements VCSettings
      *
      * @param string 	$password
      *
-     * @return this
+     * @return Settings
      */
-    public function withPassword($password)
+    public function withPassword(?string $password)
     {
-        assert('is_string($password) || is_null($password)');
         $clone = clone $this;
         $clone->password = $password;
         return $clone;
@@ -142,11 +141,10 @@ class Settings implements VCSettings
      *
      * @param int 	$tutor_login
      *
-     * @return this
+     * @return Settings
      */
-    public function withTutorLogin($tutor_login)
+    public function withTutorLogin(?string $tutor_login)
     {
-        assert('is_string($tutor_login) || is_null($tutor_login)');
         $clone = clone $this;
         $clone->tutor_login = $tutor_login;
         return $clone;
@@ -157,11 +155,10 @@ class Settings implements VCSettings
      *
      * @param int 	$tutor_password
      *
-     * @return this
+     * @return Settings
      */
-    public function withTutorPassword($tutor_password)
+    public function withTutorPassword(?string $tutor_password)
     {
-        assert('is_string($tutor_password) || is_null($tutor_password)');
         $clone = clone $this;
         $clone->tutor_password = $tutor_password;
         return $clone;
@@ -172,11 +169,10 @@ class Settings implements VCSettings
      *
      * @param int 	$minutes_required
      *
-     * @return this
+     * @return Settings
      */
-    public function withMinutesRequired($minutes_required)
+    public function withMinutesRequired(?int $minutes_required)
     {
-        assert('is_int($minutes_required) || is_null($minutes_required)');
         $clone = clone $this;
         $clone->minutes_required = $minutes_required;
         return $clone;

@@ -34,13 +34,8 @@ class ConfigWBD
      */
     protected $user_id;
 
-    public function __construct($id, $available, $contact, $user_id = null)
+    public function __construct(int $id, bool $available, string  $contact, ?int $user_id = null)
     {
-        assert('is_int($id)');
-        assert('is_bool($available)');
-        assert('is_string($contact)');
-        assert('is_null($user_id) || is_int($user_id)');
-
         $this->id = $id;
         $this->available = $available;
         $this->contact = $contact;

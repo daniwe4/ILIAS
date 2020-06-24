@@ -7,7 +7,6 @@ declare(strict_types=1);
 namespace CaT\Plugins\UserCourseHistorizing\HistCases;
 
 use PHPUnit\Framework\TestCase;
-use CaT\Historization\Event\Event;
 
 class TestObject extends HistSessionCourse
 {
@@ -130,69 +129,5 @@ class HistSessionCourseTest extends TestCase
             }
             $this->assertTrue(true);
         }
-    }
-
-    public function test_isEventRelevant()
-    {
-        $events = $this->getRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertTrue($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $crs
-            ->expects($this->exactly(2))
-            ->method('getRefId')
-            ->willReturn(22)
-        ;
-
-        $crs
-            ->expects($this->once())
-            ->method('getType')
-            ->willReturn('sess')
-        ;
-
-        $events = [
-            new Event('update', 'Modules/Session', ['object' => $crs]),
-            new Event('beforeDeletion', 'Services/Object', ['object' => $crs]),
-        ];
-
-        return $events;
-    }
-
-    public function test_isEventNotRelevant()
-    {
-        $events = $this->getNotRelevantEvents();
-
-        foreach ($events as $event) {
-            $this->assertFalse($this->obj->isEventRelevant($event));
-        }
-    }
-
-    protected function getNotRelevantEvents() : array
-    {
-        $crs = $this->createMock(\ilObjCourse::class);
-
-        $events = [
-            new Event('move', 'Modules/Course', []),
-            new Event('move', 'Plugin/Accomodation', []),
-            new Event('move', 'Plugin/CourseClassification', []),
-            new Event('', 'Plugin/BookingModalities', []),
-            new Event('move', 'Plugin/Venue', []),
-            new Event('move', 'Plugin/TrainingProvider', []),
-            new Event('move', 'Plugin/EduTracking', []),
-            new Event('move', 'Plugin/EduTracking', []),
-            new Event('move', 'Plugin/CopySettings', ['parent' => $crs]),
-            new Event('deleteCopySettings', 'Plugin/CopySettings', []),
-            new Event('move', 'Plugin/WBDInterface', []),
-            new Event('move', 'Plugin/Webinar', [])
-        ];
-
-        return $events;
     }
 }

@@ -24,20 +24,14 @@ class ilActions
      * @return AgendaEntry
      */
     public function create(
-        $obj_id,
-        $pool_item_id,
+        int $obj_id,
+        int $pool_item_id,
         \DateTime $start_time,
         \DateTime $end_time,
-        $is_blank = false,
-        $agenda_item_content = null,
-        $goals = null
+        bool $is_blank = false,
+        ?string $agenda_item_content = null,
+        ?string $goals = null
     ) {
-        assert('is_int($obj_id)');
-        assert('is_int($pool_item_id)');
-        assert('is_bool($is_blank)');
-        assert('is_null($agenda_item_content) || is_string($agenda_item_content)');
-        assert('is_null($goals) || is_string($goals)');
-
         return $this->agenda_entry_db->create(
             $obj_id,
             $pool_item_id,
@@ -68,9 +62,8 @@ class ilActions
      *
      * @return void
      */
-    public function delete($id)
+    public function delete(int $id)
     {
-        assert('is_int($id)');
         $this->agenda_entry_db->delete($id);
     }
 

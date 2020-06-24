@@ -102,17 +102,13 @@ class ilWBDCrsHistorizingPlugin extends ilCronHookPlugin
             || ($component === 'Plugin/EduTracking' && $event === 'updateWBD');
     }
 
-    private function splitEventByElements($component, $event, array $parameter)
+    private function splitEventByElements(string $component, string $event, array $parameter)
     {
-        assert('is_string($event)');
-        assert('is_string($component)');
         return $this->getRelevantCases($component, $event, $parameter);
     }
 
-    private function getRelevantCases($component, $event, array $parameter)
+    private function getRelevantCases(string $component, string $event, array $parameter)
     {
-        assert('is_string($event)');
-        assert('is_string($component)');
         $return = [];
         global $DIC;
         $tree = $DIC['tree'];

@@ -55,11 +55,11 @@ class Wizard implements \ILIAS\TMS\Wizard\Wizard
      */
     public function __construct($dic, RequestBuilder $request_builder, $user_id, $session_id, $crs_ref_id, $timestamp)
     {
-        assert('is_array($dic) || ($dic instanceof \ArrayAccess)');
-        assert('is_int($user_id)');
-        assert('is_string($session_id)');
-        assert('is_int($crs_ref_id)');
-        assert('is_int($timestamp)');
+        assert(is_array($dic) || ($dic instanceof \ArrayAccess));
+        assert(is_int($user_id));
+        assert(is_string($session_id));
+        assert(is_int($crs_ref_id));
+        assert(is_int($timestamp));
         $this->request_builder = $request_builder;
         $this->dic = $dic;
         $this->user_id = $user_id;

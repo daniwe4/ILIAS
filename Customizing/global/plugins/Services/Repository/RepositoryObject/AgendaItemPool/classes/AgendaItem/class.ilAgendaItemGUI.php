@@ -98,10 +98,8 @@ class ilAgendaItemGUI
         ilAgendaItemsGUI $parent_gui,
         ilObjectActions $object_actions,
         \Closure $txt,
-        $used
+        bool $used
     ) {
-        assert('is_bool($used)');
-
         global $DIC;
         $this->g_ctrl = $DIC->ctrl();
         $this->g_tpl = $DIC->ui()->mainTemplate();

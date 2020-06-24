@@ -335,10 +335,8 @@ class ilObjMaterialList extends \ilObjectPlugin implements ObjMaterialList
      *
      * @return Object 	of search type
      */
-    public function getAllChildrenOfByType($ref_id, $search_type)
+    public function getAllChildrenOfByType(int $ref_id, string $search_type)
     {
-        assert('is_int($ref_id)');
-        assert('is_string($search_type)');
         $DIC = $this->getDIC();
         $g_tree = $DIC->repositoryTree();
         $g_objDefinition = $DIC["objDefinition"];

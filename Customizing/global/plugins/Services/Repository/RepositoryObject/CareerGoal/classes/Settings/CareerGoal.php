@@ -32,28 +32,26 @@ class CareerGoal {
 	 */
 	protected $default_text_success;
 
-	public function __construct($obj_id, $lowmark, $should_specifiaction, $default_text_failed, $default_text_partial, $default_text_success) {
-		assert('is_int($obj_id)');
+	public function __construct(
+	    int $obj_id,
+        $lowmark,
+        $should_specifiaction,
+        string $default_text_failed,
+        string $default_text_partial,
+        string $default_text_success
+    ) {
 		$this->obj_id = $obj_id;
-
-		assert('is_int($lowmark) || is_float($lowmark)');
+		assert(is_int($lowmark) || is_float($lowmark));
 		$this->lowmark = $lowmark;
-
-		assert('is_int($should_specifiaction) || is_float($should_specifiaction)');
+		assert(is_int($should_specifiaction) || is_float($should_specifiaction));
 		$this->should_specifiaction = $should_specifiaction;
-
-		assert('is_string($default_text_failed)');
 		$this->default_text_failed = $default_text_failed;
-
-		assert('is_string($default_text_failed)');
 		$this->default_text_partial = $default_text_partial;
-
-		assert('is_string($default_text_failed)');
 		$this->default_text_success = $default_text_success;
 	}
 
 	public function withLowmark($lowmark) {
-		assert('is_int($lowmark) || is_float($lowmark)');
+		assert(is_int($lowmark) || is_float($lowmark));
 
 		$clone = clone $this;
 		$clone->lowmark = $lowmark;
@@ -62,7 +60,7 @@ class CareerGoal {
 	}
 
 	public function withShouldSpecifiaction($should_specifiaction) {
-		assert('is_int($should_specifiaction) || is_float($should_specifiaction)');
+		assert(is_int($should_specifiaction) || is_float($should_specifiaction));
 
 		$clone = clone $this;
 		$clone->should_specifiaction = $should_specifiaction;
@@ -70,27 +68,21 @@ class CareerGoal {
 		return $clone;
 	}
 
-	public function withDefaultTextFailed($default_text_failed) {
-		assert('is_string($default_text_failed)');
-
+	public function withDefaultTextFailed(string $default_text_failed) {
 		$clone = clone $this;
 		$clone->default_text_failed = $default_text_failed;
 
 		return $clone;
 	}
 
-	public function withDefaultTextPartial($default_text_partial) {
-		assert('is_string($default_text_partial)');
-
+	public function withDefaultTextPartial(string $default_text_partial) {
 		$clone = clone $this;
 		$clone->default_text_partial = $default_text_partial;
 
 		return $clone;
 	}
 
-	public function withDefaultTextSuccess($default_text_success) {
-		assert('is_string($default_text_success)');
-
+	public function withDefaultTextSuccess(string $default_text_success) {
 		$clone = clone $this;
 		$clone->default_text_success = $default_text_success;
 

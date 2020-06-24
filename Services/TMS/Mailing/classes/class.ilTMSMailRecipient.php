@@ -28,7 +28,7 @@ class ilTMSMailRecipient implements Mailing\Recipient
 
     public function __construct($usr_id = null)
     {
-        assert('is_int($usr_id) || $usr_id===null');
+        assert(is_int($usr_id) || $usr_id===null);
         $this->usr_id = $usr_id;
     }
 
@@ -100,7 +100,7 @@ class ilTMSMailRecipient implements Mailing\Recipient
      */
     public function withName($name)
     {
-        assert('is_string($name)');
+        assert(is_string($name));
         if (!is_null($this->usr_id)) {
             throw new \Exception('You cannot manually set the name for a recipient based on usr_id');
         }
@@ -114,7 +114,7 @@ class ilTMSMailRecipient implements Mailing\Recipient
      */
     public function withMail($mail)
     {
-        assert('is_string($mail)');
+        assert(is_string($mail));
         if (!is_null($this->usr_id)) {
             throw new \Exception('You cannot manually set the mail for a recipient based on usr_id');
         }

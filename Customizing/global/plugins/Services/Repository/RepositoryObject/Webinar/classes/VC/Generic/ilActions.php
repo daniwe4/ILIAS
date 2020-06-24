@@ -1,9 +1,9 @@
 <?php
+declare(strict_types=1);
 
 namespace CaT\Plugins\Webinar\VC\Generic;
 
 use CaT\Plugins\Webinar\VC;
-use CaT\Libs\ExcelWrapper\Spout;
 use CaT\Plugins\Webinar\Config\Config;
 
 /**
@@ -56,13 +56,12 @@ class ilActions implements VC\VCActions
      *
      * @return Settings
      */
-    public function create($password = null, $tutor_login = null, $tutor_password = null, $minutes_required = null)
-    {
-        assert('is_string($password) || is_null($password)');
-        assert('is_int($tutor_login) || is_null($tutor_login)');
-        assert('is_int($tutor_password) || is_null($tutor_password)');
-        assert('is_int($minutes_required) || is_null($minutes_required)');
-
+    public function create(
+        ?string $password = null,
+        ?string $tutor_login = null,
+        ?string $tutor_password = null,
+        ?int $minutes_required = null
+    ) : Settings {
         return $this->generic_db->create($this->getObjectId(), $password, $tutor_login, $tutor_password, $minutes_required);
     }
 
@@ -71,9 +70,9 @@ class ilActions implements VC\VCActions
      *
      * @param Settings 	$settings
      *
-     * @return null
+     * @return void
      */
-    public function update(Settings $settings)
+    public function update(Settings $settings) : void
     {
         $this->generic_db->update($settings);
     }
@@ -83,7 +82,7 @@ class ilActions implements VC\VCActions
      *
      * @return Settings
      */
-    public function select()
+    public function select() : Settings
     {
         return $this->generic_db->select($this->getObjectId());
     }
@@ -91,9 +90,9 @@ class ilActions implements VC\VCActions
     /**
      * Delete Generic VC settings entry
      *
-     * @return null
+     * @return void
      */
-    public function delete()
+    public function delete() : void
     {
         $this->generic_db->delete($this->getObjectId());
     }
@@ -101,7 +100,7 @@ class ilActions implements VC\VCActions
     /**
      * @inheritdoc
      */
-    public function getMinutesRequired()
+    public function getMinutesRequired() : int
     {
         return $this->select()->getMinutesRequired();
     }
@@ -109,26 +108,25 @@ class ilActions implements VC\VCActions
     /**
      * @inheritdoc
      */
-    public function createUnkownParticipant($user_name, $email, $phone, $company, $minutes, $user_id = null)
-    {
-        assert('is_string($user_name)');
-        assert('is_string($email)');
-        assert('is_string($phone)');
-        assert('is_string($company)');
-        assert('is_int($minutes)');
-        assert('is_null($user_id) || is_int($user_id)');
-
-        $this->generic_db->createUnkownParticipant($this->getObjectId(), $user_name, $email, $phone, $company, $minutes, $user_id);
+    public function createUnknownParticipant(
+        string $user_name,
+        string $email,
+        string $phone,
+        string $company,
+        int $minutes,
+        ?int $user_id = null
+    ) : VC\Participant {
+        $this->generic_db->createUnknownParticipant($this->getObjectId(), $user_name, $email, $phone, $company, $minutes, $user_id);
     }
 
     /**
      * Delete unknown participants
      *
-     * @return null
+     * @return void
      */
-    public function deleteUnkownParticipants()
+    public function deleteUnknownParticipants() : void
     {
-        $this->generic_db->deleteUnkownParticipants($this->getObjectId());
+        $this->generic_db->deleteUnknownParticipants($this->getObjectId());
     }
 
     /**
@@ -136,12 +134,11 @@ class ilActions implements VC\VCActions
      *
      * @param int 	$id
      *
-     * @return null
+     * @return void
      */
-    public function deleteUnknownParticipant($id)
+    public function deleteUnknownParticipant(int $id) : void
     {
-        assert('is_int($id)');
-        $this->generic_db->deleteUnkownParticipant($id);
+        $this->generic_db->deleteUnknownParticipant($id);
     }
 
     /**
@@ -149,7 +146,7 @@ class ilActions implements VC\VCActions
      *
      * @return void
      */
-    public function resetMinutesOfBookedUsers()
+    public function resetMinutesOfBookedUsers() : void
     {
         $this->generic_db->resetMinutesOfBookedUsers($this->getObjectId());
     }
@@ -159,25 +156,24 @@ class ilActions implements VC\VCActions
      *
      * @return Participant[]
      */
-    public function getUnkownParticipants()
+    public function getUnknownParticipants() : array
     {
-        return $this->generic_db->getUnkownParticipants($this->getObjectId());
+        return $this->generic_db->getUnknownParticipants($this->getObjectId());
     }
 
     /**
      * @inheritdoc
      */
-    public function updateParticipant(VC\Participant $participant)
+    public function updateParticipant(VC\Participant $participant) : void
     {
-        return $this->generic_db->updateParticipant($participant);
+        $this->generic_db->updateParticipant($participant);
     }
 
     /**
      * @inheritdoc
      */
-    public function getParticipantByUserName($user_name)
+    public function getParticipantByUserName(string $user_name) : ?VC\Participant
     {
-        assert('is_string($user_name)');
         return $this->generic_db->getParticipantByUserName($this->getObjectId(), $user_name, $this->config->getPhoneType());
     }
 
@@ -186,7 +182,7 @@ class ilActions implements VC\VCActions
      *
      * @return \ilObjWebinar
      */
-    public function getObject()
+    public function getObject() : \ilObjWebinar
     {
         if ($this->object === null) {
             throw new \Exception(__METHOD__ . " no object is set.");
@@ -200,10 +196,10 @@ class ilActions implements VC\VCActions
      *
      * @return Participant[]
      */
-    public function getAllParticipants()
+    public function getAllParticipants() : array
     {
         $booked = $this->getBookedParticipants();
-        $unknown = $this->generic_db->getUnkownParticipants($this->getObjectId());
+        $unknown = $this->generic_db->getUnknownParticipants($this->getObjectId());
 
         return array_merge($booked, $unknown);
     }
@@ -213,7 +209,7 @@ class ilActions implements VC\VCActions
      *
      * @return Participant[]
      */
-    public function getBookedParticipants()
+    public function getBookedParticipants() : array
     {
         return $this->generic_db->getBookedParticipants($this->getObjectId(), $this->config->getPhoneType());
     }
@@ -223,7 +219,7 @@ class ilActions implements VC\VCActions
      *
      * @return int
      */
-    protected function getObjectId()
+    protected function getObjectId() : int
     {
         if ($this->object === null) {
             throw new \Exception(__METHOD__ . " no object is set.");
@@ -235,9 +231,8 @@ class ilActions implements VC\VCActions
     /**
      * @inheritdoc
      */
-    public function getUnknownParticipantByLogin($user_name)
+    public function getUnknownParticipantByLogin(string $user_name) : ?VC\Participant
     {
-        assert('is_string($user_name)');
         return $this->generic_db->getUnknownParticipantByLogin($this->getObjectId(), $user_name);
     }
 }
