@@ -127,7 +127,7 @@ class FilterTypeTest extends TestCase
             , array("abcdef", true)
             , array(42, true)
             , array(null, false)
-            , array(false, false)
+            , array(false, true)
             , array(true, false)
             , array(array(), false)
             , array(new \stdClass(), false)
