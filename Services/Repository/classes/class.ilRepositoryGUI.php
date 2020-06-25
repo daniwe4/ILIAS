@@ -362,7 +362,17 @@ class ilRepositoryGUI
     {
         // normal command processing
         $ret = $this->ctrl->forwardCommand($this->gui_obj);
-        $this->tpl->setVariable("OBJECTS", $this->gui_obj->getHTML());
+        $html = $this->gui_obj->getHTML();
+
+        // cat-tms-patch start #4788
+        if ($html instanceof ILIAS\TMS\Wizard\Content) {
+            $this->tpl->setTitle($html->getTitle());
+            $this->tpl->setVariable("OBJECTS", $html->getBody());
+        } else {
+            $this->tpl->setVariable("OBJECTS", $html);
+        }
+        // cat-tms-patch end
+
         $this->tpl->printToStdout();
     }
     

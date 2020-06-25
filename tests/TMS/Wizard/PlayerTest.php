@@ -22,6 +22,13 @@ class _WizardPlayer extends Wizard\Player
 class TMS_Wizard_PlayerTest extends TestCase
 {
     protected static $count_setups = 0;
+    protected $ilias_bindings;
+    protected $wizard;
+    protected $state_db;
+    protected $player;
+    protected $step_count;
+    protected $form_count;
+    protected $wizard_id;
 
     public function setUp() : void
     {
@@ -114,6 +121,11 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn([$step1, $step2, $step3]);
 
         $form = $this->createFormMock();
+        $form
+            ->expects($this->once())
+            ->method("getHtml")
+            ->willReturn("this is a form")
+        ;
         $this->ilias_bindings
             ->expects($this->once())
             ->method("getForm")
@@ -166,6 +178,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->method("getForm")
             ->willReturn($form);
 
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "my title"));
+
         $step1
             ->expects($this->never())
             ->method($this->anything());
@@ -206,8 +224,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run("next", $post);
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 
     public function test_process_form_not_ok()
@@ -233,6 +252,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->expects($this->once())
             ->method("getForm")
             ->willReturn($form);
+
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "my title"));
 
         $step1
             ->expects($this->never())
@@ -271,8 +296,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run("next", $post);
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 
     public function test_process_data_ok()
@@ -299,6 +325,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->expects($this->exactly(2))
             ->method("getForm")
             ->will($this->onConsecutiveCalls($form_step2, $form_step3));
+
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "previous", "next", "abort", "my title"));
 
         $step1
             ->expects($this->never())
@@ -352,8 +384,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run("next", $post);
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 
     public function test_process_build_only_on_no_post()
@@ -379,6 +412,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->expects($this->once())
             ->method("getForm")
             ->willReturn($form);
+
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "my title"));
 
         $step1
             ->expects($this->never())
@@ -411,8 +450,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run();
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
     public function test_process_first()
     {
@@ -438,6 +478,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->method("getForm")
             ->willReturn($form);
 
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("next", "abort", "my title"));
+
         $step2
             ->expects($this->never())
             ->method($this->anything());
@@ -461,8 +507,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run();
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 
     public function test_process_last()
@@ -494,6 +541,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->expects($this->once())
             ->method("getForm")
             ->will($this->onConsecutiveCalls($form_step3, $overview_form));
+
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "my title"));
 
         $step3
             ->expects($this->once())
@@ -540,8 +593,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run("next", $post);
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 
     public function test_buildOverviewForm()
@@ -619,10 +673,10 @@ class TMS_Wizard_PlayerTest extends TestCase
                 );
 
         $this->ilias_bindings
-            ->expects($this->exactly(5))
+            ->expects($this->exactly(4))
             ->method("txt")
-            ->withConsecutive(["previous"], ["confirm"], ["abort"], ["title"], ["overview_description"])
-            ->will($this->onConsecutiveCalls("lng_previous", "lng_confirm", "lng_abort", "lng_title", "lng_overview_description"));
+            ->withConsecutive(["previous"], ["confirm"], ["abort"], ["overview_description"])
+            ->will($this->onConsecutiveCalls("lng_previous", "lng_confirm", "lng_abort", "lng_overview_description"));
 
         $form
             ->expects($this->exactly(3))
@@ -658,7 +712,7 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->with($state);
 
         $post = ["foo" => "bar"];
-        $view = "VIEW";
+        $view = new Wizard\Content('my_title', 'VIEW');
         $this->player
             ->expects($this->once())
             ->method("runStep")
@@ -666,7 +720,9 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($view);
 
         $view2 = $this->player->run("start", $post);
-        $this->assertEquals($view, $view2);
+        $this->assertInstanceOf(Wizard\Content::class, $view2);
+        $this->assertEquals('VIEW', $view2->getBody());
+        $this->assertEquals('my_title', $view2->getTitle());
     }
 
     public function test_process_abort()
@@ -812,6 +868,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->will($this->onConsecutiveCalls($form_step2, $form_step1))
         ;
 
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "previous", "next", "abort", "my title"));
+
         $this->state_db
             ->expects($this->exactly(2))
             ->method("save")
@@ -838,8 +900,9 @@ class TMS_Wizard_PlayerTest extends TestCase
         ;
 
         $view = $this->player->run("previous", $data2);
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 
     public function test_process_build_only_on_no_post_with_saved_data()
@@ -879,6 +942,12 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->method("getForm")
             ->willReturn($form);
 
+        $this->ilias_bindings
+            ->expects($this->atLeastOnce())
+            ->method("txt")
+            ->withConsecutive(["previous"], ["next"], ["abort"], ["title"])
+            ->will($this->onConsecutiveCalls("previous", "next", "abort", "my title"));
+
         $step2
             ->expects($this->once())
             ->method("appendToStepForm")
@@ -904,7 +973,8 @@ class TMS_Wizard_PlayerTest extends TestCase
             ->willReturn($html);
 
         $view = $this->player->run();
-
-        $this->assertEquals($html, $view);
+        $this->assertInstanceOf(Wizard\Content::class, $view);
+        $this->assertEquals($html, $view->getBody());
+        $this->assertEquals('my title', $view->getTitle());
     }
 }

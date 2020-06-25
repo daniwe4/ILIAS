@@ -134,8 +134,9 @@ abstract class ilTMSCancelGUI extends Wizard\Player
 
         $cmd = $this->g_ctrl->getCmd("start");
         $content = $player->run($cmd, $_POST);
-        assert(is_string($content));
-        $this->g_tpl->setContent($content);
+        $this->g_tpl->setTitle($content->getTitle());
+        $this->g_tpl->setContent($content->getBody());
+
         if ($this->execute_show) {
             $this->g_tpl->show();
         }

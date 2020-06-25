@@ -61,9 +61,19 @@ class ilCourseCreationGUI
     protected $crs_obj_id;
 
     /**
-     * @var	string
+     * @var	Wizard\Content
      */
     protected $content;
+
+    /**
+     * @var CourseCreation\ILIASBindings
+     */
+    protected $ilias_bindings;
+
+    /**
+     * @var ilRbacReview
+     */
+    protected $g_rbacreview;
 
     public function __construct($_, $a_ref_id)
     {
@@ -83,7 +93,10 @@ class ilCourseCreationGUI
         $this->g_tree = $DIC->repositoryTree();
         $this->g_rbacreview = $DIC["rbacreview"];
 
-        $this->content = "Something went wrong. This GUI should have created some real content but appearantly didn't...";
+        $this->content = new Wizard\Content(
+            "Error",
+            "Something went wrong. This GUI should have created some real content but appearantly didn't..."
+        );
     }
 
     /**
@@ -209,6 +222,7 @@ class ilCourseCreationGUI
         }
 
         $this->content = $player->run($cmd, $_POST);
+        $this->ilias_bindings = $ilias_bindings;
         assert('is_string($this->content)');
     }
 

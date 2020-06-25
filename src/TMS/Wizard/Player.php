@@ -57,12 +57,8 @@ class Player
      * Process the user input and build the appropriate view.
      *
      * The wizard ended when null is returned.
-     *
-     * @param	string|null	$cmd
-     * @param	array|null	$post
-     * @return	string|null
      */
-    public function run(string $cmd = null, array $post = null)
+    public function run(string $cmd = null, array $post = null) : ?Content
     {
         if ($cmd === null) {
             $cmd = self::COMMAND_NEXT;
@@ -76,7 +72,8 @@ class Player
             case self::COMMAND_ABORT:
                 $this->state_db->delete($state);
                 $aborted = $this->ilias_bindings->txt("aborted");
-                return $this->ilias_bindings->redirectToPreviousLocation([$aborted], false);
+                $this->ilias_bindings->redirectToPreviousLocation([$aborted], false);
+                return null;
             case self::COMMAND_NEXT:
                 return $this->runStep($state, $post);
             case self::COMMAND_SAVE:
@@ -84,31 +81,27 @@ class Player
             case self::COMMAND_PREVIOUS:
                 return $this->runPreviousStep($state, $post);
             case self::COMMAND_CONFIRM:
-                return $this->finish($state);
+                $this->finish($state);
+                return null;
         }
         throw new \LogicException("Unknown command: '$cmd'");
     }
 
     /**
      * Build the view for the current step in the wizard.
-     *
-     * @param	State	$state
-     * @param	array|null	$post
-     * @param	bool|null	$next_when_ok   advance to next step when current step is ok.
-     * @return	string
      */
-    protected function runStep(State $state, array $post = null, $next_when_ok = true)
+    protected function runStep(State $state, array $post = null, bool $next_when_ok = true) : ?Content
     {
         $steps = $this->wizard->getSteps();
 
         if (count($steps) === 0) {
             require_once "./Services/Utilities/classes/class.ilUtil.php";
             \ilUtil::sendInfo($this->ilias_bindings->txt("no_steps_available"));
-            return '';
+            return $this->getContentObject('');
         }
 
-        if ($content = $this->maybeRunOverview($state, count($steps))) {
-            return $content;
+        if ($body = $this->maybeRunOverview($state, count($steps))) {
+            return $this->getContentObject($body);
         }
 
         $step_number = $state->getStepNumber();
@@ -119,23 +112,19 @@ class Player
         $current_step = $steps[$step_number];
         $form = $this->buildStepForm($step_number, $current_step);
 
-        if ($content = $this->maybeProcessUserInput($state, $step_number, $current_step, $form, $post, $next_when_ok)) {
+        if ($content = $this->maybeProcessUserInput($state, $step_number, $current_step, $form, $next_when_ok, $post)) {
             return $content;
         }
 
         $this->maybeAddStepDataToForm($state, $step_number, $current_step, $form);
 
-        return $form->getHtml();
+        return $this->getContentObject($form->getHtml());
     }
 
     /**
      * Run the overview if the last step was already processed.
-     *
-     * @param	State	$state
-     * @param	int		$num_steps
-     * @return	null|string	returns null if overview was not run
      */
-    protected function maybeRunOverview(State $state, int $num_steps)
+    protected function maybeRunOverview(State $state, int $num_steps) : ?string
     {
         $step_number = $state->getStepNumber();
         if ($step_number == $num_steps) {
@@ -148,17 +137,15 @@ class Player
 
     /**
      * Process user input, if there is any.
-     *
-     * @param	State	$state
-     * @param	int		$step_number
-     * @param	Step	$step
-     * @param	\ilPropertyFormGUI	$form
-     * @param	array|null	$post
-     * @param	bool	$next_when_ok   advance to next step when current step is ok.
-     * @return	null|string	returns null if input was processed
      */
-    public function maybeProcessUserInput(State $state, int $step_number, Step $step, \ilPropertyFormGUI $form, array $post = null, bool $next_when_ok)
-    {
+    protected function maybeProcessUserInput(
+        State $state,
+        int $step_number,
+        Step $step,
+        \ilPropertyFormGUI $form,
+        bool $next_when_ok,
+        array $post = null
+    ) : ?Content {
         if ($post) {
             $form->setValuesByArray($post);
             if ($form->checkInput()) {
@@ -180,14 +167,8 @@ class Player
 
     /**
      * Displays previously inputted data, if there is any.
-     *
-     * @param	State	$state
-     * @param	int		$step_number
-     * @param	Step	$step
-     * @param	\ilPropertyFormGUI $form
-     * @return	void
      */
-    public function maybeAddStepDataToForm(State $state, int $step_number, Step $step, \ilPropertyFormGUI $form)
+    public function maybeAddStepDataToForm(State $state, int $step_number, Step $step, \ilPropertyFormGUI $form) : void
     {
         $step_data = $this->getStepData($state, $step_number, $step);
 
@@ -198,11 +179,8 @@ class Player
 
     /**
      * Build the view for the previous step in the wizard.
-     *
-     * @param	State	$state
-     * @return	string
      */
-    protected function runPreviousStep(State $state, array $post = null)
+    protected function runPreviousStep(State $state, array $post = null) : ?Content
     {
         //save current step
         $steps = $this->wizard->getSteps();
@@ -211,7 +189,10 @@ class Player
             throw new \LogicException("It is impossible that the number of step is smaller than 0.");
         }
 
-        if (!is_null($post) && array_key_exists($step_number, $steps)) {
+        if (
+            !is_null($post) &&
+            array_key_exists($step_number, $steps)
+        ) {
             $step = $steps[$step_number];
             $form = $this->buildStepForm($step_number, $step);
             if ($form->checkInput()) {
@@ -221,11 +202,11 @@ class Player
                         ->withStepData($step_number, $data);
                     $this->state_db->save($state);
                 } else {
-                    return $form->getHtml();
+                    return $this->getContentObject($form->getHtml());
                 }
             } else {
                 $form->setValuesByPost();
-                return $form->getHtml();
+                return $this->getContentObject($form->getHtml());
             }
         }
 
@@ -259,7 +240,6 @@ class Player
         $form->addCommandButton(self::COMMAND_NEXT, $this->ilias_bindings->txt("next"));
         $form->addCommandButton(self::COMMAND_ABORT, $this->ilias_bindings->txt("abort"));
 
-        $form->setTitle($this->ilias_bindings->txt("title"));
         $current_step->appendToStepForm($form);
         return $form;
     }
@@ -279,7 +259,6 @@ class Player
         $form->addCommandButton(self::COMMAND_CONFIRM, $this->ilias_bindings->txt("confirm"));
         $form->addCommandButton(self::COMMAND_ABORT, $this->ilias_bindings->txt("abort"));
 
-        $form->setTitle($this->ilias_bindings->txt("title"));
         $form->setDescription($this->ilias_bindings->txt("overview_description"));
 
         for ($i = 0; $i < count($steps); $i++) {
@@ -288,7 +267,10 @@ class Player
             $header->setTitle($step->getLabel());
             $form->addItem($header);
             $data = $this->getStepData($state, $i, $step);
-            $step->appendToOverviewForm($form, $data);
+
+            if (!is_null($data)) {
+                $step->appendToOverviewForm($form, $data);
+            }
         }
 
         return $form;
@@ -356,5 +338,15 @@ class Player
                 return $step_data;
             }
         }
+
+        return null;
+    }
+
+    protected function getContentObject(string $body) : Content
+    {
+        return new Content(
+            $this->ilias_bindings->txt(self::TXT_TITLE),
+            $body
+        );
     }
 }

@@ -195,9 +195,8 @@ abstract class ilBookingWithApproveGUI
             return;
         }
 
-
-        assert(is_string($content));
-        $this->g_tpl->setContent($content);
+        $this->g_tpl->setTitle($content->getTitle());
+        $this->g_tpl->setContent($content->getBody());
     }
 
     /**

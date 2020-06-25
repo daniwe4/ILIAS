@@ -216,9 +216,9 @@ abstract class ilTMSBookingGUI
             return;
         }
 
+        $this->g_tpl->setTitle($content->getTitle());
+        $this->g_tpl->setContent($content->getBody());
 
-        assert(is_string($content));
-        $this->g_tpl->setContent($content);
         if ($this->execute_show) {
             $this->g_tpl->printToStdout();
         }
