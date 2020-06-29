@@ -311,7 +311,7 @@ class ilLanguage
             $lang_key = $this->lang_user;
         }
 
-        if (is_array($this->cached_modules[$a_module])) {
+        if (isset($this->cached_modules[$a_module]) && is_array($this->cached_modules[$a_module])) {
             $this->text = array_merge($this->text, $this->cached_modules[$a_module]);
 
             if ($this->usage_log_enabled) {
