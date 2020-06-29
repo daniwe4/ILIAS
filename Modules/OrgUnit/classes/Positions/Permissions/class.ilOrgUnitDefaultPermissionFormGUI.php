@@ -19,22 +19,31 @@ class ilOrgUnitDefaultPermissionFormGUI extends ilPropertyFormGUI
      */
     protected $ilOrgUnitPermissions = [];
 
-
+    // cat-tms-patch start #4807
+    /**
+     * @var ilObjectDefinition
+     */
+    protected $objectDefinition;
     /**
      * ilOrgUnitDefaultPermissionFormGUI constructor.
      *
      * @param \ILIAS\Modules\OrgUnit\ARHelper\BaseCommands $parent_gui
      * @param ilOrgUnitPermission[]                        $ilOrgUnitPermissionsFilter
      */
-    public function __construct(BaseCommands $parent_gui, array $ilOrgUnitPermissionsFilter)
-    {
+    public function __construct(
+        BaseCommands $parent_gui,
+        array $ilOrgUnitPermissionsFilter,
+        ilObjectDefinition $objectDefinition
+    ) {
         $this->parent_gui = $parent_gui;
         $this->ilOrgUnitPermissions = $ilOrgUnitPermissionsFilter;
         $this->dic()->ctrl()->saveParameter($parent_gui, 'arid');
         $this->setFormAction($this->dic()->ctrl()->getFormAction($this->parent_gui));
+        $this->objectDefinition = $objectDefinition;
+        // cat-tms-patch end
+        $this->setTarget('_top');
         $this->initFormElements();
         $this->initButtons();
-        $this->setTarget('_top');
         parent::__construct();
     }
 
@@ -69,7 +78,7 @@ class ilOrgUnitDefaultPermissionFormGUI extends ilPropertyFormGUI
         foreach ($this->ilOrgUnitPermissions as $ilOrgUnitPermission) {
             $header = new ilFormSectionHeaderGUI();
             $context = $ilOrgUnitPermission->getContext()->getContext();
-            $header->setTitle($this->txt("obj_{$context}", false));
+            $header->setTitle($this->getTitleForFormHeaderByContext($context));
             $this->addItem($header);
 
             // Checkboxes
@@ -155,4 +164,16 @@ class ilOrgUnitDefaultPermissionFormGUI extends ilPropertyFormGUI
     {
         return $this->parent_gui->txt($key);
     }
+
+    // cat-tms-patch start #4807
+    protected function getTitleForFormHeaderByContext(string $context)
+    {
+        $lang_code = "obj_{$context}";
+        if ($this->objectDefinition->isPlugin($context)) {
+            return ilObjectPlugin::lookupTxtById($context, $lang_code);
+        }
+
+        return $this->txt($lang_code);
+    }
+    // cat-tms-patch end
 }
