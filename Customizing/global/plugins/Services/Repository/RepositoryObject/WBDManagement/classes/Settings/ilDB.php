@@ -150,7 +150,7 @@ class ilDB implements DB
 
     public function update3()
     {
-        if (!$this->getDB()->tableColumnExists(self::TABLE_NAME, "show_in_cockpit")) {
+        if ($this->getDB()->tableColumnExists(self::TABLE_NAME, "show_in_cockpit")) {
             $this->getDB()->dropTableColumn(self::TABLE_NAME, "show_in_cockpit");
         }
     }
