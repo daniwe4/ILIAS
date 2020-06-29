@@ -241,8 +241,8 @@ class ilPluginAdmin
             "ilias_max_version" => $ilias_max_version,
             "responsible" => $responsible,
             "responsible_mail" => $responsible_mail,
-            "learning_progress" => (bool) $learning_progress,
-            "supports_export" => (bool) $supports_export,
+            "learning_progress" => (bool) ($learning_progress ?? false),
+            "supports_export" => (bool) ($supports_export ?? false),
         ];
 
         return $values;
