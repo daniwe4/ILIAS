@@ -12,7 +12,7 @@ use ILIAS\UI;
  * general all this stuff here is supposed to go elsewhere once we find out
  * which service it really belongs to.
  */
-class ilSetupAgent implements Setup\Agent
+class ilCommonSetupAgent implements Setup\Agent
 {
     const PHP_MEMORY_LIMIT = "128M";
 
@@ -92,8 +92,8 @@ class ilSetupAgent implements Setup\Agent
                 $this->getPHPMemoryLimitCondition(),
                 new ilSetupConfigStoredObjective($config, $this->password_manager),
                 $config->getRegisterNIC()
-                        ? new ilNICKeyRegisteredObjective($config)
-                        : new ilNICKeyStoredObjective($config)
+                    ? new ilNICKeyRegisteredObjective($config)
+                    : new ilNICKeyStoredObjective($config)
             )
         );
     }

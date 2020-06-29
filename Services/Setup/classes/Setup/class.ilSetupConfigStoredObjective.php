@@ -54,7 +54,7 @@ class ilSetupConfigStoredObjective extends ilSetupObjective
             )
         );
 
-        $ini->setVariable("server", "absolute_path", dirname(__DIR__, 2));
+        $ini->setVariable("server", "absolute_path", dirname(__DIR__, 4));
         $ini->setVariable(
             "server",
             "timezone",
@@ -81,7 +81,7 @@ class ilSetupConfigStoredObjective extends ilSetupObjective
             $ini->readVariable("setup", "pass") !== $this->password_manager->encodePassword(
                 $this->config->getMasterPassword()->toString()
             ) ||
-            $ini->readVariable("server", "absolute_path") !== dirname(__DIR__, 2) ||
+            $ini->readVariable("server", "absolute_path") !== dirname(__DIR__, 4) ||
             $ini->readVariable("server", "timezone") !== $this->config->getServerTimeZone()->getName() ||
             $ini->readVariable("clients", "default") !== $this->config->getClientId()
         ;

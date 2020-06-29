@@ -28,23 +28,23 @@ class ilIniFilesPopulatedObjective extends ilSetupObjective
         // remove the client-feature, the client-ini will go away...
         return [
             new \ilOverwritesExistingInstallationConfirmed($this->config),
-            new Setup\Objective\DirectoryCreatedObjective(dirname(__DIR__, 2) . "/data"),
+            new Setup\Objective\DirectoryCreatedObjective(dirname(__DIR__, 4) . "/data"),
             new Setup\Objective\DirectoryCreatedObjective($this->getClientDir()),
             new Setup\Condition\CanCreateFilesInDirectoryCondition($this->getClientDir()),
-            new Setup\Condition\CanCreateFilesInDirectoryCondition(dirname(__DIR__, 2)),
+            new Setup\Condition\CanCreateFilesInDirectoryCondition(dirname(__DIR__, 4)),
         ];
     }
 
     public function achieve(Setup\Environment $environment) : Setup\Environment
     {
-        $path = dirname(__DIR__, 2) . "/ilias.ini.php";
+        $path = dirname(__DIR__, 4) . "/ilias.ini.php";
         $ini = new ilIniFile($path);
-        $ini->GROUPS = parse_ini_file(__DIR__ . "/../ilias.master.ini.php", true);
+        $ini->GROUPS = parse_ini_file( "setup/ilias.master.ini.php", true);
         $ini->write();
 
         $path = $this->getClientDir() . "/client.ini.php";
         $client_ini = new ilIniFile($path);
-        $client_ini->GROUPS = parse_ini_file(__DIR__ . "/../client.master.ini.php", true);
+        $client_ini->GROUPS = parse_ini_file("setup/client.master.ini.php", true);
         $client_ini->write();
 
         return $environment
@@ -66,6 +66,6 @@ class ilIniFilesPopulatedObjective extends ilSetupObjective
 
     protected function getClientDir() : string
     {
-        return dirname(__DIR__, 2) . "/data/" . $this->config->getClientId();
+        return dirname(__DIR__, 4) . "/data/" . $this->config->getClientId();
     }
 }

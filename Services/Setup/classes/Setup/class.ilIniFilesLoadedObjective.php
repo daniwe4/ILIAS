@@ -28,7 +28,7 @@ class ilIniFilesLoadedObjective extends ilSetupObjective
 
     public function achieve(Setup\Environment $environment) : Setup\Environment
     {
-        $path = dirname(__DIR__, 2) . "/ilias.ini.php";
+        $path = dirname(__DIR__, 4) . "/ilias.ini.php";
         $ini = new ilIniFile($path);
 
         $path = $this->getClientDir() . "/client.ini.php";
@@ -52,6 +52,6 @@ class ilIniFilesLoadedObjective extends ilSetupObjective
 
     protected function getClientDir() : string
     {
-        return dirname(__DIR__, 2) . "/data/" . $this->config->getClientId();
+        return dirname(__DIR__, 4) . "/data/" . $this->config->getClientId();
     }
 }
