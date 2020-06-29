@@ -109,20 +109,18 @@ function build_container_for_setup(string $executed_in_directory)
 
     $c["agent_finder"] = function ($c) {
         return new ILIAS\Setup\ImplementationOfAgentFinder(
-            ILIAS\Setup\Agent::class,
             $c["ui.field_factory"],
             $c["refinery"],
-            $c["common_agent"],
+            $c["data_factory"],
+            $c["password_manager"],
+            $c['plugin_raw_reader'],
+            $c['implementation_of_interface_finder'],
             $c["lng"]
         );
     };
 
-    $c["common_agent"] = function ($c) {
-        return new \ilSetupAgent(
-            $c["refinery"],
-            $c["data_factory"],
-            $c["password_manager"]
-        );
+    $c['implementation_of_interface_finder'] = function ($c) {
+        return new ILIAS\Setup\ImplementationOfInterfaceFinder(ILIAS\Setup\Agent::class);
     };
 
     $c["ui.field_factory"] = function ($c) {
@@ -230,6 +228,10 @@ function build_container_for_setup(string $executed_in_directory)
                 'default_password_encoder' => 'bcryptphp'
             ])
         ]);
+    };
+
+    $c["plugin_raw_reader"] = function ($c) {
+        return new \ilPluginRawReader();
     };
 
     return $c;
