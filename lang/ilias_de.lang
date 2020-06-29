@@ -16206,7 +16206,7 @@ tms#:#date#:#Datum
 tms#:#fee#:#Kosten
 tms#:#book_course#:#Buchen
 tms#:#title#:#Titel
-tms#:#type#:#Trainingstyp
+tms#:#training_type#:#Trainingstyp
 tms#:#topic#:#Trainingsthema
 tms#:#target_group#:#Zielgruppe
 tms#:#city#:#Ort

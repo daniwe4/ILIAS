@@ -74,7 +74,7 @@ class UnboundProvider extends SeparatedUnboundProvider
                 if (!is_null($type_name)) {
                     $ret[] = new CourseInfoImpl(
                         $entity,
-                        $this->txt("type"),
+                        $this->txt("training_type"),
                         $type_name,
                         "",
                         200,
