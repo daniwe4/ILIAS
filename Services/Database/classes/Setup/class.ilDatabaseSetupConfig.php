@@ -36,12 +36,12 @@ class ilDatabaseSetupConfig implements Setup\Config
     protected $create_database;
 
     /**
-     * @var string
+     * @var string|null
      */
     protected $collation;
 
     /**
-     * @var	string
+     * @var	string|null
      */
     protected $user;
 
@@ -51,7 +51,7 @@ class ilDatabaseSetupConfig implements Setup\Config
     protected $password;
 
     /**
-     * @var	string
+     * @var	string|null
      */
     protected $path_to_db_dump;
 
@@ -59,7 +59,7 @@ class ilDatabaseSetupConfig implements Setup\Config
         $type,
         string $host,
         string $database,
-        string $user,
+        string $user = null,
         Password $password = null,
         bool $create_database = true,
         string $collation = null,
