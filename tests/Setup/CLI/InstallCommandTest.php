@@ -27,11 +27,9 @@ class InstallCommandTest extends TestCase
         $refinery = new Refinery($this->createMock(DataFactory::class), $this->createMock(\ilLanguage::class));
 
         $agent = $this->createMock(Setup\Agent::class);
+        $agent_finder = $this->createMock(Setup\ImplementationOfAgentFinder::class);
         $config_reader = $this->createMock(Setup\CLI\ConfigReader::class);
-        $command = new Setup\CLI\InstallCommand(function () use ($agent) {
-            return $agent;
-        }, $config_reader, []);
-
+        $command = new Setup\CLI\InstallCommand($agent_finder,$config_reader, []);
         $tester = new CommandTester($command);
 
         $config = $this->createMock(Setup\Config::class);
@@ -40,6 +38,12 @@ class InstallCommandTest extends TestCase
 
         $objective = $this->createMock(Setup\Objective::class);
         $env = $this->createMock(Setup\Environment::class);
+
+        $agent_finder
+            ->expects($this->once())
+            ->method('buildAgentCollection')
+            ->willReturn($agent)
+        ;
 
         $config_overwrites = [
             "a.b.c" => "foo",
@@ -79,7 +83,7 @@ class InstallCommandTest extends TestCase
             ->willReturn(new Setup\Objective\NullObjective());
 
         $agent
-            ->expects($this->once())
+            ->expects($this->never())
             ->method("getUpdateObjective")
             ->with($config)
             ->willReturn(new Setup\Objective\NullObjective());

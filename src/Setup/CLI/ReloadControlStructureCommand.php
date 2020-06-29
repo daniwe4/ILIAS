@@ -65,4 +65,9 @@ class ReloadControlStructureCommand extends BaseCommand
             new \ilComponentDefinitionsStoredObjective(false)
         );
     }
+
+    protected function getRelevantAgent(InputInterface $input) : Agent
+    {
+        return $this->agent_finder->buildAgentCollection($this->agent_finder->getSystemAgents());
+    }
 }

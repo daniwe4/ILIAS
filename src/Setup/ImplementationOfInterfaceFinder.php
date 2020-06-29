@@ -9,35 +9,54 @@ namespace ILIAS\Setup;
  */
 class ImplementationOfInterfaceFinder
 {
-
     /**
      * @var string
      */
-    private $interface = "";
+    private $interface;
+
     /**
      * @var array
      */
-    private $ignore
-        = [
-            '.*/libs/',
-            '.*/test/',
-            '.*/tests/',
-            '.*/setup/',
-            // Classes using removed Auth-class from PEAR
-            '.*ilSOAPAuth.*',
-            // Classes using unknown
-            '.*ilPDExternalFeedBlockGUI.*',
-        ];
-
+    private $ignore = [
+        '.*/libs/',
+        '.*/test/',
+        '.*/tests/',
+        '.*/setup/',
+        // Classes using removed Auth-class from PEAR
+        '.*ilSOAPAuth.*',
+        // Classes using unknown
+        '.*ilPDExternalFeedBlockGUI.*',
+    ];
 
     public function __construct(string $interface)
     {
         $this->interface = $interface;
-        $this->getAllClassNames();
     }
 
+    public function getIgnoreList() : array
+    {
+        return $this->ignore;
+    }
 
-    private function getAllClassNames() : \Iterator
+    public function getMatchingClassNames(array $ignore = []) : \Iterator
+    {
+        if (count($ignore) === 0) {
+            $ignore = $this->ignore;
+        }
+
+        foreach ($this->getAllClassNames($ignore) as $class_name) {
+            try {
+                $r = new \ReflectionClass($class_name);
+                if ($r->isInstantiable() && $r->implementsInterface($this->interface)) {
+                    yield $class_name;
+                }
+            } catch (\Throwable $e) {
+                // noting to do here
+            }
+        }
+    }
+
+    private function getAllClassNames(array $ignore) : \Iterator
     {
         // We use the composer classmap ATM
         $composer_classmap = include "./libs/composer/vendor/composer/autoload_classmap.php";
@@ -50,11 +69,11 @@ class ImplementationOfInterfaceFinder
         $regexp = implode(
             "|",
             array_map(
-                // fix path-separators to respect windows' backspaces.
+            // fix path-separators to respect windows' backspaces.
                 function ($v) {
                     return "(" . str_replace('/', '(/|\\\\)', $v) . ")";
                 },
-                $this->ignore
+                $ignore
             )
         );
 
@@ -62,21 +81,6 @@ class ImplementationOfInterfaceFinder
             $path = str_replace($root, "", realpath($file_path));
             if (!preg_match("#^" . $regexp . "$#", $path)) {
                 yield $class_name;
-            }
-        }
-    }
-
-
-    public function getMatchingClassNames() : \Iterator
-    {
-        foreach ($this->getAllClassNames() as $class_name) {
-            try {
-                $r = new \ReflectionClass($class_name);
-                if ($r->isInstantiable() && $r->implementsInterface($this->interface)) {
-                    yield $class_name;
-                }
-            } catch (\Throwable $e) {
-                // noting to do here
             }
         }
     }

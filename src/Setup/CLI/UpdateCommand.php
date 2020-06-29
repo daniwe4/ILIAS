@@ -13,6 +13,7 @@ use ILIAS\Setup\ObjectiveCollection;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Update command.
@@ -27,6 +28,8 @@ class UpdateCommand extends BaseCommand
         $this
             ->setDescription("Updates an existing ILIAS installation")
             ->addOption("ignore-db-update-messages", null, InputOption::VALUE_NONE, "Ignore messages from the database update steps.");
+        $this->addArgument('plugin_name', InputArgument::OPTIONAL, 'Name of the plugin to update.');
+        $this->addOption("no_plugins", null, InputOption::VALUE_NONE, "Ignore plugins");
     }
 
     protected function printIntroMessage(IOWrapper $io)
@@ -54,16 +57,6 @@ class UpdateCommand extends BaseCommand
         return $environment;
     }
 
-    public function execute(InputInterface $input, OutputInterface $output)
-    {
-        // ATTENTION: This is a hack to get around the usage of the echo/exit pattern in
-        // the setup for the command line version of the setup. Do not use this.
-        if ($input->hasOption("ignore-db-update-messages") && $input->getOption("ignore-db-update-messages")) {
-            define("ILIAS_SETUP_IGNORE_DB_UPDATE_STEP_MESSAGES", true);
-        }
-        return parent::execute($input, $output);
-    }
-
     protected function getObjective(Agent $agent, ?Config $config) : Objective
     {
         return new ObjectiveCollection(
@@ -71,5 +64,20 @@ class UpdateCommand extends BaseCommand
             false,
             $agent->getUpdateObjective($config)
         );
+    }
+
+    protected function getRelevantAgent(InputInterface $input) : Agent
+    {
+        $agents = $this->agent_finder->getSystemAgents();
+
+        if (!$input->getOption("no_plugins") && is_null($input->getArgument('plugin_name'))) {
+            $agents = array_merge($agents, $this->agent_finder->getPluginAgents());
+        }
+
+        if ($input->hasArgument('plugin_name') && !is_null($input->getArgument('plugin_name'))) {
+            $agents = array_merge($agents, [$this->agent_finder->getPluginAgent($input->getArgument('plugin_name'))]);
+        }
+
+        return $this->agent_finder->buildAgentCollection($agents);
     }
 }

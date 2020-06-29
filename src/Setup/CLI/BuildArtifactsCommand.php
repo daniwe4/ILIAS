@@ -10,6 +10,7 @@ use ILIAS\Setup\Environment;
 use ILIAS\Setup\Objective;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
+use ILIAS\Setup\AgentCollection;
 
 /**
  * Installation command.
@@ -48,5 +49,10 @@ class BuildArtifactsCommand extends BaseCommand
     protected function getObjective(Agent $agent, ?Config $config) : Objective
     {
         return $agent->getBuildArtifactObjective();
+    }
+
+    protected function getRelevantAgent(InputInterface $input) : Agent
+    {
+        return $this->agent_finder->buildAgentCollection($this->agent_finder->getSystemAgents());
     }
 }

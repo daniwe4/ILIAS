@@ -62,6 +62,8 @@ abstract class BaseCommand extends Command
             ->addOption("yes", "y", InputOption::VALUE_NONE, "Confirm every message of the setup.");
     }
 
+    abstract protected function getRelevantAgent(InputInterface $input) : Agent;
+
     public function execute(InputInterface $input, OutputInterface $output)
     {
         $io = new IOWrapper($input, $output, $this->shouldSayYes($input));
@@ -70,9 +72,11 @@ abstract class BaseCommand extends Command
 
         $this->printIntroMessage($io);
 
-        $config = $this->readAgentConfig($this->agent_finder->getSystemAgents(), $input);
-        $environment = $this->buildEnvironment($this->agent_finder->getSystemAgents(), $config, $io);
-        $goal = $this->getObjective($this->agent_finder->getSystemAgents(), $config);
+        $agent = $this->getRelevantAgent($input);
+
+        $config = $this->readAgentConfig($agent, $input);
+        $environment = $this->buildEnvironment($agent, $config, $io);
+        $goal = $this->getObjective($agent, $config);
         if (count($this->preconditions) > 0) {
             $goal = new ObjectiveWithPreconditions(
                 $goal,
@@ -143,6 +147,7 @@ abstract class BaseCommand extends Command
         }
         $config_content = $this->config_reader->readConfigFile($config_file, $config_overwrites);
         $trafo = $agent->getArrayToConfigTransformation();
+        
         return $trafo->transform($config_content);
     }
 

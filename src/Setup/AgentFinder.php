@@ -10,21 +10,21 @@ interface AgentFinder
     /**
      * Collect all files exclude plugin directories ending with SetupAgent.php
      *
-     * @return AgentCollection
+     * @return array
      */
-    public function getSystemAgents() : AgentCollection;
+    public function getSystemAgents() : array;
 
     /**
      * Collect all files in plugin directories ending with SetupAgent.php
      *
-     * @return AgentCollection
+     * @return array
      */
-    public function getPluginAgents() : AgentCollection;
+    public function getPluginAgents() : array;
 
     /**
      * Get a specific plugin agent.
      *
-     * @return AgentCollection
+     * @return Agent
      */
-    public function getPluginAgent(string $name) : AgentCollection;
+    public function getPluginAgent(string $name) : Agent;
 }

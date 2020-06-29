@@ -26,11 +26,9 @@ class UpdateCommandTest extends TestCase
         $refinery = new Refinery($this->createMock(DataFactory::class), $this->createMock(\ilLanguage::class));
 
         $agent = $this->createMock(Setup\Agent::class);
+        $agent_finder = $this->createMock(Setup\ImplementationOfAgentFinder::class);
         $config_reader = $this->createMock(Setup\CLI\ConfigReader::class);
-        $command = new Setup\CLI\UpdateCommand(function () use ($agent) {
-            return $agent;
-        }, $config_reader, []);
-
+        $command = new Setup\CLI\UpdateCommand($agent_finder,$config_reader, []);
         $tester = new CommandTester($command);
 
         $config = $this->createMock(Setup\Config::class);
@@ -39,6 +37,12 @@ class UpdateCommandTest extends TestCase
 
         $objective = $this->createMock(Setup\Objective::class);
         $env = $this->createMock(Setup\Environment::class);
+
+        $agent_finder
+            ->expects($this->once())
+            ->method('buildAgentCollection')
+            ->willReturn($agent)
+        ;
 
         $config_reader
             ->expects($this->once())

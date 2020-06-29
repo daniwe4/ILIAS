@@ -1,12 +1,19 @@
 # Use the Command Line to Manage ILIAS
 
-The ILIAS command line app can be called via `php setup\setup.php`. It contains three
-commands to manage ILIAS installations:
+The ILIAS command line app can be called via `php setup\setup.php`. It contains four
+main commands to manage ILIAS installations:
 
-* `install` will [set an installation up](#install-ilias)
-* `update` will [update an installation](#update-ilias)
+* `install` will [set an installation up including plugins](#install-ilias)
+* `update` will [update an installation including plugins](#update-ilias)
 * `build-artifacts` [recreates static assets](#build-ilias-artifacts) of an installation
 * `reload-control-structure` [rebuilds structure information](#build-ilias-artifacts) of an installation
+
+`install` and `update` also supply switches and options to granular control what to install or update.
+
+* `install --no_plugins` will [set an installation up without plugins](#install-ilias-without-plugins)
+* `install <plugin name>` will [install a specific plugin](#install-specific-plugin)
+* `update --no_plugins` will [update an installation without plugins](#update-ilias-without-plugins)
+* `update <plugin name>` will [update a specific plugin](#update-specific-plugin)
 
 `install` and `update` both require a [configuration file](#about-the-config-file)
 to do their job. The app also supports a `help` command that lists arguments and
@@ -15,7 +22,7 @@ options of the available commands.
 
 ## Install ILIAS
 
-To install ILIAS from the command line, call `php setup/setup.php install config.json"
+To install ILIAS with all plugins from the command line, call `php setup/setup.php install config.json`
 from within the ILIAS folder you checked out from GitHub (or downloaded from elsewhere).
 `config.json` can be the path to some [configuration file](#about-the-config-file)
 which does not need to reside in the ILIAS folder. Also, `setup/setup.php` could be
@@ -41,10 +48,21 @@ configuration file you can use the `--config="a.b.c=value"` option, even several
 times. The nested field `a.b.c` from the config file will then be overwritten with
 `value`.
 
+#### Install ILIAS without Plugins
+
+To install ILIAS without plugins, call `php setup/setup.php install --no_plugins config.json`
+from within your ILIAS folder.
+
+#### Install specific plugin
+
+To install a specifc plugin, call `php setup/setup.php install config.json <plugin name>`
+from within your ILIAS folder. Take care that `<plugin name>` takes place after `config.json` 
+to avoid errors during setup.
+
 
 ## Update ILIAS
 
-To update ILIAS from the command line, call `php setup/setup.php update config.json`
+To update ILIAS and all plugins from the command line, call `php setup/setup.php update config.json`
 from within your ILIAS folder. Make sure you use the same config to update your
 installation as you have used for the [installation](#install-ilias). The remarks
 for the [installation](#install-ilias) in this README also apply for the update.
@@ -54,6 +72,17 @@ or warn about a possible loss of data. In this case the update is aborted with
 a message and can be resumed after the messages was read carefully and acted
 upon. You may use the `--ignore-db-update-messages` at your own risk if you want
 to silence the messages.
+
+#### Update ILIAS without Plugins
+
+To update ILIAS without plugins, call `php setup/setup.php update --no_plugins config.json`
+from within your ILIAS folder.
+
+#### Update specific plugin
+
+To update a specifc plugin, call `php setup/setup.php update config.json <plugin name>`
+from within your ILIAS folder. Take care that `<plugin name>` takes place after 
+`config.json` to avoid errors during setup.
 
 
 ## Build ILIAS Artifacts
