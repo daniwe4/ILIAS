@@ -328,7 +328,11 @@ class ilLanguage
                 $ilDB->quote($a_module, "text");
         $r = $ilDB->query($q);
         $row = $r->fetchRow(ilDBConstants::FETCHMODE_ASSOC);
-        
+
+        if ($row === false) {
+            return;
+        }
+
         $new_text = unserialize($row["lang_array"]);
         if (is_array($new_text)) {
             $this->text = array_merge($this->text, $new_text);

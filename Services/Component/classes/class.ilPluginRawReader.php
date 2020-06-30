@@ -8,8 +8,11 @@ class ilPluginRawReader
     const BASE_PLUGIN_PATH = 'Customizing/global/plugins';
     const SEARCH_PATTERN = 'plugin.php';
 
-    public function getPluginNames() : \Iterator
+    public function getPluginNames() : ?\Iterator
     {
+        if (!@is_dir(self::BASE_PLUGIN_PATH)) {
+            return null;
+        }
         $it = new RecursiveDirectoryIterator(self::BASE_PLUGIN_PATH);
         foreach(new RecursiveIteratorIterator($it) as $file) {
             $path = $file->getPathName();
