@@ -79,7 +79,14 @@ class ImplementationOfAgentFinder implements AgentFinder
 
     public function getPluginAgents() : array
     {
-        foreach ($this->plugin_raw_reader->getPluginNames() as $plugin_name) {
+        $agents = [];
+
+        $plugins = $this->plugin_raw_reader->getPluginNames();
+        if (is_null($plugins)) {
+            return $agents;
+        }
+
+        foreach ($plugins as $plugin_name) {
             $agents[] = $this->getPluginAgent($plugin_name);
         }
 
