@@ -228,7 +228,7 @@ class HistCourse implements HistCase
                     || $type === 'updateCancellationFee'
             ) && $payload['xacc']->getParentCourse() !== null)
             || ($location === 'Plugin/WBDInterface' && $type === 'importCourseWBD')
-            || ($location === 'Plugin/Webinar' && $type === 'webinar_finalized')
+            || ($location === 'Plugin/OnlineSeminar' && $type === 'online_seminar_finalized')
         ;
     }
 
@@ -378,7 +378,7 @@ class HistCourse implements HistCase
                 $event = $event->withDigester(new Digesters\CopySettingsDigester());
                 break;
             case 'memberlist_finalized':
-            case 'webinar_finalized':
+            case 'online_seminar_finalized':
                 $event = $event->withDigester(new Digesters\MemberlistFinalizedDigester());
                 break;
             case 'updateAccounting':

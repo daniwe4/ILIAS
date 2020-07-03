@@ -4,7 +4,7 @@ function included_data()
     return  array(
         array(
             'title' => 'Online Presentation of some Insurance Topic',
-            'type' => 'Webinar',
+            'type' => 'OnlineSeminar',
             'begin_date' => '30.09.2017',
             'bookings_available' => '3',
             'target_group' => 'Employees, Field Service',

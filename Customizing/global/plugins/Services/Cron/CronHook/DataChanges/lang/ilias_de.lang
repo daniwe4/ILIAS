@@ -20,7 +20,7 @@ update_course_certificate#:#Zertifikate aktualisieren (ganzer Kurs)
 remove_user_from_course#:#Benutzer aus Kurs entfernen
 merge_users#:#Teilnahmen übertragen
 remove_course_from_history#:#Gelöschten Kurs aus Historisierung entfernen
-reopen_course_member_webinar#:#Teilnehmerliste / Webinar öffnen
+reopen_course_member_online_seminar#:#Teilnehmerliste / Online Seminar öffnen
 course_ref_id#:#Kurs Ref-ID
 user_to_deactivate#:#Benutzer (Inaktivierung)
 user_to_deactivate_info#:#Benutzer der nach dem Übertrag inaktiv sein soll.
@@ -42,7 +42,7 @@ error_same_courses#:#Keine Übertragung der Teilnahmen möglich. Die Kurse mit f
 error#:#Einige Angaben sind unvollständig oder ungültig. Bitte korrigieren Sie Ihre Eingabe.
 error_unknown_user#:#Benutzer '%s' nicht bekannt.
 error_no_crs_member#:#Der Benutzer %s ist kein Kursmitglied.<br />
-error_only_xwbr_xcmb#:#Es werden nur Ref-Ids von Webinaren oder Teilnehmerlisten akzeptiert.
+error_only_xwbr_xcmb#:#Es werden nur Ref-Ids von Online Seminaren oder Teilnehmerlisten akzeptiert.
 error_certificate_not_activated#:#Für diesen Kurs sind Zertifikate nicht aktiviert.
 error_not_passed#:#Der Benutzer %s hat den Kurs noch nicht abgeschlossen.
 error_course_not_found_for_title#:#Es wurde kein Kurs zu dem angegebenen Titel gefunden.

@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace CaT\Plugins\WorkflowReminder\NotFinalized\Webinar;
+namespace CaT\Plugins\WorkflowReminder\NotFinalized\OnlineSeminar;
 
 use PHPUnit\Framework\TestCase;
 

@@ -13,7 +13,7 @@ use Pimple\Container;
  * @ilCtrl_Calls ilDataChangesConfigGUI: ilRemoveUserFromCourseGUI
  * @ilCtrl_Calls ilDataChangesConfigGUI: ilMergeUsersGUI
  * @ilCtrl_Calls ilDataChangesConfigGUI: ilRemoveCourseFromHistoryGUI
- * @ilCtrl_Calls ilDataChangesConfigGUI: ilReopenCourseMemberWebinarGUI
+ * @ilCtrl_Calls ilDataChangesConfigGUI: ilReopenCourseMemberOnlineSeminarGUI
  * @ilCtrl_Calls ilDataChangesConfigGUI: ilBWVUDFGUI
  * @ilCtrl_Calls ilDataChangesConfigGUI: ilDCSecurityGUI
  * @ilCtrl_Calls ilDataChangesConfigGUI: ilDCLogGUI
@@ -32,7 +32,7 @@ class ilDataChangesConfigGUI extends ilPluginConfigGUI
 	const TAB_REMOVE_USER_FROM_COURSE = "remove_user_from_course";
 	const TAB_MERGE_USERS = "merge_users";
 	const TAB_REMOVE_COURSE_FROM_HISTORY = "remove_cours_from_history";
-	const TAB_REOPEN_COURSE_MEMBER_WEBINAR = "reopen_course_member_webinar";
+	const TAB_REOPEN_COURSE_MEMBER_ONLINE_SEMINAR = "reopen_course_member_online_seminar";
 	const TAB_BWV_UDF = "bwv_udf";
 	const TAB_SECURITY = "security";
 	const TAB_LOG = "log";
@@ -63,8 +63,8 @@ class ilDataChangesConfigGUI extends ilPluginConfigGUI
 			case "ilremovecoursefromhistorygui":
 				$this->forwardRemoveCourseFromHistory();
 				break;
-			case "ilreopencoursememberwebinargui":
-				$this->forwardReopenCourseMemberWebinar();
+			case "ilreopencoursememberonlineseminargui":
+				$this->forwardReopenCourseMemberOnlineSeminar();
 				break;
 			case "ilbwvudfgui":
 				$this->forwardBWVUDF();
@@ -121,10 +121,10 @@ class ilDataChangesConfigGUI extends ilPluginConfigGUI
 		$this->getDIC()["ilCtrl"]->forwardCommand($gui);
 	}
 
-	protected function forwardReopenCourseMemberWebinar()
+	protected function forwardReopenCourseMemberOnlineSeminar()
 	{
-		$this->getDIC()['ilTabs']->activateTab(self::TAB_REOPEN_COURSE_MEMBER_WEBINAR);
-		$gui = $this->getDIC()['reopen.course.member.webinar.gui'];
+		$this->getDIC()['ilTabs']->activateTab(self::TAB_REOPEN_COURSE_MEMBER_ONLINE_SEMINAR);
+		$gui = $this->getDIC()['reopen.course.member.online_seminar.gui'];
 		$this->getDIC()["ilCtrl"]->forwardCommand($gui);
 	}
 
@@ -193,11 +193,11 @@ class ilDataChangesConfigGUI extends ilPluginConfigGUI
 			$remove_course_from_history_link
 		);
 
-		$reopen_course_member_webinar_link = $this->getDIC()["reopen.course.member.webinar.gui.link"];
+		$reopen_course_member_online_seminar_link = $this->getDIC()["reopen.course.member.online_seminar.gui.link"];
 		$this->getDIC()["ilTabs"]->addTab(
-			self::TAB_REOPEN_COURSE_MEMBER_WEBINAR,
-			$this->plugin_object->txt("reopen_course_member_webinar"),
-			$reopen_course_member_webinar_link
+			self::TAB_REOPEN_COURSE_MEMBER_ONLINE_SEMINAR,
+			$this->plugin_object->txt("reopen_course_member_online_seminar"),
+			$reopen_course_member_online_seminar_link
 		);
 
 		$bwv_udf_link = $this->getDIC()['bwv.udf.gui.link'];

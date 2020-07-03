@@ -312,10 +312,10 @@
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/WBDReport/classes",
 				"./Customizing/global/plugins/Services/Repository/RepositoryObject/WBDReport/tests"
 			],
-			"CaT\\Plugins\\Webinar\\":
+			"CaT\\Plugins\\OnlineSeminar\\":
 			[
-				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/classes",
-				"./Customizing/global/plugins/Services/Repository/RepositoryObject/Webinar/tests"
+              "Customizing/global/plugins/Services/Repository/RepositoryObject/OnlineSeminar/classes",
+              "Customizing/global/plugins/Services/Repository/RepositoryObject/OnlineSeminar/tests"
 			],
 			"CaT\\Plugins\\TalentAssessmentReport\\":
 			[

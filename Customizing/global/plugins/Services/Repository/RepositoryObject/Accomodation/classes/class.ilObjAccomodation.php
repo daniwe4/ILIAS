@@ -692,7 +692,7 @@ class ilObjAccomodation extends ilObjectPlugin implements Accomodation\ObjAccomo
     }
 
     /**
-     * Get the static link to enter the settings of webinar
+     * Get the static link to enter the settings of online seminar
      *
      * @return string | null
      */

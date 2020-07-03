@@ -258,17 +258,17 @@ trait DI
             );
         };
 
-        $container['reopen.course.member.webinar.gui.link'] = function ($c) use ($plugin) {
-            require_once __DIR__ . '/Config/ReopenCourseMemberWebinar/class.ilReopenCourseMemberWebinarGUI.php';
+        $container['reopen.course.member.online_seminar.gui.link'] = function ($c) use ($plugin) {
+            require_once __DIR__ . '/Config/ReopenCourseMemberOnlineSeminar/class.ilReopenCourseMemberOnlineSeminarGUI.php';
             return $c['ilCtrl']->getLinkTargetByClass(
-                'ilReopenCourseMemberWebinarGUI',
-                \ilReopenCourseMemberWebinarGUI::CMD_SHOW
+                'ilReopenCourseMemberOnlineSeminarGUI',
+                \ilReopenCourseMemberOnlineSeminarGUI::CMD_SHOW
             );
         };
 
-        $container['reopen.course.member.webinar.gui'] = function ($c) use ($plugin) {
-            require_once __DIR__ . '/Config/ReopenCourseMemberWebinar/class.ilReopenCourseMemberWebinarGUI.php';
-            return new \ilReopenCourseMemberWebinarGUI(
+        $container['reopen.course.member.online_seminar.gui'] = function ($c) use ($plugin) {
+            require_once __DIR__ . '/Config/ReopenCourseMemberOnlineSeminar/class.ilReopenCourseMemberOnlineSeminarGUI.php';
+            return new \ilReopenCourseMemberOnlineSeminarGUI(
                 $c['ilCtrl'],
                 $c['tpl'],
                 $c['ilUser'],

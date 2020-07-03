@@ -4,7 +4,7 @@
 
 declare(strict_types=1);
 
-namespace CaT\Plugins\WorkflowReminder\NotFinalized\Webinar;
+namespace CaT\Plugins\WorkflowReminder\NotFinalized\OnlineSeminar;
 
 use CaT\Plugins\WorkflowReminder\NotFinalized\Log;
 
@@ -158,7 +158,7 @@ class NotFinalizedJob extends \ilCronJob
                     $param["usr_id"] = $recipient;
                     $this->event_handler->raise(
                         "Modules/Course",
-                        "webinar_not_finalized",
+                        "online_seminar_not_finalized",
                         $param
                     );
                 }

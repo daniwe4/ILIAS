@@ -654,3 +654,11 @@ if(
 <?php
 $ilCtrlStructureReader->getStructure();
 ?>
+
+<#68>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+$query = "UPDATE il_plugin SET name = 'OnlineSeminar' WHERE name = 'Webinar'";
+$db->manipulate($query);
+?>

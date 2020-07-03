@@ -9,7 +9,7 @@
 		<event type="listen" id="Plugin/Accomodation"/>
 		<event type="listen" id="Plugin/Accounting"/>
 		<event type="listen" id="Plugin/Venue"/>
-		<event type="listen" id="Plugin/Webinar"/>
+		<event type="listen" id="Plugin/OnlineSeminar"/>
 		<event type="listen" id="Plugin/TrainingProvider"/>
 		<event type="listen" id="Services/Tree"/>
 		<event type="listen" id="Services/Object"/>

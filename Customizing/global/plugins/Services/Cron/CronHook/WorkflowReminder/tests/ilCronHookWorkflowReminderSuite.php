@@ -16,7 +16,7 @@ class ilCronHookWorkflowReminderSuite extends TestSuite
         // add each test class of the component
         $suite->addTestSuite(WorkflowReminder\MinMember\MinMemberTest::class);
         $suite->addTestSuite(WorkflowReminder\NotFinalized\CourseMember\NotFinalizedTest::class);
-        $suite->addTestSuite(WorkflowReminder\NotFinalized\Webinar\NotFinalizedTest::class);
+        $suite->addTestSuite(WorkflowReminder\NotFinalized\OnlineSeminar\NotFinalizedTest::class);
 
         return $suite;
     }

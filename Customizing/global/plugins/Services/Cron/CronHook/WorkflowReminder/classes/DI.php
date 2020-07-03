@@ -47,8 +47,8 @@ trait DI
                         return $c["jobs.minmember"];
                     case NotFinalized\CourseMember\NotFinalizedJob::ID:
                         return $c["jobs.notfinalized.coursemember"];
-                    case NotFinalized\Webinar\NotFinalizedJob::ID:
-                        return $c["jobs.notfinalized.webinar"];
+                    case NotFinalized\OnlineSeminar\NotFinalizedJob::ID:
+                        return $c["jobs.notfinalized.online_seminar"];
                 }
             };
         };
@@ -57,7 +57,7 @@ trait DI
             return [
                 $c["jobs.minmember"],
                 $c["jobs.notfinalized.coursemember"],
-                $c["jobs.notfinalized.webinar"]
+                $c["jobs.notfinalized.online_seminar"]
             ];
         };
 
@@ -90,13 +90,13 @@ trait DI
             );
         };
 
-        $container["db.notfinalized.webinar"] = function ($c) {
-            return new NotFinalized\Webinar\ilDB($c["ilDB"]);
+        $container["db.notfinalized.online_seminar"] = function ($c) {
+            return new NotFinalized\OnlineSeminar\ilDB($c["ilDB"]);
         };
 
-        $container["jobs.notfinalized.webinar"] = function ($c) {
-            return new NotFinalized\Webinar\NotFinalizedJob(
-                $c["db.notfinalized.webinar"],
+        $container["jobs.notfinalized.online_seminar"] = function ($c) {
+            return new NotFinalized\OnlineSeminar\NotFinalizedJob(
+                $c["db.notfinalized.online_seminar"],
                 $c["db.notfinalized.log"],
                 $c["ilAppEventHandler"],
                 $c["txtclosure"]
