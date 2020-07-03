@@ -76,6 +76,9 @@ class ilAccessibilityControlConceptGUI
     {
         global $DIC;
         $gtpl = $DIC['tpl'];
+        // cat-tms-patch start #4835
+        $gtpl->setTitle("");
+        // cat-tms-patch end #4835
         $gtpl->setContent($tpl->get());
         $gtpl->printToStdout("DEFAULT", false, true);
     }
