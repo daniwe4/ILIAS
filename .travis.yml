@@ -7,15 +7,26 @@ matrix:
 before_script:
   - echo -e "Host github.com\n\tHostName github.com\n\tUser git\n\tIdentityFile ~/.ssh/id_tms6_repo_rsa\n" >> ~/.ssh/config
 script:
-- ./CI/PHPUnit/run_tests.sh;
+- "./CI/PHPUnit/run_tests.sh;"
 - if [[ "$TRAVIS_EVENT_TYPE" == "cron" ]]; then travis_wait 60 ./CI/PHP-CS-Fixer/run_check.sh; fi
-- ./CI/Special-Char-Checker/special-char-checker.sh ./ php;
+#- "./CI/Special-Char-Checker/special-char-checker.sh ./ php;"
 addons:
   apt:
     packages:
     - unzip
 install:
 - composer install
+deploy:
+  edge: true
+  provider: script
+  script: bash CI/packaging/build-and-deploy.sh github conceptsandtraining TMS6
+  skip_cleanup: true
+  on:
+    php: 7.2
+    tags: true
+    repo: conceptsandtraining/TMS6
+    branch: master
 env:
   global:
-    secure: c43mDcrMbH53mAGZdASJ8HkVpjxbEi388HTegyFGFhVLWk6/srrWUGJtYPkVGvhv2/5s5VQiHelXpjT9vi9iKi9wQCZcudBALjvywPY+OuMdDSs8priMpedRWYcR+l8DGNxfubgp8hb2tcZJh2IwzlOlPRvYhOPoCZZHp9i2AoEHEMmpIMagtBSg7jg7kchQSDcnMB9BUplmDJsQwWY46Yom+8G0KQM84Hcn24SwYq6qGjFCwwdFVLhIDmKGubkKBdYpF06kOftZ8hOBwpYgjzhGhCDSIT6qj/RSgH9i4Bn2b/QzzoxlSJFW5pldiYUXWiwf4qBBisG8EnHSc/pCpTbEeXnCr9fJ8aWyakK4Fm8EjBR5Ll8hmIKR9sAboS13btr2fRMpoS1VrdbjGbFmuSNgL6rrnlbPvRSMR6smmHPRQJ7iLP8/q8jBxiPnhVG/yGeZm8Oe38ONfRAlJwfa0bfxh8ifRHSK9e9yyi2HYPejoFpIUHRzr6j/4WevQShlwaGOzEFbrCawKPJkcFuyVY2gd0sYSJQLXnefMwAGSjhtOAS4YSypL2bX75WcKXodALZRyzU6OSFlGYfPT0rdbz7scV6US0zA/T1ltlsjO6yzqlc0WuVBkZPdF270sldOluGGrwEj+9nVqsRftgC9ZdlecxeE4blCzT1cx8eUSUU=
+  - secure: c43mDcrMbH53mAGZdASJ8HkVpjxbEi388HTegyFGFhVLWk6/srrWUGJtYPkVGvhv2/5s5VQiHelXpjT9vi9iKi9wQCZcudBALjvywPY+OuMdDSs8priMpedRWYcR+l8DGNxfubgp8hb2tcZJh2IwzlOlPRvYhOPoCZZHp9i2AoEHEMmpIMagtBSg7jg7kchQSDcnMB9BUplmDJsQwWY46Yom+8G0KQM84Hcn24SwYq6qGjFCwwdFVLhIDmKGubkKBdYpF06kOftZ8hOBwpYgjzhGhCDSIT6qj/RSgH9i4Bn2b/QzzoxlSJFW5pldiYUXWiwf4qBBisG8EnHSc/pCpTbEeXnCr9fJ8aWyakK4Fm8EjBR5Ll8hmIKR9sAboS13btr2fRMpoS1VrdbjGbFmuSNgL6rrnlbPvRSMR6smmHPRQJ7iLP8/q8jBxiPnhVG/yGeZm8Oe38ONfRAlJwfa0bfxh8ifRHSK9e9yyi2HYPejoFpIUHRzr6j/4WevQShlwaGOzEFbrCawKPJkcFuyVY2gd0sYSJQLXnefMwAGSjhtOAS4YSypL2bX75WcKXodALZRyzU6OSFlGYfPT0rdbz7scV6US0zA/T1ltlsjO6yzqlc0WuVBkZPdF270sldOluGGrwEj+9nVqsRftgC9ZdlecxeE4blCzT1cx8eUSUU=
+  - secure: lnR0ej5L3QZN9c4DFRlvcfgUGfhQibNIIS5bf6DLs3I979dUihdilwD7HqWxypEcL05m33uZ7V5p0dMc/e4vqCAj/RQoT2yAbCHeQVrZIyWMXvigZPVoGoKZvss2sQp7nRZD4Q3dfXoPLPxy364A9jNs/lQYniS+Z7HtijE7j67YAzPyxPkBvNGCbF6+2IC98PatsAuSZa+FgwRdr0Rjs3keK0SfgAWTdYym+Y7HsXRhmLvUInlBKCCpE2Bivo75i5usOCyFEoCyukl1qEdqbkrD5zD3FptFbT83Up09uHQ+6NBJNOzx5D5xsFiZsB2EpSv5DMMTn9HjmNmCXYGKDerEQcVR7a9wuybaGkhhtdl3qhpuFEccFeloIk5YDEuE2Ie6XOBNXrge9beSfOUeHbXff3aslGysg9UAPbA2zdFtTyryr54Qi+hUnpep3ESPm0MZR1Ec4p7LKWJP3FSXaj6xthmsajFqSvPTESqw5B+KTdGH9a0Hgx4yeMBraicZxadiIQGKF30JR9zsPr8X8JgfiDlQ3QcpzEVv+YKfqOZNb9jKj71BlA+i39qhwtCAv2xD+l4gYQ7v223w4kylZP8M4YHdTcoP1TabomjqVrR/NGNVRn8KYtdEjH9RHyzoOYv5ED6KxPDekREgCkDddLocIh2Wxh0XD3yT8FqO8cI=
