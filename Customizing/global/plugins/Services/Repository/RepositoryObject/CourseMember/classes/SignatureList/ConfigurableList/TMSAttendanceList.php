@@ -411,6 +411,7 @@ class TMSAttendanceList
             ]
         )->withActions($actions);
 
+        $this->main_template->setTitle("");
         $this->main_template->setContent($this->ui_renderer->render($panel));
         $this->main_template->printToStdout();
     }
