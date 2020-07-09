@@ -69,8 +69,8 @@ do
   NOW=$(date +'%d.%m.%Y %I:%M:%S')
   echo "[$NOW] Cloning skin"
 
-  git clone --single-branch --branch $SKIN git@github.com:conceptsandtraining/ilias-skins60.git "./CI/packaging/packages/$CONFIG/Customizing/global/common/skin"
-  rm -rf ./CI/packaging/packages/$CONFIG/Customizing/global/common/skin/.git
+  git clone --single-branch --branch $SKIN git@github.com:conceptsandtraining/ilias-skins60.git "./CI/packaging/packages/$CONFIG/Customizing/global/skin/custom"
+  rm -rf ./CI/packaging/packages/$CONFIG/Customizing/global/skin/custom/.git
 
   # cleanup
 	for TESTFOLDER in $(find ./CI/packaging/packages/$CONFIG/ -type d -name "test*")
