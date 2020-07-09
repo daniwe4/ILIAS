@@ -30,7 +30,7 @@ Services/Repository/RepositoryObject/TrainerOperations
 Services/Repository/RepositoryObject/TrainingAssignments
 Services/Repository/RepositoryObject/CancellationFeeReport
 Services/Repository/RepositoryObject/CourseClassification
-Services/Repository/RepositoryObject/Webinar
+Services/Repository/RepositoryObject/OnlineSeminar
 Services/Repository/RepositoryObject/TrainingDemandAdvanced
 Services/Repository/RepositoryObject/EduTracking
 Services/Repository/RepositoryObject/TrainingStatistics
