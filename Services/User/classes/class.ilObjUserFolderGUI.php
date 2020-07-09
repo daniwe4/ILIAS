@@ -774,12 +774,14 @@ class ilObjUserFolderGUI extends ilObjectGUI
 
             return $utab->getUserIdsForFilter();
         } else {
+            //cat-tms-patch start #4798
             return $access->filterUserIdsByRbacOrPositionOfCurrentUser(
-                'read_user',
+                'read_users',
                 \ilObjUserFolder::ORG_OP_EDIT_USER_ACCOUNTS,
                 USER_FOLDER_ID,
                 (array) $_POST['id']
             );
+            //cat-tms-patch end
         }
     }
 
@@ -2857,7 +2859,7 @@ class ilObjUserFolderGUI extends ilObjectGUI
         global $DIC;
         $access = $DIC->access();
 
-        if (!$this->checkPermissionBool("read_user")) {
+        if (!$this->checkPermissionBool("read_users")) {
             $a_user_ids = $access->filterUserIdsByPositionOfCurrentUser(
                 \ilObjUserFolder::ORG_OP_EDIT_USER_ACCOUNTS,
                 USER_FOLDER_ID,

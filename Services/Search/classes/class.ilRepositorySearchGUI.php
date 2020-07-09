@@ -647,7 +647,7 @@ class ilRepositorySearchGUI
         include_once './Services/Form/classes/class.ilPropertyFormGUI.php';
         
         $this->form = new ilPropertyFormGUI();
-        $this->form->setFormAction($this->ctrl->getFormAction($this, 'search'));
+        $this->form->setFormAction($this->ctrl->getFormAction($this, 'showSearch'));
         $this->form->setTitle($this->getTitle());
         $this->form->addCommandButton('performSearch', $this->lng->txt('search'));
         $this->form->addCommandButton('cancel', $this->lng->txt('cancel'));
@@ -1293,15 +1293,24 @@ class ilRepositorySearchGUI
                     $members = array_merge($members, ilUserFilter::getInstance()->filter($assigned));
                     break;
                 case 'orgu':
-                    //cat-tms-patch start #4720
+                    //cat-tms-patch start #4720 + 4798
                     $tree = ilObjOrgUnitTree::_getInstance();
                     if ($ref_ids = ilObject::_getAllReferences($obj_id)) {
+                        $assigned = $tree->getAllAssignees(
+                            array_shift($ref_ids),
+                            (bool) $_SESSION['rep_query']['orgu']['recurse']
+                        );
+
+                        if (is_callable($this->user_filter)) {
+                            $assigned = call_user_func_array(
+                                $this->user_filter,
+                                [$assigned]
+                            );
+                        }
+
                         $members = array_merge(
                             $members,
-                            $tree->getAllAssignees(
-                                array_shift($ref_ids),
-                                (bool) $_SESSION['rep_query']['orgu']['recurse']
-                            )
+                            $assigned
                         );
                     }
                     //cat-tms-patch end
