@@ -35,12 +35,12 @@ if (!$show_error) {
     }
 }
 
+$tpl->setTitle($lng->txt('crs_reject'));
 $DIC->globalScreen()->tool()->context()->claim()->external();
 $lng->loadLanguageModule("tms");
 $local_tpl = new ilGlobalTemplate("tpl.main.html", true, true);
 $local_tpl->addBlockFile("CONTENT", "content", "tpl.reject.html");
 $local_tpl->setVariable("HEADER_ICON", ilUtil::getImagePath("HeaderIcon.svg"));
-$local_tpl->setVariable("MESSAGE_HEADING", $lng->txt('crs_reject'));
 $show_error = true;
 if ($show_error) {
     $local_tpl->setVariable("MESSAGE_TYPE", 'alert-danger');
