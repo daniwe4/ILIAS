@@ -33,7 +33,9 @@ class ilMMTypeHandlerRepositoryLink extends ilMMAbstractBaseTypeHandlerAction im
             $item = $item->withRefId($ref_id)
                 ->withVisibilityCallable(
                     function () use ($DIC, $ref_id) {
-                        return (bool) $DIC->access()->checkAccess('visible', '', $ref_id);
+                        // cat-tms-patch start #4859
+                        return (bool) $DIC->access()->checkAccess('read', '', $ref_id);
+                        // cat-tms-patch end
                     }
                 );
             // ->withAvailableCallable(

@@ -155,11 +155,22 @@ class MainLayoutCollector extends AbstractBaseCollector
         // TODO: Implement filterItemsByVisibilty() method.
     }
 
-
+    // cat-tms-patch start #4859
     public function prepareItemsForUIRepresentation() : void
     {
         // TODO: Implement prepareItemsForUIRepresentation() method.
     }
+
+    public function cleanupItemsForUIRepresentation() : void
+    {
+        // TODO: Implement cleanupItemsForUIRepresentation() method.
+    }
+
+    public function sortItemsForUIRepresentation() : void
+    {
+        // TODO: Implement sortItemsForUIRepresentation() method.
+    }
+    // cat-tms-patch end
 
 
     /**

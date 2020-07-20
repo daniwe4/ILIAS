@@ -87,16 +87,24 @@ class MainToolCollector extends AbstractBaseCollector implements ItemCollector
         $this->tools = array_filter($this->tools, $this->getVisibleFilter());
     }
 
-
+    // cat-tms-patch start #4859
     public function prepareItemsForUIRepresentation() : void
     {
         array_walk($this->tools, function (isToolItem $tool) {
             $this->applyTypeInformation($tool);
         });
-
-        usort($this->tools, $this->getItemSorter());
     }
 
+    public function cleanupItemsForUIRepresentation() : void
+    {
+        // TODO: Implement cleanupItemsForUIRepresentation() method.
+    }
+
+    public function sortItemsForUIRepresentation() : void
+    {
+        usort($this->tools, $this->getItemSorter());
+    }
+    // cat-tms-patch end
 
     /**
      * @return \Generator

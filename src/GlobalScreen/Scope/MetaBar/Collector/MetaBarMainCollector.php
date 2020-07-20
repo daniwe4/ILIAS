@@ -51,13 +51,23 @@ class MetaBarMainCollector extends AbstractBaseCollector implements ItemCollecto
         $this->items = array_filter($this->items, $this->getVisibleFilter());
     }
 
-
+    // cat-tms-patch start #4859
     public function prepareItemsForUIRepresentation() : void
+    {
+        // TODO: Implement prepareItemsForUIRepresentation() method.
+    }
+
+    public function cleanupItemsForUIRepresentation() : void
+    {
+        // TODO: Implement filterItemsByVisibilty() method.
+    }
+
+    public function sortItemsForUIRepresentation() : void
     {
         $this->sortItems($this->items);
         array_walk($this->items, $this->getChildSorter());
     }
-
+    // cat-tms-patch end
 
     /**
      * @return \Generator

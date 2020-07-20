@@ -33,11 +33,15 @@ abstract class AbstractBaseCollector implements Collector
 
     public function collectOnce() : void
     {
+        // cat-tms-patch start #4859
         if (!$this->hasBeenCollected()) {
             $this->collectStructure();
-            $this->filterItemsByVisibilty(false);
             $this->prepareItemsForUIRepresentation();
+            $this->filterItemsByVisibilty(false);
+            $this->cleanupItemsForUIRepresentation();
+            $this->sortItemsForUIRepresentation();
             $this->setCollected();
         }
+        // cat-tms-patch start end
     }
 }
