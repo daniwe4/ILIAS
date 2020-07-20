@@ -122,20 +122,20 @@ class ilCertificateDownloadGUI
         $current_certificate = $this->db->selectFor((int) $this->user->getId());
         $current_certificate_ids = array_keys($current_certificate);
 
-        $schedules = $this->schedule_db->getAllActiveScheduled($current_certificate_ids);
+        $schedules = $this->schedule_db->getListableSchedules($current_certificate_ids);
         $data = [];
 
         foreach ($schedules as $schedule) {
             $show_overview_download = true;
-            if(
-                ! in_array($schedule->getId(), $current_certificate_ids) &&
-                ! $schedule->isActive()
+            if (
+                !in_array($schedule->getId(), $current_certificate_ids) &&
+                !$schedule->isActive()
             ) {
                 $show_overview_download = false;
             }
 
             $received_idd_min = $this->user_specific_values->getIDDTimesFor(
-                (int)$this->user->getId(),
+                (int) $this->user->getId(),
                 $schedule->getStart(),
                 $schedule->getEnd()
             );
