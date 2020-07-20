@@ -412,7 +412,9 @@ class TMSAttendanceList
         )->withActions($actions);
 
         $this->main_template->setTitle("");
-        $this->main_template->setContent($this->ui_renderer->render($panel));
+        $tpl = new \ilTemplate('tpl.attendance_list_print.html', true, true, $this->plugin_path);
+        $tpl->setVariable("PANELS", $this->ui_renderer->render($panel));
+        $this->main_template->setContent($tpl->get());
         $this->main_template->printToStdout();
     }
 
@@ -516,7 +518,7 @@ class TMSAttendanceList
 
     protected function getTableHTML(array $member_data)
     {
-        $tpl = new \ilTemplate('tpl.attendance_list_print.html', true, true, $this->plugin_path);
+        $tpl = new \ilTemplate('tpl.attendance_list_table.html', true, true, $this->plugin_path);
 
         \ilLoggerFactory::getLogger('mmbr')->dump($this->presets, \ilLogLevel::DEBUG);
 
