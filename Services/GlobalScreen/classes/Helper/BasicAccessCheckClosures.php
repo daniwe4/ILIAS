@@ -45,11 +45,18 @@ class BasicAccessCheckClosures
         static $repo_read;
         if (!isset($repo_read)) {
             $is_user_logged_in = $this->isUserLoggedIn()();
+            // cat-tms-patch start #4859
             if (!$is_user_logged_in) {
-                $repo_read = (bool) $this->dic->settings()->get('pub_section') && $this->dic->access()->checkAccess('read', '', ROOT_FOLDER_ID);
+                $repo_read = (bool) $this->dic->settings()->get('pub_section') &&
+                    $this->dic->access()->checkAccess('visible', '', ROOT_FOLDER_ID) &&
+                    $this->dic->access()->checkAccess('read', '', ROOT_FOLDER_ID)
+                ;
             } else {
-                $repo_read = (bool) $this->dic->access()->checkAccess('read', '', ROOT_FOLDER_ID);
+                $repo_read = (bool) $this->dic->access()->checkAccess('visible', '', ROOT_FOLDER_ID) &&
+                    $this->dic->access()->checkAccess('read', '', ROOT_FOLDER_ID)
+                ;
             }
+            // cat-tms-patch end
         }
 
         return $this->getClosureWithOptinalClosure(static function () use ($repo_read) : bool {
