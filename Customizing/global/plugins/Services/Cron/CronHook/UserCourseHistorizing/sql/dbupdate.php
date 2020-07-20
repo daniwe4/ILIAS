@@ -866,3 +866,153 @@ if ($db->tableExists('hbuf_usrcrs_roles')) {
     }
 }
 ?>
+
+<#87>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+if(! $db->tableColumnExists("hbuf_crs", "marked")) {
+    $db->addTableColumn("hbuf_crs", "marked", array(
+        "type" => "integer",
+        "length" => 1,
+        "notnull" => false,
+        "default" => 0
+    ));
+}
+?>
+
+<#88>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+if(! $db->tableColumnExists("hbuf_sesscrs", "marked")) {
+    $db->addTableColumn("hbuf_sesscrs", "marked", array(
+        "type" => "integer",
+        "length" => 1,
+        "notnull" => false,
+        "default" => 0
+    ));
+}
+?>
+
+<#89>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+if(! $db->tableColumnExists("hbuf_usrcrs", "marked")) {
+    $db->addTableColumn("hbuf_usrcrs", "marked", array(
+        "type" => "integer",
+        "length" => 1,
+        "notnull" => false,
+        "default" => 0
+    ));
+}
+?>
+
+<#90>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs',['categories'])) {
+    $db->addIndex('hbuf_crs',['categories'],'cat');
+}
+?>
+
+<#91>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs',['target_groups'])) {
+    $db->addIndex('hbuf_crs',['target_groups'], 'tgr');
+}
+?>
+
+<#92>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs_categories',['list_id'])) {
+    $db->addIndex('hbuf_crs_categories',['list_id'], 'lid');
+}
+?>
+
+<#93>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs_target_groups',['list_id'])) {
+    $db->addIndex('hbuf_crs_target_groups',['list_id'], 'lid');
+}
+?>
+
+<#94>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs',['topics'])) {
+    $db->addIndex('hbuf_crs',['topics'], 'top');
+}
+?>
+
+<#95>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs_topics',['list_id'])) {
+    $db->addIndex('hbuf_crs_topics',['list_id'], 'lid');
+}
+?>
+
+<#96>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs',['tut'])) {
+    $db->addIndex('hbuf_crs',['tut'], 'tut');
+}
+?>
+
+<#97>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_crs_tut',['list_id'])) {
+    $db->addIndex('hbuf_crs_tut',['list_id'], 'lid');
+}
+?>
+
+<#98>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_usrcrs',['nights'])) {
+    $db->addIndex('hbuf_usrcrs',['nights'], 'ngt');
+}
+?>
+
+<#99>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_usrcrs_nights',['list_id'])) {
+    $db->addIndex('hbuf_usrcrs_nights',['list_id'], 'lid');
+}
+?>
+
+<#100>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_usrcrs',['roles'])) {
+    $db->addIndex('hbuf_usrcrs',['roles'], 'rol');
+}
+?>
+
+<#101>
+<?php
+global $DIC;
+$db = $DIC['ilDB'];
+if(! $db->indexExistsByFields('hbuf_usrcrs_roles',['list_id'])) {
+    $db->addIndex('hbuf_usrcrs_roles',['list_id'], 'lid');
+}
+?>

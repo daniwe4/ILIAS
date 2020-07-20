@@ -347,7 +347,7 @@ class ilCasesDB implements DB
     public function getParticipationsToCancel() : array
     {
         $q = "SELECT wbd.crs_id, wbd.usr_id, wbd.gutberaten_id, wbd.wbd_booking_id," . PHP_EOL
-            . " wbd.title, wbd.minutes, err.status" . PHP_EOL
+            . " wbd.title, wbd.minutes" . PHP_EOL
             . " FROM xwbd_report_crs_values wbd " . PHP_EOL
             . " JOIN hhd_usrcrs husrcrs ON husrcrs.crs_id = wbd.crs_id" . PHP_EOL
             . "     AND husrcrs.wbd_booking_id = wbd.wbd_booking_id" . PHP_EOL
@@ -362,7 +362,12 @@ class ilCasesDB implements DB
             . "         OR IF((hcrs.end_date IS NOT NULL AND hcrs.end_date != '0001-01-01'), hcrs.end_date, husrcrs.ps_acquired_date) != wbd.end_date" . PHP_EOL
             . "         OR husrcrs.booking_status IN ('cancelled', 'cancelled_after_deadline')" . PHP_EOL
             . " ) AND" . PHP_EOL
-            . "     (err.status IS NULL OR err.status IN ('resolved'))"
+            ."     0 = (SELECT count(err.status)".PHP_EOL
+            ."              FROM wbd_request_errors err".PHP_EOL
+            ."              WHERE err.usr_id = husrcrs.usr_id".PHP_EOL
+            ."                  AND err.crs_id = husrcrs.crs_id".PHP_EOL
+            ."                  AND err.status IN ('open', 'not_resolvable')".PHP_EOL
+            ."         )"
         ;
 
         $res = $this->db->query($q);

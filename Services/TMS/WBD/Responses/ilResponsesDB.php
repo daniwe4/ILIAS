@@ -18,6 +18,7 @@ class ilResponsesDB implements DB
     const TABLE_ANNOUNCED_CASES = 'xwbd_announced_cases';
     const TABLE_IMPORTED_COURSES = 'xwbd_imported_courses';
     const TABLE_REPORTED_CRS_VALUES = 'xwbd_report_crs_values';
+    const TABLE_NEGATIVE_ID = 'tms_negative_ids';
 
     /**
      * @var \ilDBInterface
@@ -47,7 +48,7 @@ class ilResponsesDB implements DB
 
     public function importParticipation(WBD_RESPONSE\WBDParticipation $participation) : int
     {
-        $crs_id = -(int) $this->db->nextId(self::TABLE_IMPORTED_COURSES);
+        $crs_id = (int)$this->db->nextId(self::TABLE_NEGATIVE_ID) * -1;
         $payload = [
             'crs_id' => $crs_id,
             'begin_date' => $participation->getStartDate()->format('Y-m-d'),

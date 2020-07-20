@@ -242,7 +242,7 @@ class ilDB implements DB
     /**
      * @return Schedule[]
      */
-    public function getAllActiveScheduled(array $obj_ids) : array
+    public function getListableSchedules(array $obj_ids) : array
     {
         $q = "SELECT id, title, start, end, min_idd_value, active, part_document" . PHP_EOL
             . " FROM " . self::TABLE_NAME . PHP_EOL

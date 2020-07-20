@@ -1,8 +1,8 @@
 /* Copyright (c) 1998-2010 ILIAS open source, Extended GPL, see docs/LICENSE */
 /**
-* @author  Uwe Kohnle <kohnle@internetlehrer-gmbh.de>
-* @version $Id$
-*/
+ * @author  Uwe Kohnle <kohnle@internetlehrer-gmbh.de>
+ * @version $Id$
+ */
 
 var	iv={},
 	ir=[],
@@ -15,67 +15,67 @@ var	iv={},
 
 
 /* XMLHHTP functions */
-function sendRequest (url, data, callback, user, password, headers) {		
+function sendRequest (url, data, callback, user, password, headers) {
 
 	function sendAndLoad(url, data, callback, user, password, headers) {
 		function createHttpRequest() {
-			try 
+			try
 			{
-				return window.XMLHttpRequest 
+				return window.XMLHttpRequest
 					? new window.XMLHttpRequest()
 					: new window.ActiveXObject('MSXML2.XMLHTTP');
-			} 
-			catch (e) 
+			}
+			catch (e)
 			{
 				throw new Error('cannot create XMLHttpRequest');
 			}
 		}
-		function HttpResponse(xhttp) 
+		function HttpResponse(xhttp)
 		{
 			this.status = Number(xhttp.status);
 			this.content = String(xhttp.responseText);
 			this.type = String(xhttp.getResponseHeader('Content-Type'));
 		}
-		function onStateChange() 
+		function onStateChange()
 		{
 			if (xhttp.readyState === 4) { // COMPLETED
 				if (typeof callback === 'function') {
 					callback(new HttpResponse(xhttp));
 				} else {
 					return new HttpResponse(xhttp);
-				} 
+				}
 			}
 		}
 		var xhttp = createHttpRequest();
 		var async = !!callback;
-		var post = !!data; 
+		var post = !!data;
 		xhttp.open(post ? 'POST' : 'GET', url, async, user, password);
-		if (typeof headers !== 'object') 
+		if (typeof headers !== 'object')
 		{
 			headers = new Object();
 		}
-		if (post) 
+		if (post)
 		{
 			headers['Content-Type'] = 'application/x-www-form-urlencoded';
 		}
-		if (headers && headers instanceof Object) 
+		if (headers && headers instanceof Object)
 		{
 			for (var k in headers) {
 				xhttp.setRequestHeader(k, headers[k]);
 			}
 		}
-		if (async) 
+		if (async)
 		{
 			xhttp.onreadystatechange = onStateChange;
-//				xhttp.send(data ? String(data) : '');				
-			xhttp.send(data);				
-		} else 
+//				xhttp.send(data ? String(data) : '');
+			xhttp.send(data);
+		} else
 		{
-			xhttp.send(data ? String(data) : '');				
+			xhttp.send(data ? String(data) : '');
 			return onStateChange();
 		}
 	}
-	
+
 	function useSendBeacon() {
 		if (navigator.userAgent.indexOf("Chrome") > -1) {
 			if (typeof(window.sahs_content) != "undefined" && typeof(window.sahs_content.event) != "undefined" && (window.sahs_content.event.type=="unload" || window.sahs_content.event.type=="beforeunload")) {
@@ -97,13 +97,13 @@ function sendRequest (url, data, callback, user, password, headers) {
 		return "ok";
 	}
 	var r = sendAndLoad(url, data, callback, user, password, headers);
-	
+
 	if (r.content) {
 		if (r.content.indexOf("login.php")>-1) {
 			window.location.href = "./Modules/Scorm2004/templates/default/session_timeout.html";
 		}
 	}
-	
+
 	if ((r.status===200 && (/^text\/javascript;?.*/i).test(r.type)) || r.status===0)
 	{
 		return r.content;
@@ -133,32 +133,32 @@ function toJSONString (v, tab) {
 		}) + '"';
 	}
 	switch (typeof v) {
-	case 'string':
-		return esc(v);
-	case 'number':
-		return isFinite(v) ? String(v) : 'null';
-	case 'boolean':
-		return String(v);
-	case 'object':
-		if (v===null) {
-			return 'null';
-		} else if (v instanceof Date) {
-			return '"' + v.getValue(v) + '"'; // msec not ISO
-		} else if (v instanceof Array) {
-			var ra = new Array();
-			for (var i=0, ni=v.length; i<ni; i+=1) {
-				ra.push(v[i]===undefined ? 'null' : toJSONString(v[i], tab.charAt(0) + tab));
-			}
-			return '[' + nl + tab + ra.join(',' + nl + tab) + nl + tab + ']';
-		} else {
-			var ro = new Array();
-			for (var k in v) {	
-				if (v.hasOwnProperty && v.hasOwnProperty(k)) {
-					ro.push(esc(String(k)) + ':' + toJSONString(v[k], tab.charAt(0) + tab));
+		case 'string':
+			return esc(v);
+		case 'number':
+			return isFinite(v) ? String(v) : 'null';
+		case 'boolean':
+			return String(v);
+		case 'object':
+			if (v===null) {
+				return 'null';
+			} else if (v instanceof Date) {
+				return '"' + v.getValue(v) + '"'; // msec not ISO
+			} else if (v instanceof Array) {
+				var ra = new Array();
+				for (var i=0, ni=v.length; i<ni; i+=1) {
+					ra.push(v[i]===undefined ? 'null' : toJSONString(v[i], tab.charAt(0) + tab));
 				}
+				return '[' + nl + tab + ra.join(',' + nl + tab) + nl + tab + ']';
+			} else {
+				var ro = new Array();
+				for (var k in v) {
+					if (v.hasOwnProperty && v.hasOwnProperty(k)) {
+						ro.push(esc(String(k)) + ':' + toJSONString(v[k], tab.charAt(0) + tab));
+					}
+				}
+				return '{' + nl + tab + ro.join(',' + nl + tab) + nl + tab + '}';
 			}
-			return '{' + nl + tab + ro.join(',' + nl + tab) + nl + tab + '}';
-		}
 	}
 }
 
@@ -270,7 +270,7 @@ function IliasWaitLaunch(i_l){
 
 function IliasWaitTree(i_l,i_counter) {
 	if (i_counter<20){
-		if (typeof frames.tree == "undefined" || typeof frames.tree.document.getElementsByName('scoIcon'+i_l)[0] == "undefined") 
+		if (typeof frames.tree == "undefined" || typeof frames.tree.document.getElementsByName('scoIcon'+i_l)[0] == "undefined")
 			setTimeout("API.IliasWaitTree("+i_l+","+(i_counter+1)+")",100);
 		else status4tree(i_l,'running');
 	}
@@ -325,7 +325,7 @@ function IliasCommit() {
 		"hash":iv.status.hash,
 		"p":iv.status.p,
 		"totalTimeCentisec":0
-		};
+	};
 	for (var i=0; i<iv.status.scos.length;i++) {
 		s_v=getValueIntern(iv.status.scos[i],"cmi.core.lesson_status",true);
 		if (s_v=="completed" || s_v=="passed") i_numCompleted++;
@@ -388,7 +388,7 @@ function setValueIntern(i_sco,s_el,s_value,b_store,b_noEncode){
 	for (var i=0;i<a_el.length-1;i++){
 		if (typeof o_el[a_el[i]] == "undefined") o_el[a_el[i]]=new Object();
 		o_el=o_el[a_el[i]];
-		if(!isNaN(a_el[i+1])) { //set check counter 
+		if(!isNaN(a_el[i+1])) { //set check counter
 			if (typeof o_el['_count'] == "undefined") {
 				o_el['_count']=new Number();
 				o_el['_count']=0;
@@ -435,7 +435,7 @@ function tree() {
 				s_out+='<img class="spacer" src="'+decodeURIComponent(iv.img.not_attempted)+'" id="scoIcon'+it[0]+'"';
 			}
 			s_out+=' alt="" title="" border="0" style="margin-left:'+spacerwidth+'px"/></td>'
-			+'<td align="left"><a href="javascript:void(0);" onclick="API.IliasLaunch('+it[0]+');return false;">'+decodeURIComponent(it[2])+'</a>';
+				+'<td align="left"><a href="javascript:void(0);" onclick="API.IliasLaunch('+it[0]+');return false;">'+decodeURIComponent(it[2])+'</a>';
 		}
 		s_out+='</td></tr></table>';
 		document.getElementById("treeView").innerHTML=s_out;
@@ -512,10 +512,10 @@ this.SchedulePing=SchedulePing;
 basisInit();
 
 if (typeof SOP!="undefined" && SOP==true) {
-		window.addEventListener('beforeunload', function (event) {
-			onWindowUnload();
-			event.preventDefault();
-		});
+	window.addEventListener('beforeunload', function (event) {
+		onWindowUnload();
+		event.preventDefault();
+	});
 } else {
 	if(window.addEventListener) window.addEventListener('unload',onWindowUnload);
 	else if(window.attachEvent) window.attachEvent('onunload',onWindowUnload);//IE<9

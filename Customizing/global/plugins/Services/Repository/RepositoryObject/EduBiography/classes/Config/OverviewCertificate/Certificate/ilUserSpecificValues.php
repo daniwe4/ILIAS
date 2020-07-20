@@ -19,8 +19,7 @@ class ilUserSpecificValues
     public function getIDDTimesFor(
         int $usr_id,
         \DateTime $start,
-        \DateTime $end,
-        int $min_idd_value = null
+        \DateTime $end
     ) {
         $str_start = $start->format("Y-m-d");
         $str_end = $end->format("Y-m-d");
@@ -126,9 +125,6 @@ GROUP BY
     usrcrs.usr_id
 SQL;
 
-        if (!is_null($min_idd_value)) {
-            $q .= " HAVING sum_idd_achieved >= " . $this->db->quote($min_idd_value, "integer");
-        }
 
         $res = $this->db->query($q);
 

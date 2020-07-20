@@ -107,6 +107,7 @@ class ilCertificateTableGUI
                 $row = $row->withAction($this->createDropDown(
                     $ui_factory,
                     $record->getId(),
+                    $record->getMinIddValue(),
                     $record->getReceivedIddMinutes(),
                     $record->isPartDocument(),
                     $record->isShowOverviewDownload()
@@ -122,6 +123,7 @@ class ilCertificateTableGUI
     protected function createDropDown(
         UI\Factory $ui_factory,
         int $id,
+        int $min_idd_value,
         int $received_idd_min,
         bool $part_document,
         bool $show_overview_download
@@ -130,7 +132,7 @@ class ilCertificateTableGUI
 
         if (
             $show_overview_download &&
-            $received_idd_min > 0
+            $received_idd_min >= $min_idd_value
         ) {
             $btn[] = $this->getCertificateButton($ui_factory, $id, $received_idd_min);
         }

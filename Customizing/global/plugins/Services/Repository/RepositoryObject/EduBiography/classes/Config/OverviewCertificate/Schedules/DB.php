@@ -30,5 +30,5 @@ interface DB
     /**
      * @return Schedule[]
      */
-    public function getAllActiveScheduled(array $obj_ids) : array;
+    public function getListableSchedules(array $obj_ids) : array;
 }

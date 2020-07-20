@@ -93,18 +93,23 @@ class ilGenericTableGUI extends \ilTable2GUI
 
     protected function fillRow($a_set)
     {
+        $known_user = $a_set->isKnownUser();
+
         if (!$this->finished) {
             $this->tpl->setVariable("ID", $a_set->getId());
             $this->tpl->setVariable("POST_VAR", \ilParticipantGUI::F_CANCEL_ID);
-            if ($a_set->isKnownUser()) {
+            if ($known_user) {
                 $this->tpl->setVariable("HIDDEN_ID", $a_set->getUserId());
-                require_once("Services/Tracking/classes/class.ilLearningProgressBaseGUI.php");
-                $status = $this->getLPStatusOf($a_set->getUserId());
-                $path = \ilLearningProgressBaseGUI::_getImagePathForStatus($status);
-                $text = \ilLearningProgressBaseGUI::_getStatusText($status);
-                $this->tpl->setVariable("STATUS", \ilUtil::img($path, $text));
             }
             $this->tpl->setVariable("COUNTER", $this->counter);
+        }
+
+        if ($known_user) {
+            require_once("Services/Tracking/classes/class.ilLearningProgressBaseGUI.php");
+            $status = $this->getLPStatusOf($a_set->getUserId());
+            $path = \ilLearningProgressBaseGUI::_getImagePathForStatus($status);
+            $text = \ilLearningProgressBaseGUI::_getStatusText($status);
+            $this->tpl->setVariable("STATUS", \ilUtil::img($path, $text));
         }
 
         $this->tpl->setVariable("NAME", $a_set->getName());

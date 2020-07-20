@@ -662,3 +662,21 @@ $db = $DIC['ilDB'];
 $query = "UPDATE il_plugin SET name = 'OnlineSeminar' WHERE name = 'Webinar'";
 $db->manipulate($query);
 ?>
+
+<#69>
+<?php
+global $DIC;
+$db = $DIC["ilDB"];
+$res = $db->query("SELECT MIN(crs_id) AS hhd_crs_min FROM hhd_crs WHERE crs_id < 0");
+$row = $db->fetchAssoc($res);
+$hhd_crs_min = $row["hhd_crs_min"];
+
+$res = $db->query("SELECT MIN(sequence) AS wbd_min FROM xwbd_imported_courses_seq");
+$row = $db->fetchAssoc($res);
+$wbd_min = $row["wbd_min"];
+
+$start_value = min([$hhd_crs_min, $wbd_min]);
+
+$start_value += 1000;
+$db->createSequence("tms_negative_ids", $start_value);
+?>

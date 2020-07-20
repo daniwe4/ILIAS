@@ -127,20 +127,18 @@ class ilCertificateDownloadGUI
 
         foreach ($schedules as $schedule) {
             $show_overview_download = true;
-            if (in_array($schedule->getId(), $current_certificate_ids)) {
-                $received_idd_min = $current_certificate[$schedule->getId()]->getMinutes();
-            } else {
-                $received_idd_min = $this->user_specific_values->getIDDTimesFor(
-                    (int) $this->user->getId(),
-                    $schedule->getStart(),
-                    $schedule->getEnd(),
-                    $schedule->getMinIddValue()
-                );
-
-                if (!$schedule->isActive()) {
-                    $show_overview_download = false;
-                }
+            if(
+                ! in_array($schedule->getId(), $current_certificate_ids) &&
+                ! $schedule->isActive()
+            ) {
+                $show_overview_download = false;
             }
+
+            $received_idd_min = $this->user_specific_values->getIDDTimesFor(
+                (int)$this->user->getId(),
+                $schedule->getStart(),
+                $schedule->getEnd()
+            );
 
             if (
                 $received_idd_min == 0 &&
@@ -211,8 +209,7 @@ class ilCertificateDownloadGUI
         $received_idd_min = $this->user_specific_values->getIDDTimesFor(
             (int) $this->user->getId(),
             $schedule->getStart(),
-            $schedule->getEnd(),
-            $schedule->getMinIddValue()
+            $schedule->getEnd()
         );
 
         list($file_path, $file_name) = $this->pdf_generator->createPdf(
