@@ -228,7 +228,7 @@ class ilMergeUsersGUI
 		$user_to_activate_id = (int)$post[self::F_USER_TO_ACTIVATE];
 		$user_to_deactivate_id = (int)$post[self::F_USER_TO_DEACTIVATE];
 		if (! $this->merge($user_to_activate_id, $user_to_deactivate_id)) {
-			return;
+            $this->ctrl->redirect($this, self::CMD_SHOW);
 		}
 
 		$reason = $post[self::F_REASON];
@@ -296,11 +296,10 @@ class ilMergeUsersGUI
 		$merge = $this->merge_user_db->mergeUserData($user_to_deactivate_id, $user_to_activate_id);
 
 		if (! $merge) {
-			$messages[] = $this->txt('info_deactivate_user');
-			$messages[] = $this->txt('info_nothing_to_do');
 			$this->reply(
 				self::MSG_INFO,
-				join('<br>', $messages)
+                $this->txt('info_nothing_to_do'),
+                ""
 			);
 			return false;
 		}
