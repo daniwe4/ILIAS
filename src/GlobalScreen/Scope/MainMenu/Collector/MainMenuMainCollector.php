@@ -286,4 +286,45 @@ class MainMenuMainCollector extends AbstractBaseCollector implements ItemCollect
     {
         return $this->type_information_collection;
     }
+
+    // cat-tms-patch start #4859
+    protected function clearSeparatorWithoutFollowing()
+    {
+        $this->map->walk(function (isItem &$item) : isItem {
+            if ($item instanceof isParent) {
+                $children = $item->getChildren();
+                $child_keys = array_keys($children);
+                $start = array_shift($child_keys);
+                $s_child = $children[$start];
+                if (count($child_keys) > 0) {
+                    $next = array_shift($child_keys);
+                    do {
+                        $n_child = $children[$next];
+                        if (
+                            $s_child instanceof \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator &&
+                            $n_child instanceof \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator
+                        ) {
+                            $item->removeChild($s_child);
+                        }
+
+                        $s_child = $n_child;
+                        $next = array_shift($child_keys);
+                    } while (!is_null($next));
+                }
+
+                if ($s_child instanceof \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator) {
+                    $item->removeChild($s_child);
+                }
+            }
+            return $item;
+        });
+        $this->map->filter(static function (isItem $i) : bool {
+            if ($i instanceof isParent) {
+                return count($i->getChildren()) > 0;
+            }
+
+            return true;
+        });
+    }
+    // cat-tms-patch end
 }

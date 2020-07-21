@@ -40,8 +40,16 @@ abstract class AbstractBaseCollector implements Collector
             $this->filterItemsByVisibilty(false);
             $this->cleanupItemsForUIRepresentation();
             $this->sortItemsForUIRepresentation();
+            $this->clearSeparatorWithoutFollowing();
             $this->setCollected();
         }
         // cat-tms-patch start end
     }
+
+    // cat-tms-patch start #4859
+    protected function clearSeparatorWithoutFollowing()
+    {
+        // TODO: Implement clearSeparatorWithoutFollowing() method.
+    }
+    // cat-tms-patch end
 }
