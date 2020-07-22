@@ -667,16 +667,22 @@ $db->manipulate($query);
 <?php
 global $DIC;
 $db = $DIC["ilDB"];
-$res = $db->query("SELECT MIN(crs_id) AS hhd_crs_min FROM hhd_crs WHERE crs_id < 0");
-$row = $db->fetchAssoc($res);
-$hhd_crs_min = $row["hhd_crs_min"];
+$hhd_crs_min = 0;
+$wbd_min = 0;
 
-$res = $db->query("SELECT MIN(sequence) AS wbd_min FROM xwbd_imported_courses_seq");
-$row = $db->fetchAssoc($res);
-$wbd_min = $row["wbd_min"];
+if($db->tableExists('hhd_crs')) {
+    $res = $db->query("SELECT MIN(crs_id) AS hhd_crs_min FROM hhd_crs WHERE crs_id < 0");
+    $row = $db->fetchAssoc($res);
+    $hhd_crs_min = $row["hhd_crs_min"];
+}
+
+if($db->tableExists('xwbd_imported_courses_seq')) {
+    $res = $db->query("SELECT MIN(sequence) AS wbd_min FROM xwbd_imported_courses_seq");
+    $row = $db->fetchAssoc($res);
+    $wbd_min = $row["wbd_min"];
+}
 
 $start_value = min([$hhd_crs_min, $wbd_min]);
-
 $start_value += 1000;
 $db->createSequence("tms_negative_ids", $start_value);
 ?>

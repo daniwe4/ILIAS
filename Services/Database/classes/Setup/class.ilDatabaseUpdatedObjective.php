@@ -75,6 +75,11 @@ class ilDatabaseUpdatedObjective extends \ilDatabaseObjective
         $GLOBALS["DIC"]["ilDB"] = $db;
         $GLOBALS["ilDB"] = $db;
         $GLOBALS["DIC"]["ilBench"] = null;
+        $GLOBALS["DIC"]["lng"] = new class() {
+            public function loadLanguageModule()
+            {
+            }
+        };
         $GLOBALS["DIC"]["ilLog"] = new class($io) {
             public function __construct($io)
             {
@@ -138,6 +143,8 @@ class ilDatabaseUpdatedObjective extends \ilDatabaseObjective
         $db_update->applyUpdate();
         $db_update->applyHotfix();
         $db_update->applyCustomUpdates();
+
+        $GLOBALS["DIC"] = $DIC;
 
         return $environment;
     }
