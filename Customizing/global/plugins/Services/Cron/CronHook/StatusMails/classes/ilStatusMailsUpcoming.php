@@ -44,9 +44,9 @@ class ilStatusMailsUpcoming extends \ilCronJob
     /**
      * Get relevant activities of users.
      * @param int[] $usr_ids
-     * @return    History\UserActivity[]
+     * @return    History\UserActivity[]|null
      */
-    protected function getActivityData(array $usr_ids) : array
+    protected function getActivityData(array $usr_ids) : ?array
     {
         list($start, $end) = $this->getDataTimeRange();
         return $this->history->getBookedByCourseTime($start, $end, $usr_ids);

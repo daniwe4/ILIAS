@@ -24,7 +24,7 @@ interface DB
      * Get activites of users at courses that will start between $start and $end.
      * This will only return activities with type UserActivity::ACT_TYPE_BOOKED.
      * @param int[] $usr_ids
-     * @return    UserActivity[]
+     * @return    UserActivity[]|null
      */
-    public function getBookedByCourseTime(\DateTime $start, \DateTime $end, array $usr_ids) : array;
+    public function getBookedByCourseTime(\DateTime $start, \DateTime $end, array $usr_ids) : ?array;
 }

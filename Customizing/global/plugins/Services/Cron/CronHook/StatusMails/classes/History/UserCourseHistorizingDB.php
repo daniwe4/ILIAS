@@ -294,8 +294,8 @@ class UserCourseHistorizingDB implements DB
     {
         $reminder_minutes = $minutes % 60;
         $hours = ($minutes - $reminder_minutes) / 60;
-        return str_pad((int) $hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad(
-            (int) $reminder_minutes,
+        return str_pad((string) $hours, 2, '0', STR_PAD_LEFT) . ':' . str_pad(
+            (string) $reminder_minutes,
             2,
             '0',
             STR_PAD_LEFT
@@ -316,11 +316,9 @@ class UserCourseHistorizingDB implements DB
     /**
      * @inheritdoc
      */
-    public function getBookedByCourseTime(\DateTime $start, \DateTime $end, array $usr_ids) : array
+    public function getBookedByCourseTime(\DateTime $start, \DateTime $end, array $usr_ids) : ?array
     {
-        foreach ($this->interpreter->interpret(
-            $this->getBookedSpace($start, $end, $usr_ids)->query()
-        ) as $row) {
+        foreach ($this->interpreter->interpret($this->getBookedSpace($start, $end, $usr_ids)->query()) as $row) {
             $return[] =
                 new UserActivity(
                     UserActivity::ACT_TYPE_BOOKED,

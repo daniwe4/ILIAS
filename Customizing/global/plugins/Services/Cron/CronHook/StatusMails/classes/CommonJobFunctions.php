@@ -188,9 +188,9 @@ trait CommonJobFunctions
     /**
      * Get a ref-id for a course's object-id.
      * @param int $crs_obj_id
-     * @return    int
+     * @return    int|null
      */
-    protected function getCourseRefById(int $crs_obj_id) : int
+    protected function getCourseRefById(int $crs_obj_id) : ?int
     {
         if (!array_key_exists($crs_obj_id, $this->cached_refs)) {
             $ref = $this->getRefForObjId($crs_obj_id);
