@@ -1,9 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<plugin id="xmat">
-	<events>
-		<event type="listen" id="Plugin/MaterialList" />
-		<event type="listen" id="Modules/Course" />
-		<event type="raise" id="update" />
-		<event type="raise" id="delete" />
-	</events>
-</plugin>

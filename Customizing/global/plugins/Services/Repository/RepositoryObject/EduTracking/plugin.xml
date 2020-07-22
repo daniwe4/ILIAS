@@ -1,8 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<plugin id="xetr">
-	<events>
-		<event type="listen" id="Services/Tree"/>
-		<event type="listen" id="Services/Object"/>
-		<event type="listen" id="Modules/Session"/>
-	</events>
-</plugin>

@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<plugin id="xbka">
-	<events>
-		<event type="listen" id="Plugin/BookingApprovals" />
-	</events>
-</plugin>

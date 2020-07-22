@@ -1,6 +1,0 @@
----
-ComponentType: Services
-ComponentName: Cron
-Slot: CronHook
-SlotId: crnhk
-Name: Venues

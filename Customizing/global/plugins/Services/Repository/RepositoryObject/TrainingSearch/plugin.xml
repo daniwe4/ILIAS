@@ -1,6 +1,0 @@
-<?xml version = "1.0" encoding = "UTF-8"?>
-<plugin id="xtrs">
-	<copage>
-		<pageobject parent_type="xtrs" class_name="ilTrainingSearchPage" directory="classes/Page"/>
-	</copage>
-</plugin>
