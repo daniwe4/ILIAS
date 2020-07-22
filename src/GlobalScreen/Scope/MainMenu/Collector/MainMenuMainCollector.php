@@ -18,6 +18,7 @@ use ILIAS\GlobalScreen\Scope\MainMenu\Factory\isParent;
 use ILIAS\GlobalScreen\Scope\MainMenu\Factory\isTopItem;
 use ILIAS\GlobalScreen\Scope\MainMenu\Factory\supportsAsynchronousLoading;
 use ILIAS\GlobalScreen\Scope\MainMenu\Provider\StaticMainMenuProvider;
+use \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator;
 
 /**
  * Class MainMenuMainCollector
@@ -172,6 +173,10 @@ class MainMenuMainCollector extends AbstractBaseCollector implements ItemCollect
             return $item;
         });
 
+        // cat-tms-patch start #4859
+        $this->clearSeparatorWithoutFollowing();
+        // cat-tms-patch ebd
+
         // filter empty slates
         $this->map->filter(static function (isItem $i) : bool {
             if ($i instanceof isParent) {
@@ -301,8 +306,8 @@ class MainMenuMainCollector extends AbstractBaseCollector implements ItemCollect
                     do {
                         $n_child = $children[$next];
                         if (
-                            $s_child instanceof \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator &&
-                            $n_child instanceof \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator
+                            $s_child instanceof Separator &&
+                            $n_child instanceof Separator
                         ) {
                             $item->removeChild($s_child);
                         }
@@ -312,18 +317,11 @@ class MainMenuMainCollector extends AbstractBaseCollector implements ItemCollect
                     } while (!is_null($next));
                 }
 
-                if ($s_child instanceof \ILIAS\GlobalScreen\Scope\MainMenu\Factory\Item\Separator) {
+                if ($s_child instanceof Separator) {
                     $item->removeChild($s_child);
                 }
             }
             return $item;
-        });
-        $this->map->filter(static function (isItem $i) : bool {
-            if ($i instanceof isParent) {
-                return count($i->getChildren()) > 0;
-            }
-
-            return true;
         });
     }
     // cat-tms-patch end
