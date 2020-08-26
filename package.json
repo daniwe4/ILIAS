@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@andxor/jquery-ui-touch-punch-fix": "^1.0.2",
+    "@yaireo/tagify": "^3.17.8",
     "bootstrap": "3.3.7",
-    "bootstrap-tagsinput": "^0.7.1",
     "dropzone": "^5.5.0",
     "eonasdan-bootstrap-datetimepicker": "^4.17.47",
     "fine-uploader": "^5.16.2",
@@ -32,7 +32,6 @@
     "qtip2": "^3.0.3",
     "rollup-plugin-sourcemaps": "^0.6.2",
     "tinymce": "^4.6.7",
-    "typeahead": "^0.2.2",
     "webui-popover": "^1.2.18"
   },
   "devDependencies": {
@@ -187,20 +186,12 @@
       "last-update-for-ilias": "5.3.0",
       "note": ""
     },
-    "bootstrap-tagsinput": {
-      "introduction-date": "2017-12-18",
+    "tagify": {
+      "introduction-date": "2020-08-26",
       "approved-by": "Jour Fixe",
-      "developer": "fschmid",
+      "developer": "dweise",
       "purpose": "UI Service Input Tag",
-      "last-update-for-ilias": "5.3.0",
-      "note": ""
-    },
-    "typeahead.js": {
-      "introduction-date": "2017-12-18",
-      "approved-by": "Jour Fixe",
-      "developer": "fschmid",
-      "purpose": "UI Service Input Tag",
-      "last-update-for-ilias": "5.3.0",
+      "last-update-for-ilias": "7.0.0",
       "note": ""
     },
     "openlayers": {

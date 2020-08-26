@@ -100,9 +100,8 @@ class Renderer extends AbstractComponentRenderer
     public function registerResources(ResourceRegistry $registry)
     {
         parent::registerResources($registry);
-        $registry->register('./libs/bower/bower_components/typeahead.js/dist/typeahead.bundle.js');
-        $registry->register('./libs/bower/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js');
-        $registry->register('./libs/bower/bower_components/bootstrap-tagsinput/dist/bootstrap-tagsinput-typeahead.css');
+        $registry->register('./node_modules/@yaireo/tagify/dist/tagify.min.js');
+        $registry->register('./node_modules/@yaireo/tagify/dist/tagify.css');
         $registry->register('./src/UI/templates/js/Input/Field/tagInput.js');
         $registry->register('./src/UI/templates/js/Input/Field/textarea.js');
         $registry->register('./src/UI/templates/js/Input/Field/input.js');
@@ -371,17 +370,10 @@ class Renderer extends AbstractComponentRenderer
                     $tpl->setCurrentBlock("disabled");
                     $tpl->setVariable("DISABLED", "disabled");
                     $tpl->parseCurrentBlock();
+                    $tpl->setVariable("READONLY", "readonly");
                 }
                 if ($input->getValue()) {
-                    $value = $input->getValue();
-                    $tpl->setVariable("VALUE_COMMA_SEPARATED", implode(",", $value));
-                    foreach ($value as $tag) {
-                        $tpl->setCurrentBlock('existing_tags');
-                        $tpl->setVariable("FIELD_ID", $id);
-                        $tpl->setVariable("FIELD_NAME", $input->getName());
-                        $tpl->setVariable("TAG_NAME", $tag);
-                        $tpl->parseCurrentBlock();
-                    }
+                    $tpl->setVariable("VALUES", implode(',', $input->getValue()));
                 }
                 break;
             case ($input instanceof DateTime):

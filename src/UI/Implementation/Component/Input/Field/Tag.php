@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace ILIAS\UI\Implementation\Component\Input\Field;
@@ -15,16 +16,17 @@ use ILIAS\UI\Implementation\Component\Triggerer;
  * Class TagInput
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author Daniel Weise <dweise@concepts-and-training.de>
  */
-class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
+class Tag extends Input implements C\Input\Field\Tag
 {
-    const EVENT_ITEM_ADDED = 'itemAdded';
-    const EVENT_BEFORE_ITEM_REMOVE = 'beforeItemRemove';
-    const EVENT_BEFORE_ITEM_ADD = 'beforeItemAdd';
-    const EVENT_ITEM_REMOVED = 'itemRemoved';
-    const INFINITE = 0;
     use JavaScriptBindable;
     use Triggerer;
+
+    const EVENT_ITEM_ADDED = 'itemAdded';
+    const EVENT_ITEM_REMOVED = 'itemRemoved';
+    const INFINITE = 0;
+
     /**
      * @var int
      */
@@ -40,7 +42,7 @@ class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
     /**
      * @var int
      */
-    protected $suggestion_starts_with = 1;
+    protected $suggestion_starts_with = 0;
     /**
      * @var array
      */
@@ -69,8 +71,20 @@ class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
     ) {
         parent::__construct($data_factory, $refinery, $label, $byline);
         $this->tags = $tags;
+
+        $this->addAdditionalTransformations();
     }
 
+    protected function addAdditionalTransformations() : void
+    {
+        $this->setAdditionalTransformation($this->refinery->string()->splitString(','));
+        $this->setAdditionalTransformation($this->refinery->custom()->transformation(function (array $v) {
+            if (count($v) == 1 && $v[0] === '') {
+                return [];
+            }
+            return $v;
+        }));
+    }
 
     /**
      * @return \stdClass
@@ -79,17 +93,18 @@ class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
     {
         $configuration = new \stdClass();
         $configuration->id = null;
+        $configuration->readonly = $this->isDisabled();
         $configuration->options = $this->getTags();
         $configuration->selectedOptions = $this->getValue();
-        $configuration->extendable = $this->areUserCreatedTagsAllowed();
-        $configuration->suggestionStarts = $this->getSuggestionsStartAfter();
-        $configuration->maxChars = 2000;
-        $configuration->suggestionLimit = 50;
+        $configuration->extendable = !$this->areUserCreatedTagsAllowed();
+        $configuration->maxItems = 10;
+        $configuration->dropdownMaxItems = 20;
+        $configuration->dropdownCloseOnSelect = false;
+        $configuration->dropdownSuggestionsStartAfter = $this->getSuggestionsStartAfter();
         $configuration->debug = false;
         $configuration->allowDuplicates = false;
         $configuration->highlight = true;
-        $configuration->tagClass = "label label-primary il-input-tag-tag";
-        $configuration->focusClass = 'il-input-tag-focus';
+        $configuration->tagClass = "input-tag";
 
         return $configuration;
     }
@@ -102,15 +117,15 @@ class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
     {
         $constraint = $this->refinery->custom()->constraint(
             function ($value) {
-                $valueIsAStringArray = $this->refinery
+                $valueIsAString = $this->refinery
                     ->to()
-                    ->listOf($this->refinery->to()->string())
+                    ->string()
                     ->applyTo(new Ok($value))
                     ->isOK();
 
-                return ($valueIsAStringArray);
+                return ($valueIsAString);
             },
-            "Empty array"
+            "No string"
         );
 
         return $constraint;
@@ -276,9 +291,33 @@ class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
     }
 
 
+    /**
+     * @inheritDoc
+     */
+    public function withInput(InputData $input)
+    {
+        // ATTENTION: This is a slightly modified copy of parent::withInput, which
+        // fixes #27909 but makes the Tag Input unusable in Filter Containers.
+        if ($this->getName() === null) {
+            throw new \LogicException("Can only collect if input has a name.");
+        }
+
+        $clone = clone $this;
+        //TODO: Discuss, is this correct here. If there is no input contained in this post
+        //We assign null. Note that unset checkboxes are not contained in POST.
+        if (!$this->isDisabled()) {
+            $value = $input->getOr($this->getName(), null);
+            $clone->content = $this->applyOperationsTo($value);
+        }
+
+        if ($clone->content->isError()) {
+            return $clone->withError("" . $clone->content->error());
+        }
+
+        return $clone->withValue($clone->content->value());
+    }
+
     // Events
-
-
     /**
      * @inheritDoc
      */
@@ -302,10 +341,10 @@ class Tag extends Input implements FormInputInternal, C\Input\Field\Tag
     public function getUpdateOnLoadCode() : \Closure
     {
         return function ($id) {
-            $code = "$('#$id').on('itemAdded', function(event) {
+            $code = "$('#$id').on('add', function(event) {
 				il.UI.input.onFieldUpdate(event, '$id', $('#$id').val());
 			});
-			$('#$id').on('itemRemoved', function(event) {
+			$('#$id').on('remove', function(event) {
 				il.UI.input.onFieldUpdate(event, '$id', $('#$id').val());
 			});
 			il.UI.input.onFieldUpdate(event, '$id', $('#$id').val());";

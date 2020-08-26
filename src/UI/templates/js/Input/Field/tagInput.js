@@ -2,6 +2,7 @@
  * Wraps the BootstrapTagsInput
  *
  * @author Fabian Schmid <fs@studer-raimann.ch>
+ * @author Daniel Weise <dweise@concepts-and-training.de>
  */
 var il = il || {};
 il.UI = il.UI || {};
@@ -17,11 +18,6 @@ il.UI.Input = il.UI.Input || {};
             var _DEBUG = false;
             var _CONFIG = {};
 
-            var _ELEMENTS = {
-                hidden_template: null,
-                container: null
-            };
-
             var _log = function (key, data) {
                 if (!_DEBUG) {
                     return;
@@ -31,76 +27,32 @@ il.UI.Input = il.UI.Input || {};
                 console.log(data);
             };
 
-
-            var _initBloodhound = function () {
-                var bloodHoundObj = new Bloodhound({
-                    datumTokenizer: Bloodhound.tokenizers.whitespace,
-                    queryTokenizer: Bloodhound.tokenizers.whitespace,
-                    local: _CONFIG.options
-                });
-                bloodHoundObj.initialize();
-
-                return bloodHoundObj;
-            };
+            var _getSettings = function() {
+                return {
+                    whitelist: _CONFIG.options,
+                    enforceWhitelist: _CONFIG.extendable,
+                    duplicates: _CONFIG.allowDuplicates,
+                    maxTags: _CONFIG.maxItems,
+                    originalInputValueFormat: valuesArr => valuesArr.map(item => item.value),
+                    dropdown: {
+                        enabled: _CONFIG.dropdownSuggestionsStartAfter,
+                        maxItems: _CONFIG.dropdownMaxItems,
+                        closeOnSelect: _CONFIG.dropdownCloseOnSelect,
+                        highlightFirst: _CONFIG.highlight
+                    }
+                }
+            }
 
             // Initialize ID and Configuration
-            var id = '#' + raw_id;
-            _CONFIG = $.extend(
-                _CONFIG
-                , config);
+            _CONFIG = $.extend(_CONFIG, config);
             _DEBUG = _CONFIG.debug;
             _CONFIG.id = raw_id;
             _log("config", _CONFIG);
 
-            // Elements
-            _ELEMENTS.hidden_template = $('#template-' + _CONFIG.id);
-            _ELEMENTS.container = $('#container-' + _CONFIG.id);
+            var input = document.getElementById(_CONFIG.id);
+            new Tagify(input, _getSettings());
 
-            // Bloodhound
-            var localSource = _initBloodhound();
-            _log('datasources', localSource);
 
-            // TagInput
-            $(id).tagsinput({
-                tagClass: _CONFIG.tagClass,
-                focusClass: _CONFIG.focusClass,
-                cancelConfirmKeysOnEmpty: false,
-                maxChars: _CONFIG.maxChars,
-                allowDuplicates: _CONFIG.allowDuplicates,
-                trimValue: true,
-                freeInput: _CONFIG.extendable,
-                typeaheadjs: {
-                    name: 'local',
-                    minLength: _CONFIG.suggestionStarts,
-                    highlight: _CONFIG.highlight,
-                    hint: _CONFIG.hint,
-                    limit: _CONFIG.suggestionLimit,
-                    source: localSource.ttAdapter()
-                }
-            });
-
-            // Hooks
-            $(id).on('beforeItemAdd', function (event) {
-                _log("item", event.item);
-            });
-
-            $(id).on('itemAdded', function (event) {
-                var new_hidden = _ELEMENTS.hidden_template.clone();
-                new_hidden.attr("id", "tag-" + _CONFIG.id + "-" + event.item);
-                new_hidden.attr("name", _ELEMENTS.hidden_template.val());
-                new_hidden.val(event.item);
-                _log('add_hidden', new_hidden);
-                new_hidden.appendTo(_ELEMENTS.container);
-            });
-
-            $(id).on('itemRemoved', function (event) {
-                var hidden = $("[id='tag-" + _CONFIG.id + "-" + event.item + "']");
-                _log('remove_hidden', hidden);
-                hidden.remove();
-            });
-
-            // Prevent keyboard navigation when Tag is disabled
-            $(id).parents('.il-input-tag.disabled').find('.tt-input').attr('tabindex', '-1');
         };
 
         return {
