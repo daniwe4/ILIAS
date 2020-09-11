@@ -163,7 +163,7 @@ class ilCtrlStructureReader
         $il_absolute_path = $this->getILIASAbsolutePath();
         $data_dir = $this->normalizePath($il_absolute_path . "/data");
         $customizing_dir = $this->normalizePath($il_absolute_path . "/Customizing");
-        $dir = $this->normalizePath($il_absolute_path . ltrim($dir, '.'));
+        $dir = $this->normalizePath($dir);
         if ($read_plugins) {
             return $dir != $data_dir;
         }

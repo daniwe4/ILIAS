@@ -57,7 +57,7 @@ class ImplementationOfInterfaceFinder
         }
     }
 
-    protected function getAllClassNames() : \Iterator
+    protected function getAllClassNames(array $ignore) : \Iterator
     {
         // We use the composer classmap ATM
         $composer_classmap = include "./libs/composer/vendor/composer/autoload_classmap.php";

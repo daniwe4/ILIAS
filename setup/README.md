@@ -125,7 +125,7 @@ or patch instructions or you know what you are doing.
 ## Exclude a plugin permanently from Command Line Setup
 
 To permanently exclude a plugin from the command line setup add the following flag to
-the plugin.php file `ignore_cli_setup = true`. Default value for this flag is false.
+the plugin.php file `$ignore_cli_setup = true;`. Default value for this flag is false.
 
 ## About the Config File
 
