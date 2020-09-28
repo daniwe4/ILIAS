@@ -20,15 +20,16 @@ use Symfony\Component\Console\Input\InputArgument;
  */
 class UpdateCommand extends BaseCommand
 {
+    use CommandHelper;
+
     protected static $defaultName = "update";
 
     public function configure()
     {
         parent::configure();
-        $this
-            ->setDescription("Updates an existing ILIAS installation")
-            ->addOption("ignore-db-update-messages", null, InputOption::VALUE_NONE, "Ignore messages from the database update steps.");
-        $this->addArgument('plugin_name', InputArgument::OPTIONAL, 'Name of the plugin to update.');
+        $this->setDescription("Updates an existing ILIAS installation");
+        $this->addOption("ignore-db-update-messages", null, InputOption::VALUE_NONE, "Ignore messages from the database update steps.");
+        $this->addArgument('plugin-name', InputArgument::OPTIONAL, 'Name of the plugin to update.');
         $this->addOption("no-plugins", null, InputOption::VALUE_NONE, "Ignore plugins");
         $this->addOption("skip", null, InputOption::VALUE_REQUIRED | InputOption::VALUE_IS_ARRAY, "Skip plugin <plugin-name>");
     }
@@ -41,6 +42,16 @@ class UpdateCommand extends BaseCommand
     protected function printOutroMessage(IOWrapper $io)
     {
         $io->success("Update complete. Thanks and have fun!");
+    }
+
+    public function execute(InputInterface $input, OutputInterface $output)
+    {
+        // ATTENTION: This is a hack to get around the usage of the echo/exit pattern in
+        // the setup for the command line version of the setup. Do not use this.
+        if ($input->hasOption("ignore-db-update-messages") && $input->getOption("ignore-db-update-messages")) {
+            define("ILIAS_SETUP_IGNORE_DB_UPDATE_STEP_MESSAGES", true);
+        }
+        return parent::execute($input, $output);
     }
 
     protected function buildEnvironment(Agent $agent, ?Config $config, IOWrapper $io) : Environment
@@ -65,24 +76,5 @@ class UpdateCommand extends BaseCommand
             false,
             $agent->getUpdateObjective($config)
         );
-    }
-
-    protected function getRelevantAgent(InputInterface $input) : Agent
-    {
-        $agents = $this->agent_finder->getSystemAgents();
-
-        if (!$input->getOption("no-plugins") && is_null($input->getArgument('plugin_name'))) {
-            $skip = [];
-            if ($input->getOption("skip")) {
-                $skip = $input->getOption("skip");
-            }
-            $agents = array_merge($agents, $this->agent_finder->getPluginAgents($skip));
-        }
-
-        if ($input->hasArgument('plugin_name') && !is_null($input->getArgument('plugin_name'))) {
-            $agents = array_merge($agents, [$this->agent_finder->getPluginAgent($input->getArgument('plugin_name'))]);
-        }
-
-        return $this->agent_finder->buildAgentCollection($agents);
     }
 }

@@ -39,12 +39,12 @@ class ilIniFilesPopulatedObjective extends ilSetupObjective
     {
         $path = dirname(__DIR__, 4) . "/ilias.ini.php";
         $ini = new ilIniFile($path);
-        $ini->GROUPS = parse_ini_file( "setup/ilias.master.ini.php", true);
+        $ini->GROUPS = parse_ini_file(__DIR__ . "/../../../../setup/ilias.master.ini.php", true);
         $ini->write();
 
         $path = $this->getClientDir() . "/client.ini.php";
         $client_ini = new ilIniFile($path);
-        $client_ini->GROUPS = parse_ini_file("setup/client.master.ini.php", true);
+        $client_ini->GROUPS = parse_ini_file(__DIR__ . "/../../../../setup/client.master.ini.php", true);
         $client_ini->write();
 
         return $environment

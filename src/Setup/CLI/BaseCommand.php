@@ -40,7 +40,6 @@ abstract class BaseCommand extends Command
     protected $preconditions;
 
     /**
-     * @var callable $lazy_system_agent must return a Setup\Agent
      * @var Objective[] $preconditions will be achieved before command invocation
      */
     public function __construct(
@@ -61,8 +60,6 @@ abstract class BaseCommand extends Command
             ->addOption("config", null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, "Define fields in the configuration file that should be overwritten, e.g. \"a.b.c=foo\"", [])
             ->addOption("yes", "y", InputOption::VALUE_NONE, "Confirm every message of the setup.");
     }
-
-    abstract protected function getRelevantAgent(InputInterface $input) : Agent;
 
     public function execute(InputInterface $input, OutputInterface $output)
     {
@@ -127,6 +124,8 @@ abstract class BaseCommand extends Command
             "into the LICENSE file for details."
         );
     }
+
+    abstract protected function getRelevantAgent(InputInterface $input) : Agent;
 
     abstract protected function printIntroMessage(IOWrapper $io);
 

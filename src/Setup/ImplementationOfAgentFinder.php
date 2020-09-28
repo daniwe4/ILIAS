@@ -77,7 +77,7 @@ class ImplementationOfAgentFinder implements AgentFinder
         return $agents;
     }
 
-    public function getPluginAgents(array $skip_plugins) : array
+    public function getPluginAgents() : array
     {
         $agents = [];
 
@@ -87,14 +87,7 @@ class ImplementationOfAgentFinder implements AgentFinder
         }
 
         foreach ($plugins as $plugin_name) {
-            $skip_plugins = array_map(function ($a) {
-                return strtolower($a);
-            }, $skip_plugins);
-
-            if (count($skip_plugins) > 0 && in_array(strtolower($plugin_name), $skip_plugins)) {
-                continue;
-            }
-            $agents[] = $this->getPluginAgent($plugin_name);
+            $agents[strtolower($plugin_name)] = $this->getPluginAgent($plugin_name);
         }
 
         return $agents;

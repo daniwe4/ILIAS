@@ -36,7 +36,7 @@ class ilComponentsSetupAgent implements Setup\Agent
     public function getInstallObjective(Setup\Config $config = null) : Setup\Objective
     {
         return new Setup\ObjectiveCollection(
-            'Complete objetives from Services/Component',
+            'Complete objectives from Services/Component',
             false,
             new \ilComponentDefinitionsStoredObjective(),
             new \ilComponentPluginAdminInitObjective()

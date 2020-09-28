@@ -8,14 +8,11 @@ main commands to manage ILIAS installations:
 * `build-artifacts` [recreates static assets](#build-ilias-artifacts) of an installation
 * `reload-control-structure` [rebuilds structure information](#build-ilias-artifacts) of an installation
 
-`install` and `update` also supply switches and options to granular control what to install or update.
+`install` and `update` also supply switches and options for a granular control of the inclusion of plugins:
 
-* `install --skip` will [set an installation up including plugins except](#install-ilias-except-plugin)
-* `install --no-plugins` will [set an installation up without plugins](#install-ilias-without-plugins)
-* `install <plugin name>` will [install a specific plugin](#install-specific-plugin)
-* `update --skip` will [update an installation including plugins except](#update-ilias-except-plugin)
-* `update --no-plugins` will [update an installation without plugins](#update-ilias-without-plugins)
-* `update <plugin name>` will [update a specific plugin](#update-specific-plugin)
+* `--skip <plugin name>` will exclude the named plugin from the command
+* `--no-plugins` will exclude all plugins from the command
+* `install <plugin name>` (or `update <plugin name>` respectively) will update or install the specified plugin
 
 `install` and `update` both require a [configuration file](#about-the-config-file)
 to do their job. The app also supports a `help` command that lists arguments and
@@ -121,11 +118,6 @@ The control structure captures information about components and GUIs of ILIAS
 in the database. Sometimes it might be necessary to refresh that information.
 Please do not invoke this function unless it is explicitly stated in update
 or patch instructions or you know what you are doing.
-
-## Exclude a plugin permanently from Command Line Setup
-
-To permanently exclude a plugin from the command line setup add the following flag to
-the plugin.php file `$ignore_cli_setup = true;`. Default value for this flag is false.
 
 ## About the Config File
 

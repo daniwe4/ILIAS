@@ -41,7 +41,7 @@ class ilDatabaseSetupConfig implements Setup\Config
     protected $collation;
 
     /**
-     * @var	string|null
+     * @var	string
      */
     protected $user;
 
@@ -59,7 +59,7 @@ class ilDatabaseSetupConfig implements Setup\Config
         $type,
         string $host,
         string $database,
-        string $user = null,
+        string $user,
         Password $password = null,
         bool $create_database = true,
         string $collation = null,

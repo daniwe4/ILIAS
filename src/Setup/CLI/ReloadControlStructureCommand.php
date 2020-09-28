@@ -57,7 +57,7 @@ class ReloadControlStructureCommand extends BaseCommand
         // currently won't get there with the control structure but still need
         // a quick way to reload it, we do it anyway.
         return new ObjectiveCollection(
-            "Install and update ILIAS",
+            "Reload and store control structure",
             false,
             new \ilCtrlStructureStoredObjective(
                 new \ilCtrlStructureReader()

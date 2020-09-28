@@ -14,6 +14,7 @@ class ilCtrlStructureReader
 {
     public $executed;
     public $db = null;
+    protected $read_plugins = false;
 
     public function __construct($a_ini_file = null)
     {
@@ -73,16 +74,15 @@ class ilCtrlStructureReader
         // plugin path
         $this->plugin_path = $a_plugin_path;
 
-        $read_plugins = false;
         if ($this->plugin_path != "" && $this->comp_prefix != "") {
-            $read_plugins = true;
+            $this->read_plugins = true;
         }
 
         if ($a_dir == "") {
             $a_dir = $this->getILIASAbsolutePath();
         }
 
-        $ctrl_structure = $this->readDirTo($a_dir, new \ilCtrlStructure(), $read_plugins);
+        $ctrl_structure = $this->readDirTo($a_dir, new \ilCtrlStructure());
         $this->storeToDB($ctrl_structure, $a_dir);
         $this->setClassFileIdsInDB();
 
@@ -99,14 +99,14 @@ class ilCtrlStructureReader
         ilGlobalCache::flushAll();
     }
 
-    protected function readDirTo(string $a_cdir, \ilCtrlStructure $cs, bool $read_plugins = false) : \ilCtrlStructure
+    protected function readDirTo(string $a_cdir, \ilCtrlStructure $cs) : \ilCtrlStructure
     {
         // check wether $a_cdir is a directory
         if (!@is_dir($a_cdir)) {
             throw new \LogicException("'$a_cdir' is not a directory.");
         }
 
-        foreach ($this->getFilesIn($a_cdir, $read_plugins) as list($file, $full_path)) {
+        foreach ($this->getFilesIn($a_cdir) as list($file, $full_path)) {
             if (!$this->isInterestingFile($file)) {
                 continue;
             }
@@ -137,7 +137,7 @@ class ilCtrlStructureReader
     // DIRECTORY TRAVERSAL
     // ----------------------
 
-    protected function getFilesIn(string $dir, bool $read_plugins = false) : \Generator
+    protected function getFilesIn(string $dir) : \Generator
     {
         foreach (scandir($dir) as $e) {
             if ($e == "." || $e == "..") {
@@ -145,10 +145,10 @@ class ilCtrlStructureReader
             }
             $f = $this->normalizePath("$dir/$e");
             if (@is_dir($f)) {
-                if (!$this->shouldDescendToDirectory($dir, $read_plugins)) {
+                if (!$this->shouldDescendToDirectory($dir)) {
                     continue;
                 }
-                foreach ($this->getFilesIn($f, $read_plugins) as $s) {
+                foreach ($this->getFilesIn($f) as $s) {
                     yield $s;
                 }
             }
@@ -158,13 +158,13 @@ class ilCtrlStructureReader
         }
     }
 
-    protected function shouldDescendToDirectory(string $dir, bool $read_plugins = false) : bool
+    protected function shouldDescendToDirectory(string $dir) : bool
     {
         $il_absolute_path = $this->getILIASAbsolutePath();
         $data_dir = $this->normalizePath($il_absolute_path . "/data");
         $customizing_dir = $this->normalizePath($il_absolute_path . "/Customizing");
         $dir = $this->normalizePath($dir);
-        if ($read_plugins) {
+        if ($this->read_plugins) {
             return $dir != $data_dir;
         }
         return $dir != $customizing_dir && $dir != $data_dir;

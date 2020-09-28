@@ -8,22 +8,24 @@ namespace ILIAS\Setup;
 interface AgentFinder
 {
     /**
-     * Collect all files exclude plugin directories ending with SetupAgent.php
+     * Collect all agents exclude plugin agents
      *
-     * @return array
+     * @return Agent[]
      */
     public function getSystemAgents() : array;
 
     /**
-     * Collect all files in plugin directories ending with SetupAgent.php
+     * Collect all agents in plugin directories
      *
-     * @return array
+     * @return Agent[]
      */
-    public function getPluginAgents(array $skip) : array;
+    public function getPluginAgents() : array;
 
     /**
      * Get a specific plugin agent.
      *
+     * @param string $name Name of the plugin agent. If there is no plugin agent
+     *                     this would be the name for a default plugin agent.
      * @return Agent
      */
     public function getPluginAgent(string $name) : Agent;

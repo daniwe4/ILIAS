@@ -66,7 +66,7 @@ class ilComponentInstallPluginObjective implements Setup\Objective
 
         $plugin = $GLOBALS["DIC"]["ilPluginAdmin"]->getRawPluginDataFor($this->plugin_name);
 
-        if (!is_null($plugin) && $plugin['must_install'] && !$plugin['ignore_cli_setup']) {
+        if (!is_null($plugin) && $plugin['must_install'] && $plugin['support_cli_setup']) {
             $pl = ilPlugin::getPluginObject(
                 $plugin['component_type'],
                 $plugin['component_name'],
@@ -91,7 +91,7 @@ class ilComponentInstallPluginObjective implements Setup\Objective
 
         $plugin = $GLOBALS["DIC"]["ilPluginAdmin"]->getRawPluginDataFor($this->plugin_name);
 
-        if (is_null($plugin) || $plugin['ignore_cli_setup']) {
+        if (is_null($plugin) || !$plugin['support_cli_setup']) {
             return false;
         }
 

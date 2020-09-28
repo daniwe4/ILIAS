@@ -8,6 +8,7 @@ use ILIAS\UI\Component\Input\Field\Factory as FieldFactory;
 use ILIAS\UI\Component\Input\Field\Input as Input;
 use ILIAS\Refinery\Factory as Refinery;
 use ILIAS\Refinery\Transformation;
+use Symfony\Component\Mime\Exception\LogicException;
 
 /**
  * An agent that is just a collection of some other agents.
@@ -136,8 +137,8 @@ class AgentCollection implements Agent
 
     protected function getXObjective(string $which, Config $config = null) : Objective
     {
-        if (!is_null($config)) {
-            $this->checkConfig($config);
+        if ($this->hasConfig() && is_null($config)) {
+            throw new LogicException('Missing configuration infos.');
         }
 
         $gs = [];
