@@ -165,9 +165,26 @@ class ilObjStudyProgrammeAutoMembershipsGUI
         $selected_src_type = $_GET[self::F_SOURCE_TYPE];
         $selected_src = $_GET[self::F_SOURCE_ID];
 
+        $entries = $this->getEntries($selected_src_type, $selected_src);
+
+        if (count($entries) == 0) {
+            $modal = $this->ui_factory->modal()->roundtrip(
+                $this->txt('modal_member_auto_select_title'),
+                $this->ui_factory->legacy(
+                    sprintf(
+                        $this->txt("prg_no_entries_found"),
+                        $selected_src,
+                        $this->txt($selected_src_type)
+                    )
+                )
+            );
+            echo $this->ui_renderer->renderAsync($modal);
+            exit;
+        }
+
         $form = $this->getSelectionForm(
+            $entries,
             $selected_src_type,
-            $selected_src,
             $current_src_type,
             $current_src_id
         );
@@ -587,20 +604,24 @@ class ilObjStudyProgrammeAutoMembershipsGUI
         return $form;
     }
 
-    protected function getSelectionForm(
+    protected function getEntries(
         string $selected_source_type,
-        string $selected_source,
+        string $selected_source
+    ) : array {
+        $query_parser = $this->parseQueryString($selected_source);
+        $object_search = new ilLikeObjectSearch($query_parser);
+        $object_search->setFilter(array($selected_source_type));
+        return $object_search->performSearch()->getEntries();
+    }
+
+    protected function getSelectionForm(
+        array $entries,
+        string $selected_source_type,
         string $source_type = null,
         int $source_id = null
     ) : ilPropertyFormGUI {
         $form = new ilPropertyFormGUI();
         $form->setFormAction($this->ctrl->getFormAction($this, "save"));
-
-        $query_parser = $this->parseQueryString($selected_source);
-        include_once 'Services/Search/classes/Like/class.ilLikeObjectSearch.php';
-        $object_search = new ilLikeObjectSearch($query_parser);
-        $object_search->setFilter(array($selected_source_type));
-        $entries = $object_search->performSearch()->getEntries();
 
         $rgoup = new ilRadioGroupInputGUI(
             $this->txt("prg_auto_member_select_" . $selected_source_type),
