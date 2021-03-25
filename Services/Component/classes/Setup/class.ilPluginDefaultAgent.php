@@ -4,10 +4,9 @@
 declare(strict_types=1);
 
 use ILIAS\Setup;
-use \ILIAS\Refinery\Transformation;
-use ILIAS\UI\Component\Input\Field\Input;
+use ILIAS\Refinery\Transformation;
 
-abstract class ilPluginDefaultAgent implements Setup\Agent
+final class ilPluginDefaultAgent implements Setup\Agent
 {
     /**
      * @var string

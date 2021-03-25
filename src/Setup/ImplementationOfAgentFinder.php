@@ -8,8 +8,6 @@ namespace ILIAS\Setup;
 
 use ILIAS\Refinery\Factory as Refinery;
 use ILIAS\Data;
-use ILIAS\UI\Component\Input\Field\Factory as FieldFactory;
-use ilSetupLanguage;
 
 class ImplementationOfAgentFinder implements AgentFinder
 {
@@ -39,12 +37,12 @@ class ImplementationOfAgentFinder implements AgentFinder
     protected $interface_finder;
 
     /**
-     * @var array<string, Setup\Agent> $predefined_agents
+     * @var array<string, Agent> $predefined_agents
      */
     protected $predefined_agents;
     
     /**
-     * @var array<string, Setup\Agent> $predefined_agents
+     * @var array<string, Agent> $predefined_agents
      */
     public function __construct(
         Refinery $refinery,
@@ -99,7 +97,7 @@ class ImplementationOfAgentFinder implements AgentFinder
         // This is a list of all agent classes in the system (which we don't want to ignore).
         $agent_classes = $this->interface_finder->getMatchingClassNames(
             Agent::class,
-            ["[/]Customizing/.*"]
+            ["[/]Customizing/.*", ".*ilPluginDefaultAgent.*"]
         );
         foreach ($agent_classes as $class_name) {
             $agents = $agents->withAdditionalAgent(
@@ -142,8 +140,7 @@ class ImplementationOfAgentFinder implements AgentFinder
         ));
 
         if (count($agent_classes) === 0) {
-            return new class($name) extends \ilPluginDefaultAgent {
-            };
+            return new \ilPluginDefaultAgent($name);
         }
 
         $agents = [];
