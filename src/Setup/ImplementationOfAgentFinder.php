@@ -8,8 +8,6 @@ namespace ILIAS\Setup;
 
 use ILIAS\Refinery\Factory as Refinery;
 use ILIAS\Data;
-use ILIAS\UI\Component\Input\Field\Factory as FieldFactory;
-use ilSetupLanguage;
 
 class ImplementationOfAgentFinder implements AgentFinder
 {
@@ -162,6 +160,28 @@ class ImplementationOfAgentFinder implements AgentFinder
         return new AgentCollection(
             $this->refinery,
             $agents
+        );
+    }
+
+    public function getAgentForMethodCall(string $class_name) : AgentCollection
+    {
+        if (!class_exists($class_name)) {
+            throw new \InvalidArgumentException("Class '" . $class_name . "' not found.");
+        }
+
+        // Initialize the agents.
+        $agents = new AgentCollection(
+            $this->refinery,
+            []
+        );
+
+        return $agents->withAdditionalAgent(
+            $this->getAgentNameByClassName($class_name),
+            new $class_name(
+                $this->refinery,
+                $this->data_factory,
+                $this->lng
+            )
         );
     }
 

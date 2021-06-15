@@ -26,4 +26,15 @@ interface AgentFinder
      * @param string $name of the plugin to get the agent from
      */
     public function getPluginAgent(string $name) : Agent;
+
+    /**
+     * Get an agent by class name.
+     *
+     * Throws an exception if the class doesn't exists.
+     *
+     * @param string $class_name
+     * @return AgentCollection
+     * @throws \InvalidArgumentException
+     */
+    public function getAgentForMethodCall(string $class_name) : AgentCollection;
 }

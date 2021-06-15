@@ -6,7 +6,6 @@ namespace ILIAS\Setup\CLI;
 use ILIAS\Setup\Agent;
 use ILIAS\Setup\AgentFinder;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 /**
@@ -32,6 +31,18 @@ trait HasAgent
             throw new \LogicException(
                 "\$this->agent_finder needs to intialized with an AgentFinder."
             );
+        }
+
+        if ($input->hasArgument('agent_method')) {
+            $agent_method = $input->getArgument('agent_method');
+
+            if (!preg_match("/\w*::\w*/", $agent_method)) {
+                throw new \InvalidArgumentException("Wrong input format for '" . $agent_method ."'.");
+            }
+
+            $class_name = strstr($agent_method, "::", true);
+
+            return $this->agent_finder->getAgentForMethodCall($class_name);
         }
 
         if ($input->getOption("no-plugins")) {

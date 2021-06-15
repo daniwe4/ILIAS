@@ -7,6 +7,7 @@ namespace ILIAS\Setup;
 use ILIAS\Refinery\Factory as Refinery;
 use ILIAS\Refinery\Transformation;
 use Symfony\Component\Mime\Exception\LogicException;
+use Symfony\Component\Console\Input\InputInterface;
 
 /**
  * An agent that is just a collection of some other agents.
@@ -113,6 +114,21 @@ class AgentCollection implements Agent
                 array_values($this->agents)
             ))
         );
+    }
+
+    public function getAchieveObjectives(Config $config = null, string $method) : ?Objective
+    {
+        foreach ($this->agents as $k => $agent) {
+            if (method_exists($agent, $method)) {
+                if ($agent->hasConfig()) {
+                    return $agent->$method($config->getConfig($k));
+                } else {
+                    return $agent->$method();
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
