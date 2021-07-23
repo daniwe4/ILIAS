@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/* Copyright (c) 2021 - Daniel Weise <daniel.weise@concepts-and-training.de> - Extended GPL, see LICENSE */
 
 /**
  * GUI class for learning sequence membership features.
- *
- * @author Daniel Weise <daniel.weise@concepts-and-training.de>
  *
  * @ilCtrl_Calls ilLearningSequenceMembershipGUI: ilMailMemberSearchGUI, ilUsersGalleryGUI, ilRepositorySearchGUI
  * @ilCtrl_Calls ilLearningSequenceMembershipGUI: ilCourseParticipantsGroupsGUI, ilObjectCustomuserFieldsGUI
@@ -15,32 +13,35 @@ declare(strict_types=1);
  */
 class ilLearningSequenceMembershipGUI extends ilMembershipGUI
 {
+    protected ilObjectGUI $repository_gui;
+    protected ilObject $obj;
+    protected ilObjUserTracking $obj_user_tracking;
+    protected ilPrivacySettings $privacy_settings;
+    protected ilRbacReview $rbac_review;
+    protected ilSetting $settings;
+    protected ilToolbarGUI $toolbar;
+    protected array $member_data;
+
     public function __construct(
         ilObjectGUI $repository_gui,
-        ilObject $repository_obj,
+        ilObject $obj,
         ilObjUserTracking $obj_user_tracking,
         ilPrivacySettings $privacy_settings,
-        ilLanguage $lng,
-        ilCtrl $ctrl,
-        ilAccess $access,
         ilRbacReview $rbac_review,
         ilSetting $settings,
         ilToolbarGUI $toolbar
     ) {
-        parent::__construct($repository_gui, $repository_obj);
+        parent::__construct($repository_gui, $obj);
 
+        $this->obj = $obj;
         $this->obj_user_tracking = $obj_user_tracking;
         $this->privacy_settings = $privacy_settings;
-        $this->lng = $lng;
-        $this->ctrl = $ctrl;
-        $this->access = $access;
         $this->rbac_review = $rbac_review;
         $this->settings = $settings;
-        $this->obj = $repository_obj;
         $this->toolbar = $toolbar;
     }
 
-    protected function printMembers()
+    protected function printMembers() : void
     {
         $this->checkPermission('read');
         if ($this->checkRbacOrPositionAccessBool('manage_members', 'manage_members')) {
@@ -62,15 +63,14 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
         $this->tpl->setContent($form->getHTML());
     }
 
-    public function getDefaultCommand()
+    protected function getDefaultCommand() : ?string
     {
-        $back_cmd = $_GET['back_cmd'];
-        return $back_cmd;
+        return $_GET['back_cmd'];
     }
 
     /**
      * Filter user ids by access
-     * @param int[] $a_user_ids
+     * @param int[] $user_ids
      * @return int[]
      */
     public function filterUserIdsByRbacOrPositionOfCurrentUser($user_ids)
@@ -83,7 +83,7 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
         );
     }
 
-    public function assignMembers(array $user_ids, string $type)
+    public function assignMembers(array $user_ids, string $type) : bool
     {
         $object = $this->getParentObject();
         $members = $this->getParentObject()->getLSParticipants();
@@ -96,6 +96,8 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
 
         $assigned = false;
         foreach ($user_ids as $new_member) {
+            $new_member = (int) $new_member;
+
             if ($members->isAssigned($new_member)) {
                 continue;
             }
@@ -122,7 +124,9 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
                         $members->add($new_member, IL_LSO_MEMBER);
                         $members->updateRoleAssignments($new_member, array($type));
                     } else {
-                        ilLoggerFactory::getLogger('lso')->notice('Can not find role with id .' . $type . ' to assign users.');
+                        ilLoggerFactory::getLogger('lso')->notice(
+                            'Can not find role with id .' . $type . ' to assign users.'
+                        );
                         ilUtil::sendFailure($this->lng->txt("lso_cannot_find_role"), true);
                         return false;
                     }
@@ -143,12 +147,13 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
         }
 
         $this->ctrl->redirect($this, 'participants');
+        return $assigned;
     }
 
     /**
      * save in participants table
      */
-    protected function updateParticipantsStatus()
+    protected function updateParticipantsStatus() : void
     {
         $members = $this->getParentObject()->getLSParticipants();
 
@@ -187,9 +192,7 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
             $this,
             $this->getParentObject(),
             $this->getParentObject()->getLSParticipants(),
-            $this->privacy_settings,
-            $this->lng,
-            $this->ctrl
+            $this->privacy_settings
         );
 
         $table->setTitle($this->lng->txt($this->getParentObject()->getType() . '_header_edit_members'));
@@ -201,17 +204,17 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
     /**
      * Init participant view template
      */
-    protected function initParticipantTemplate()
+    protected function initParticipantTemplate() : void
     {
         $this->tpl->addBlockFile('ADM_CONTENT', 'adm_content', 'tpl.lso_edit_members.html', 'Modules/LearningSequence');
     }
 
-    public function getLocalTypeRole($a_translation = false)
+    public function getLocalTypeRole($a_translation = false) : array
     {
         return $this->getParentObject()->getLocalLearningSequenceRoles($a_translation);
     }
 
-    public function readMemberData(array $user_ids, array $columns = null)
+    public function readMemberData(array $user_ids, array $columns = null) : array
     {
         return $this->getParentObject()->readMemberData($user_ids, $columns);
     }
@@ -252,23 +255,12 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
         return $data;
     }
 
-    public function getMembersObject()
-    {
-        if ($this->participants instanceof ilParticipants) {
-            return $this->participants;
-        }
-        return $this->participants = ilParticipants::getInstance($this->getParentObject()->getRefId());
-    }
-
-    /**
-     * @return \ilMailMemberLearningSequenceRoles
-     */
-    protected function getMailMemberRoles()
+    protected function getMailMemberRoles() : ilMailMemberLearningSequenceRoles
     {
         return new ilMailMemberLearningSequenceRoles();
     }
 
-    protected function setSubTabs(ilTabsGUI $tabs)
+    protected function setSubTabs(ilTabsGUI $tabs) : void
     {
         $access = $this->checkRbacOrPositionAccessBool(
             'manage_members',
@@ -300,20 +292,19 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
         }
     }
 
-    protected function showParticipantsToolbar()
+    protected function showParticipantsToolbar() : void
     {
         $toolbar_entries = [
             'auto_complete_name' => $this->lng->txt('user'),
             'user_type' => $this->getParentGUI()->getLocalRoles(),
             'user_type_default' => $this->getDefaultRole(),
             'submit_name' => $this->lng->txt('add'),
-            'add_search' => true,
+            'add_search' => true
         ];
-
 
         $search_params = ['crs', 'grp'];
         $parent_container = $this->obj->getParentObjectInfo(
-            (int) $this->obj->getRefId(),
+            $this->obj->getRefId(),
             $search_params
         );
         if (!is_null($parent_container)) {
@@ -334,6 +325,6 @@ class ilLearningSequenceMembershipGUI extends ilMembershipGUI
             $this->ctrl->getLinkTarget($this, 'printMembers')
         );
 
-        $this->showMailToMemberToolbarButton($this->toolbar, 'participants', false);
+        $this->showMailToMemberToolbarButton($this->toolbar, 'participants');
     }
 }

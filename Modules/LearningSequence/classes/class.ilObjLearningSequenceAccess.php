@@ -1,16 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/* Copyright (c) 2021 - Daniel Weise <daniel.weise@concepts-and-training.de> - Extended GPL, see LICENSE */
+/* Copyright (c) 2021 - Nils Haagen <nils.haagen@concepts-and-training.de> - Extended GPL, see LICENSE */
 
-include_once("./Services/Object/classes/class.ilObjectAccess.php");
-
-/**
- * Class ilObjLearningSequenceAccess class
- *
- */
 class ilObjLearningSequenceAccess extends ilObjectAccess
 {
-    public static $using_code = false;
+    public static bool $using_code = false;
 
     public static function _getCommands() : array
     {
@@ -45,7 +40,7 @@ class ilObjLearningSequenceAccess extends ilObjectAccess
         return $commands;
     }
 
-    public function usingRegistrationCode()
+    public function usingRegistrationCode() : bool
     {
         return self::$using_code;
     }

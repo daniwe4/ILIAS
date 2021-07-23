@@ -1,21 +1,18 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/* Copyright (c) 2021 - Daniel Weise <daniel.weise@concepts-and-training.de> - Extended GPL, see LICENSE */
 
-/**
- * @author Daniel Weise <daniel.weise@concepts-and-training.de>
- */
 class ilLearningSequenceXMLParser extends ilSaxParser
 {
-    /**
-     * @var bool
-     */
-    protected $storing;
-
-    /**
-     * @var int
-     */
-    protected $counter;
+    protected ilObjLearningSequence $obj;
+    protected bool $storing;
+    protected array $object;
+    protected array $ls_item_data;
+    protected array $settings;
+    protected array $lp_settings;
+    protected int $counter;
+    protected string $actual_name;
+    protected string $cdata;
 
     public function __construct(ilObjLearningSequence $obj, string $xml)
     {

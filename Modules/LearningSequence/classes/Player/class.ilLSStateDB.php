@@ -1,11 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/* Copyright (c) 2021 - Nils Haagen <nils.haagen@concepts-and-training.de> - Extended GPL, see LICENSE */
 
 /**
  * Persistence for View-States
- *
- * @author Nils Haagen <nils.haagen@concepts-and-training.de>
  */
 class ilLSStateDB
 {
@@ -16,10 +14,7 @@ class ilLSStateDB
     const FIRST_ACCESS = "first_access";
     const LAST_ACCESS = "last_access";
 
-    /**
-     * @var ilDBInterface
-     */
-    protected $db;
+    protected ilDBInterface $db;
 
     public function __construct(ilDBInterface $db)
     {
@@ -65,7 +60,7 @@ class ilLSStateDB
         $data = $this->select($lso_ref_id, $usr_ids);
         $ret = [];
         foreach ($usr_ids as $usr_id) {
-            $ret[$usr_id] = -1;
+            $ret[$usr_id] = '-1';
             if (array_key_exists($usr_id, $data)) {
                 $ret[$usr_id] = $data[$usr_id][self::FIRST_ACCESS];
             }
@@ -98,7 +93,7 @@ class ilLSStateDB
         int $ref_id,
         ILIAS\KioskMode\State $state,
         int $current_item = null
-    ) {
+    ) : void {
         $insert_first = $this->entryExistsFor($lso_ref_id, $usr_id) === false;
         $states = $this->getStatesFor($lso_ref_id, [$usr_id]);
         $states = $states[$usr_id];
@@ -127,7 +122,7 @@ class ilLSStateDB
         return count($this->select($lso_ref_id, [$usr_id])) > 0;
     }
 
-    protected function insert(int $lso_ref_id, int $usr_id)
+    protected function insert(int $lso_ref_id, int $usr_id) : void
     {
         $first_access = date("d.m.Y H:i:s");
         $values = array(
@@ -145,7 +140,7 @@ class ilLSStateDB
         int $usr_id,
         int $current_item,
         string $serialized
-    ) {
+    ) : void {
         $last_access = date("d.m.Y H:i:s");
         $where = array(
             "lso_ref_id" => array("integer", $lso_ref_id),
@@ -164,7 +159,7 @@ class ilLSStateDB
      * @param int $lso_ref_id
      * @param int[] $usr_ids
      */
-    public function deleteFor(int $lso_ref_id, array $usr_ids = [])
+    public function deleteFor(int $lso_ref_id, array $usr_ids = []) : void
     {
         $query =
              "DELETE FROM " . static::TABLE_NAME . PHP_EOL
@@ -178,7 +173,7 @@ class ilLSStateDB
         $this->db->manipulate($query);
     }
 
-    public function deleteForItem(int $lso_ref_id, int $item_ref_id)
+    public function deleteForItem(int $lso_ref_id, int $item_ref_id) : void
     {
         $all_states = $this->select($lso_ref_id);
         if (count($all_states) === 0) {
@@ -231,6 +226,7 @@ class ilLSStateDB
 
     /**
      * @param array <int,ILIAS\KioskMode\State> ref_id=>State
+     * @return false|string
      */
     protected function serializeStates(array $states)
     {
@@ -242,7 +238,7 @@ class ilLSStateDB
         return json_encode($data);
     }
 
-    protected function select(int $lso_ref_id, array $usr_ids = [])
+    protected function select(int $lso_ref_id, array $usr_ids = []) : array
     {
         $query =
              "SELECT usr_id, current_item, states, first_access, last_access" . PHP_EOL

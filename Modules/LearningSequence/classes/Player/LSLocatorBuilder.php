@@ -1,29 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/* Copyright (c) 2021 - Nils Haagen <nils.haagen@concepts-and-training.de> - Extended GPL, see LICENSE */
 
 use ILIAS\KioskMode\LocatorBuilder;
 use ILIAS\KioskMode\ControlBuilder;
 
-/**
- * Class LSTOCBuilder
- */
 class LSLocatorBuilder implements LocatorBuilder
 {
-    /**
-     * @var string
-     */
-    protected $command;
+    protected array $items;
 
-    /**
-     * @var array
-     */
-    protected $items;
-
-    /**
-     * @var ControlBuilder
-     */
-    protected $control_builder;
+    protected string $command;
+    protected ControlBuilder $control_builder;
 
     public function __construct(string $command, ControlBuilder $control_builder)
     {
@@ -47,7 +34,7 @@ class LSLocatorBuilder implements LocatorBuilder
     /**
      * @inheritdoc
      */
-    public function item(string $label, int $parameter, $state = null) : LocatorBuilder
+    public function item(string $label, int $parameter) : LocatorBuilder
     {
         $this->items[] = [
             'label' => $label,

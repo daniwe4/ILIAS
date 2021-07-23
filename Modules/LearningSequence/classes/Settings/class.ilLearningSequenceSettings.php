@@ -1,55 +1,20 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
+/* Copyright (c) 2021 - Nils Haagen <nils.haagen@concepts-and-training.de> - Extended GPL, see LICENSE */
 
 /**
  * Settings for an LSO (like abstract, extro)
- *
- * @author Nils Haagen <nils.haagen@concepts-and-training.de>
  */
 class ilLearningSequenceSettings
 {
-
-    /**
-     * @var int
-     */
-    protected $obj_id;
-
-    /**
-     * @var string
-     */
-    protected $abstract;
-
-    /**
-     * @var string
-     */
-    protected $extro;
-
-    /**
-     * @var string|null
-     */
-    protected $abstract_image;
-
-    /**
-     * @var string|null
-     */
-    protected $extro_image;
-
-    /**
-     * @var array
-     */
-    protected $uploads = [];
-
-    /**
-     * @var array
-     */
-    protected $deletions = [];
-
-    /**
-     * @var bool
-     */
-    protected $members_gallery;
-
+    protected int $obj_id;
+    protected string $abstract;
+    protected string $extro;
+    protected ?string $abstract_image;
+    protected ?string $extro_image;
+    protected array $uploads = [];
+    protected array $deletions = [];
+    protected bool $members_gallery;
 
     public function __construct(
         int $obj_id,
@@ -96,9 +61,9 @@ class ilLearningSequenceSettings
         return $clone;
     }
 
-    public function getAbstractImage()
+    public function getAbstractImage() : string
     {
-        return $this->abstract_image;
+        return $this->abstract_image ?? '';
     }
 
     public function withAbstractImage(string $path = null) : ilLearningSequenceSettings
@@ -108,9 +73,9 @@ class ilLearningSequenceSettings
         return $clone;
     }
 
-    public function getExtroImage()
+    public function getExtroImage() : string
     {
-        return $this->extro_image;
+        return $this->extro_image ?? '';
     }
 
     public function withExtroImage(string $path = null) : ilLearningSequenceSettings
