@@ -18,6 +18,7 @@ use ILIAS\Data;
  * @ilCtrl_Calls ilObjLearningSequenceGUI: ilExportGUI
  * @ilCtrl_Calls ilObjLearningSequenceGUI: ilContainerLinkListGUI
  * @ilCtrl_Calls ilObjLearningSequenceGUI: ilObjLearningSequenceSettingsGUI
+ * @ilCtrl_Calls ilObjLearningSequenceGUI: ilObjLearningSequenceSettingsPresentationGUI
  * @ilCtrl_Calls ilObjLearningSequenceGUI: ilObjLearningSequenceContentGUI
  * @ilCtrl_Calls ilObjLearningSequenceGUI: ilObjLearningSequenceLearnerGUI
  * @ilCtrl_Calls ilObjLearningSequenceGUI: ilLearningSequenceMembershipGUI
@@ -69,12 +70,15 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
     const CMD_PERFORM_PASTE = 'performPasteIntoMultipleObjects';
     const CMD_SHOW_TRASH = 'trash';
     const CMD_UNDELETE = 'undelete';
+    const CMD_SETTINGS_PRESENTATION = "settingsPresentation";
+
+    const TAB_SETTINGS = "settings";
+    const TAB_SETTINGS_PRESENTATION = "settings_presentation";
 
     const TAB_VIEW_CONTENT = "view_content";
     const TAB_MANAGE = "manage";
     const TAB_CONTENT_MAIN = "manage_content_maintab";
     const TAB_INFO = "show_summary";
-    const TAB_SETTINGS = "settings";
     const TAB_PERMISSIONS = "perm_settings";
     const TAB_MEMBERS = "members";
     const TAB_LP = "learning_progress";
@@ -92,6 +96,8 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
     protected ILIAS\UI\Factory $ui_factory;
     protected ILIAS\UI\Renderer $ui_renderer;
     protected Data\Factory $data_factory;
+    protected ILIAS\Refinery\Factory $refinery;
+    protected ILIAS\HTTP\Services $http;
 
     public static function _goto(string $target)
     {
@@ -124,6 +130,8 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
         $this->rbac_review = $DIC['rbacreview'];
         $this->ui_factory = $DIC['ui.factory'];
         $this->ui_renderer = $DIC['ui.renderer'];
+        $this->refinery = $DIC['refinery'];
+        $this->http = $DIC['http'];
 
         $this->log = $DIC["ilLoggerFactory"]->getRootLogger();
         $this->app_event_handler = $DIC['ilAppEventHandler'];
@@ -183,6 +191,9 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
             case "ilobjlearningsequencesettingsgui":
                 $this->settings($cmd);
                 break;
+            case "ilobjlearningsequencesettingspresentationgui":
+                $this->settingsPresentation($cmd);
+                break;
             case "ilobjlearningsequencecontentgui":
                 $this->manageContent($cmd);
                 break;
@@ -237,6 +248,7 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
                     case self::CMD_CREATE:
                     case self::CMD_LP:
                     case self::CMD_UNPARTICIPATE:
+                    case self::CMD_SETTINGS_PRESENTATION:
                         $this->$cmd();
                         break;
                     case self::CMD_CANCEL:
@@ -331,15 +343,54 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
     protected function settings(string $cmd = self::CMD_SETTINGS) : void
     {
         $this->tabs->activateTab(self::TAB_SETTINGS);
+        $this->addSubTabsForSettings();
+        $this->tabs->activateSubTab(self::TAB_SETTINGS);
         $gui = new ilObjLearningSequenceSettingsGUI(
             $this->getObject(),
             $this->ctrl,
             $this->lng,
             $this->tpl,
+            $this->tabs,
+            $this->obj_service,
+            $this->ui_factory,
+            $this->ui_renderer,
+            $this->refinery,
+            $this->data_factory,
+            $this->http
+        );
+        $this->ctrl->setCmd($cmd);
+        $this->ctrl->forwardCommand($gui);
+    }
+
+    protected function settingsPresentation(string $cmd = self::CMD_SETTINGS_PRESENTATION) : void
+    {
+        $this->tabs->activateTab(self::TAB_SETTINGS);
+        $this->addSubTabsForSettings();
+        $this->tabs->activateSubTab(self::TAB_SETTINGS_PRESENTATION);
+        $gui = new ilObjLearningSequenceSettingsPresentationGUI(
+            $this->ctrl,
+            $this->tpl,
+            $this->lng,
+            $this->getObject(),
             $this->obj_service
         );
         $this->ctrl->setCmd($cmd);
         $this->ctrl->forwardCommand($gui);
+    }
+
+    protected function addSubTabsForSettings() : void
+    {
+        $this->tabs->addSubTab(
+            self::TAB_SETTINGS,
+            $this->lng->txt(self::TAB_SETTINGS),
+            $this->getLinkTarget(self::CMD_SETTINGS)
+        );
+
+        $this->tabs->addSubTab(
+            self::TAB_SETTINGS_PRESENTATION,
+            $this->lng->txt(self::TAB_SETTINGS_PRESENTATION),
+            $this->getLinkTarget(self::CMD_SETTINGS_PRESENTATION)
+        );
     }
 
     protected function view() : void
@@ -629,6 +680,8 @@ class ilObjLearningSequenceGUI extends ilContainerGUI
                 return 'ilObjLearningSequenceLearnerGUI';
             case self::CMD_SETTINGS:
                 return 'ilObjLearningSequenceSettingsGUI';
+            case self::CMD_SETTINGS_PRESENTATION:
+                return 'ilObjLearningSequenceSettingsPresentationGUI';
             case self::CMD_INFO:
                 return 'ilInfoScreenGUI';
             case self::CMD_PERMISSIONS:
