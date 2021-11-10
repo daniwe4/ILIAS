@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-use \ILIAS\Setup;
-use \ILIAS\UI;
-use \ILIAS\Refinery\Transformation;
+use ILIAS\Setup;
+use ILIAS\Refinery\Transformation;
+use ILIAS\Setup\ObjectiveCollection;
 
-class ilComponentsSetupAgent implements Setup\Agent
+class ilComponentSetupAgent implements Setup\Agent
 {
     use Setup\Agent\HasNoNamedObjective;
 
@@ -21,7 +21,7 @@ class ilComponentsSetupAgent implements Setup\Agent
      */
     public function getArrayToConfigTransformation() : Transformation
     {
-        throw new \LogicException(self::class . " has no Config.");
+        throw new LogicException(self::class . " has no Config.");
     }
 
     /**
@@ -29,7 +29,7 @@ class ilComponentsSetupAgent implements Setup\Agent
      */
     public function getInstallObjective(Setup\Config $config = null) : Setup\Objective
     {
-        return new \ilComponentDefinitionsStoredObjective();
+        return new ilComponentDefinitionsStoredObjective();
     }
 
     /**
@@ -37,7 +37,7 @@ class ilComponentsSetupAgent implements Setup\Agent
      */
     public function getUpdateObjective(Setup\Config $config = null) : Setup\Objective
     {
-        return new \ilComponentDefinitionsStoredObjective(false);
+        return new ilComponentDefinitionsStoredObjective(false);
     }
 
     /**
@@ -62,5 +62,19 @@ class ilComponentsSetupAgent implements Setup\Agent
     public function getMigrations() : array
     {
         return [];
+    }
+
+    public function getNamedObjective(string $name, Setup\Config $config = null) : Setup\Objective
+    {
+        if ($name == "installAllPlugins") {
+            return new ObjectiveCollection(
+                "Ensure all plugins listed in db are installed.",
+                false,
+                new ilComponentAllPluginsAreInstalledObjective()
+            );
+        }
+        throw new InvalidArgumentException(
+            "There is no named objective '$name'"
+        );
     }
 }

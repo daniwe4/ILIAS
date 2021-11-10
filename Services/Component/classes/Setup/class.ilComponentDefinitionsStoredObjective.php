@@ -45,7 +45,7 @@ class ilComponentDefinitionsStoredObjective implements Setup\Objective
     public function getPreconditions(Setup\Environment $environment) : array
     {
         return [
-            new \ilDatabaseUpdatedObjective()
+            new ilDatabaseUpdatedObjective()
         ];
     }
 
@@ -67,6 +67,7 @@ class ilComponentDefinitionsStoredObjective implements Setup\Objective
         $DIC = $GLOBALS["DIC"];
         $GLOBALS["DIC"] = new DI\Container();
         $GLOBALS["DIC"]["ilDB"] = $db;
+        $GLOBALS['ilDB'] = $db;
         $GLOBALS["DIC"]["ilIliasIniFile"] = $ini;
         $GLOBALS["DIC"]["ilClientIniFile"] = $client_ini;
         $GLOBALS["DIC"]["ilBench"] = null;
@@ -109,9 +110,9 @@ class ilComponentDefinitionsStoredObjective implements Setup\Objective
             define("ILIAS_ABSOLUTE_PATH", dirname(__FILE__, 5));
         }
  
-        $mr = new \ilModuleReader("", "", "", $db);
+        $mr = new ilModuleReader("", "", "", $db);
         $mr->clearTables();
-        $modules = \ilModule::getAvailableCoreModules();
+        $modules = ilModule::getAvailableCoreModules();
 
         foreach ($modules as $module) {
             $mr = new ilModuleReader(
@@ -124,9 +125,9 @@ class ilComponentDefinitionsStoredObjective implements Setup\Objective
             unset($mr);
         }
 
-        $sr = new \ilServiceReader("", "", "", $db);
+        $sr = new ilServiceReader("", "", "", $db);
         $sr->clearTables();
-        $services = \ilService::getAvailableCoreServices();
+        $services = ilService::getAvailableCoreServices();
         foreach ($services as $service) {
             $sr = new ilServiceReader(
                 $ilias_path . "/Services/" . $service["subdir"] . "/service.xml",

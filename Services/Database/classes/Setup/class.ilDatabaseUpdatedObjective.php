@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /* Copyright (c) 2019 Richard Klees <richard.klees@concepts-and-training.de> Extended GPL, see docs/LICENSE */
 
@@ -27,7 +27,7 @@ class ilDatabaseUpdatedObjective implements Setup\Objective
         return [
             new Setup\Objective\ClientIdReadObjective(),
             new ilIniFilesPopulatedObjective(),
-            new \ilDatabaseInitializedObjective()
+            new ilDatabaseInitializedObjective()
         ];
     }
 
@@ -47,6 +47,8 @@ class ilDatabaseUpdatedObjective implements Setup\Objective
         $GLOBALS["DIC"] = new DI\Container();
         $GLOBALS["DIC"]["ilDB"] = $db;
         $GLOBALS["ilDB"] = $db;
+        $GLOBALS["DIC"]["ilIliasIniFile"] = $ini;
+        $GLOBALS["DIC"]["ilClientIniFile"] = $client_ini;
         $GLOBALS["DIC"]["ilBench"] = null;
         $GLOBALS["DIC"]["ilLog"] = new class($io) {
             public function __construct($io)
@@ -71,14 +73,17 @@ class ilDatabaseUpdatedObjective implements Setup\Objective
             }
         };
         $GLOBALS["ilLog"] = $GLOBALS["DIC"]["ilLog"];
-        $GLOBALS["DIC"]["ilLoggerFactory"] = new class() {
-            public function getRootLogger()
+        $GLOBALS["DIC"]["ilLoggerFactory"] = new class() extends ilLoggerFactory {
+            public function __construct()
             {
-                return new class() {
-                    public function write()
-                    {
-                    }
-                };
+            }
+            public static function getRootLogger()
+            {
+                return $GLOBALS["DIC"]["ilLog"];
+            }
+            public static function getLogger($a)
+            {
+                return $GLOBALS["DIC"]["ilLog"];
             }
         };
         $GLOBALS["ilCtrlStructureReader"] = new class() {
@@ -110,6 +115,7 @@ class ilDatabaseUpdatedObjective implements Setup\Objective
         if (!defined("SYSTEM_FOLDER_ID")) {
             define("SYSTEM_FOLDER_ID", $client_ini->readVariable("system", "SYSTEM_FOLDER_ID"));
         }
+        $GLOBALS["DIC"]["lng"] = new ilLanguage('en');
 
         $db_update = new class($db, $client_ini) extends ilDBUpdate {
             public function loadXMLInfo()
@@ -120,6 +126,8 @@ class ilDatabaseUpdatedObjective implements Setup\Objective
         $db_update->applyUpdate();
         $db_update->applyHotfix();
         $db_update->applyCustomUpdates();
+
+        $GLOBALS["DIC"] = $DIC;
 
         return $environment;
     }

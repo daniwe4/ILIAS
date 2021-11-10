@@ -42,6 +42,23 @@ class ilGlobalCacheConfigStoredObjective implements Setup\Objective
     public function achieve(Setup\Environment $environment) : Setup\Environment
     {
         $client_ini = $environment->getResource(Setup\Environment::RESOURCE_CLIENT_INI);
+        $db = $environment->getResource(Setup\Environment::RESOURCE_DATABASE);
+
+        // ATTENTION: This is a total abomination. It only exists to allow various
+        // sub components of the various readers to run. This is a memento to the
+        // fact, that dependency injection is something we want. Currently, every
+        // component could just service locate the whole world via the global $DIC.
+        $DIC = $GLOBALS["DIC"];
+        $GLOBALS["DIC"]["ilDB"] = $db;
+        $GLOBALS['ilDB'] = $db;
+        $GLOBALS["DIC"]["ilLog"] = new class() {
+            public function write()
+            {
+            }
+            public function debug()
+            {
+            }
+        };
 
         ilMemcacheServer::flushDB();
 
@@ -57,6 +74,8 @@ class ilGlobalCacheConfigStoredObjective implements Setup\Objective
         if (!$client_ini->write()) {
             throw new Setup\UnachievableException("Could not write client.ini.php");
         }
+
+        $GLOBALS["DIC"] = $DIC;
 
         return $environment;
     }
