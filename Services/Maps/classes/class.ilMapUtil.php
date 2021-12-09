@@ -1,20 +1,16 @@
-<?php
+<?php declare(strict_types=1);
 
-/* Copyright (c) 1998-2021 ILIAS open source, GPLv3, see LICENSE */
+/* Copyright (c) 2018 - Richard Klees <richard.klees@concepts-and-training.de> - Extended GPL, see LICENSE */
 
 /**
  * Map Utility Class.
- *
- * @author Richard Klees <richard.klees@concepts-and-training.de>
  */
 class ilMapUtil
 {
-    public static $_settings = null;
-
     const DEFAULT_TILE = "a.tile.openstreetmap.org b.tile.openstreetmap.org c.tile.openstreetmap.org";
     const DEFAULT_GEOLOCATION = null;
 
-    // Settings
+    public static ?ilSetting $_settings = null;
 
     public static function settings()
     {
@@ -23,8 +19,6 @@ class ilMapUtil
         }
         return self::$_settings;
     }
-    
-    
 
     /**
     * Checks whether Map feature is activated.
@@ -32,21 +26,21 @@ class ilMapUtil
     *
     * @return	boolean		activated true/false
     */
-    public static function isActivated()
+    public static function isActivated() : bool
     {
         return self::settings()->get("enable") == 1;
     }
     
     // RK TODO: check inputs of setters
     
-    public static function setActivated($a_activated)
+    public static function setActivated(bool $activated) : void
     {
-        self::settings()->set("enable", $a_activated?"1":"0");
+        self::settings()->set("enable", $activated ? "1" : "0");
     }
     
-    public static function setType($a_type)
+    public static function setType($type)
     {
-        self::settings()->set("type", $a_type);
+        self::settings()->set("type", $type);
     }
     
     public static function getType()
@@ -54,9 +48,9 @@ class ilMapUtil
         return self::settings()->get("type");
     }
     
-    public static function setStdLatitude($a_lat)
+    public static function setStdLatitude($lat)
     {
-        self::settings()->set("std_latitude", $a_lat);
+        self::settings()->set("std_latitude", $lat);
     }
     
     public static function getStdLatitude()
@@ -64,9 +58,9 @@ class ilMapUtil
         return self::settings()->get("std_latitude");
     }
     
-    public static function setStdLongitude($a_lon)
+    public static function setStdLongitude($lon)
     {
-        self::settings()->set("std_longitude", $a_lon);
+        self::settings()->set("std_longitude", $lon);
     }
     
     public static function getStdLongitude()
@@ -74,9 +68,9 @@ class ilMapUtil
         return self::settings()->get("std_longitude");
     }
 
-    public static function setStdZoom($a_zoom)
+    public static function setStdZoom($zoom)
     {
-        self::settings()->set("std_zoom", $a_zoom);
+        self::settings()->set("std_zoom", $zoom);
     }
 
     public static function getStdZoom()
@@ -84,9 +78,9 @@ class ilMapUtil
         return self::settings()->get("std_zoom");
     }
 
-    public static function setApiKey($a_api_key)
+    public static function setApiKey($api_key)
     {
-        self::settings()->set("api_key", $a_api_key);
+        self::settings()->set("api_key", $api_key);
     }
 
     public static function getApiKey()
@@ -94,9 +88,9 @@ class ilMapUtil
         return self::settings()->get("api_key");
     }
 
-    public static function setStdTileServers($a_tile)
+    public static function setStdTileServers($tile)
     {
-        self::settings()->set("std_tile", $a_tile);
+        self::settings()->set("std_tile", $tile);
     }
     
     /**
@@ -111,9 +105,9 @@ class ilMapUtil
     }
     
 
-    public static function setStdGeolocationServer($a_geolocation)
+    public static function setStdGeolocationServer($geolocation)
     {
-        self::settings()->set("std_geolocation", $a_geolocation);
+        self::settings()->set("std_geolocation", $geolocation);
     }
 
     /**

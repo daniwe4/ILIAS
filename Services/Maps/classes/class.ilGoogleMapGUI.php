@@ -1,35 +1,32 @@
-<?php
+<?php declare(strict_types=1);
 
 /* Copyright (c) 1998-2021 ILIAS open source, GPLv3, see LICENSE */
 
 /**
- * User interface class for google maps
+ * User interface class for Google Maps
  *
  * @author Alex Killing <alex.killing@gmx.de>
  */
 class ilGoogleMapGUI extends ilMapGUI
 {
+    protected string $css_row;
+
     public function __construct()
     {
         parent::__construct();
     }
 
-    /**
-    * Get HTML
-    */
-    public function getHtml()
+    public function getHtml() : string
     {
-        global $tpl;
-        
-        $this->tpl = new ilTemplate(
+        $html_tpl = new ilTemplate(
             "tpl.google_map.html",
             true,
             true,
             "Services/Maps"
         );
 
-        $tpl->addJavaScript("//maps.google.com/maps/api/js?key=" . ilMapUtil::getApiKey(), false);
-        $tpl->addJavaScript("Services/Maps/js/ServiceGoogleMaps.js");
+        $this->tpl->addJavaScript("//maps.google.com/maps/api/js?key=" . ilMapUtil::getApiKey(), false);
+        $this->tpl->addJavaScript("Services/Maps/js/ServiceGoogleMaps.js");
 
         // add user markers
         $cnt = 0;
@@ -38,15 +35,15 @@ class ilGoogleMapGUI extends ilMapGUI
                 $user = new ilObjUser($user_id);
                 if ($user->getLatitude() != 0 && $user->getLongitude() != 0 &&
                     $user->getPref("public_location") == "y") {
-                    $this->tpl->setCurrentBlock("user_marker");
-                    $this->tpl->setVariable(
+                    $html_tpl->setCurrentBlock("user_marker");
+                    $html_tpl->setVariable(
                         "UMAP_ID",
                         $this->getMapId()
                     );
-                    $this->tpl->setVariable("CNT", $cnt);
+                    $html_tpl->setVariable("CNT", $cnt);
 
-                    $this->tpl->setVariable("ULAT", htmlspecialchars($user->getLatitude()));
-                    $this->tpl->setVariable("ULONG", htmlspecialchars($user->getLongitude()));
+                    $html_tpl->setVariable("ULAT", htmlspecialchars($user->getLatitude()));
+                    $html_tpl->setVariable("ULONG", htmlspecialchars($user->getLongitude()));
                     $info = htmlspecialchars($user->getFirstName() . " " . $user->getLastName());
                     $delim = "<br \/>";
                     if ($user->getPref("public_institution") == "y") {
@@ -71,57 +68,55 @@ class ilGoogleMapGUI extends ilMapGUI
                     if ($user->getPref("public_country") == "y") {
                         $info .= $delim . htmlspecialchars($user->getCountry());
                     }
-                    $this->tpl->setVariable(
+                    $html_tpl->setVariable(
                         "USER_INFO",
                         $info
                     );
-                    $this->tpl->setVariable(
+                    $html_tpl->setVariable(
                         "IMG_USER",
                         $user->getPersonalPicturePath("xsmall")
                     );
-                    $this->tpl->parseCurrentBlock();
+                    $html_tpl->parseCurrentBlock();
                     $cnt++;
                 }
             }
         }
 
-        $this->tpl->setVariable("MAP_ID", $this->getMapId());
-        $this->tpl->setVariable("WIDTH", $this->getWidth());
-        $this->tpl->setVariable("HEIGHT", $this->getHeight());
-        $this->tpl->setVariable("LAT", $this->getLatitude());
-        $this->tpl->setVariable("LONG", $this->getLongitude());
-        $this->tpl->setVariable("ZOOM", (int) $this->getZoom());
+        $html_tpl->setVariable("MAP_ID", $this->getMapId());
+        $html_tpl->setVariable("WIDTH", $this->getWidth());
+        $html_tpl->setVariable("HEIGHT", $this->getHeight());
+        $html_tpl->setVariable("LAT", $this->getLatitude());
+        $html_tpl->setVariable("LONG", $this->getLongitude());
+        $html_tpl->setVariable("ZOOM", $this->getZoom());
         $type_control = $this->getEnableTypeControl()
             ? "true"
             : "false";
-        $this->tpl->setVariable("TYPE_CONTROL", $type_control);
+        $html_tpl->setVariable("TYPE_CONTROL", $type_control);
         $nav_control = $this->getEnableNavigationControl()
             ? "true"
             : "false";
-        $this->tpl->setVariable("NAV_CONTROL", $nav_control);
+        $html_tpl->setVariable("NAV_CONTROL", $nav_control);
         $update_listener = $this->getEnableUpdateListener()
             ? "true"
             : "false";
-        $this->tpl->setVariable("UPDATE_LISTENER", $update_listener);
+        $html_tpl->setVariable("UPDATE_LISTENER", $update_listener);
         $large_map_control = $this->getEnableLargeMapControl()
             ? "true"
             : "false";
-        $this->tpl->setVariable("LARGE_CONTROL", $large_map_control);
+        $html_tpl->setVariable("LARGE_CONTROL", $large_map_control);
         $central_marker = $this->getEnableCentralMarker()
             ? "true"
             : "false";
-        $this->tpl->setVariable("CENTRAL_MARKER", $central_marker);
+        $html_tpl->setVariable("CENTRAL_MARKER", $central_marker);
 
-        return $this->tpl->get();
+        return $html_tpl->get();
     }
     
     /**
     * Get User List HTML (to be displayed besides the map)
     */
-    public function getUserListHtml()
+    public function getUserListHtml() : string
     {
-        global $tpl;
-        
         $list_tpl = new ilTemplate(
             "tpl.google_map_user_list.html",
             true,

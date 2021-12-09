@@ -71,7 +71,6 @@ class StakeholderDBRepository implements StakeholderRepository
             [$stakeholder_id]
         );
         if ($r->numRows() === 0) {
-
             $this->db->insert(
                 self::TABLE_NAME_REL,
                 [
@@ -110,7 +109,7 @@ class StakeholderDBRepository implements StakeholderRepository
 
         $r = $this->db->queryF(
             "SELECT class_name, stakeholder_id FROM " . self::TABLE_NAME . " 
-            JOIN ".self::TABLE_NAME_REL." ON stakeholder_id = id
+            JOIN " . self::TABLE_NAME_REL . " ON stakeholder_id = id
             WHERE " . self::IDENTIFICATION . " = %s",
             ['text'],
             [$rid]
@@ -119,16 +118,20 @@ class StakeholderDBRepository implements StakeholderRepository
             $d['rid'] = $rid;
             $this->populateFromArray($d);
         }
-        return $this->cache[$rid];
+        return $this->cache[$rid] ?? [];
     }
 
     public function preload(array $identification_strings) : void
     {
         $r = $this->db->query(
             "SELECT rid, class_name, stakeholder_id FROM " . self::TABLE_NAME
-            . " JOIN ".self::TABLE_NAME_REL." ON stakeholder_id = id 
-            WHERE " . $this->db->in(self::IDENTIFICATION,
-                $identification_strings, false, 'text')
+            . " JOIN " . self::TABLE_NAME_REL . " ON stakeholder_id = id 
+            WHERE " . $this->db->in(
+                self::IDENTIFICATION,
+                $identification_strings,
+                false,
+                'text'
+            )
         );
         while ($d = $this->db->fetchAssoc($r)) {
             $this->populateFromArray($d);
