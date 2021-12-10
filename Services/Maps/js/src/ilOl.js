@@ -1,10 +1,16 @@
 import ServiceOpenLayers from './ServiceOpenLayers';
 
-// For passing data from ilias to js
-if (true) {
+initIlOpenLayerMaps = function(jQuery, ilOLInvalidAddress, ilOLMapData, ilOLUserMarkers) {
+	var ol = new ServiceOpenLayers(jQuery, ilOLInvalidAddress, ilOLMapData, ilOLUserMarkers);
+	return ol;
+};
 
-}
-
-let ilOLMapData = [];
-let ilOLUserMarkers = [];
-let ilOLInvalidAddress = undefined;
+ilLookupAddress = function(id, address) {
+    return openLayer.jumpToAddress(id, address);
+};
+ilUpdateMap = function (id) {
+    return openLayer.updateMap(id);
+};
+ilShowUserMarker = function(id, counter) {
+    return openLayer.moveToUserMarkerAndOpen(id, counter);
+};
