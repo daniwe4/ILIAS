@@ -119,7 +119,7 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         $this->content_style_domain = $cs->domain();
     }
 
-    public function executeCommand()
+    public function executeCommand() : void
     {
         $tpl = $this->tpl;
 
@@ -145,7 +145,7 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         }
     }
 
-    protected function getEditFormValues()
+    protected function getEditFormValues() : array
     {
         $values = parent::getEditFormValues();
 
@@ -295,16 +295,17 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         return $ret;
     }
 
-    public function prepareOutput($a_show_subobjects = true)
+    public function prepareOutput(bool $show_subobjects = true) : bool
     {
-        if (parent::prepareOutput($a_show_subobjects)) {    // return false in admin mode
-            if ($this->getCreationMode() != true && $a_show_subobjects) {
+        if (parent::prepareOutput($show_subobjects)) {    // return false in admin mode
+            if ($this->getCreationMode() != true && $show_subobjects) {
                 ilMemberViewGUI::showMemberViewSwitch($this->object->getRefId());
             }
         }
+        return true;
     }
 
-    protected function setTitleAndDescription()
+    protected function setTitleAndDescription() : void
     {
         if (ilContainer::_lookupContainerSetting($this->object->getId(), "hide_header_icon_and_title")) {
             $this->tpl->setTitle($this->object->getTitle(), true);
@@ -322,7 +323,7 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         }
     }
 
-    protected function showPossibleSubObjects()
+    protected function showPossibleSubObjects() : void
     {
         if ($this->isActiveAdministrationPanel() || $this->isActiveOrdering()) {
             return;
@@ -871,7 +872,7 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         }
     }
 
-    protected function getTabs()
+    protected function getTabs() : void
     {
         $rbacsystem = $this->rbacsystem;
         $ilCtrl = $this->ctrl;
@@ -2233,7 +2234,7 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         exit;
     }
 
-    protected function initEditForm()
+    protected function initEditForm() : ilPropertyFormGUI
     {
         $lng = $this->lng;
         $lng->loadLanguageModule($this->object->getType());
@@ -2710,7 +2711,7 @@ class ilContainerGUI extends ilObjectGUI implements ilDesktopItemHandling
         }
     }
 
-    public function getAdminTabs()
+    public function getAdminTabs() : void
     {
         if ($this->checkPermissionBool("visible,read")) {
             $this->tabs_gui->addTab(

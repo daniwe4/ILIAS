@@ -36,10 +36,7 @@ class ilObjSCORMLearningModuleGUI extends ilObjSAHSLearningModuleGUI
 //    const EXPORT_TYPE_RAW = 1;
 //    const EXPORT_TYPE_SUCCESS = 2;
     protected int $refId;
-    /**
-     * @var ilCtrl
-     */
-    protected $ctrl;
+    protected ilCtrl $ctrl;
 
     /**
     * Constructor

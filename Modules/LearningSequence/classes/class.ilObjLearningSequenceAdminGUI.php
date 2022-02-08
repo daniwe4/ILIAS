@@ -33,7 +33,7 @@ class ilObjLearningSequenceAdminGUI extends ilObjectGUI
         $this->request = $DIC->http()->request();
     }
 
-    public function getAdminTabs()
+    public function getAdminTabs() : void
     {
         $this->tabs_gui->addTarget('settings', $this->ctrl->getLinkTargetByClass(self::class, self::CMD_EDIT));
         if ($this->rbacsystem->checkAccess('edit_permission', $this->object->getRefId())) {
@@ -41,7 +41,7 @@ class ilObjLearningSequenceAdminGUI extends ilObjectGUI
         }
     }
 
-    public function executeCommand()
+    public function executeCommand() : void
     {
         $this->checkPermission('read');
         $next_class = $this->ctrl->getNextClass($this);
