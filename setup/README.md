@@ -12,7 +12,8 @@ main commands to manage ILIAS installations:
 
 `install` and `update` also supply switches and options for a granular control of the inclusion of plugins:
 
-* `--skip <plugin name>` will exclude the named plugin from the command
+* `--skip 
+* There are also named objectives for **import** and **export**. <plugin name>` will exclude the named plugin from the command
 * `--no-plugins` will exclude all plugins from the command
 * `install <plugin name>` (or `update <plugin name>` respectively) will update or install the specified plugin
 
@@ -63,6 +64,11 @@ The option can be repeated to cover multiple plugins. If you want to skip plugin
 alltogether, use the `--no-plugins` option. If you only want to install a specific
 plugin, use `php setup/setup.php install config.json <plugin name>`.
 
+The install command also offers the option to import a zip file during setup. The 
+zip file must have been previously exported from another instance via export
+(see [a name objective](#achieve-method)). 
+The command `php setup/setup.php install --import-file <path_to_zip_file> config.json`
+will install the data from the export to this instance.
 
 ## Update ILIAS
 
@@ -125,9 +131,17 @@ artifacts for the control structure. The agent might need to a config file to wo
 which may be added as last parameter: 
 `php setup/setup.php achieve uicore.buildIlCtrlArtifacts config.json`
 
+There is also a named objective for **export**. The command 
+`php setup/setup.php achieve common.buildExportZip` creates a zip file 'ILIAS_EXPORT.zip' at the
+location of the call. The export also changes the name of the client directory to
+'default' so that the import can work with the files. The objective
+'ilFileSystemClientDirectoryRenamedObjective.php' takes care of the renaming.
+The zip file can then be imported using the install command.
+
 ## List available objectives
 Calling `php setup/setup.php achieve` without any arguments and options  
 or calling `php setup/setup.php achieve --list` will list all available objectives.
+
 
 # Migrations
 
