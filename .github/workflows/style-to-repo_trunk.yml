@@ -1,0 +1,44 @@
+name: Build and deploy style files
+on:
+  pull_request_target:
+    types:
+      - closed
+  push:
+    branches:
+      - "release_5-4"
+      - "release_6"
+      - "release_7"
+      - "release_8"
+      - "trunk"
+      - "trunk_skin_to_repo"
+      - "bar"
+
+jobs:
+  style-to-repo:
+    if: |
+      github.event.pull_request.merged == true ||
+      github.event_name == 'push'
+    runs-on: ubuntu-latest
+    outputs:
+      all: ${{ steps.changes.outputs.all }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - if: ${{ github.event.pull_request.merged == true }}
+        name: Post merge handling
+        run: CI/Style-To-Repo/build-and-deploy.sh
+        env:
+          GHRUN: "yes"
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR: ${{ github.event.pull_request.pull_request }}
+          PR_REPO: ${{ github.event.pull_request.repository }}
+
+      - if: ${{ github.event_name == 'push' }}
+        name: Post push handling
+        run: CI/Style-To-Repo/build-and-deploy.sh
+        env:
+          GHRUN: "yes"
+          HEAD_COMMIT_MSG: ${{ github.event.head_commit.message }}
+          HEAD_COMMIT_ID: ${{ github.event.head_commit.id }}
+          HEAD_COMMIT_URL: ${{ github.event.head_commit.url }}
