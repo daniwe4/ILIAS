@@ -20,10 +20,10 @@ NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
 
 function deploy() {
-  MSG=$1
-  HASH=$2
-  URL=$3
-  BRANCH=$4
+  MSG=${1}
+  HASH=${2}
+  URL=${3}
+  BRANCH=${4}
   REPO_TOKEN="https://${5}@github.com/daniwe4/style_test.git"
 
   if [ -d ${DEPLOY_BASE_FOLDER} ]
