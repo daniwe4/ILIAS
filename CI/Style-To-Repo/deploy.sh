@@ -15,26 +15,53 @@
 #
 # This script compares the actual style repo with the built style folder and pushes the possible changes to repo.
 
-REPO="git@github.com:daniwe4/style_test.git"
+REPO="https://github.com/daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
-BASE_FOLDER="./CI/Style-To-Repo/repo"
+DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
 
 function deploy() {
-  if [ -d ${BASE_FOLDER} ]
+  MSG=$1
+  HASH=$2
+  URL=$3
+  BRANCH=$4
+  REPO_TOKEN="https://${5}@github.com/daniwe4/style_test.git"
+
+  if [ -d ${DEPLOY_BASE_FOLDER} ]
   then
-    rm -rf ${BASE_FOLDER}
+    rm -rf ${DEPLOY_BASE_FOLDER}
   fi
 
-  mkdir -p ${BASE_FOLDER}
+  mkdir -p ${DEPLOY_BASE_FOLDER}
+  git clone ${REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
+  git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads origin ${BRANCH} >/dev/null 2>&1
+  BRANCH_EXISTS=$?
 
-  git clone ${REPO} ${BASE_FOLDER} >/dev/null 2>&1
+  if [ ${BRANCH_EXISTS} = "0" ]
+  then
+    git -C ${DEPLOY_BASE_FOLDER} checkout ${BRANCH} >/dev/null 2>&1
+  else
+    git -C ${DEPLOY_BASE_FOLDER} checkout -b ${BRANCH} >/dev/null 2>&1
+    NEW_BRANCH="1"
+  fi
 
-  rm -rf ${BASE_FOLDER}/*
+  rm -rf ${DEPLOY_BASE_FOLDER}/*
 
-  cp -r CI/Style-To-Repo/style/* ${BASE_FOLDER}
+  cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
-  git -C ${BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
-  git -C ${BASE_FOLDER} diff-index --quiet HEAD
+  git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
+  git -C ${DEPLOY_BASE_FOLDER} config user.name "daniwe4"
+
+  if [ "${NEW_BRANCH}" == "1" ]
+  then
+    echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
+    git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}" >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
+    exit
+  fi
+
+  git -C ${DEPLOY_BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
+  git -C ${DEPLOY_BASE_FOLDER} diff-index --quiet HEAD
 
   CHECK=$?
   if [[ "${CHECK}" == "0" ]]
@@ -42,8 +69,8 @@ function deploy() {
     echo "[${NOW}] No changes detected on style files."
   else
     echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
-    git -C ${BASE_FOLDER} add . >/dev/null 2>&1
-    git -C ${BASE_FOLDER} commit -m "[${NOW}] Detect changes on style files." >/dev/null 2>&1
-    git -C ${BASE_FOLDER} push origin master >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}" >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
   fi
 }
