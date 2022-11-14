@@ -15,16 +15,18 @@
 #
 # This script compares the actual style repo with the built style folder and pushes the possible changes to repo.
 
-REPO="https://github.com/daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
+STYLE_REPO="https://github.com/daniwe4/style_test.git"
+STYLE_REPO_NAME_SHORT="daniwe4/style_test.git"
+STYLE_REPO_USER_NAME="daniwe4"
 
 function deploy() {
   MSG=${1}
   HASH=${2}
   URL=${3}
   BRANCH=${4}
-  REPO_TOKEN="https://${5}@github.com/daniwe4/style_test.git"
+  REPO_TOKEN="https://${5}@github.com/${STYLE_REPO_NAME_SHORT}"
 
   if [ -d ${DEPLOY_BASE_FOLDER} ]
   then
@@ -32,7 +34,7 @@ function deploy() {
   fi
 
   mkdir -p ${DEPLOY_BASE_FOLDER}
-  git clone ${REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
+  git clone ${STYLE_REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
   git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads origin ${BRANCH} >/dev/null 2>&1
   BRANCH_EXISTS=$?
 
@@ -49,11 +51,11 @@ function deploy() {
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
   git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
-  git -C ${DEPLOY_BASE_FOLDER} config user.name "daniwe4"
+  git -C ${DEPLOY_BASE_FOLDER} config user.name ${STYLE_REPO_USER_NAME}
 
   if [ "${NEW_BRANCH}" == "1" ]
   then
-    echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
+    echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${STYLE_REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}" >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
@@ -68,7 +70,7 @@ function deploy() {
   then
     echo "[${NOW}] No changes detected on style files."
   else
-    echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
+    echo "[${NOW}] Detect changes on style files. They will be committed to ${STYLE_REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}" >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1

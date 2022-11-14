@@ -26,7 +26,6 @@ declare(strict_types=1);
  */
 class ilAccess implements ilAccessHandler
 {
-    //foo
     private const MAX_CACHE_SIZE = 1000;
 
     protected ilOrgUnitPositionAccess $ilOrgUnitPositionAccess;
