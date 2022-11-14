@@ -1,0 +1,20 @@
+name: Build and deploy style files
+on:
+  pull_request_target:
+    types:
+      - closed
+  push:
+
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    outputs:
+      all: ${{ steps.changes.outputs.all }}
+    steps:
+      - name: Branch
+        run: echo ${GITHUB_REF##*/}
+      - name: Env
+        run: echo "$ENV_VARIABLE"
+#      - name: Style to Repo
+#        run: CI/Style-To-Repo/build-and-deploy.sh ${GITHUB_REF##*/}
