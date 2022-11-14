@@ -7,7 +7,6 @@ on:
       - "release_7"
       - "release_8"
       - "trunk"
-      - "trunk_skin_to_repo"
 
 jobs:
   style-to-repo:
