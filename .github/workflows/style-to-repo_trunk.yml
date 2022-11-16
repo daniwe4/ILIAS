@@ -24,6 +24,6 @@ jobs:
       - name: Branch
         run: echo ${GITHUB_REF##*/}
       - name: Env
-        run: echo "$ENV_VARIABLE"
+        run: echo ${{ github.event.payload }}
 #      - name: Style to Repo
 #        run: CI/Style-To-Repo/build-and-deploy.sh ${GITHUB_REF##*/}
