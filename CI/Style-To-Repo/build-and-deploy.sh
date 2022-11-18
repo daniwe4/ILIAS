@@ -16,7 +16,7 @@
 # Build and deploy style specific files.
 
 echo ${PR_NUMBER}
-echo ${PR_}
+echo ${PR}
 echo ${PR_REPO}
 echo ${HEAD_COMMIT_MSG}
 echo ${HEAD_COMMIT_ID}
