@@ -19,29 +19,31 @@ REPO="git@github.com:daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 BASE_FOLDER="./CI/Style-To-Repo/repo"
 
-if [ -d ${BASE_FOLDER} ]
-then
-  rm -rf ${BASE_FOLDER}
-fi
+function deploy() {
+  if [ -d ${BASE_FOLDER} ]
+  then
+    rm -rf ${BASE_FOLDER}
+  fi
 
-mkdir -p ${BASE_FOLDER}
+  mkdir -p ${BASE_FOLDER}
 
-git clone ${REPO} ${BASE_FOLDER} >/dev/null 2>&1
+  git clone ${REPO} ${BASE_FOLDER} >/dev/null 2>&1
 
-rm -rf ${BASE_FOLDER}/*
+  rm -rf ${BASE_FOLDER}/*
 
-cp -r CI/Style-To-Repo/style/* ${BASE_FOLDER}
+  cp -r CI/Style-To-Repo/style/* ${BASE_FOLDER}
 
-git -C ${BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
-git -C ${BASE_FOLDER} diff-index --quiet HEAD
+  git -C ${BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
+  git -C ${BASE_FOLDER} diff-index --quiet HEAD
 
-CHECK=$?
-if [[ "${CHECK}" == "0" ]]
-then
-  echo "[${NOW}] No changes detected on style files."
-else
-  echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
-  git -C ${BASE_FOLDER} add . >/dev/null 2>&1
-  git -C ${BASE_FOLDER} commit -m "[${NOW}] Detect changes on style files." >/dev/null 2>&1
-  git -C ${BASE_FOLDER} push origin master >/dev/null 2>&1
-fi
+  CHECK=$?
+  if [[ "${CHECK}" == "0" ]]
+  then
+    echo "[${NOW}] No changes detected on style files."
+  else
+    echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
+    git -C ${BASE_FOLDER} add . >/dev/null 2>&1
+    git -C ${BASE_FOLDER} commit -m "[${NOW}] Detect changes on style files." >/dev/null 2>&1
+    git -C ${BASE_FOLDER} push origin master >/dev/null 2>&1
+  fi
+}

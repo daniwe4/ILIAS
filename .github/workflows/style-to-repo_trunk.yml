@@ -21,9 +21,16 @@ jobs:
     outputs:
       all: ${{ steps.changes.outputs.all }}
     steps:
-      - name: Branch
-        run: echo ${GITHUB_REF##*/}
-      - name: Env
-        run: echo ${{ github.event.payload }}
+      - if: ${{ github.event.pull_request.merged == true }}
+        run: echo ${{ github.event.pull_request.pull_request }}
+#        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
+      - if: ${{ github.event_name == 'push' }}
+#        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
+
+
+#      - name: Branch
+#        run: echo ${GITHUB_REF##*/}
+#      - name: Env
+#        run: echo ${{ github.event.payload }}
 #      - name: Style to Repo
 #        run: CI/Style-To-Repo/build-and-deploy.sh ${GITHUB_REF##*/}

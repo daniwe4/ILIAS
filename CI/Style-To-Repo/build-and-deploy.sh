@@ -15,16 +15,20 @@
 #
 # Build and deploy style specific files.
 
+source "./CI/Style-To-Repo/build.sh"
+source "./CI/Style-To-Repo/deploy.sh"
+source "./CI/Style-To-Repo/cleanup.sh"
+
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 echo "[${NOW}] Building style folder."
+build
 
-source "./CI/Style-To-Repo/build.sh"
-
-source "./CI/Style-To-Repo/deploy.sh"
+NOW=$(date +'%d.%m.%Y %I:%M:%S')
+echo "[${NOW}] Deploy style folder."
+deploy
 
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 echo "[${NOW}] Cleanup build and deploy artifacts."
-source "./CI/Style-To-Repo/cleanup.sh"
 removeBuildArtifacts
 removeDeployArtifacts
 
