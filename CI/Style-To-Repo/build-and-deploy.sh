@@ -15,13 +15,20 @@
 #
 # Build and deploy style specific files.
 
-echo ${PR_NUMBER}
-echo ${PR}
-echo ${PR_REPO}
-echo ${HEAD_COMMIT_MSG}
-echo ${HEAD_COMMIT_ID}
-echo ${HEAD_COMMIT_URL}
-echo ${GITHUB_REF_NAME}
+if [ ${TYPE} == "merge" ]
+then
+  MSG=$(git show-branch --no-name HEAD)
+else
+  MSG=${HEAD_COMMIT_MSG}
+  ID=${HEAD_COMMIT_ID}
+  URL=${HEAD_COMMIT_URL}
+  BRANCH=${GITHUB_REF_NAME}
+fi
+
+echo ${MSG}
+echo ${ID}
+echo ${URL}
+echo ${BRANCH}
 exit
 source "./CI/Style-To-Repo/build.sh"
 source "./CI/Style-To-Repo/deploy.sh"
