@@ -11,6 +11,7 @@ on:
       - "release_8"
       - "trunk"
       - "trunk_skin_to_repo"
+      - "bar"
 
 jobs:
   style-to-repo:
@@ -25,20 +26,17 @@ jobs:
         uses: actions/checkout@v2
 
       - if: ${{ github.event.pull_request.merged == true }}
+        name: Post merge handling
         run: CI/Style-To-Repo/build-and-deploy.sh
         env:
           GHRUN: "yes"
           PR_NUMBER: ${{ github.event.pull_request.number }}
-#        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
+
       - if: ${{ github.event_name == 'push' }}
+        name: Post push handling
         run: CI/Style-To-Repo/build-and-deploy.sh
         env:
           GHRUN: "yes"
-          HEAD_COMMIT: ${{ github.event.push.head_commit }}
-
-#      - name: Branch
-#        run: echo ${GITHUB_REF##*/}
-#      - name: Env
-#        run: echo ${{ github.event.payload }}
-#      - name: Style to Repo
-#        run: CI/Style-To-Repo/build-and-deploy.sh ${GITHUB_REF##*/}
+          HEAD_COMMIT_MSG: ${{ github.event.push.head_commit.message }}
+          HEAD_COMMIT_ID: ${{ github.event.push.head_commit.id }}
+          HEAD_COMMIT_URL: ${{ github.event.push.head_commit.url }}
