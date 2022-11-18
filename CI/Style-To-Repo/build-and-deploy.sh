@@ -19,6 +19,7 @@ echo ${PR_NUMBER}
 echo ${HEAD_COMMIT_MSG}
 echo ${HEAD_COMMIT_ID}
 echo ${HEAD_COMMIT_URL}
+echo ${GITHUB_REF_NAME}
 exit
 source "./CI/Style-To-Repo/build.sh"
 source "./CI/Style-To-Repo/deploy.sh"
