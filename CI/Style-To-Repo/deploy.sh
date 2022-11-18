@@ -20,6 +20,11 @@ NOW=$(date +'%d.%m.%Y %I:%M:%S')
 BASE_FOLDER="./CI/Style-To-Repo/repo"
 
 function deploy() {
+  MSG=$1
+  HASH=$2
+  URL=$3
+  BRANCH=$4
+
   if [ -d ${BASE_FOLDER} ]
   then
     rm -rf ${BASE_FOLDER}
@@ -28,6 +33,13 @@ function deploy() {
   mkdir -p ${BASE_FOLDER}
 
   git clone ${REPO} ${BASE_FOLDER} >/dev/null 2>&1
+  BRANCH_EXISTS=$(git ls-remote --exit-code --heads ${BRANCH})
+  if [ ${BRANCH_EXISTS} == "0" ]
+  then
+    git -C ${BASE_FOLDER} checkout -b ${BRANCH}
+  else
+    git -C ${BASE_FOLDER} checkout ${BRANCH}
+  fi
 
   rm -rf ${BASE_FOLDER}/*
 
@@ -44,6 +56,6 @@ function deploy() {
     echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
     git -C ${BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${BASE_FOLDER} commit -m "[${NOW}] Detect changes on style files." >/dev/null 2>&1
-    git -C ${BASE_FOLDER} push origin master >/dev/null 2>&1
+    git -C ${BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
   fi
 }
