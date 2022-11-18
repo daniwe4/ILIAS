@@ -27,9 +27,11 @@ jobs:
           GHRUN: "yes"
           PR_NUMBER: ${{ github.event.pull_request.number }}
 #        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
-#      - if: ${{ github.event_name == 'push' }}
-#        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
-
+      - if: ${{ github.event_name == 'push' }}
+        run: CI/Style-To-Repo/build-and-deploy.sh
+        env:
+          GHRUN: "yes"
+          HEAD_COMMIT: ${{ github.event.push.head_commit }}
 
 #      - name: Branch
 #        run: echo ${GITHUB_REF##*/}
