@@ -15,6 +15,8 @@
 #
 # Build and deploy style specific files.
 
+echo ${PR_NUMBER}
+exit
 source "./CI/Style-To-Repo/build.sh"
 source "./CI/Style-To-Repo/deploy.sh"
 source "./CI/Style-To-Repo/cleanup.sh"
