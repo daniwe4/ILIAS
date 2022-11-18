@@ -33,7 +33,7 @@ function deploy() {
   mkdir -p ${BASE_FOLDER}
 
   git clone ${REPO} ${BASE_FOLDER} >/dev/null 2>&1
-  BRANCH_EXISTS=$(git ls-remote --exit-code --heads ${BRANCH})
+  BRANCH_EXISTS=$(git -C ${BASE_FOLDER} ls-remote --exit-code --heads ${BRANCH})
   if [ ${BRANCH_EXISTS} == "0" ]
   then
     git -C ${BASE_FOLDER} checkout -b ${BRANCH}
