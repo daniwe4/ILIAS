@@ -15,18 +15,21 @@
 #
 # Build and deploy style specific files.
 
-if [ ${TYPE} == "merge" ]
-then
+#if [ ${TYPE} == "merge" ]
+#then
   MSG=$(git show-branch --no-name HEAD)
-else
-  MSG=${HEAD_COMMIT_MSG}
-  ID=${HEAD_COMMIT_ID}
-  URL=${HEAD_COMMIT_URL}
-  BRANCH=${GITHUB_REF_NAME}
-fi
+  HASH=$(git rev-parse HEAD)
+  URL="https://github.com/ILIAS-eLearning/ILIAS/commit/${HASH}"
+  BRANCH=$(git rev-parse --abbrev-ref HEAD)
+#else
+#  MSG=${HEAD_COMMIT_MSG}
+#  ID=${HEAD_COMMIT_ID}
+#  URL=${HEAD_COMMIT_URL}
+#  BRANCH=${GITHUB_REF_NAME}
+#fi
 
 echo ${MSG}
-echo ${ID}
+echo ${HASH}
 echo ${URL}
 echo ${BRANCH}
 exit
