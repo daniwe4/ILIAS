@@ -22,7 +22,10 @@ jobs:
       all: ${{ steps.changes.outputs.all }}
     steps:
       - if: ${{ github.event.pull_request.merged == true }}
-        run: echo ${{ github.event.pull_request.pull_request }}
+        run: CI/Style-To-Repo/build-and-deploy.sh
+        env:
+          GHRUN: "yes"
+          PR_NUMBER: ${{ github.event.pull_request.number }}
 #        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
 #      - if: ${{ github.event_name == 'push' }}
 #        run: CI/Style-To-Repo/build-and-deploy.sh <branch> <commitmsg>
