@@ -31,6 +31,8 @@ jobs:
         env:
           GHRUN: "yes"
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR: ${{ github.event.pull_request.pull_request }}
+          PR_REPO: ${{ github.event.pull_request.repository }}
 
       - if: ${{ github.event_name == 'push' }}
         name: Post push handling
