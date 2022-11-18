@@ -37,6 +37,6 @@ jobs:
         run: CI/Style-To-Repo/build-and-deploy.sh
         env:
           GHRUN: "yes"
-          HEAD_COMMIT_MSG: ${{ github.event.push.head_commit.message }}
-          HEAD_COMMIT_ID: ${{ github.event.push.head_commit.id }}
-          HEAD_COMMIT_URL: ${{ github.event.push.head_commit.url }}
+          HEAD_COMMIT_MSG: ${{ github.event.head_commit.message }}
+          HEAD_COMMIT_ID: ${{ github.event.head_commit.id }}
+          HEAD_COMMIT_URL: ${{ github.event.head_commit.url }}
