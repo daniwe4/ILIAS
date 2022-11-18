@@ -13,7 +13,7 @@ on:
       - "trunk_skin_to_repo"
 
 jobs:
-  if_merged:
+  style-to-repo:
     if: |
       github.event.pull_request.merged == true ||
       github.event_name == 'push'
@@ -21,6 +21,9 @@ jobs:
     outputs:
       all: ${{ steps.changes.outputs.all }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - if: ${{ github.event.pull_request.merged == true }}
         run: CI/Style-To-Repo/build-and-deploy.sh
         env:
