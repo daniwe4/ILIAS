@@ -12,6 +12,7 @@ on:
       - "trunk"
       - "trunk_skin_to_repo"
       - "bar"
+      - "bas"
 
 jobs:
   style-to-repo:
