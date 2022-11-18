@@ -28,17 +28,7 @@ jobs:
       - if: ${{ github.event.pull_request.merged == true }}
         name: Post merge handling
         run: CI/Style-To-Repo/build-and-deploy.sh
-        env:
-          GHRUN: "yes"
-          TYPE: "merge"
-          PR_NUMBER: ${{ github.event.pull_request.number }}
 
       - if: ${{ github.event_name == 'push' }}
         name: Post push handling
         run: CI/Style-To-Repo/build-and-deploy.sh
-        env:
-          GHRUN: "yes"
-          TYPE: "push"
-          HEAD_COMMIT_MSG: ${{ github.event.head_commit.message }}
-          HEAD_COMMIT_ID: ${{ github.event.head_commit.id }}
-          HEAD_COMMIT_URL: ${{ github.event.head_commit.url }}
