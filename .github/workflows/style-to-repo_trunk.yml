@@ -17,8 +17,8 @@ on:
 jobs:
   style-to-repo:
     if: |
-      github.event.pull_request.merged == true ||
-      github.event_name == 'push'
+      github.repository == 'daniwe4/ILIAS' &&
+      ( github.event.pull_request.merged == true || github.event_name == 'push' )
     runs-on: ubuntu-latest
     env:
       REPO: ${{ github.repository }}
