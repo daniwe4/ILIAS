@@ -48,13 +48,14 @@ function deploy() {
 
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
+  git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
+  echo "$(git remote -v)"
+
   if [ "${NEW_BRANCH}" == "1" ]
   then
     echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} commit -m $"Style changes from '${HASH}'. Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
-    git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
-    echo "$(git remote -v)"
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
     exit
   fi
@@ -70,8 +71,6 @@ function deploy() {
     echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'." -m "Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
-    git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
-    echo "$(git remote -v)"
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
   fi
 }
