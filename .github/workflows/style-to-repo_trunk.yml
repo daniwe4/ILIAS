@@ -18,8 +18,7 @@ jobs:
   style-to-repo:
     if: |
       github.repositoryUrl == 'https://github.com/ILIAS-eLearning/ILIAS.git' &&
-      github.event.pull_request.merged == true ||
-      github.event_name == 'push'
+      ( github.event.pull_request.merged == true || github.event_name == 'push' )
     runs-on: ubuntu-latest
     outputs:
       all: ${{ steps.changes.outputs.all }}
