@@ -15,7 +15,6 @@
 #
 # Build and deploy style specific files.
 
-
 MSG=$(git show-branch --no-name HEAD)
 HASH=$(git rev-parse HEAD)
 URL="https://github.com/ILIAS-eLearning/ILIAS/commit/${HASH}"
