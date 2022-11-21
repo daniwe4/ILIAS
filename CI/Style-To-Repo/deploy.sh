@@ -15,7 +15,7 @@
 #
 # This script compares the actual style repo with the built style folder and pushes the possible changes to repo.
 
-REPO="git@github.com:daniwe4/style_test.git"
+REPO="https://github.com/daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
 
