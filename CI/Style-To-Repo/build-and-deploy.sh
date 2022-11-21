@@ -19,8 +19,7 @@ MSG=$(git show-branch --no-name HEAD)
 HASH=$(git rev-parse HEAD)
 URL="https://github.com/ILIAS-eLearning/ILIAS/commit/${HASH}"
 BRANCH=$(git rev-parse --abbrev-ref HEAD)
-echo ${PUSH_SECRET}
-exit
+
 source "./CI/Style-To-Repo/build.sh"
 source "./CI/Style-To-Repo/deploy.sh"
 source "./CI/Style-To-Repo/cleanup.sh"
