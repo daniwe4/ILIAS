@@ -40,11 +40,21 @@ function deploy() {
     git -C ${DEPLOY_BASE_FOLDER} checkout ${BRANCH} >/dev/null 2>&1
   else
     git -C ${DEPLOY_BASE_FOLDER} checkout -b ${BRANCH} >/dev/null 2>&1
+    NEW_BRANCH=1
   fi
 
   rm -rf ${DEPLOY_BASE_FOLDER}/*
 
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
+
+  if [ ! -z ${NEW_BRANCH} ]
+  then
+    echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
+    git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} commit -m $"Style changes from '${HASH}'. Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
+    exit
+  fi
 
   git -C ${DEPLOY_BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
   git -C ${DEPLOY_BASE_FOLDER} diff-index --quiet HEAD
