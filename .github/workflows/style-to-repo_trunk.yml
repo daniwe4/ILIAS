@@ -17,14 +17,23 @@ on:
 jobs:
   style-to-repo:
     if: |
-      github.repositoryUrl == 'https://github.com/daniwe4/ILIAS' &&
-      ( github.event.pull_request.merged == true || github.event_name == 'push' )
+      github.event.pull_request.merged == true ||
+      github.event_name == 'push'
     runs-on: ubuntu-latest
+    env:
+      REPO: ${{ github.repository }}
+      REPO_URL: ${{ github.repositoryURL }}
     outputs:
       all: ${{ steps.changes.outputs.all }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+
+      - name: Output Repo
+        run: echo ${{ env.REPO }}
+
+      - name: Output Repo Url
+        run: echo ${{ env.REPO_URL }}
 
       - if: ${{ github.event.pull_request.merged == true }}
         name: Post merge handling
