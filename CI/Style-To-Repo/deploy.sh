@@ -31,15 +31,15 @@ function deploy() {
   fi
 
   mkdir -p ${DEPLOY_BASE_FOLDER}
-
   git clone ${REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
-  git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads ${BRANCH}
+  git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads ${BRANCH} >/dev/null 2>&1
   BRANCH_EXISTS=$?
+
   if [ ${BRANCH_EXISTS} = "0" ]
   then
-    git -C ${DEPLOY_BASE_FOLDER} checkout -b ${BRANCH}
+    git -C ${DEPLOY_BASE_FOLDER} checkout ${BRANCH} >/dev/null 2>&1
   else
-    git -C ${DEPLOY_BASE_FOLDER} checkout ${BRANCH}
+    git -C ${DEPLOY_BASE_FOLDER} checkout -b ${BRANCH} >/dev/null 2>&1
   fi
 
   rm -rf ${DEPLOY_BASE_FOLDER}/*
