@@ -48,8 +48,9 @@ function deploy() {
 
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
+
   git -C ${DEPLOY_BASE_FOLDER} remote add foo ${REPO_TOKEN}
-  echo "$(git remote -v)"
+  echo "$(git -C ${DEPLOY_BASE_FOLDER} remote -v)"
 
   if [ "${NEW_BRANCH}" == "1" ]
   then
