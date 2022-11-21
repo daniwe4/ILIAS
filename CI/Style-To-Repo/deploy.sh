@@ -53,7 +53,8 @@ function deploy() {
     echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} commit -m $"Style changes from '${HASH}'. Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
-    git -C ${DEPLOY_BASE_FOLDER} push ${REPO_TOKEN} ${BRANCH} >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
+    git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
     exit
   fi
 
@@ -68,6 +69,7 @@ function deploy() {
     echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'." -m "Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
-    git -C ${DEPLOY_BASE_FOLDER} push ${REPO_TOKEN} ${BRANCH} >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
+    git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
   fi
 }
