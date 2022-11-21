@@ -40,14 +40,14 @@ function deploy() {
     git -C ${DEPLOY_BASE_FOLDER} checkout ${BRANCH} >/dev/null 2>&1
   else
     git -C ${DEPLOY_BASE_FOLDER} checkout -b ${BRANCH} >/dev/null 2>&1
-    NEW_BRANCH=1
+    NEW_BRANCH="1"
   fi
 
   rm -rf ${DEPLOY_BASE_FOLDER}/*
 
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
-  if [ ! -z ${NEW_BRANCH} ]
+  if [ "${NEW_BRANCH}" == "1" ]
   then
     echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
