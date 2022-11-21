@@ -29,16 +29,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Output Repo
-        run: echo ${{ env.REPO }}
-
-      - name: Output Repo Url
-        run: echo ${{ env.REPO_URL }}
-
-      - if: ${{ github.event.pull_request.merged == true }}
-        name: Post merge handling
+      - name: build and deploy
         run: CI/Style-To-Repo/build-and-deploy.sh
-
-      - if: ${{ github.event_name == 'push' }}
-        name: Post push handling
-        run: CI/Style-To-Repo/build-and-deploy.sh
+        with:
+          PUSH_SECRET: ${{ secrets.PUSH_SECRET }}

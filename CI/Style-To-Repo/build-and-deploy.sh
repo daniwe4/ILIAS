@@ -30,7 +30,7 @@ build
 
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 echo "[${NOW}] Deploy style folder."
-deploy ${MSG} ${HASH} ${URL} ${BRANCH}
+deploy ${MSG} ${HASH} ${URL} ${BRANCH} ${PUSH_SECRET}
 
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 echo "[${NOW}] Cleanup build and deploy artifacts."
