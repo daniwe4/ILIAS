@@ -14,7 +14,7 @@
 # https://github.com/ILIAS-eLearning
 #
 # This script compares the actual style repo with the built style folder and pushes the possible changes to repo.
-set -x
+
 REPO="git@github.com:daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
@@ -32,7 +32,6 @@ function deploy() {
 
   mkdir -p ${DEPLOY_BASE_FOLDER}
   git clone ${REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
-  exit
   git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads ${REPO} ${BRANCH} >/dev/null 2>&1
   BRANCH_EXISTS=$?
 
