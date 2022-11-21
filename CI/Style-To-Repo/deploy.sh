@@ -32,7 +32,8 @@ function deploy() {
 
   mkdir -p ${DEPLOY_BASE_FOLDER}
   git clone ${REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
-  git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads ${BRANCH} >/dev/null 2>&1
+  exit
+  git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads ${REPO} ${BRANCH} >/dev/null 2>&1
   BRANCH_EXISTS=$?
 
   if [ ${BRANCH_EXISTS} = "0" ]
