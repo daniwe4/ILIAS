@@ -17,7 +17,7 @@
 
 REPO="git@github.com:daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
-BASE_FOLDER="./CI/Style-To-Repo/repo"
+DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
 
 function deploy() {
   MSG=$1
@@ -25,29 +25,29 @@ function deploy() {
   URL=$3
   BRANCH=$4
 
-  if [ -d ${BASE_FOLDER} ]
+  if [ -d ${DEPLOY_BASE_FOLDER} ]
   then
-    rm -rf ${BASE_FOLDER}
+    rm -rf ${DEPLOY_BASE_FOLDER}
   fi
 
-  mkdir -p ${BASE_FOLDER}
+  mkdir -p ${DEPLOY_BASE_FOLDER}
 
-  git clone ${REPO} ${BASE_FOLDER} >/dev/null 2>&1
-  git -C ${BASE_FOLDER} ls-remote --exit-code --heads ${BRANCH}
+  git clone ${REPO} ${DEPLOY_BASE_FOLDER} >/dev/null 2>&1
+  git -C ${DEPLOY_BASE_FOLDER} ls-remote --exit-code --heads ${BRANCH}
   BRANCH_EXISTS=$?
   if [ ${BRANCH_EXISTS} = "0" ]
   then
-    git -C ${BASE_FOLDER} checkout -b ${BRANCH}
+    git -C ${DEPLOY_BASE_FOLDER} checkout -b ${BRANCH}
   else
-    git -C ${BASE_FOLDER} checkout ${BRANCH}
+    git -C ${DEPLOY_BASE_FOLDER} checkout ${BRANCH}
   fi
 
-  rm -rf ${BASE_FOLDER}/*
+  rm -rf ${DEPLOY_BASE_FOLDER}/*
 
-  cp -r CI/Style-To-Repo/style/* ${BASE_FOLDER}
+  cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
-  git -C ${BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
-  git -C ${BASE_FOLDER} diff-index --quiet HEAD
+  git -C ${DEPLOY_BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
+  git -C ${DEPLOY_BASE_FOLDER} diff-index --quiet HEAD
 
   CHECK=$?
   if [[ "${CHECK}" == "0" ]]
@@ -55,8 +55,8 @@ function deploy() {
     echo "[${NOW}] No changes detected on style files."
   else
     echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
-    git -C ${BASE_FOLDER} add . >/dev/null 2>&1
-    git -C ${BASE_FOLDER} commit -m $"Style changes from '${HASH}'. Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
-    git -C ${BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} commit -m $"Style changes from '${HASH}'. Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
   fi
 }

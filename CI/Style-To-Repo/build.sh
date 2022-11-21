@@ -15,22 +15,22 @@
 #
 # This script gather all style depending files and add them to a folder.
 
-BASE_FOLDER="./CI/Style-To-Repo/style"
+BUILD_BASE_FOLDER="./CI/Style-To-Repo/style"
 
 function build() {
-  if [ -d ${BASE_FOLDER} ]
+  if [ -d ${BUILD_BASE_FOLDER} ]
   then
-    rm -rf ${BASE_FOLDER}
+    rm -rf ${BUILD_BASE_FOLDER}
   fi
 
-  mkdir -p ${BASE_FOLDER}
+  mkdir -p ${BUILD_BASE_FOLDER}
 
-  mkdir ${BASE_FOLDER}/UI
-  mkdir ${BASE_FOLDER}/Services
-  mkdir ${BASE_FOLDER}/Modules
+  mkdir ${BUILD_BASE_FOLDER}/UI
+  mkdir ${BUILD_BASE_FOLDER}/Services
+  mkdir ${BUILD_BASE_FOLDER}/Modules
 
-  cp -r ./templates/default/* ${BASE_FOLDER}
-  cp -r ./src/UI/templates/default/* ${BASE_FOLDER}/UI
+  cp -r ./templates/default/* ${BUILD_BASE_FOLDER}
+  cp -r ./src/UI/templates/default/* ${BUILD_BASE_FOLDER}/UI
 
 
   declare -a SERVICES
@@ -44,8 +44,8 @@ function build() {
     then
      continue
     fi
-    mkdir -p ${BASE_FOLDER}/Services/${NAME}
-    cp -r ${SERVICE}/* ${BASE_FOLDER}/Services/${NAME}
+    mkdir -p ${BUILD_BASE_FOLDER}/Services/${NAME}
+    cp -r ${SERVICE}/* ${BUILD_BASE_FOLDER}/Services/${NAME}
   done
 
   declare -a MODULES
@@ -59,7 +59,7 @@ function build() {
     then
      continue
     fi
-    mkdir -p ${BASE_FOLDER}/Modules/${NAME}
-    cp -r ${MODULE}/* ${BASE_FOLDER}/Modules/${NAME}
+    mkdir -p ${BUILD_BASE_FOLDER}/Modules/${NAME}
+    cp -r ${MODULE}/* ${BUILD_BASE_FOLDER}/Modules/${NAME}
   done
 }
