@@ -48,7 +48,7 @@ function deploy() {
 
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
-  git -C ${DEPLOY_BASE_FOLDER} remote add origin ${REPO_TOKEN}
+  git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
 
   if [ "${NEW_BRANCH}" == "1" ]
   then
