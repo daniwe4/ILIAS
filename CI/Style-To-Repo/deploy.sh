@@ -14,7 +14,7 @@
 # https://github.com/ILIAS-eLearning
 #
 # This script compares the actual style repo with the built style folder and pushes the possible changes to repo.
-set -x
+
 REPO="https://github.com/daniwe4/style_test.git"
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
@@ -54,7 +54,7 @@ function deploy() {
   then
     echo "[${NOW}] Detect new branch '${BRANCH}'. That will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
-    git -C ${DEPLOY_BASE_FOLDER} commit -m $"Style changes from '${HASH}'. Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}" >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
     exit
   fi
@@ -69,7 +69,7 @@ function deploy() {
   else
     echo "[${NOW}] Detect changes on style files. They will be committed to ${REPO}"
     git -C ${DEPLOY_BASE_FOLDER} add . >/dev/null 2>&1
-    git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'." -m "Original message: '${MSG}'\n\n${URL}" >/dev/null 2>&1
+    git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}" >/dev/null 2>&1
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH} >/dev/null 2>&1
   fi
 }
