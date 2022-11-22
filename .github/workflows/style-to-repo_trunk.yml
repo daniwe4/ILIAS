@@ -1,8 +1,5 @@
 name: Build and deploy style files
 on:
-  pull_request_target:
-    types:
-      - closed
   push:
     branches:
       - "release_5-4"
@@ -11,8 +8,6 @@ on:
       - "release_8"
       - "trunk"
       - "trunk_skin_to_repo"
-      - "bar"
-      - "bas"
 
 jobs:
   style-to-repo:
