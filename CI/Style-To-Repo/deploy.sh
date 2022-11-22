@@ -49,6 +49,8 @@ function deploy() {
   cp -r CI/Style-To-Repo/style/* ${DEPLOY_BASE_FOLDER}
 
   git -C ${DEPLOY_BASE_FOLDER} remote set-url origin ${REPO_TOKEN}
+  git -C ${DEPLOY_BASE_FOLDER} config user.name "daniwe4"
+  git -C ${DEPLOY_BASE_FOLDER} config user.email "daniel.weise@concepts-and-training.de"
 
   if [ "${NEW_BRANCH}" == "1" ]
   then
