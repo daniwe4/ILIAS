@@ -17,8 +17,8 @@
 
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
-STYLE_REPO="https://github.com/ILIAS-eLearning/delos.git"
-STYLE_REPO_NAME_SHORT="ILIAS-eLearning/delos.git"
+STYLE_REPO="https://github.com/daniwe4/style_test.git"
+STYLE_REPO_NAME_SHORT="daniwe4/style_test.git"
 
 function deploy() {
   MSG=${1}
