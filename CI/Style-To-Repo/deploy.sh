@@ -17,8 +17,8 @@
 
 NOW=$(date +'%d.%m.%Y %I:%M:%S')
 DEPLOY_BASE_FOLDER="./CI/Style-To-Repo/repo"
-STYLE_REPO="https://github.com/ILIAS-eLearning/delos.git"
-STYLE_REPO_NAME_SHORT="ILIAS-eLearning/delos.git"
+STYLE_REPO="https://github.com/daniwe4/style_test.git"
+STYLE_REPO_NAME_SHORT="daniwe4/style_test.git"
 
 function deploy() {
   MSG=${1}
@@ -63,10 +63,12 @@ function deploy() {
   fi
 
   git -C ${DEPLOY_BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
-  git -C ${DEPLOY_BASE_FOLDER} diff-index --quiet HEAD
+  git -C ${DEPLOY_BASE_FOLDER} diff-index --exit-code HEAD
+  CHECK1=$?
+  test -z "$(git ls-files --others)"
+  CHECK2=$?
 
-  CHECK=$?
-  if [[ "${CHECK}" == "0" ]]
+  if [[ "${CHECK1}" == "0" && "${CHECK2}" == "0" ]]
   then
     echo "[${NOW}] No changes detected on style files."
   else
