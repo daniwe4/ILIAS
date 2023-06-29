@@ -63,7 +63,6 @@ function deploy() {
   fi
 
   git -C ${DEPLOY_BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
-  echo "$(git -C ${DEPLOY_BASE_FOLDER} diff-index HEAD)"
   git -C ${DEPLOY_BASE_FOLDER} diff-index --exit-code HEAD
   CHECK1=$?
   test -z "$(git ls-files --others)"
