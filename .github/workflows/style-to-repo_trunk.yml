@@ -2,7 +2,7 @@ name: Build and deploy style files
 on:
   push:
     branches:
-      - "trunk"
+      - "style_repo_test"
 
 jobs:
   style-to-repo:
