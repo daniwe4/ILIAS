@@ -63,12 +63,10 @@ function deploy() {
   fi
 
   git -C ${DEPLOY_BASE_FOLDER} update-index --really-refresh >/dev/null 2>&1
-  git -C ${DEPLOY_BASE_FOLDER} diff-index --exit-code HEAD
+  git -C ${DEPLOY_BASE_FOLDER} diff-index --quiet HEAD
   CHECK1=$?
-  test -z "$(git ls-files --others)"
-  CHECK2=$?
 
-  if [[ "${CHECK1}" == "0" && "${CHECK2}" == "0" ]]
+  if [[ "${CHECK1}" == "0" ]]
   then
     echo "[${NOW}] No changes detected on style files."
   else
