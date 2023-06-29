@@ -74,7 +74,9 @@ function deploy() {
   else
     echo "[${NOW}] Detected changes on style files, which will be committed to ${STYLE_REPO}"
     git  -C ${DEPLOY_BASE_FOLDER} status
+    git ls-files --others
     git -C ${DEPLOY_BASE_FOLDER} add .
+    git ls-files --others
     git  -C ${DEPLOY_BASE_FOLDER} status
     git -C ${DEPLOY_BASE_FOLDER} commit -m "Style changes from '${HASH}'" -m "Original message: '${MSG}'" -m "${URL}"
     git -C ${DEPLOY_BASE_FOLDER} push origin ${BRANCH}
