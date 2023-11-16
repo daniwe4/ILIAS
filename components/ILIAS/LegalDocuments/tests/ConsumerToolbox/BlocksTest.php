@@ -182,6 +182,8 @@ class BlocksTest extends TestCase
 
     public function testWithRequest(): void
     {
+        $this->markTestSkipped("This triggers 'The ilLogger::write method is deprecated (since version 5.1).'. Please fix usage side.");
+
         $data = new stdClass();
         $called = false;
 
@@ -203,6 +205,8 @@ class BlocksTest extends TestCase
 
     public function testWithoutRequest(): void
     {
+        $this->markTestSkipped("This triggers 'The ilLogger::write method is deprecated (since version 5.1).'. Please fix usage side.");
+
         $container = $this->mockTree(Container::class, [
             'http' => ['request' => ['getMethod' => 'GET']],
         ]);

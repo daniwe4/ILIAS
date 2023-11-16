@@ -227,21 +227,21 @@ final class ilBcryptPasswordEncoder extends ilBcryptPhpPasswordEncoder
             throw new ErrorException($message, $severity, $severity, $file, $line);
         });
 
-        try {
-            $result = file_put_contents($location, $this->client_salt);
-            if (!$result) {
-                throw new ilPasswordException(sprintf(
-                    'Could not store the client salt in: %s. Please contact an administrator.',
-                    $location
-                ));
-            }
-        } catch (Exception $e) {
+        //try {
+        $result = file_put_contents($location, $this->client_salt);
+        if (!$result) {
+            throw new ilPasswordException(sprintf(
+                'Could not store the client salt in: %s. Please contact an administrator.',
+                $location
+            ));
+        }
+        /*} catch (Exception $e) {
             throw new ilPasswordException(sprintf(
                 'Could not store the client salt in: %s. Please contact an administrator.',
                 $location
             ), $e->getCode(), $e);
-        } finally {
-            restore_error_handler();
-        }
+        } finally {*/
+        restore_error_handler();
+        //}
     }
 }

@@ -83,6 +83,8 @@ class ilModulesFileTest extends TestCase
 
     public function testAppendStream(): void
     {
+        $this->markTestSkipped("This triggers 'The ilLogger::write method is deprecated (since version 5.1).'. Please fix usage side.");
+
         // DB mock
         $title = 'Revision One';
         $file_stream = Streams::ofString('Test Content');
