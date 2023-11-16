@@ -51,7 +51,7 @@ class TileViewTest extends TestCase
 
     public function testShow(): void
     {
-        $this->markTestSkipped("This triggers 'The ILIAS\HTTP\Services::request method is deprecated (Please use $this->wrapper() in most cases.).'. Please fix usage side.");
+        $this->markTestSkipped("This triggers 'The ILIAS\HTTP\Services::request method is deprecated (Please use \$this->wrapper() in most cases.).'. Please fix usage side.");
 
         $request = $this->getMockBuilder(ServerRequest::class)->disableOriginalConstructor()->getMock();
         $request->method('getQueryParams')->willReturn([]);

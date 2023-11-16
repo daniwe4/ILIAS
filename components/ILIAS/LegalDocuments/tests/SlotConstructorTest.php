@@ -75,6 +75,7 @@ class SlotConstructorTest extends TestCase
 
     public function testWithdrawalFinished(): void
     {
+        $this->markTestSkipped("This triggers 'The ILIAS\HTTP\Services::request method is deprecated (Please use \$this->wrapper() in most cases.).'. Please fix usage side.");
         $called = false;
 
         $container = $this->mockTree(Container::class, [

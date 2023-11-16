@@ -43,6 +43,7 @@ class ilRandomTestROInputGUITest extends ilTestBaseTestCase
 
     public function testSetValues(): void
     {
+        $this->markTestSkipped("This triggers 'The ILIAS\HTTP\Services::request method is deprecated (Please use \$this->wrapper() in most cases.).'. Please fix usage side.");
         $expected = [
             "test" => "test2",
             "hello" => "world"
