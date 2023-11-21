@@ -23,4 +23,5 @@ namespace ILIAS\Core\Dependencies;
 interface Dependency
 {
     public function __toString(): string;
+    public function getName(): string;
 }

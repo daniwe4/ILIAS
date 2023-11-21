@@ -16,24 +16,17 @@
  *
  *********************************************************************/
 
-declare(strict_types=1);
+$null_dic = new ILIAS\Core\Dependencies\NullDIC();
 
-namespace ILIAS\Core\Dependencies;
 
-class Define implements Dependency
-{
-    public function __construct(
-        protected Name $name,
-    ) {
-    }
+$component_0 = new ILIAS\Core\Tests\Dependencies\Scenario1\ComponentA();
 
-    public function __toString(): string
-    {
-        return "DEFINE: " . $this->name;
-    }
+$implement_0 = new ILIAS\Core\Dependencies\RenamingDIC(new Pimple\Container());
+$use = new Pimple\Container();
+$contribute_0 = new Pimple\Container();
+$seek = new Pimple\Container();
+$provide_0 = new Pimple\Container();
+$pull = new Pimple\Container();
+$internal = new Pimple\Container();
 
-    public function getName(): string
-    {
-        return (string) $this->name;
-    }
-}
+$component_0->init($null_dic, $implement_0, $use, $contribute_0, $seek, $provide_0, $pull, $internal);
