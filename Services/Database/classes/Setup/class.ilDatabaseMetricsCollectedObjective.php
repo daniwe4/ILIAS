@@ -144,7 +144,6 @@ class ilDatabaseMetricsCollectedObjective extends Setup\Metrics\CollectedObjecti
         }
 
         $db_update = new  ilDBUpdate($db);
-        $db_update->readCustomUpdatesInfo(true);
 
         $storage->storeStableCounter(
             "custom_version",
@@ -158,10 +157,11 @@ class ilDatabaseMetricsCollectedObjective extends Setup\Metrics\CollectedObjecti
         );
         $storage->storeStableBool(
             "custom_update_required",
-            $db_update->customUpdatesAvailable(),
+            $db_update->getCustomUpdatesFileVersion() > $db_update->getCustomUpdatesCurrentVersion(),
             "Does the database require a custom update?"
         );
 
         $GLOBALS["DIC"] = $DIC;
+
     }
 }
