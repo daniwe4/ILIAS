@@ -35,32 +35,32 @@ class ilHttpMetricsCollectedObjective extends Setup\Metrics\CollectedObjective
         if ($ilias_ini) {
             $storage->storeConfigText(
                 "http_path",
-                $ilias_ini->readVariable("server", "http_path"),
+                fn() => $ilias_ini->readVariable("server", "http_path"),
                 "URL of the server."
             );
             $storage->storeConfigText(
                 "https forced",
-                $ilias_ini->readVariable("https", "forced"),
+                fn() => $ilias_ini->readVariable("https", "forced"),
                 ""
             );
 
             if ($ilias_ini->readVariable("https", "auto_https_detect_enabled")) {
                 $header_name = new Setup\Metrics\Metric(
-                    Setup\Metrics\Metric::STABILITY_CONFIG,
-                    Setup\Metrics\Metric::TYPE_TEXT,
-                    $ilias_ini->readVariable("https", "auto_https_detect_header_name"),
+                    Setup\Metrics\MetricStability::CONFIG,
+                    Setup\Metrics\MetricType::TEXT,
+                    fn() => $ilias_ini->readVariable("https", "auto_https_detect_header_name"),
                     "The name of the header used for https detection in requests."
                 );
                 $header_value = new Setup\Metrics\Metric(
-                    Setup\Metrics\Metric::STABILITY_CONFIG,
-                    Setup\Metrics\Metric::TYPE_TEXT,
-                    $ilias_ini->readVariable("https", "auto_https_detect_header_value"),
+                    Setup\Metrics\MetricStability::CONFIG,
+                    Setup\Metrics\MetricType::TEXT,
+                    fn() => $ilias_ini->readVariable("https", "auto_https_detect_header_value"),
                     "The value in the named header that indicates usage of https in requests."
                 );
                 $https_metrics = new Setup\Metrics\Metric(
-                    Setup\Metrics\Metric::STABILITY_CONFIG,
-                    Setup\Metrics\Metric::TYPE_COLLECTION,
-                    [
+                    Setup\Metrics\MetricStability::CONFIG,
+                    Setup\Metrics\MetricType::COLLECTION,
+                    fn() => [
                         "header_name" => $header_name,
                         "header_value" => $header_value
                     ],
@@ -70,7 +70,7 @@ class ilHttpMetricsCollectedObjective extends Setup\Metrics\CollectedObjective
             } else {
                 $storage->storeConfigBool(
                     "https_autodetection",
-                    false,
+                    fn() => false,
                     "Does the server attempt to detect https in incoming requests?"
                 );
             }
@@ -84,21 +84,21 @@ class ilHttpMetricsCollectedObjective extends Setup\Metrics\CollectedObjective
 
         if ($settings->get("proxy_status")) {
             $host = new Setup\Metrics\Metric(
-                Setup\Metrics\Metric::STABILITY_CONFIG,
-                Setup\Metrics\Metric::TYPE_TEXT,
-                $settings->get("proxy_host"),
+                Setup\Metrics\MetricStability::CONFIG,
+                Setup\Metrics\MetricType::TEXT,
+                fn() => $settings->get("proxy_host"),
                 "The host of the proxy."
             );
             $port = new Setup\Metrics\Metric(
-                Setup\Metrics\Metric::STABILITY_CONFIG,
-                Setup\Metrics\Metric::TYPE_TEXT,
-                $settings->get("proxy_port"),
+                Setup\Metrics\MetricStability::CONFIG,
+                Setup\Metrics\MetricType::TEXT,
+                fn() => $settings->get("proxy_port"),
                 "The port of the proxy."
             );
             $proxy = new Setup\Metrics\Metric(
-                Setup\Metrics\Metric::STABILITY_CONFIG,
-                Setup\Metrics\Metric::TYPE_COLLECTION,
-                [
+                Setup\Metrics\MetricStability::CONFIG,
+                Setup\Metrics\MetricType::COLLECTION,
+                fn() => [
                     "host" => $host,
                     "port" => $port
                 ],
@@ -108,7 +108,7 @@ class ilHttpMetricsCollectedObjective extends Setup\Metrics\CollectedObjective
         } else {
             $storage->storeConfigBool(
                 "proxy",
-                false,
+                fn() => false,
                 "Does the server use a proxy for outgoing connections?"
             );
         }

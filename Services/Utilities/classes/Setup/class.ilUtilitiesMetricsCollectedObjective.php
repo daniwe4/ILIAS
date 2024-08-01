@@ -38,17 +38,17 @@ class ilUtilitiesMetricsCollectedObjective extends Setup\Metrics\CollectedObject
 
         $storage->storeConfigText(
             "path_to_convert",
-            $ini->readVariable("tools", "convert"),
+            fn() => $ini->readVariable("tools", "convert"),
             "The path to the binary from imagemagick that is used to convert images."
         );
         $storage->storeConfigText(
             "path_to_zip",
-            $ini->readVariable("tools", "zip"),
+            fn() => $ini->readVariable("tools", "zip"),
             "The path to the binary that is used for zipping files."
         );
         $storage->storeConfigText(
             "path_to_unzip",
-            $ini->readVariable("tools", "unzip"),
+            fn() => $ini->readVariable("tools", "unzip"),
             "The path to the binary that is used for unzipping files."
         );
     }

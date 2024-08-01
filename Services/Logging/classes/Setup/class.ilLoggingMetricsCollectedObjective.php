@@ -26,17 +26,17 @@ class ilLoggingMetricsCollectedObjective extends CollectedObjective
 
         $storage->storeConfigBool(
             "enable",
-            (bool) $ini->readVariable("log", "enabled"),
+            fn() => (bool) $ini->readVariable("log", "enabled"),
             "Is the logging enabled on the installation?"
         );
         $storage->storeConfigText(
             "path_to_logfile",
-            $ini->readVariable("log", "path") . "/" . $ini->readVariable("log", "file"),
+            fn() => $ini->readVariable("log", "path") . "/" . $ini->readVariable("log", "file"),
             "The path to the logfile."
         );
         $storage->storeConfigText(
             "errorlog_dir",
-            $ini->readVariable("log", "error_path"),
+            fn() => $ini->readVariable("log", "error_path"),
             "The path to the directory where error protocols are stored."
         );
     }

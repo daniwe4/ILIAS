@@ -22,12 +22,12 @@ class ilStyleMetricsCollectedObjective extends Setup\Metrics\CollectedObjective
 
         $storage->storeConfigBool(
             "manage_system_styles",
-            $ini->readVariable("tools", "enable_system_styles_management"),
+            fn() => $ini->readVariable("tools", "enable_system_styles_management"),
             "Can users manage system styles from within the installation?"
         );
         $storage->storeConfigText(
             "path_to_scss",
-            $ini->readVariable("tools", "scss"),
+            fn() => $ini->readVariable("tools", "scss"),
             "The path to the binary that is used for compiling scss."
         );
     }

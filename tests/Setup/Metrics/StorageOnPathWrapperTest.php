@@ -22,6 +22,8 @@ namespace ILIAS\Tests\Setup\Metrics;
 
 use ILIAS\Setup\Metrics;
 use ILIAS\Setup\Metrics\Metric as M;
+use ILIAS\Setup\Metrics\MetricType as MT;
+use ILIAS\Setup\Metrics\MetricStability as MS;
 use PHPUnit\Framework\TestCase;
 
 class StorageOnPathWrapperTest extends TestCase
@@ -40,7 +42,7 @@ class StorageOnPathWrapperTest extends TestCase
     public function testStoresToPath(): void
     {
         $key = "key";
-        $m = new M(M::STABILITY_CONFIG, M::TYPE_BOOL, true, "desc");
+        $m = new M(MS::CONFIG, MT::BOOL, fn() => true, "desc");
 
         $this->storage->expects($this->once())
             ->method("store")

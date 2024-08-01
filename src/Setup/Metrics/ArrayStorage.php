@@ -71,9 +71,9 @@ class ArrayStorage implements Storage
     protected function doAsMetric(array $cur): Metric
     {
         return new Metric(
-            Metric::STABILITY_MIXED,
-            Metric::TYPE_COLLECTION,
-            array_map(
+            MetricStability::MIXED,
+            MetricType::COLLECTION,
+            fn() => array_map(
                 function ($v) {
                     if (is_array($v)) {
                         return $this->doAsMetric($v);

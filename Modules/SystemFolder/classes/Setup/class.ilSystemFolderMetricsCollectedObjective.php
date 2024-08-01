@@ -21,24 +21,24 @@ class ilSystemFolderMetricsCollectedObjective extends Setup\Metrics\CollectedObj
         }
         $settings = $factory->settingsFor("common");
         $firstname = new Setup\Metrics\Metric(
-            Setup\Metrics\Metric::STABILITY_CONFIG,
-            Setup\Metrics\Metric::TYPE_TEXT,
-            $settings->get("admin_firstname", "")
+            Setup\Metrics\MetricStability::CONFIG,
+            Setup\Metrics\MetricType::TEXT,
+            fn() => $settings->get("admin_firstname", "")
         );
         $lastname = new Setup\Metrics\Metric(
-            Setup\Metrics\Metric::STABILITY_CONFIG,
-            Setup\Metrics\Metric::TYPE_TEXT,
-            $settings->get("admin_lastname", "")
+            Setup\Metrics\MetricStability::CONFIG,
+            Setup\Metrics\MetricType::TEXT,
+            fn() => $settings->get("admin_lastname", "")
         );
         $email = new Setup\Metrics\Metric(
-            Setup\Metrics\Metric::STABILITY_CONFIG,
-            Setup\Metrics\Metric::TYPE_TEXT,
-            $settings->get("admin_email", "")
+            Setup\Metrics\MetricStability::CONFIG,
+            Setup\Metrics\MetricType::TEXT,
+            fn() => $settings->get("admin_email", "")
         );
         $contact = new Setup\Metrics\Metric(
-            Setup\Metrics\Metric::STABILITY_CONFIG,
-            Setup\Metrics\Metric::TYPE_COLLECTION,
-            [
+            Setup\Metrics\MetricStability::CONFIG,
+            Setup\Metrics\MetricType::COLLECTION,
+            fn() => [
                 "firstname" => $firstname,
                 "lastname" => $lastname,
                 "email" => $email

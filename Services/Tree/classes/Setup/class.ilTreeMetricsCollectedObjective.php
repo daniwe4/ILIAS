@@ -45,7 +45,7 @@ class ilTreeMetricsCollectedObjective extends CollectedObjective
 
         $storage->storeConfigText(
             'Tree Implementation',
-            $settings->get('main_tree_impl', 'ns') === 'ns' ? 'Nested Set' : 'Materialized Path',
+            fn() => $settings->get('main_tree_impl', 'ns') === 'ns' ? 'Nested Set' : 'Materialized Path',
             'The database implementation of the ILIAS repository tree.'
         );
     }
